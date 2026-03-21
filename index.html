@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movesmethod Coach Tool</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0;background:#0b0d13;height:100vh;overflow:hidden;}
+.shell{display:flex;height:100vh;}
+
+/* SIDEBAR */
+.sb{width:220px;min-width:220px;background:#12151c;border-right:1px solid #1e2435;display:flex;flex-direction:column;overflow:hidden;}
+.logo{padding:16px 14px 12px;border-bottom:1px solid #1e2435;font-weight:700;font-size:15px;letter-spacing:-0.3px;}
+.logo span{color:#4d8ef0;}
+.sb-scroll{flex:1;overflow-y:auto;}
+.sb-section{padding:10px 10px 0;}
+.sb-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#5e6a85;padding:0 6px;margin-bottom:5px;}
+.inj-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:10px;}
+.inj-btn{padding:8px 4px;border-radius:7px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid #2a3348;color:#8592ad;background:#1c2030;transition:all .15s;text-align:center;line-height:1.4;}
+.inj-btn:hover{color:#e2e5f0;border-color:#4d5570;}
+.inj-btn.on{color:#fff;}
+.sb-ref{border-top:1px solid #1e2435;padding:12px;font-size:10px;color:#8592ad;line-height:1.8;flex-shrink:0;}
+.sb-ref b{color:#e2e5f0;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#0b0d13;}
+.topbar{height:50px;min-height:50px;border-bottom:1px solid #1e2435;display:flex;align-items:center;padding:0 22px;background:#12151c;gap:12px;flex-shrink:0;}
+.tb-icon{font-size:18px;}
+.tb-title{font-size:14px;font-weight:700;color:#e2e5f0;}
+.tb-sub{font-size:11px;color:#5e6a85;margin-left:auto;}
+
+/* TAB BAR */
+.tabbar{display:flex;gap:2px;padding:0 22px;border-bottom:1px solid #1e2435;background:#12151c;flex-shrink:0;}
+.tab{padding:10px 16px;font-size:11.5px;font-weight:600;cursor:pointer;color:#5e6a85;border-bottom:2px solid transparent;transition:all .12s;white-space:nowrap;}
+.tab:hover{color:#8592ad;}
+.tab.on{color:#4d8ef0;border-bottom-color:#4d8ef0;}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:20px 22px;}
+
+/* SECTION HEADERS */
+.sec-header{margin-bottom:14px;}
+.sec-title{font-size:16px;font-weight:700;color:#e2e5f0;margin-bottom:4px;}
+.sec-sub{font-size:12px;color:#5e6a85;line-height:1.5;}
+
+/* CARDS */
+.card{background:#12151c;border:1px solid #1e2435;border-radius:10px;padding:16px;margin-bottom:12px;}
+.card-title{font-size:12.5px;font-weight:700;color:#e2e5f0;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card-title .badge{font-size:8px;padding:2px 7px;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.badge.keep{background:#0a2a1a;color:#45d485;border:1px solid #1a5c35;}
+.badge.mod{background:#2a2008;color:#f0c040;border:1px solid #5c4a10;}
+.badge.remove{background:#2a1010;color:#e85555;border:1px solid #5c2020;}
+.badge.add{background:#12213a;color:#4d8ef0;border:1px solid #2a3d6e;}
+.badge.warn{background:#2a1a00;color:#f0a040;border:1px solid #5c3a00;}
+
+/* EXERCISE ROWS */
+.ex-row{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #1e2435;}
+.ex-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-top{display:flex;align-items:flex-start;gap:8px;}
+.ex-name{font-size:12.5px;font-weight:600;color:#e2e5f0;flex:1;}
+.ex-tags{display:flex;gap:4px;flex-wrap:wrap;flex-shrink:0;}
+.tag{font-size:8.5px;padding:2px 7px;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;}
+.tag.keep{background:#0a2a1a;color:#45d485;border:1px solid #1a5c35;}
+.tag.mod{background:#2a2008;color:#f0c040;border:1px solid #5c4a10;}
+.tag.remove{background:#2a1010;color:#e85555;border:1px solid #5c2020;}
+.tag.add{background:#12213a;color:#4d8ef0;border:1px solid #2a3d6e;}
+.ex-detail{font-size:10.5px;color:#8592ad;line-height:1.5;}
+.ex-why{font-size:11px;color:#8592ad;margin-top:5px;padding:7px 10px;background:#0b0d13;border-left:2px solid #4d8ef0;border-radius:0;line-height:1.6;}
+.why-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;color:#4d8ef0;display:block;margin-bottom:3px;font-weight:700;}
+.sub{font-size:10px;color:#5e6a85;display:block;margin-top:3px;}
+
+/* REGRESSION CHAINS */
+.chain-wrap{margin-bottom:14px;}
+.chain-label{font-size:11px;font-weight:700;color:#e2e5f0;margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+.chain{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;}
+.step{background:#1c2030;border:1px solid #2a3348;padding:9px 11px;flex:1;min-width:90px;}
+.step:first-child{border-radius:8px 0 0 8px;}
+.step:last-child{border-radius:0 8px 8px 0;}
+.step.first{border-color:#4d8ef0;background:#12213a;}
+.snum{font-size:7px;color:#5e6a85;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px;font-weight:700;}
+.sname{font-size:11px;font-weight:700;color:#e2e5f0;}
+.snote{font-size:9.5px;color:#8592ad;margin-top:2px;line-height:1.35;}
+.sarr{display:flex;align-items:center;padding:0 4px;color:#5e6a85;font-size:12px;flex-shrink:0;}
+
+/* PROGRESSION TIMELINE */
+.timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;}
+.week-card{background:#1c2030;border:1px solid #2a3348;border-radius:8px;padding:13px;}
+.week-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#4d8ef0;margin-bottom:7px;}
+.week-title{font-size:12px;font-weight:700;color:#e2e5f0;margin-bottom:6px;}
+.week-body{font-size:11px;color:#8592ad;line-height:1.7;}
+.week-body b{color:#e2e5f0;}
+.week-body ul{list-style:none;padding:0;}
+.week-body ul li{display:flex;gap:6px;margin-bottom:3px;}
+.week-body ul li::before{content:'→';color:#5e6a85;flex-shrink:0;}
+
+/* REFER BOX */
+.refer-box{background:#2a1010;border:1px solid #5c2020;border-radius:8px;padding:13px;margin-bottom:12px;}
+.refer-title{font-size:11px;font-weight:700;color:#e85555;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.refer-body{font-size:11px;color:#c08080;line-height:1.7;}
+.refer-body ul{list-style:none;padding:0;}
+.refer-body ul li{display:flex;gap:6px;margin-bottom:3px;}
+.refer-body ul li::before{content:'⚠';color:#e85555;flex-shrink:0;font-size:9px;margin-top:2px;}
+
+/* KEEP BOX */
+.keep-box{background:#0a2a1a;border:1px solid #1a5c35;border-radius:8px;padding:13px;margin-bottom:12px;}
+.keep-title{font-size:11px;font-weight:700;color:#45d485;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.keep-body{font-size:11px;color:#80c0a0;line-height:1.7;}
+.keep-body ul{list-style:none;padding:0;}
+.keep-body ul li{display:flex;gap:6px;margin-bottom:3px;}
+.keep-body ul li::before{content:'✓';color:#45d485;flex-shrink:0;}
+
+/* INFO BAR */
+.info-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.info-chip{background:#1c2030;border:1px solid #2a3348;border-radius:6px;padding:8px 12px;font-size:11px;color:#8592ad;flex:1;min-width:120px;}
+.info-chip b{color:#e2e5f0;display:block;margin-bottom:2px;font-size:12px;}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid #1e2435;margin:16px 0;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:#2a3348;border-radius:3px;}
+/* AI ASK BAR */
+.ask-bar{border-top:1px solid #1e2435;padding:10px 14px;background:#12151c;flex-shrink:0;display:flex;flex-direction:column;gap:7px;}
+.ask-row{display:flex;gap:8px;align-items:center;}
+.ask-input{flex:1;background:#1c2030;border:1px solid #2a3348;color:#e2e5f0;border-radius:8px;padding:9px 13px;font-size:13px;font-family:inherit;outline:none;transition:border-color .12s;}
+.ask-input:focus{border-color:#4d8ef0;}
+.ask-input::placeholder{color:#5e6a85;}
+.ask-btn{height:38px;padding:0 16px;border-radius:8px;border:none;background:#4d8ef0;color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .12s;flex-shrink:0;}
+.ask-btn:hover{opacity:.85;}
+.ask-hint{font-size:10px;color:#5e6a85;line-height:1.5;}
+.ask-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:2px;}
+.ask-pill{background:#1c2030;border:1px solid #2a3348;color:#8592ad;border-radius:14px;padding:3px 10px;font-size:10px;cursor:pointer;transition:all .12s;white-space:nowrap;}
+.ask-pill:hover{border-color:#4d8ef0;color:#4d8ef0;background:#12213a;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<div class="sb">
+  <div class="logo">Moves<span>Method</span></div>
+  <div class="sb-scroll">
+    <div class="sb-section">
+      <div class="sb-lbl">Select Injury / Joint</div>
+      <div class="inj-grid">
+        <div class="inj-btn on" data-inj="hip" onclick="sel(this)" style="border-color:#4d8ef0;color:#4d8ef0;">🦵 Hip &amp; Groin</div>
+        <div class="inj-btn" data-inj="shoulder" onclick="sel(this)">💪 Shoulder</div>
+        <div class="inj-btn" data-inj="knee" onclick="sel(this)">🦴 Knee</div>
+        <div class="inj-btn" data-inj="wrist" onclick="sel(this)">✋ Wrist</div>
+        <div class="inj-btn" data-inj="pf" onclick="sel(this)">🦶 Plantar</div>
+        <div class="inj-btn" data-inj="lb" onclick="sel(this)">🔙 Lower Back</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-ref" id="sbref">
+    <b>Pain Rule</b><br>
+    Dull → Continue carefully<br>
+    Pinch/Sharp → Modify<br>
+    Electric → Stop + Refer<br>
+    <hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;">
+    <b>Progress only when:</b><br>
+    Pain ↓ · Movement easier
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-icon" id="tb-icon">🦵</div>
+    <div class="tb-title" id="tb-title">Hip &amp; Groin — Coach Protocol</div>
+    <div class="tb-sub">Select a tab to navigate</div>
+  </div>
+  <div class="tabbar">
+    <div class="tab on" onclick="goTab('adjustments',this)">📋 Template Adjustments</div>
+    <div class="tab" onclick="goTab('regressions',this)">⬇️ Regressions</div>
+    <div class="tab" onclick="goTab('progression',this)">📈 2–3 Week Progression</div>
+    <div class="tab" onclick="goTab('refer',this)">⚠️ Refer &amp; Red Flags</div>
+  </div>
+  <div class="ask-bar">
+    <div class="ask-pills" id="askPills"></div>
+    <div class="ask-row">
+      <input class="ask-input" id="askInput" placeholder="Ask Claude about this client… e.g. 'Hip client, electric groin pain 6/10, going up stairs'" />
+      <button class="ask-btn" id="askBtn">Ask Claude ↗</button>
+    </div>
+    <div class="ask-hint" id="askHint">Opens Claude.ai in a new tab with the full <span id="askInjName">Hip &amp; Groin</span> protocol loaded — no login needed if you're already signed in.</div>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+</div>
+
+<script>
+var curInj = 'hip';
+var curTab = 'adjustments';
+
+var META = {
+  hip:      {icon:'🦵', title:'Hip & Groin',       color:'#4d8ef0', sub:'Muscle · Joint · Nerve lanes'},
+  shoulder: {icon:'💪', title:'Shoulder',           color:'#3fcfbf', sub:'Frozen · Rotator Cuff · Ltd ROM · Post-Surg'},
+  knee:     {icon:'🦴', title:'Knee',               color:'#f07840', sub:'Patellofemoral · Meniscus · Tendon · ITB'},
+  wrist:    {icon:'✋', title:'Wrist',              color:'#9b6ef0', sub:'Tendon · Impingement · TFCC · Nerve'},
+  pf:       {icon:'🦶', title:'Plantar Fasciitis',  color:'#f04080', sub:'Acute · Active · Managing phases'},
+  lb:       {icon:'🔙', title:'Lower Back',         color:'#90d040', sub:'Flexion · Extension · Nerve · Facet'},
+};
+
+var SBREF = {
+  hip: '<b>Pain Rule</b><br>Electric → Nerve lane → REFER<br>Pinch → Joint lane<br>Dull → Muscle lane<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>Progress when:</b><br>Pain ↓ · Easier movement',
+  shoulder: '<b>Night pain → reduce load</b><br>Sudden weakness → REFER<br>No overhead until cleared<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>Keep:</b><br>All lower body full effort',
+  knee: '<b>Swelling = stop & refer</b><br>Locking = refer immediately<br>Dull = continue carefully<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>Keep:</b><br>All handstands continue',
+  wrist: '<b>Tingling = refer immediately</b><br>Flat hurts → use fist<br>Fist hurts → forearm plank<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>6-12 weeks</b> minimum to adapt',
+  pf: '<b>First-step pain = active phase</b><br>Swelling = refer<br>6 wks no change = refer<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>Handstands:</b> always safe',
+  lb: '<b>Leg symptoms past knee = refer</b><br>Bowel/bladder = EMERGENCY<br>JC decision is critical<br><hr style="border:none;border-top:1px solid #1e2435;margin:6px 0;"><b>Walking</b> daily is medicine',
+};
+
+// ─── ALL DATA ───────────────────────────────────────────────────────────────
+
+var DATA = {
+
+hip: {
+  adjustments: [
+    {
+      title: 'Handstand & Mobility — What Changes',
+      items: [
+        {name:'Passive Hang', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Accumulate time. Use feet-assisted if needed.', why:'No hip loading whatsoever. Shoulder decompression and grip strength continue unaffected. This is priority #1 every session regardless of pain lane — never skip it.'},
+        {name:'Shoulder Dislocates (Wide, Standing)', tags:['keep','mod','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Smooth arc, no glitching.', why:{Muscle:'Safe. No hip involvement.',Joint:'Reduce grip width to where there is zero discomfort. Forcing end range while coaching a joint-lane client will provoke the hip through spinal mechanics.',Nerve:'Keep but monitor for any electric symptoms during the movement.'}},
+        {name:'Back Body Line Drill', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Spine to floor, ribs in, posterior pelvic tilt.', why:'Lying supine is safe for all hip conditions. A folded towel under the hip removes any lying-flat discomfort for joint-lane clients. Never skip — this is where all handstand alignment is taught.'},
+        {name:'Plank Hold (Protraction)', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Lean over wrists, ribs in, push floor away.', why:'No hip loading — weight is through the hands. Teaches the hollow body position that transfers directly to the wall. Safe across all hip conditions.'},
+        {name:'Handstand Tuck on Box', tags:['keep','mod','mod'], lanes:['Muscle','Joint','Nerve'], detail:'Push tall, toes pointed, shoes OFF.', why:{Muscle:'Full capacity. Keep.',Joint:'Test it. If the hip flexion in the tuck produces a groin pinch, remove and substitute with plank hold only until symptoms resolve.',Nerve:'Remove if the kick-up position produces electric symptoms. The psoas loads near lumbar nerve roots in deep hip flexion.'}},
+        {name:'Chest-to-Wall Handstand', tags:['keep','mod','remove'], lanes:['Muscle','Joint','Nerve'], detail:'Walk down exits — never flop.', why:{Muscle:'Continue. Walk-down exits only.',Joint:'Skip during a flare. Return when calm. The dynamic kick-up loads the hip flexors — pain-free range must be established first.',Nerve:'Remove. Deep kick-up position tensions lumbar nerve roots. Return only when electric symptoms have fully resolved.'}},
+        {name:'Active Pigeon', tags:['mod','remove','mod'], lanes:['Muscle','Joint','Nerve'], detail:'Goal: floor, no hands. Elevate front foot on box to regress.', why:{Muscle:'Reduce range. The muscle can handle load at shortened range. Progress the range as symptoms allow.',Joint:'REMOVE immediately. Deep hip flexion combined with external rotation compresses the anterior joint capsule — this is the exact mechanism creating the groin pinch.',Nerve:'Tiny range only, zero provocation. Any sensation during the movement = stop.'}},
+        {name:'Wall Walk (Plank to Full)', tags:['keep','mod','keep'], lanes:['Muscle','Joint','Nerve'], detail:'All the way in, all the way down — never skip the eccentric.', why:{Muscle:'Continue.',Joint:'Remove if walking up the wall aggravates the hip. The progressive hip flexion under load is too provocative during a flare. Return to plank hold and box tuck only.',Nerve:'Keep if no electric symptoms during movement.'}},
+      ]
+    },
+    {
+      title: 'Lower Body Strength — What Changes',
+      items: [
+        {name:'Hip Thrust', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Priority lower body exercise for all hip conditions.', why:'The hip moves through extension — the opposite of the painful hip flexion direction. Minimal hip flexion at the top of the movement. Safe and valuable for every lane. Load this hard.'},
+        {name:'Goblet Squat', tags:['mod','mod','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Short range, pain-free depth. Upright torso.', why:{Muscle:'Shorten the range. Train to just above where pain begins. Progress depth weekly as tissue tolerance improves.',Joint:'Pain-free depth only — this may be a quarter squat initially. Upright torso reduces anterior hip compression. Never load into the pinch.',Nerve:'Generally safe. Keep and monitor.'}},
+        {name:'Split Squat', tags:['mod','remove','mod'], lanes:['Muscle','Joint','Nerve'], detail:'Short range only, controlled descent.', why:{Muscle:'Short range trains the hip flexors eccentrically without taking them to provocative end range.',Joint:'REMOVE. Hip flexion + knee flexion + bodyweight load creates significant anterior hip compression. Substitute hip thrust for all unilateral glute work.',Nerve:'Monitor carefully. If deep lunge position produces leg symptoms, remove immediately.'}},
+        {name:'Step-Up (Low Box)', tags:['mod','remove','mod'], lanes:['Muscle','Joint','Nerve'], detail:'Low height only — no more than 20cm early phases.', why:{Muscle:'Low box reduces the range of hip flexion required. Progress box height as symptoms improve.',Joint:'REMOVE. Driving through a loaded hip in flexion is the exact mechanism creating anterior pinching. Hip thrust is the substitute.',Nerve:'Monitor for leg symptoms during push-off.'}},
+        {name:'Romanian Deadlift', tags:['keep','mod','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Hip hinge — posterior chain loading.', why:{Muscle:'Full range. The hip stays in relative extension — much less provocative than squatting.',Joint:'Reduce range if there is a pinch at the bottom. Stop just above where the pinch occurs — this still trains the pattern effectively.',Nerve:'Keep and monitor.'}},
+        {name:'Copenhagen Adductor', tags:['mod','remove','remove'], lanes:['Muscle','Joint','Nerve'], detail:'Lever adductor loading.', why:{Muscle:'Start with knees bent version (short lever). Long lever only once symptom-free.',Joint:'REMOVE. Directly loads adductor tendons at their pubic attachment — often the same tissue that is irritated in joint-lane clients.',Nerve:'REMOVE. Adductor tension can compress nerve structures in the groin.'}},
+        {name:'Dead Bug (Short Range)', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Short lever only. Back flat throughout.', why:'Trains deep core stability while maintaining neutral lumbar spine. Directly reduces mechanical stress on the hip by ensuring pelvic control during all other exercises. Safe across all hip conditions.'},
+        {name:'Side Plank (Knees or Full)', tags:['keep','keep','keep'], lanes:['Muscle','Joint','Nerve'], detail:'Progress from knees to full.', why:'Trains gluteus medius without any hip flexion loading. Weak glute med allows the pelvis to drop, increasing stress on the anterior hip structures. Build this throughout recovery.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Hip Flexion / March Progression', color:'#4d8ef0', steps:[
+      {name:'Heel Slide', note:'Supine. 10 reps/side. Zero load.'},
+      {name:'Assisted March Hold', note:'Hand on thigh. 8 reps.'},
+      {name:'Seated March', note:'Gravity reduced. Build holds.'},
+      {name:'Standing March Hold', note:'Pain ≤1/10 only.'},
+      {name:'High Knee / Step-Up', note:'Late stage. Pain-free only.'},
+    ]},
+    {label:'Squat Pattern Progression', color:'#45d485', steps:[
+      {name:'Quarter Goblet', note:'Zero pinch depth.'},
+      {name:'Half Goblet', note:'Progress depth slowly.'},
+      {name:'Full Goblet', note:'Zero pinch throughout.'},
+      {name:'Split Squat Short', note:'Low box, short range.'},
+      {name:'Bulgarian / Pistol', note:'Late stage — fully cleared.'},
+    ]},
+    {label:'Active Pigeon Progression', color:'#f0c040', steps:[
+      {name:'Elevated (Bench)', note:'High surface. Hands ok.'},
+      {name:'Elevated (Box)', note:'Lower surface.'},
+      {name:'Floor with Hands', note:'Hand support throughout.'},
+      {name:'Floor No Hands', note:'Full eccentric hold.'},
+      {name:'Elevated Foot Pulses', note:'Advanced — full control.'},
+    ]},
+    {label:'Handstand Skill Progression', color:'#9b6ef0', steps:[
+      {name:'Overhead Hold (Standing)', note:'Feel the alignment.'},
+      {name:'Plank Protraction', note:'Lean into wrists.'},
+      {name:'Box Tuck Handstand', note:'Feet on box.'},
+      {name:'Chest-to-Wall', note:'Alignment solid first.'},
+      {name:'Wall Walk', note:'Dynamic in and out.'},
+    ]},
+    {label:'Dead Bug Progression', color:'#f07840', steps:[
+      {name:'90/90 Breathing', note:'No movement. Just breathe.'},
+      {name:'Arm Short Arc', note:'One arm only.'},
+      {name:'Leg Short Arc', note:'One leg only.'},
+      {name:'Opposite Arm + Leg Short', note:'Short levers only.'},
+      {name:'Full Dead Bug', note:'Long levers — pain-free.'},
+    ]},
+    {label:'Adductor Loading Progression', color:'#e85555', steps:[
+      {name:'No Loading', note:'Nerve / Joint lane.'},
+      {name:'Pillow Squeeze (Isometric)', note:'Muscle lane only.'},
+      {name:'Seated Adductor Squeeze', note:'Progress resistance.'},
+      {name:'Copenhagen (Knees)', note:'Partial lever.'},
+      {name:'Copenhagen (Full)', note:'Full lever — last progression.'},
+    ]},
+  ],
+  progression: {
+    overview: 'The first 7 days are a single-lane reset. ONE pain lane, daily snack only, pain ≤2/10 at all times. No workout additions until the snack is consistently at ≤2/10 and movement is getting easier.',
+    snacks: {
+      Muscle: 'Heel Slides x10/side · Assisted March x8 · Bridge Hold 20-30s x3 · Dead Bug short x8-10',
+      Joint: '90/90 Breathing x5 · Bridge Hold x3 · Heel Slides x8 · Dead Bug very short x6-8',
+      Nerve: '90/90 Breathing · Pelvic Tilts x10 · Heel Slides small range · Walking 20-30 min',
+    },
+    weeks: [
+      {label:'Week 1', title:'Single Lane Reset', color:'#e85555', items:[
+        'Identify the lane — Muscle, Joint, or Nerve',
+        'Snack daily (5-10 min) — pain ≤2/10 throughout',
+        'H&M sessions continue minus the provocative exercises',
+        'No workout additions yet — snack is the intervention',
+        'Track: is pain reducing? Is movement getting easier?',
+      ]},
+      {label:'Week 2', title:'Add the Workout', color:'#f0c040', items:[
+        'Snack still daily — do not drop it when adding workout',
+        'Add 1-2 lower body exercises pain-free range only',
+        'Muscle: split squat short + hip thrust + RDL',
+        'Joint: hip thrust + goblet squat (quarter) + dead bug',
+        'Nerve: walking + bridge + dead bug only. No loaded squat yet.',
+        'Progress ONE variable only — range, reps, or load',
+      ]},
+      {label:'Week 3+', title:'Progress + Return', color:'#45d485', items:[
+        'If improving: add one variable per week (range > reps > load)',
+        'If same: cut volume by 30%, hold for another week',
+        'If worse: stop workout addition, return to snack only, consider referral',
+        'Muscle: begin progressing squat depth and split squat range',
+        'Joint: introduce goblet squat at half depth if pinch-free',
+        'Nerve: introduce march → seated → standing if no electric symptoms',
+        'Resume pigeon/rotation work at elevated height when pain ≤1/10',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'No improvement after 7-10 days on the snack',
+      'Electric or burning symptoms (nerve lane — refer alongside programming)',
+      'Strong groin pinching that persists into daily life activities',
+      'Pain on normal walking or getting dressed',
+      'Symptoms worsening despite reducing load',
+    ],
+    keep: [
+      'All handstand and shoulder work — unaffected',
+      'All wrist exercises',
+      'Hip thrust (all lanes)',
+      'Dead bug and bird dog (all lanes)',
+      'Upper body strength — full effort throughout',
+    ]
+  }
+},
+
+shoulder: {
+  adjustments: [
+    {
+      title: 'Handstand & Mobility — What Changes',
+      items: [
+        {name:'Passive Hang', tags:['remove','remove','mod','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Full overhead — major shoulder demand.', why:{Frozen:'The full overhead position is physically blocked by the frozen capsule. Forcing it causes pain and inflammation.',RotCuff:'The hang puts the rotator cuff on stretch under bodyweight load. In an injured cuff this creates impingement or tearing force.',LtdROM:'Progress to a shrug hold at the bar first — grip without fully loading overhead. Test monthly.',PostSurg:'Zero shoulder load until surgeon clearance. The repair is not ready for tension.'}},
+        {name:'Shoulder Dislocates', tags:['remove','remove','mod','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'360° shoulder mobility exercise.', why:{Frozen:'The full arc is blocked in frozen shoulder — attempting this forces the capsule adhesions and increases inflammation.',RotCuff:'Overhead and end-range positions directly stress the rotator cuff tendons. REMOVE until cuff strength is restored.',LtdROM:'Wide grip only, pain-free arc only. This is your primary overhead rebuilding tool.',PostSurg:'REMOVE until surgeon cleared for overhead movement.'}},
+        {name:'Plank Hold (Protraction)', tags:['remove','mod','keep','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Weight-bearing through shoulder in flexion.', why:{Frozen:'Weight-bearing in shoulder flexion is not possible in frozen shoulder.',RotCuff:'Use incline plank (hands elevated on bench). Reduces the load through the shoulder significantly. Progress angle down over weeks.',LtdROM:'Full plank if overhead is pain-free.',PostSurg:'REMOVE until cleared.'}},
+        {name:'Chest-to-Wall / Kick-Up / Wall Walk', tags:['remove','remove','remove','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'All overhead loading under bodyweight.', why:'REMOVE across all shoulder conditions. These require full overhead range and shoulder stability under bodyweight. Only reintroduce once all overhead milestones are cleared.'},
+        {name:'Pendulum Circles (ADD THIS)', tags:['add','keep','add','add'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Arm hanging, small circles — gravity-assisted passive ROM.', why:{Frozen:'PRIMARY treatment tool. Gravity creates gentle traction on the joint capsule. 3x2min minimum daily. This is the most important exercise in the frozen phase.',PostSurg:'Keeps the joint mobile and prevents adhesion formation during the early healing period.',General:'Do NOT actively swing — this is passive motion, not exercise.'}},
+        {name:'Side-lying External Rotation (ADD THIS)', tags:['mod','add','add','mod'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Elbow at 90°, small range, gravity only first.', why:{RotCuff:'The single most important rotator cuff exercise. External rotation weakness is the most common finding in RC conditions. Start with gravity only — no band until full pain-free range.',Frozen:'Only introduce if the external rotation range exists. May not be possible in fully frozen phase.',General:'External rotators are almost universally weak. This exercise builds the foundation of shoulder health.'}},
+        {name:'Wall Slide (ADD THIS)', tags:['mod','mod','add','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Hands on wall, slide upward — scapular control.', why:{LtdROM:'PRIMARY exercise for limited ROM. Trains lower trapezius and serratus anterior — the muscles most responsible for correct scapular mechanics during overhead movement.',General:'Only go to the height that is truly pain-free. Correct mechanics at 60° is better than forced movement at 180°.'}},
+      ]
+    },
+    {
+      title: 'Upper Body & Strength — What Changes',
+      items: [
+        {name:'Push-Up', tags:['mod','mod','keep','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Horizontal push — less shoulder demand than overhead.', why:{Frozen:'Incline push-up only. Full push-up is not possible with global ROM restriction.',RotCuff:'Incline push-up significantly reduces the load through the shoulder. Progress incline angle down over weeks.',PostSurg:'REMOVE until cleared.'}},
+        {name:'Dumbbell Row (Supported)', tags:['keep','keep','keep','mod'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Horizontal pull — safe for all shoulder conditions.', why:'Horizontal pulling uses the posterior shoulder in a low-impingement position. Safe and valuable throughout recovery. One of the few upper body exercises that continues unmodified.'},
+        {name:'Band Pull-Apart (ADD THIS)', tags:['mod','add','add','mod'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Scapular retraction under light load.', why:{RotCuff:'Scapular retraction under load teaches the shoulder blade to move correctly, decompressing the subacromial space. Direct treatment of the mechanical cause of impingement.',General:'Counters the internal rotation dominance of most people\'s daily life. One of the highest-value shoulder health exercises.'}},
+        {name:'Prone Y / T Raise (ADD THIS)', tags:['mod','add','add','remove'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Lying face down, raise arms to Y and T positions.', why:{RotCuff:'Lower trapezius weakness is one of the most common findings in RC conditions. This directly addresses the mechanical cause. Without lower trap strength, the shoulder blade tips forward under load, compressing the subacromial space.',PostSurg:'REMOVE until cleared.'}},
+        {name:'Dead Bug (Arms at 90°)', tags:['keep','keep','keep','keep'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Arms at 90° — do NOT extend overhead.', why:'Core stability training with zero shoulder overhead demand when arms stay at 90°. Safe for all shoulder conditions. Extending the arms overhead in the dead bug = overhead pressing on the shoulder. Avoid.'},
+        {name:'ALL Lower Body (Hip Thrust, RDL, Squat)', tags:['keep','keep','keep','keep'], lanes:['Frozen','Rot. Cuff','Ltd. ROM','Post-Surg'], detail:'Full effort throughout shoulder recovery.', why:'Zero shoulder loading. Use the shoulder recovery period to build serious lower body strength. The client maintains fitness and motivation. Lower body is the training anchor during shoulder recovery — coach it hard.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Overhead Reach Progression', color:'#3fcfbf', steps:[
+      {name:'No Overhead', note:'FS / RC / Post-Surg.'},
+      {name:'Wall Finger Walk', note:'Gentle active elevation.'},
+      {name:'Wall Slide (Pain-free arc)', note:'Scapular control first.'},
+      {name:'Shrug Hold at Bar', note:'Grip without full load.'},
+      {name:'Passive Hang (Short)', note:'Fully cleared only.'},
+    ]},
+    {label:'Shoulder Dislocate Progression', color:'#9b6ef0', steps:[
+      {name:'Remove Entirely', note:'FS / RC / Post-Surg.'},
+      {name:'Passive ER Supine (Towel)', note:'Gravity-assisted.'},
+      {name:'Standing Wide (Pain-free)', note:'ROM only. Pain-free arc.'},
+      {name:'Standing Narrow', note:'Once wide is fully smooth.'},
+      {name:'Prone Wide', note:'Final stage. Full active.'},
+    ]},
+    {label:'External Rotation Loading', color:'#3fcfbf', steps:[
+      {name:'Isometric ER (Wall)', note:'No movement.'},
+      {name:'Side-lying ER (Gravity)', note:'Small range.'},
+      {name:'Side-lying ER (Full arc)', note:'Full pain-free range.'},
+      {name:'Band ER Standing', note:'Light resistance.'},
+      {name:'Cable ER / Cuban Press', note:'Loaded — late stage.'},
+    ]},
+    {label:'Plank / Push Progression', color:'#f07840', steps:[
+      {name:'Forearm Plank', note:'No shoulder load.'},
+      {name:'Wall Push-Up', note:'Near vertical — very low load.'},
+      {name:'Incline Push-Up (High)', note:'Box or bench.'},
+      {name:'Full Push-Up', note:'Pain-free only.'},
+      {name:'Loaded / Ring Push-Up', note:'Advanced.'},
+    ]},
+  ],
+  progression: {
+    overview: 'Shoulder recovery is the longest of all injury types. Frozen shoulder takes 12-18 months total. RC recovery 8-16 weeks. Set realistic expectations with the client upfront. The key is keeping everything else going at full capacity.',
+    snacks: {
+      Frozen: 'Pendulum 3x2min · Passive ER supine · Wall finger walk · Progress to active assist when ROM appears',
+      RotCuff: 'Side-lying ER x15 · Band pull-apart x15 · Prone Y/T x10 · Face pull band x15',
+      LtdROM: 'Wall slides x10 · Wide shoulder dislocate (pain-free arc) · Cat-cow · Band pull-apart',
+      PostSurg: 'Pendulum circles only + grip squeezes + elbow flexion — nothing else until surgeon clears',
+    },
+    weeks: [
+      {label:'Week 1', title:'Establish the Snack', color:'#e85555', items:[
+        'Start the condition-specific snack daily',
+        'REMOVE all overhead loading (hang, dislocates, wall walk)',
+        'Switch to incline plank / forearm plank for H&M',
+        'Lower body and core continue at full effort — coach this hard',
+        'Track: is ROM improving? Is night pain reducing?',
+      ]},
+      {label:'Week 2', title:'Build Scapular Strength', color:'#f0c040', items:[
+        'Add band pull-apart and prone Y/T to snack',
+        'Introduce wall slides — go only to pain-free height',
+        'Continue incline plank — begin reducing incline angle slightly',
+        'Frozen: progress pendulum to guided passive ROM exercises',
+        'RC: begin side-lying ER if gravity range is pain-free',
+        'Full lower body — increase load and intensity here',
+      ]},
+      {label:'Week 3+', title:'Rebuild Overhead Range', color:'#45d485', items:[
+        'Test wall slide height weekly — only progress when pain-free',
+        'RC: progress ER from gravity to light band',
+        'Frozen: introduce active-assist ROM exercises when stiffness reduces',
+        'Ltd ROM: introduce shoulder dislocates at pain-free arc width',
+        'Begin testing passive hang at short duration (5-10s) when overhead clears',
+        'Post-Surg: follow surgeon timeline exactly — do not rush this',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'Acute drop — sudden shoulder weakness or inability to lift arm (RC full tear)',
+      'Night pain not improving after 2 weeks of the snack',
+      'Numbness or tingling running down the arm',
+      'No ROM progress after 3-4 weeks',
+      'Any post-surgical concern — refer back to surgeon immediately',
+    ],
+    keep: [
+      'ALL lower body at full capacity — never reduce this',
+      'Wrist exercises (no shoulder involvement)',
+      'Jefferson Curl and all spine work',
+      'Horizontal rows and pulls',
+      'Core work (dead bug at 90°, side plank, pallof press)',
+    ]
+  }
+},
+
+knee: {
+  adjustments: [
+    {
+      title: 'Lower Body — What Changes',
+      items: [
+        {name:'Hip Thrust', tags:['keep','keep','keep','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Low knee flexion — safest glute exercise for knee conditions.', why:'The knee stays at a relatively low flexion angle throughout the hip thrust. No push-off, no impact. The safest way to load the glutes with any knee condition. Load this hard — it maintains fitness while the knee recovers.'},
+        {name:'Goblet Squat', tags:['mod','mod','mod','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Short range, pain-free depth only.', why:{PF:'The angle of knee flexion determines patellofemoral joint stress — deeper equals more compression on the kneecap. Find the pain-free angle and work there.',Meniscus:'Deep knee flexion compresses the meniscus. Shallow range keeps load manageable. Never bounce at the bottom.',Tendon:'No bouncing at the bottom under any circumstances. Ballistic loading is the primary enemy of tendon recovery.',ITB:'Generally safe. ITB is a hip issue — the squat itself is not provocative.'}},
+        {name:'Step-Down Eccentric (Low Box)', tags:['add','mod','add','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Slow controlled lowering on one leg — 4 seconds down.', why:{PF:'The most direct VMO training exercise. Directly targets the range most relevant to stair descending — the movement that most provokes patellofemoral pain.',Tendon:'Eccentric loading is the gold standard for patellar tendinopathy. Pain at 4/10 during this is acceptable and safe — it is training the tendon.',Meniscus:'Pain-free only. Meniscus is not an eccentric loading condition.'}},
+        {name:'Step-Up (Low Box)', tags:['mod','remove','mod','mod'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Low height only — no more than 20cm early phases.', why:{Meniscus:'REMOVE until swelling is fully resolved. Step-up requires loaded knee flexion plus a push-off phase — this directly compresses damaged meniscal tissue.',Tendon:'Low box only. Push-off phase loads the tendon. Short range keeps it manageable.',General:'Low box reduces the degree of knee flexion required at the top.'}},
+        {name:'Wall Sit (Isometric)', tags:['add','mod','add','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Isometric hold at 45-60°. 45 seconds x3.', why:{Tendon:'Isometric contractions at mid-range are immediately pain-relieving for tendon conditions. The sustained quad contraction at 45s often reduces tendon pain for 24 hours. Use this before sessions.',PF:'Builds quad strength at a fixed angle — no friction on the kneecap that occurs with moving exercises.',General:'One of the few exercises that is simultaneously therapeutic and immediately analgesic.'}},
+        {name:'Romanian Deadlift', tags:['keep','keep','keep','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Hip dominant — minimal knee flexion.', why:'Hip dominant movement with minimal knee flexion. Safe and valuable for all knee conditions. Trains the posterior chain which supports the knee through all loaded movement. Load this hard throughout recovery.'},
+        {name:'Lateral Band Walk', tags:['add','keep','keep','add'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Hip abductor strengthening in a loaded position.', why:{PF:'Hip abductor strengthening reduces knee valgus (inward knee cave) — which is the primary driver of patellofemoral stress. Fix the hip, fix the knee.',ITB:'The most direct training for the hip abductors that are the primary cause of ITB syndrome. Consistent daily work here changes the long-term outcome.',General:'Hip abductor strength is the long-term fix for most knee conditions.'}},
+        {name:'Running / Plyometrics', tags:['remove','remove','remove','remove'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'All impact loading.', why:'Remove all impact loading during the early phases of all knee conditions. Introduce walk/run intervals only when daily activities are pain-free and the snack exercises are at ≤1/10.'},
+      ]
+    },
+    {
+      title: 'Handstand & Mobility — What Continues',
+      items: [
+        {name:'ALL Handstand Work', tags:['keep','keep','keep','keep'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'The hands and shoulders support the weight — knees are completely unloaded.', why:'This is a massive advantage of the Movesmethod system. Continue all handstand progressions at normal pace throughout knee recovery. The client makes handstand progress while the knee heals. Never suggest stopping handstands for a knee condition.'},
+        {name:'Active Pigeon', tags:['mod','remove','mod','mod'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Hip rotation — knee in flexion and external rotation.', why:{Meniscus:'REMOVE. The pigeon position places the knee in flexion and external rotation — directly stressing the meniscal tissue. Substitute: supine figure-4 stretch.',General:'Monitor the knee position carefully. If knee pain is reproduced, regress to elevated versions.'}},
+        {name:'TKE (Terminal Knee Extension)', tags:['add','add','add','add'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Band resistance through last 30° of knee extension. ADD to snack.', why:{PF:'VMO weakness is a primary driver of patellofemoral pain — the VMO pulls the kneecap medially and prevents lateral tracking. TKE targets exactly this.',General:'Activates the inner quad through the last 30 degrees of extension — the range most relevant for kneecap tracking. Low demand, high value. Add daily.'}},
+        {name:'Side-lying Clam', tags:['add','add','add','add'], lanes:['PF','Meniscus','Tendon','ITB'], detail:'Glute med activation. ADD to snack.', why:'Hip abductor weakness is found in almost every knee condition. The clam activates glute medius directly. Weak glute med allows the femur to internally rotate and adduct, increasing stress on all knee structures.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Squat Depth Progression', color:'#f07840', steps:[
+      {name:'Isometric Wall Sit (45°)', note:'No movement. Analgesic.'},
+      {name:'Quarter Goblet Squat', note:'Pain-free angle only.'},
+      {name:'Half Goblet Squat', note:'Progress depth slowly.'},
+      {name:'Full Goblet Squat', note:'Zero pain throughout.'},
+      {name:'Loaded Full Squat', note:'Cleared — full capacity.'},
+    ]},
+    {label:'Step Pattern Progression', color:'#f0c040', steps:[
+      {name:'Remove (Meniscus)', note:'Swelling or locking present.'},
+      {name:'Step-Down Eccentric (Low)', note:'Slow — 4s down.'},
+      {name:'Step-Up (Low Box)', note:'Control the descent.'},
+      {name:'Split Squat (Short)', note:'Unilateral introduction.'},
+      {name:'Bulgarian / Pistol', note:'Late stage — fully cleared.'},
+    ]},
+    {label:'Knee Flexion Load Progression', color:'#4d8ef0', steps:[
+      {name:'Straight Leg Raise', note:'No bend at all.'},
+      {name:'Short Arc Quad (30-45°)', note:'Partial range only.'},
+      {name:'TKE Band', note:'Last 30° — most important.'},
+      {name:'Quarter Goblet', note:'Loaded flexion begins.'},
+      {name:'Full Range', note:'Pain-free — cleared.'},
+    ]},
+    {label:'Impact / Running Progression', color:'#9b6ef0', steps:[
+      {name:'No Impact', note:'Acute / swelling present.'},
+      {name:'Walking (Flat)', note:'Build daily volume.'},
+      {name:'Walk/Run Intervals', note:'1 min run · 2 min walk.'},
+      {name:'Easy Continuous Run', note:'Low distance, low speed.'},
+      {name:'Full Running', note:'Symptom-free only.'},
+    ]},
+  ],
+  progression: {
+    overview: 'Knee recovery requires managing load carefully. The key principle is pain ≤2/10 during all exercises, and zero swelling after sessions. If the knee swells after training — the load is too high. Reduce volume before reducing exercise selection.',
+    snacks: {
+      Patellofemoral: 'TKE x15 · VMO quad sets x15 · Eccentric step-down x10 · Side-lying clam x15',
+      Meniscus: 'Short arc quad x15 · Straight leg raise x15 · Mini goblet squat (pain-free) · Clam x15',
+      Tendon: 'Isometric wall sit 45s x3 · Slow eccentric step-down x10 · TKE x15 · Clam x15',
+      ITB: 'Hip abduction lying x20 · Lateral band walk x20 · Glute med clam x20 · Hip thrust x15',
+    },
+    weeks: [
+      {label:'Week 1', title:'Load Management', color:'#e85555', items:[
+        'Identify condition — PF, Meniscus, Tendon, or ITB',
+        'Start condition-specific snack daily',
+        'All handstand work continues unmodified',
+        'Lower body: hip thrust + RDL at full load',
+        'Remove all squatting and step patterns — use isometrics only',
+        'Check: zero swelling after every session',
+      ]},
+      {label:'Week 2', title:'Introduce Loaded Range', color:'#f0c040', items:[
+        'Continue snack daily — this is non-negotiable',
+        'Introduce quarter goblet squat at pain-free depth',
+        'Add lateral band walks and clam daily',
+        'Tendon: begin eccentric step-downs (pain 4/10 is acceptable)',
+        'PF: begin eccentric step-downs (pain ≤2/10)',
+        'Meniscus: only if zero swelling after Week 1',
+        'Monitor: swelling after each session = load is too high',
+      ]},
+      {label:'Week 3+', title:'Progress Depth & Pattern', color:'#45d485', items:[
+        'Increase squat depth by 5-10° per week if symptom-free',
+        'Introduce step-up (low box) when step-down is pain-free',
+        'Tendon: progress to heavier eccentric load and longer holds',
+        'PF: introduce split squat (short range) if quarter squat is solid',
+        'ITB: begin hip strengthening at higher loads (Bulgarian, single leg)',
+        'Meniscus: no deep flexion until 3+ weeks symptom-free',
+        'Introduce walk/run intervals when daily walking is fully pain-free',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'Significant swelling at any point — refer before any further loading',
+      'Locking or giving way — possible meniscal tear, refer immediately',
+      'Acute trauma — fall, twist, impact — refer immediately',
+      'Cannot weight-bear on the leg',
+      'No improvement after 2 weeks of appropriate snack and load management',
+    ],
+    keep: [
+      'ALL handstand work — knees are completely unloaded',
+      'Hip thrust — low knee flexion, safe throughout',
+      'Romanian deadlift — hip dominant, minimal knee flexion',
+      'Upper body — full effort throughout',
+      'Dead bug and bird dog — no knee loading',
+    ]
+  }
+},
+
+wrist: {
+  adjustments: [
+    {
+      title: 'Handstand & H&M — What Changes',
+      items: [
+        {name:'Fist Plank (REPLACE flat hand)', tags:['add','add','mod','add'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Fist position removes wrist extension entirely.', why:{Impingement:'The fist removes the extreme dorsiflexion position that creates impingement pain. The shoulder and core work identically to a flat-hand plank — there is no training loss.',General:'The single most important modification for wrist conditions. Learn to cue this immediately. Always have a yoga wedge available.'}},
+        {name:'Forearm Plank (REPLACE if fist hurts)', tags:['add','add','add','add'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Removes wrist entirely — forearms on ground.', why:'All shoulder and core stimulus is maintained. Use when even the fist position is too painful. This is the floor regression for all wrist conditions.'},
+        {name:'Yoga Wedge Plank', tags:['add','add','mod','mod'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Reduces wrist extension by 20-30°.', why:'Most wrist pain has a load threshold. Reducing the extension angle below that threshold allows training to continue while the wrist adapts. Progress by reducing the wedge angle over weeks.'},
+        {name:'Passive Hang', tags:['keep','keep','mod','mod'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Wrist in grip position — NOT extension.', why:'The hang keeps the wrist in a grip (neutral to slight flexion) rather than extension. This is a fundamentally different position from the plank. Many wrist conditions that preclude plank work still tolerate hanging. Always test it.'},
+        {name:'Chest-to-Wall / Wall Walk', tags:['mod','mod','remove','mod'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Continue with fist or wedge modification.', why:{Nerve:'REMOVE all weight-bearing on the wrist until nerve symptoms fully resolve. Any loading risks worsening nerve compression.',General:'Handstand training continues with modified wrist position. The skill and overhead strength continue to develop throughout wrist recovery.'}},
+        {name:'Shoulder Dislocates', tags:['keep','keep','keep','keep'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Grip exercise — NOT wrist extension.', why:'The shoulder dislocate is a grip exercise, not a wrist-extension exercise. The wrist stays in a neutral grip position throughout. Continue this across all wrist conditions — it has no wrist loading.'},
+      ]
+    },
+    {
+      title: 'Wrist Snack & Loading — What to Add',
+      items: [
+        {name:'Fist Flexion Raises', tags:['keep','keep','mod','keep'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Fist position — avoids extension loading.', why:'Targets forearm muscles without any extension stress. The fist position is safe when flat-hand loading is not.'},
+        {name:'Finger Extension Stretch', tags:['add','add','add','add'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Reverse stretch — dorsal forearm.', why:'Most coaches only train wrist flexion. The finger extension stretch counterbalances this — stretching the dorsal forearm which becomes chronically tight with handstand training. Add this daily.'},
+        {name:'Prayer + Reverse Prayer Stretch', tags:['add','add','keep','keep'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Passive stretch both directions.', why:'Prayer (extension) and reverse prayer (flexion) cover both directions of wrist mobility. Do both daily.'},
+        {name:'Rice Bucket Rotations', tags:['add','keep','remove','mod'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Forearm and wrist conditioning — 10 min.', why:{Tendon:'Builds comprehensive forearm and wrist endurance. The rice provides progressive resistance through all wrist movement planes.',TFCC:'AVOID full forearm rotation until symptoms resolve. TFCC tears are provoked by rotation.',Nerve:'REMOVE — any resistance through range can worsen nerve compression.'}},
+        {name:'ALL Lower Body (Hip Thrust, RDL, Squat)', tags:['keep','keep','keep','keep'], lanes:['Tendon','Impingement','Nerve','TFCC'], detail:'Full effort throughout wrist recovery.', why:'Zero wrist involvement. Use wrist recovery as an opportunity to make significant lower body strength gains. The client maintains fitness and motivation throughout. Coach lower body hard.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Plank / Weight-Bearing Progression', color:'#9b6ef0', steps:[
+      {name:'Forearm Plank', note:'No wrist load at all.'},
+      {name:'Fist Plank', note:'Neutral wrist position.'},
+      {name:'Yoga Wedge Plank', note:'Reduced extension angle.'},
+      {name:'Flat Hand Plank', note:'When fully pain-free.'},
+      {name:'Loaded / Dynamic', note:'Full capacity — cleared.'},
+    ]},
+    {label:'Handstand Skill Progression', color:'#9b6ef0', steps:[
+      {name:'Forearm Stand Work', note:'Wrist-free version.'},
+      {name:'Fist — All Positions', note:'Neutral throughout.'},
+      {name:'Wedge — All Positions', note:'Reduced extension.'},
+      {name:'Flat Hand (Short Duration)', note:'Brief holds only.'},
+      {name:'Full Handstand', note:'Pain-free only.'},
+    ]},
+    {label:'Wrist Loading Progression', color:'#4d8ef0', steps:[
+      {name:'Isometric Only', note:'No movement at all.'},
+      {name:'Flexion / Extension', note:'Pain-free range only.'},
+      {name:'Rotation', note:'After flex/ext is solid.'},
+      {name:'Weight-Bearing', note:'Fist → wedge → flat.'},
+      {name:'Dynamic Weight-Bearing', note:'Full capacity.'},
+    ]},
+    {label:'Grip / Hang Progression', color:'#4d8ef0', steps:[
+      {name:'No Grip Load', note:'Acute nerve phase.'},
+      {name:'Light Hang (5-10s)', note:'Short duration.'},
+      {name:'Accumulated Hang', note:'Build time weekly.'},
+      {name:'Loaded Carry', note:'Farmer / suitcase.'},
+      {name:'Full Grip Strength', note:'Cleared — full capacity.'},
+    ]},
+  ],
+  progression: {
+    overview: 'Wrist adaptation is the slowest of all tissue types — tendons and bones respond over 6-12 weeks minimum. Set this expectation with the client on day one. The strategy is to find a pain-free position, train hard in that position, and systematically progress the position over weeks.',
+    snacks: {
+      Tendon: 'Wrist circles pain-free · Fist flexion raises · Finger extension stretch · Prayer + reverse prayer · Rice bucket 10min',
+      Impingement: 'Wrist circles pain-free · Fist flexion raises · Finger extension stretch · Prayer stretch · Yoga wedge plank holds',
+      Nerve: 'Wrist circles pain-free · Gentle finger extension stretch · Prayer stretch only (no loading) — REFER to physio',
+      TFCC: 'Wrist circles pain-free (no rotation) · Fist flexion raises · Finger extension stretch · Prayer stretch only',
+    },
+    weeks: [
+      {label:'Week 1', title:'Find the Pain-Free Position', color:'#e85555', items:[
+        'Identify condition — Tendon, Impingement, TFCC, or Nerve',
+        'Nerve: refer to physio immediately alongside programming',
+        'Switch ALL plank and handstand to fist or forearm position',
+        'Add wrist snack daily (5-10 min)',
+        'ALL lower body continues at full effort — increase intensity here',
+        'Track: which positions are pain-free? What is the threshold?',
+      ]},
+      {label:'Week 2', title:'Train Hard in Safe Position', color:'#f0c040', items:[
+        'Continue snack daily',
+        'Progress from forearm plank to fist plank if tolerated',
+        'Introduce yoga wedge at the steepest angle available',
+        'Begin passive hang if grip position is pain-free',
+        'Add finger extension stretch and reverse prayer to snack',
+        'Start rice bucket rotations (Tendon / Impingement only)',
+        'Lower body: increase load — use this time well',
+      ]},
+      {label:'Week 3+', title:'Reduce the Wedge Angle', color:'#45d485', items:[
+        'Reduce yoga wedge angle by 5° per week if no symptom increase',
+        'Progress fist plank to short-duration flat hand plank',
+        'Test passive hang duration — add 5-10s per week',
+        'Introduce wall walk with fist or wedge modification',
+        'Progress rice bucket from flexion/extension to rotation patterns',
+        'Target: full flat-hand plank by week 8-12',
+        'Tendon / TFCC: test full handstand at week 8-10 if all milestones met',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'Tingling or numbness in any fingers — refer immediately before any further loading',
+      'No improvement after 3 weeks of appropriate modification',
+      'Deep aching pain (possible bone stress) — refer before loading',
+      'Ulnar-side clicking with pain (possible TFCC tear) — refer for imaging',
+      'Acute trauma — fall on wrist — refer for x-ray',
+    ],
+    keep: [
+      'ALL lower body — full effort, no wrist involvement',
+      'Passive hang (grip is not extension — test first)',
+      'Shoulder dislocates (grip exercise, not extension)',
+      'Jefferson Curl and all spine work',
+      'Core work: side plank (forearm version), dead bug, pallof press',
+    ]
+  }
+},
+
+pf: {
+  adjustments: [
+    {
+      title: 'Lower Body Training — What Changes by Phase',
+      items: [
+        {name:'Hip Thrust', tags:['keep','keep','keep'], lanes:['Acute','Active','Managing'], detail:'Foot planted and stationary — minimal plantar fascia loading.', why:'No push-off, no impact, no ankle dorsiflexion demand. The foot is loaded but not stressed through its natural spring mechanism. This is the safest and most valuable lower body exercise for all PF phases. Load it hard.'},
+        {name:'Eccentric Calf Raise (MOST IMPORTANT)', tags:['remove','add','add'], lanes:['Acute','Active','Managing'], detail:'Rise on 2 feet, lower on 1 foot. Slow (3 sec down). 3x15 daily.', why:{Active:'The single most evidence-backed intervention for plantar fasciitis. The slow lowering phase builds the tensile strength of the entire posterior chain — Achilles, plantar fascia, and intrinsic foot muscles. This is the exercise that resolves PF.',Acute:'In the acute phase the plantar fascia is actively inflamed. Loading the calf-plantar chain compresses inflamed tissue and prevents healing. Switch to stretching and ice only.',Managing:'Progress to single-leg eccentric calf raise at this stage.'}},
+        {name:'Goblet Squat', tags:['remove','mod','mod'], lanes:['Acute','Active','Managing'], detail:'Small plate (2.5kg) under heels to reduce dorsiflexion.', why:{Acute:'Deep knee flexion in the acute phase pulls on the Achilles-plantar fascia complex at its most irritated point. Remove entirely.',Active:'The heel raise reduces ankle dorsiflexion at the bottom of the squat, reducing the stretch force on the plantar fascia. A small plate under each heel is sufficient.',Managing:'Progress to flat-footed squat when morning pain is consistently below 2/10.'}},
+        {name:'Step-Up', tags:['remove','remove','mod'], lanes:['Acute','Active','Managing'], detail:'Push-off phase creates significant plantar fascia load.', why:'The push-off phase of a step-up requires the plantar fascia to act as a spring under bodyweight load. This is the exact loading mechanism responsible for the condition. Remove in acute and active phases completely.'},
+        {name:'Romanian Deadlift', tags:['mod','keep','keep'], lanes:['Acute','Active','Managing'], detail:'Hip hinge — low ankle dorsiflexion demand.', why:{Acute:'Keep the range short — stop before the calf reaches end-range stretch, which would pull on the plantar fascia. Light load only.',Active:'Continue at normal range. The hinge is generally well-tolerated for PF.',Managing:'Full range and load.'}},
+        {name:'Running / Jumping', tags:['remove','remove','mod'], lanes:['Acute','Active','Managing'], detail:'All impact loading — remove in early phases.', why:'Running and jumping require the plantar fascia to repeatedly absorb impact and act as a spring. In acute and active phases this prevents healing. Managing phase: introduce walk/run intervals only.'},
+      ]
+    },
+    {
+      title: 'Handstand & H&M — What Continues',
+      items: [
+        {name:'ALL Handstand Work', tags:['keep','keep','keep'], lanes:['Acute','Active','Managing'], detail:'Foot is completely unloaded in all handstand positions.', why:'When the foot is off the ground in any handstand position, there is zero plantar fascia loading. This is a direct advantage of the Movesmethod system. Use PF recovery as an opportunity to make significant handstand progress. Never suggest stopping handstands for plantar fasciitis.'},
+        {name:'PF Stretch (Towel Supine, ADD)', tags:['add','add','keep'], lanes:['Acute','Active','Managing'], detail:'Towel around foot, gentle dorsiflexion before first step.', why:'The first step of the morning is the most painful because the plantar fascia tightened overnight in a shortened position. Stretching before standing prevents the micro-tears that occur at that first step and gradually reduces morning pain over weeks.'},
+        {name:'Frozen Bottle Rolling (ADD)', tags:['add','add','keep'], lanes:['Acute','Active','Managing'], detail:'Roll foot over frozen bottle 5-10 min.', why:'Cold reduces inflammation while massage mobilises plantar fascial tissue. Particularly useful in the acute phase where loading is limited. A comfort intervention alongside the snack — not a treatment alone.'},
+        {name:'Single-Leg Calf Raise (ADD)', tags:['remove','remove','add'], lanes:['Acute','Active','Managing'], detail:'Managing phase only — progress from bilateral eccentric.', why:'The next progression after bilateral eccentric calf raise. Only introduce when bilateral calf raise is pain-free and morning stiffness is consistently below 2/10.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Calf / Plantar Loading Progression', color:'#f04080', steps:[
+      {name:'PF Stretch Only', note:'Towel stretch. No load.'},
+      {name:'Bilateral Calf Raise', note:'Easy, slow movement.'},
+      {name:'Eccentric Bilateral', note:'2 up, 1 down. 3s lower.'},
+      {name:'Single Leg Eccentric', note:'Key therapeutic step.'},
+      {name:'Loaded Single Leg', note:'Full capacity.'},
+    ]},
+    {label:'Squat Pattern Progression', color:'#45d485', steps:[
+      {name:'Remove (Acute)', note:'Heel too painful.'},
+      {name:'Seated Exercises', note:'No foot load.'},
+      {name:'Heel Raise Squat', note:'Plate under heels.'},
+      {name:'Short Range Squat', note:'Pain-free depth.'},
+      {name:'Full Squat', note:'Under 2/10 consistently.'},
+    ]},
+    {label:'Impact / Running Progression', color:'#f07840', steps:[
+      {name:'No Impact', note:'Acute and active phase.'},
+      {name:'Walking Short', note:'10-15 min max. Supportive shoes.'},
+      {name:'Walking 30-40 min', note:'Build daily volume.'},
+      {name:'Walk/Run Intervals', note:'1 min run · 2 min walk.'},
+      {name:'Full Running', note:'Symptom-free only.'},
+    ]},
+  ],
+  progression: {
+    overview: 'PF recovery is phase-based. Acute → Active → Managing. The transition between phases is determined by morning pain levels. Most clients are in the Active phase — morning pain eases with movement. The eccentric calf raise is the single most important intervention.',
+    snacks: {
+      Acute: 'PF stretch towel supine (before first step daily) · Frozen bottle rolling 5-10min · Short foot exercise (seated)',
+      Active: 'PF stretch towel supine · Frozen bottle rolling · Eccentric calf raise 3x15 daily · Short foot exercise',
+      Managing: 'PF stretch supine · Eccentric calf raise 3x15 · Single-leg calf raise 3x15 · Short foot exercise',
+    },
+    weeks: [
+      {label:'Week 1', title:'Phase ID + Snack', color:'#e85555', items:[
+        'Identify phase — Acute, Active, or Managing',
+        'Acute: stretching and ice only — no calf loading',
+        'Active: begin eccentric calf raise 3x15 daily (most important)',
+        'ALL handstand work continues unmodified — use this time',
+        'Switch all standing squats to heel-raised or seated versions',
+        'Remove step-ups and running completely',
+        'Footwear: supportive shoes at all times. No barefoot.',
+      ]},
+      {label:'Week 2', title:'Build the Posterior Chain', color:'#f0c040', items:[
+        'Continue eccentric calf raise daily — this is non-negotiable',
+        'Progress calf raise from 3x10 to 3x15 if no morning pain increase',
+        'Introduce heel-raised goblet squat',
+        'Hip thrust at full load — lower body anchor exercise',
+        'RDL at short range (acute) or full range (active/managing)',
+        'Handstand: progress normally — no restrictions',
+        'Track morning pain score daily — phase determines load',
+      ]},
+      {label:'Week 3+', title:'Return to Full Training', color:'#45d485', items:[
+        'Active → Managing: morning pain consistently below 2/10',
+        'Introduce single-leg eccentric calf raise',
+        'Progress goblet squat to flat-footed when morning pain ≤1/10',
+        'Reintroduce step-ups (low box) when squat is pain-free',
+        'Begin walk/run intervals when all daily walking is pain-free',
+        'Acute → Active: reduce acute interventions, begin calf loading',
+        'PF rarely fully resolves before 12 weeks — manage expectations',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'Swelling and bruising around the heel (possible stress fracture)',
+      'No improvement after 6 weeks of eccentric calf raise protocol',
+      'Pain during normal walking that does not ease with movement',
+      'Heel bone tenderness on direct palpation',
+      'Bilateral plantar fasciitis (may indicate systemic cause)',
+    ],
+    keep: [
+      'ALL handstand work — foot is unloaded in all positions',
+      'Hip thrust — foot planted, no push-off, safe all phases',
+      'All seated and lying exercises — no foot loading',
+      'Upper body at full effort throughout',
+      'Jefferson Curl and all spine mobility work',
+    ]
+  }
+},
+
+lb: {
+  adjustments: [
+    {
+      title: 'Handstand & Spine — The Critical Decisions',
+      items: [
+        {name:'Jefferson Curl — THE KEY DECISION', tags:['remove','add','remove','mod'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Spinal flexion under load — the most important template decision for LBP clients.', why:{Flexion:'REMOVE immediately. The Jefferson Curl IS the painful movement for flexion-based LBP. Spinal flexion under load directly compresses disc material anteriorly. Remove and do not reintroduce until pain is fully resolved.',Extension:'KEEP — and use it therapeutically. For extension-based pain, spinal flexion is the comfortable direction. The Jefferson Curl decompresses facet joints. Progress from bodyweight to loaded carefully.',Nerve:'REMOVE. Spinal flexion under load can press disc material onto nerve roots. Any leg symptoms during this = remove and refer urgently.',Facet:'Bodyweight only — monitor carefully. Facet joints tolerate flexion better than extension.'}},
+        {name:'Passive Hang', tags:['keep','keep','keep','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Spinal decompression — often immediately relieving.', why:'Gravity creates gentle spinal traction during a passive hang — the opposite of the compression that occurs during all loaded activities. Many LBP clients find this immediately relieving. Start with 10-15 seconds and build time. Use it as a warm-up decompression tool.'},
+        {name:'Chest-to-Wall Handstand', tags:['mod','remove','mod','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Overhead position loads the lumbar spine in extension.', why:{Flexion:'Generally comfortable for flexion-based pain. Monitor and reduce if symptoms increase.',Extension:'REMOVE. The chest-to-wall position places the lumbar spine in extension under bodyweight compression. This directly loads the facet joints and posterior disc — the painful direction.',Nerve:'Monitor carefully. Any increase in leg symptoms = remove.',Facet:'Keep — extension is the uncomfortable direction for facet conditions.'}},
+        {name:'Cat-Cow', tags:['mod','mod','mod','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Both spinal flexion and extension — stay mid-range.', why:{Flexion:'Stay out of the flexion end range. Mid-range cat-cow is fine and useful.',Extension:'Stay out of the extension end range. Mid-range is therapeutic and improves movement.',Nerve:'Mid-range spinal movement is generally safe. Avoid strong end range in either direction.',General:'Teaching the spine to move through mid-range is therapeutic. The key is avoiding the painful end ranges.'}},
+        {name:'Bridge Work', tags:['keep','mod','keep','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Hip extension — generally safe direction.', why:{Extension:'Stop the bridge before the spine reaches full extension at the top. A partial bridge is still therapeutically valuable — it trains glute strength through hip extension without the spinal compression of full bridge.',General:'The bridge trains the glutes through hip extension. Hip extension is safe for all LBP conditions. The spine is supported. This is one of the safest lower body exercises for lower back pain.'}},
+      ]
+    },
+    {
+      title: 'Strength Training — What Changes',
+      items: [
+        {name:'Romanian Deadlift', tags:['remove','add','mod','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Hip hinge — spinal flexion at bottom.', why:{Flexion:'REMOVE in the acute phase. The hip hinge requires spinal flexion at the bottom — this is the provocative direction for flexion-based LBP. Reintroduce once pain resolves.',Extension:'This is your primary exercise for extension-based LBP. The hip hinge moves the spine into comfortable flexion. Use this as the cornerstone of the strength program.',Nerve:'Monitor for leg symptoms at the bottom of the hinge. Reduce range immediately if any increase in leg symptoms.',General:'Critical for long-term lower back health. The RDL builds posterior chain resilience.'}},
+        {name:'Goblet Squat (Upright Torso)', tags:['mod','mod','mod','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Upright torso is critical — reduces spinal shear forces.', why:'The goblet squat\'s front-loaded position encourages an upright torso which reduces spinal shear forces compared to a conventional barbell squat. Keep range short in all early phases. Upright torso is non-negotiable.'},
+        {name:'Hip Thrust', tags:['keep','mod','keep','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Glute loading through hip extension.', why:{Extension:'Cue rib-down, core-on at the top of the movement. At the top of a hip thrust, the lumbar spine can hyperextend if the core disengages. This loads the facet joints in the painful direction for extension-based clients.',General:'One of the safest lower body exercises for lower back pain. The spine is supported and the movement is hip-dominant.'}},
+        {name:'Trap Bar Deadlift', tags:['mod','keep','mod','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'More upright than conventional — LB-friendly hinge.', why:'The trap bar keeps the torso more upright than a conventional deadlift, significantly reducing the shear force through the lumbar spine at the bottom position. An excellent bridge exercise back to full hinging for flexion-based clients.'},
+        {name:'Suitcase Carry', tags:['keep','keep','keep','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Lateral core — minimal spinal compression.', why:'Anti-lateral flexion strength is critical for spinal stability. The suitcase carry trains this without any spinal loading or dangerous ranges. Safe and valuable for all lower back conditions throughout recovery.'},
+        {name:'Dead Bug + Bird Dog', tags:['keep','keep','keep','keep'], lanes:['Flexion','Extension','Nerve','Facet'], detail:'Deep core stability — neutral spine training.', why:'Trains the deep core (transverse abdominis) and the ability to maintain neutral spine while limbs move. This directly reduces mechanical stress on the lower back during all loaded movement. Safe and non-negotiable across all LBP conditions.'},
+      ]
+    }
+  ],
+  regressions: [
+    {label:'Spinal Flexion Load (JC) Progression', color:'#90d040', steps:[
+      {name:'Remove (Flexion/Nerve)', note:'Do not reintroduce early.'},
+      {name:'Cat-Cow Mid-Range', note:'No end range.'},
+      {name:'JC Bodyweight Short', note:'Partial range only.'},
+      {name:'JC Bodyweight Full', note:'Full pain-free range.'},
+      {name:'JC Loaded (Light)', note:'Small weight added.'},
+    ]},
+    {label:'Hinge / Deadlift Progression', color:'#f07840', steps:[
+      {name:'Hip Thrust', note:'No spinal hinge at all.'},
+      {name:'Good Morning (Bodyweight)', note:'Minimal hinge range.'},
+      {name:'RDL Light (Short Range)', note:'Hip hinge introduced.'},
+      {name:'Trap Bar Deadlift', note:'Upright — LB-friendly.'},
+      {name:'Conventional Deadlift', note:'Full load — cleared only.'},
+    ]},
+    {label:'Handstand for LBP', color:'#90d040', steps:[
+      {name:'Passive Hang', note:'Decompresses — use daily.'},
+      {name:'Plank Hold', note:'Neutral spine — usually fine.'},
+      {name:'Box Tuck Handstand', note:'Monitor extension load.'},
+      {name:'Chest-to-Wall', note:'Extension: caution or remove.'},
+      {name:'Full Handstand', note:'Symptom-free only.'},
+    ]},
+    {label:'Squat Pattern Progression', color:'#45d485', steps:[
+      {name:'Seated Leg Work', note:'No spinal load.'},
+      {name:'Goblet Quarter (Upright)', note:'Minimal spinal demand.'},
+      {name:'Goblet Full (Upright)', note:'Upright torso critical.'},
+      {name:'Front Squat', note:'Spinal upright maintained.'},
+      {name:'Back Squat', note:'Full load — cleared only.'},
+    ]},
+  ],
+  progression: {
+    overview: 'The direction of pain dictates everything. Flexion-based and extension-based LBP require opposite exercise selections. Determine this first before programming anything. Walking daily is the most evidence-backed intervention for lower back pain — prescribe this regardless of condition.',
+    snacks: {
+      Flexion: '90/90 Breathing · Pelvic tilts x10 · Walk 20-30 min daily · Dead bug short x8 · Bird dog x10 · Cobra press-ups x10',
+      Extension: '90/90 Breathing · Pelvic tilts x10 · Walk 20-30 min daily · Dead bug short x8 · Bird dog x10 · Knees to chest holds',
+      Nerve: '90/90 Breathing · Pelvic tilts x10 · Walk 20-30 min daily · Dead bug very short x6 · NO hip flexor loading',
+      Facet: '90/90 Breathing · Pelvic tilts x10 · Walk 20-30 min daily · Dead bug x8 · Cat-cow mid-range x10',
+    },
+    weeks: [
+      {label:'Week 1', title:'Identify Direction + Start Snack', color:'#e85555', items:[
+        'Determine condition: flexion-based, extension-based, nerve, or facet',
+        'Jefferson Curl decision — REMOVE or KEEP (most important call)',
+        'Start condition-specific snack daily',
+        'Prescribe daily walking (20-30 min) — this is medicine',
+        'All upper body and handstands continue (with modifications per condition)',
+        'Lower body: hip thrust, suitcase carry, goblet squat (upright) are safe',
+      ]},
+      {label:'Week 2', title:'Build Tolerance + Add Hinge', color:'#f0c040', items:[
+        'Continue snack daily',
+        'Flexion: keep JC removed. Introduce trap bar deadlift (short range)',
+        'Extension: begin RDL at short range if comfortable',
+        'Add bird dog and dead bug to every session',
+        'Increase walking volume — aim for 30-40 min daily',
+        'Progress goblet squat depth if symptom-free',
+        'Monitor: any increase in leg symptoms = reduce load, consider referral',
+      ]},
+      {label:'Week 3+', title:'Progressive Loading', color:'#45d485', items:[
+        'Flexion: introduce trap bar DL at full range, then progress load',
+        'Extension: RDL is primary — begin loading progressively',
+        'Introduce Jefferson Curl for extension-based clients (bodyweight first)',
+        'Facet: test JC bodyweight short range — monitor response',
+        'Progress passive hang duration — spinal decompression between sets',
+        'Nerve: introduce RDL short range only if no leg symptoms',
+        'No improvement after 4 weeks: refer to physio',
+      ]},
+    ]
+  },
+  refer: {
+    flags: [
+      'Leg symptoms past the knee (possible nerve root compression — refer urgently)',
+      'Bowel or bladder changes (EMERGENCY — refer to A&E immediately)',
+      'Night pain waking the client from sleep (possible sinister cause)',
+      'Worsening neurological signs — increasing numbness or weakness in leg',
+      'Bilateral leg symptoms',
+      'No improvement after 4 weeks of appropriate programming',
+    ],
+    keep: [
+      'Passive hang — decompresses the spine, often immediately relieving',
+      'Bridge work (hip extension — safe direction)',
+      'Dead bug + bird dog (deep core stability)',
+      'Walking 20-30 min daily (most evidence-backed LBP intervention)',
+      'Upper body and handstands (with condition-specific modifications)',
+    ]
+  }
+},
+
+};
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function sel(el) {
+  var inj = el.getAttribute('data-inj');
+  curInj = inj;
+  var m = META[inj];
+  document.querySelectorAll('.inj-btn').forEach(function(b) {
+    b.classList.remove('on');
+    b.style.borderColor = '#2a3348';
+    b.style.color = '#8592ad';
+  });
+  el.classList.add('on');
+  el.style.borderColor = m.color;
+  el.style.color = m.color;
+  document.getElementById('tb-icon').textContent = m.icon;
+  document.getElementById('tb-title').textContent = m.title + ' — Coach Protocol';
+  document.getElementById('sbref').innerHTML = SBREF[inj];
+  // Update tab bar accent
+  document.querySelectorAll('.tab.on').forEach(function(t) {
+    t.style.color = m.color;
+    t.style.borderBottomColor = m.color;
+  });
+  buildAskPills();
+  render();
+}
+
+function goTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.classList.remove('on');
+    t.style.color = '';
+    t.style.borderBottomColor = '';
+  });
+  el.classList.add('on');
+  el.style.color = META[curInj].color;
+  el.style.borderBottomColor = META[curInj].color;
+  curTab = tab;
+  render();
+}
+
+function render() {
+  var d = DATA[curInj];
+  var html = '';
+
+  if (curTab === 'adjustments') {
+    html += '<div class="sec-header"><div class="sec-title">Template Adjustments</div><div class="sec-sub">How each exercise changes depending on the condition. Filter by condition to see exactly what to Keep, Modify, Remove, or Add.</div></div>';
+
+    // Condition filter
+    var conditions = getConditions();
+    html += '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:#12151c;border:1px solid #1e2435;border-radius:8px;padding:8px 12px;margin-bottom:16px;">';
+    html += '<span style="font-size:9px;color:#5e6a85;text-transform:uppercase;letter-spacing:.5px;">Filter:</span>';
+    conditions.forEach(function(c,i) {
+      html += '<button class="cfbtn'+(i===0?' on':'')+'" onclick="filterCond(this,\''+c+'\')" style="cursor:pointer;">'+c+'</button>';
+    });
+    html += '</div>';
+
+    d.adjustments.forEach(function(section) {
+      html += '<div class="card">';
+      html += '<div class="card-title">'+section.title+'</div>';
+      section.items.forEach(function(item) {
+        html += renderExercise(item);
+      });
+      html += '</div>';
+    });
+  }
+
+  else if (curTab === 'regressions') {
+    html += '<div class="sec-header"><div class="sec-title">Regression Library</div><div class="sec-sub">When pain increases — go left. When improving — move right one step at a time. Never skip steps.</div></div>';
+    d.regressions.forEach(function(chain) {
+      html += '<div class="chain-wrap">';
+      html += '<div class="chain-label"><span style="width:8px;height:8px;border-radius:50%;background:'+chain.color+';display:inline-block;flex-shrink:0;"></span>'+chain.label+'</div>';
+      html += '<div class="chain">';
+      chain.steps.forEach(function(step, i) {
+        if (i > 0) html += '<div class="sarr">→</div>';
+        html += '<div class="step'+(i===0?' first':'')+'"><div class="snum">Step '+(i+1)+'</div><div class="sname">'+step.name+'</div><div class="snote">'+step.note+'</div></div>';
+      });
+      html += '</div></div>';
+    });
+  }
+
+  else if (curTab === 'progression') {
+    var p = d.progression;
+    html += '<div class="sec-header"><div class="sec-title">2–3 Week Progression Plan</div><div class="sec-sub">'+p.overview+'</div></div>';
+
+    // Daily snack
+    html += '<div class="card"><div class="card-title">Daily Snack — by Condition</div>';
+    Object.keys(p.snacks).forEach(function(k) {
+      html += '<div class="ex-row"><div class="ex-top"><div class="ex-name">'+k+'</div></div><div class="ex-detail" style="margin-top:4px;">'+p.snacks[k]+'</div></div>';
+    });
+    html += '</div>';
+
+    // Timeline
+    html += '<div class="timeline">';
+    p.weeks.forEach(function(w) {
+      html += '<div class="week-card"><div class="week-label" style="color:'+w.color+';">'+w.label+'</div>';
+      html += '<div class="week-title">'+w.title+'</div>';
+      html += '<div class="week-body"><ul>';
+      w.items.forEach(function(item) {
+        html += '<li>'+item+'</li>';
+      });
+      html += '</ul></div></div>';
+    });
+    html += '</div>';
+  }
+
+  else if (curTab === 'refer') {
+    var r = d.refer;
+    html += '<div class="sec-header"><div class="sec-title">Red Flags &amp; Referral Triggers</div><div class="sec-sub">Know when to refer. Know what to keep going. Always continue programming what you can.</div></div>';
+
+    html += '<div class="refer-box"><div class="refer-title">⚠ Refer if any of these are present</div><div class="refer-body"><ul>';
+    r.flags.forEach(function(f) {
+      html += '<li>'+f+'</li>';
+    });
+    html += '</ul></div></div>';
+
+    html += '<div class="keep-box"><div class="keep-title">✓ Always keep going — do not stop these</div><div class="keep-body"><ul>';
+    r.keep.forEach(function(k) {
+      html += '<li>'+k+'</li>';
+    });
+    html += '</ul></div></div>';
+
+    // Pain rule reminder
+    html += '<div class="card"><div class="card-title">The Pain Rule</div>';
+    html += '<div class="info-row">';
+    html += '<div class="info-chip"><b style="color:#45d485;">Dull / Achy</b>Continue at reduced load. Monitor response.</div>';
+    html += '<div class="info-chip"><b style="color:#f0c040;">Sharp / Pinch</b>Modify position. Reduce range. Find pain-free alternative.</div>';
+    html += '<div class="info-chip"><b style="color:#e85555;">Electric / Burning</b>Stop the exercise. Refer to physio alongside programming.</div>';
+    html += '</div></div>';
+  }
+
+  document.getElementById('content').innerHTML = html;
+  initConditionFilter();
+}
+
+function getConditions() {
+  var d = DATA[curInj];
+  if (!d.adjustments || !d.adjustments[0]) return ['All'];
+  var lanes = d.adjustments[0].items[0].lanes || [];
+  return ['All'].concat(lanes);
+}
+
+var activeCond = 'All';
+function initConditionFilter() {
+  activeCond = 'All';
+}
+
+function filterCond(el, cond) {
+  document.querySelectorAll('.cfbtn').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  activeCond = cond;
+
+  // Re-render exercise cards with filter
+  document.querySelectorAll('.ex-row').forEach(function(row) {
+    var condAttr = row.getAttribute('data-cond');
+    if (!condAttr || cond === 'All') {
+      row.style.display = '';
+    } else {
+      row.style.display = condAttr === cond ? '' : 'none';
+    }
+  });
+
+  // Show/hide tags
+  document.querySelectorAll('.tag-set').forEach(function(ts) {
+    var c = ts.getAttribute('data-cond');
+    if (cond === 'All' || c === cond) {
+      ts.style.display = 'flex';
+    } else {
+      ts.style.display = 'none';
+    }
+  });
+}
+
+function renderExercise(item) {
+  var html = '';
+  // One row per condition/lane combination
+  item.lanes.forEach(function(lane, i) {
+    var tag = item.tags[i] || 'keep';
+    var tagLabels = {keep:'✓ Keep', mod:'⚠ Modify', remove:'✕ Remove', add:'＋ Add'};
+    var why = '';
+    if (typeof item.why === 'string') {
+      why = item.why;
+    } else if (item.why && item.why[lane]) {
+      why = item.why[lane];
+    } else if (item.why && item.why.General) {
+      why = item.why.General;
+    } else if (typeof item.why === 'object' && !item.why[lane]) {
+      // Try first available
+      var keys = Object.keys(item.why);
+      if (keys.length > 0) why = item.why[keys[0]];
+    }
+
+    html += '<div class="ex-row" data-cond="'+lane+'">';
+    html += '<div class="ex-top">';
+    html += '<div class="ex-name">'+item.name+'<span class="sub">'+lane+'</span></div>';
+    html += '<div class="ex-tags"><span class="tag '+tag+'">'+tagLabels[tag]+'</span></div>';
+    html += '</div>';
+    html += '<div class="ex-detail">'+item.detail+'</div>';
+    if (why) {
+      html += '<div class="ex-why"><span class="why-lbl">Why this matters — '+lane+'</span>'+why+'</div>';
+    }
+    html += '</div>';
+  });
+
+  return html;
+}
+
+
+// ─── QUICK PROMPTS PER INJURY ────────────────────────────────────────────────
+var QUICK_ASKS = {
+  hip: [
+    'Electric groin pain 6/10, worst going up stairs',
+    'Deep pinching when lifting leg, rotation test positive',
+    'Not improving after 8 days on the snack',
+    'Wants to return to sport — is it safe?',
+  ],
+  shoulder: [
+    'Arm stuck — global ROM loss, frozen shoulder',
+    'Painful arc at 90°, weak external rotation',
+    'Wakes at night with shoulder pain',
+    '10 weeks post rotator cuff surgery, cleared for light activity',
+  ],
+  knee: [
+    'Sharp kneecap pain at bottom of squat',
+    'Knee swelling after every session',
+    'Lateral knee pain during running — likely ITB',
+    'Not improving after 2 weeks of snack',
+  ],
+  wrist: [
+    'Pain in flat-hand plank, fist plank ok',
+    'Tingling and numbness in fingers',
+    'Wrist blocking all handstand progression',
+  ],
+  pf: [
+    'Severe heel pain first step out of bed',
+    'Can they still do squats and lower body?',
+    'Not improving after 6 weeks',
+  ],
+  lb: [
+    'Pain bending forward — worst at bottom of Jefferson Curl',
+    'Pain shooting down the leg — possible sciatica',
+    'Can they continue bridge work and Jefferson Curls?',
+  ],
+};
+
+// Full system context per injury — loaded into Claude.ai prompt
+var SYS_CONTEXT = {
+  hip: 'You are an expert Movesmethod coaching assistant for Hip & Groin Pain. Speak coach-to-coach. Be direct and specific.\n\nPAIN LANES: MUSCLE: Active>passive, pain lifting leg, squeeze pain, no deep pinching. JOINT: Deep groin pinching, active+passive painful, rotation test positive, blocked. NERVE: Electric/sharp/inconsistent, radiates. UNCLEAR: No clear pattern.\nPRIORITY: 1)Electric->NERVE 2)Pinching->JOINT 3)Dull->MUSCLE. Unsure=conservative.\nSNACKS: MUSCLE: Heel Slides x10/side, Assisted March x8, Bridge Hold 20-30s x3, Dead Bug short x8-10. JOINT: 90/90 Breathing x5, Bridge Hold x3, Heel Slides x8, Dead Bug very short x6-8. NERVE: 90/90 Breathing, Pelvic Tilts x10, Heel Slides small, Walking. REFER.\nFIRST 7 DAYS: ONE lane. Pain<=2/10. No mixing. No extras.\nTEMPLATE: Keep hang work, shoulder work, wrist work, plank, hip thrust, dead bug, side plank, bird dog, RDL. Remove/modify: active pigeon (joint=REMOVE), step-up (joint=REMOVE), split squat (joint=REMOVE), Copenhagen (joint/nerve=REMOVE).\nREFER IF: No improvement 7-10 days. Electric. Strong pinching persists. Daily life affected.\nFORMAT YOUR RESPONSE: 1) Lane identification 2) Daily snack exact sets/reps 3) Avoid list 4) Template adjustments by exercise name — state KEEP/MODIFY/REMOVE 5) Progression and regression rules 6) Refer or not + timeline',
+
+  shoulder: 'You are an expert Movesmethod coaching assistant for Shoulder Pain. Direct and specific.\n\nCONDITIONS: FROZEN: Global ROM loss, night pain, 12-18mo. ROTATOR CUFF: Painful arc 60-120°, weak ER, active>passive. LIMITED ROM: Overhead only, postural, no night pain. POST-SURGICAL: Surgeon timeline, zero overhead until cleared.\nSNACKS: FROZEN: Pendulum 3x2min, Passive ER supine, Wall finger walk. RC: Side-lying ER x15, Band pull-apart x15, Prone Y/T x10. ROM: Wall slides x10, Wide dislocate, Cat-cow. POST-SURG: Pendulum+grip+elbow flex only.\nHANDSTAND: Frozen=REMOVE all overhead. RC=No overhead, incline plank ok. ROM=wall slides only. Post-Surg=ZERO shoulder load.\nALWAYS KEEP: All lower body full capacity. Wrist exercises. Jefferson curl. Horizontal rows.\nREFER IF: Acute drop/sudden weakness. Night pain not improving 2 weeks. Numbness down arm. No ROM progress 3-4 weeks.\nFORMAT: 1) Condition+phase 2) Snack exact 3) H&M adjustments by exercise name 4) Upper body adjustments 5) Lower body — emphasise keep going 6) Timeline 7) Refer',
+
+  knee: 'You are an expert Movesmethod coaching assistant for Knee Pain. Direct and specific.\n\nCONDITIONS: PATELLOFEMORAL: Pain around/behind kneecap, worse down stairs. MENISCUS: Joint line pain, clicking, worse twisting, may swell. TENDON: Below/above kneecap, worse jumping. IT BAND: Lateral knee, worse running.\nRED FLAGS REFER IMMEDIATELY: Significant swelling, locking/giving way, acute trauma, cannot weight-bear.\nSNACKS: PF: TKE x15, VMO quad sets x15, Eccentric step-down x10, Clam x15. Tendon: Isometric wall sit 45s x3, Slow eccentric step-down. ITB: Hip abduction, Lateral band walk, Glute med. Meniscus: Short arc quads, Straight leg raise, Mini squat pain-free.\nALWAYS KEEP: All handstand work, hip thrust, RDL, upper body, dead bug.\nFORMAT: 1) Condition ID 2) Snack exact 3) Avoid 4) Template adjustments 5) Regression rules 6) Refer+timeline',
+
+  wrist: 'You are an expert Movesmethod coaching assistant for Wrist Pain. Direct and specific.\n\nCONDITIONS: TENDON: Dull ache, worse after loading. IMPINGEMENT: Sharp pinching at end-range extension. NERVE: Tingling/numbness REFER IMMEDIATELY. TFCC: Ulnar-side pain, worse twisting.\nKEY RULE: Flat hand hurts->fist. Fist hurts->forearm. Yoga wedge reduces extension 20-30°.\nSNACK: Wrist circles, Fist flexion raises, Finger extension stretch, Prayer+reverse prayer, Rice bucket 10min.\nHANDSTAND MODS: Use fist, wedge, or forearm. Keep passive hang. Keep ALL lower body.\nLOADING ORDER: Isometric->flex/ext->rotation->weight-bearing->dynamic. Never skip steps.\nFORMAT: 1) Condition 2) Snack exact 3) Handstand modifications 4) Template adjustments 5) Loading progression 6) Refer',
+
+  pf: 'You are an expert Movesmethod coaching assistant for Plantar Fasciitis. Direct and specific.\n\nPHASES: ACUTE: Morning pain >7/10, pain walking. ACTIVE: Morning pain 3-6/10, eases movement. MANAGING: Stiffness <3/10, no pain training.\nSNACK: All phases: PF stretch towel supine daily, Frozen bottle rolling. Active+: ADD eccentric calf raise 3x15 (rise 2 feet, lower 1). Managing: ADD single-leg calf raise.\nCRITICAL: Handstands FULLY SAFE - foot is unloaded. All handstand progressions continue. Keep hip thrust, all seated work, upper body.\nREMOVE/MODIFY: Running acute+active=remove. Jumping acute+active=remove. Standing squat acute=heel raise modification.\nFORMAT: 1) Phase 2) Snack exact 3) What stays full capacity 4) What gets modified/removed 5) Footwear 6) Progression back 7) Refer',
+
+  lb: 'You are an expert Movesmethod coaching assistant for Lower Back Pain. Direct and specific.\n\nCONDITIONS: FLEXION-BASED: Worse bending forward, Jefferson Curl aggravates. EXTENSION-BASED: Worse arching, stiff mornings. NERVE/SCIATICA: Radiates past knee REFER URGENTLY. FACET: Stiff mornings, eases movement.\nJEFFERSON CURL RULE: Flexion-based=REMOVE. Extension-based=KEEP (therapeutic). Nerve=REMOVE. Facet=bodyweight only.\nSNACK ALL: 90/90 breathing, Pelvic tilts x10, Walk 20-30min daily, Dead bug short x8, Bird dog x10. Flexion: add cobra press-ups. Extension: add knees to chest.\nALWAYS KEEP: Passive hang, Bridge work, Dead bug+bird dog, Walking, Upper body.\nFORMAT: 1) Condition+direction 2) Snack exact 3) Jefferson Curl decision 4) Template adjustments 5) What stays vs removed 6) Regression rules 7) Refer',
+};
+
+function buildAskPills() {
+  // Update ask button color to match injury
+  var btn = document.getElementById('askBtn');
+  if (btn) btn.style.background = META[curInj].color;
+  var inp = document.getElementById('askInput');
+  if (inp) inp.style.borderColor = '#2a3348';
+  var qs = QUICK_ASKS[curInj] || [];
+  var row = document.getElementById('askPills');
+  row.innerHTML = '';
+  qs.forEach(function(q) {
+    var d = document.createElement('div');
+    d.className = 'ask-pill';
+    d.textContent = q;
+    d.onclick = function() {
+      document.getElementById('askInput').value = q;
+      document.getElementById('askInput').focus();
+    };
+    row.appendChild(d);
+  });
+  document.getElementById('askInjName').textContent = META[curInj].title;
+}
+
+function askClaude() {
+  var q = document.getElementById('askInput').value.trim();
+  if (!q) { document.getElementById('askInput').focus(); return; }
+  var context = SYS_CONTEXT[curInj] || '';
+  var fullPrompt = context + '\n\n---\n\nCoach question: ' + q;
+  var url = 'https://claude.ai/new?q=' + encodeURIComponent(fullPrompt);
+  window.open(url, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('askBtn');
+  var inp = document.getElementById('askInput');
+  if (btn) btn.addEventListener('click', askClaude);
+  if (inp) inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') askClaude();
+  });
+});
+
+// Init
+window.onload = function() {
+  // Apply initial accent to default hip tab
+  var firstTab = document.querySelector('.tab.on');
+  if (firstTab) {
+    firstTab.style.color = META['hip'].color;
+    firstTab.style.borderBottomColor = META['hip'].color;
+  }
+  buildAskPills();
+  render();
+};
+</script>
+</body>
+</html>
