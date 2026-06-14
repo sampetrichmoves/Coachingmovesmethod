@@ -884,8 +884,7 @@ function renderTemplates(){
         {name:'Shoulder Dislocates',lanes:{Muscle:{s:'keep',cue:'Maintain thoracic mobility.',why:'Thoracic mobility reduces cervical compensation.'},Joint:{s:'mod',cue:'Reduced range. No end-range cervical extension.',why:'Monitor for pain at end ranges.'},Nerve:{s:'mod',cue:'Slow movement. Stop if arm symptoms increase.',why:'Upper trap tension at end range can provoke brachial plexus.'}}}
       ]}
     ]
-  };
-};
+  }};
     var sections=data[inj]?data[inj].sections:[];
   if(!sections.length) return '<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="info-box"><p>Detailed exercise modifications for '+INJ[inj].name+' are being added. Please use the Ask Claude button above to get specific guidance for your client.</p></div>';
   var html='<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="sec-sub">How each exercise changes depending on the pain lane. Use the filter to focus on Muscle, Joint, or Nerve presentations.</div>'+filterHtml+tip;
