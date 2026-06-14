@@ -522,15 +522,15 @@ var PLANS={
       {num:'Return Criteria',title:'Ready for L1B When:',items:['Full pain-free overhead range','Passive hang loaded (feet off or added weight)','Wall walk to full without pain','Push-up full range pain-free','No clicking or giving-way sensation']}
     ]
   },
-  knee:[
+  knee:{weeks:[
     {num:'Week 1',title:'Hip-Dominant Reset',items:['Remove all knee flexion loading','Hip thrust: priority — load progressively from Day 1','Terminal knee extension (TKE): add to every session','Dead bug and side plank: daily core stability']},
     {num:'Week 2',title:'Introduce Partial Knee Load',items:['Quarter goblet squat: pain-free depth only','Low box step-down: slow eccentric, 15cm max','Continue hip thrust progression','RDL: add if hip thrust is easy']},
     {num:'Week 3',title:'Progress Range',items:['Goblet squat: increase depth if last session pain-free','Step-up: same height as step-down if pain-free','Split squat: introduce only if step-up is completely pain-free']},
     {num:'Week 4',title:'Load the Pattern',items:['Goblet squat approaching half depth for most clients','Add load (not just bodyweight) if range is pain-free','Bulgarian split squat assessment: only if regular split squat pain-free']},
     {num:'Weeks 5-6',title:'Return to Protocol',items:['Full goblet squat for muscle/nerve lane clients','Joint lane: assess depth individually — some permanent range modifications','Return to full L1A protocol with hip thrust always prioritized']},
     {num:'Return Criteria',title:'Ready for L1B When:',items:['TKE pain-free x2 weeks','Full goblet squat pain-free (or approved modification)','Step-up pain-free at knee height','Hip thrust loaded 1.5x bodyweight']}
-  ],
-  wrist:[weeks:[
+  ]},
+  wrist:{weeks:[
     {num:'Week 1',title:'Load-Free Wrist Healing',items:['All push-up positions on fists or parallettes','Wrist circles: 2 min every morning and before every session','Passive hang: open-palm grip if standard grip aggravates','No flat-palm weight-bearing']},
     {num:'Week 2',title:'Wrist Strength Begin',items:['Eccentric wrist curls: 3x15 slow daily (both directions)','Fist plank: 3x30s — feel stability through knuckles','Handstand box tuck on fists: assess pain','Wrist CARs: add active controlled articular rotations daily']},
     {num:'Weeks 3-4',title:'Transition to Flat Palm',items:['Elevated push-up (bench) on flat palm: test pain','If pain-free: progress to floor-level flat palm','Parallette handstand to flat palm handstand test','Continue eccentric protocol throughout']},
@@ -799,8 +799,7 @@ function renderEverfit(){
 }
 function renderTemplates(){
   var inj=cur.inj;
-  var filterHtml='<div class="filter-row"><span style="font-size:12px;color:#5e6a85;align-self:center;">FILTER:</span>'+
-    ['All','Muscle','Joint','Nerve'].map(function(f){return '<button class="cfbtn'+(cur.filter===f?' on':'')+'" onclick="setFilter(\''+f+'\',this)">'+f+'</button>';}).join('')+'</div>';
+  var filterHtml='<div class="filter-row"><span style="font-size:12px;color:#5e6a85;">FILTER:</span>'+['All','Muscle','Joint','Nerve'].map(function(f){var cls='cfbtn'+(cur.filter===f?' on':'');return '<button class="'+cls+'" onclick="setFilter(this.textContent,this)">'+f+'</button>';}).join('')+'</div>';
   var tip = cur.mode==='beginner'?'<div class="tip-box"><strong>🌱 Beginner Tip</strong>The KEEP/MODIFY/REMOVE tags tell you exactly what to do with each exercise. Green = keep as-is. Orange = change something. Red = remove completely and substitute. Read the "Why this matters" section to understand the reason.</div>':'';
   var data={
     hip:{sections:[
@@ -886,7 +885,8 @@ function renderTemplates(){
       ]}
     ]
   };
-  var sections=data[inj]?data[inj].sections:[];
+};
+    var sections=data[inj]?data[inj].sections:[];
   if(!sections.length) return '<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="info-box"><p>Detailed exercise modifications for '+INJ[inj].name+' are being added. Please use the Ask Claude button above to get specific guidance for your client.</p></div>';
   var html='<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="sec-sub">How each exercise changes depending on the pain lane. Use the filter to focus on Muscle, Joint, or Nerve presentations.</div>'+filterHtml+tip;
   sections.forEach(function(sec){
@@ -1012,57 +1012,59 @@ function renderRefer(){
   return html;
 }
 function renderTroubleshoot(){
-  var tip = cur.mode==='beginner'?'<div class="tip-box"><strong>🌱 Beginner Tip: Troubleshooting injuries</strong>Follow these questions in order. Do not skip ahead. The answers will tell you exactly what lane your client is in and what to do. If you are unsure after going through this, use Ask Claude above.</div>':'';
-  var html='<div class="sec-title">'+INJ[cur.inj].name+' — Troubleshooter</div><div class="sec-sub">Step-by-step guide to identify the pain lane and next action.</div>'+tip;
-  html+='<div class="ts-step"><div class="ts-num">Step 1</div><div class="ts-q">What type of pain is the client describing?</div><div class="ts-opts">';
-  html+='<div class="ts-opt" onclick="showResult(this,'Dull or Achy')">🟢 Dull, achy, general soreness</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Sharp or Pinching')">🟡 Sharp, pinching, or catching pain</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Electric or Burning')">🔴 Electric, burning, shooting, or radiating</div>';
+  var tip=cur.mode==='beginner'?'<div class="tip-box"><strong>Beginner Tip</strong>Follow these questions in order to identify the pain lane.</div>':'';
+  var html='<div class="sec-title">'+INJ[cur.inj].name+' Troubleshooter</div><div class="sec-sub">Step-by-step guide to identify the pain lane and next action.</div>'+tip;
+  html+='<div class="ts-step"><div class="ts-num">Step 1 — Pain Type</div><div class="ts-q">What type of pain is the client describing?</div><div class="ts-opts">';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Dull or achy, general soreness</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Sharp, pinching, or catching pain</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Electric, burning, shooting, or radiating</div>';
   html+='</div></div>';
-  html+='<div class="ts-step"><div class="ts-num">Step 2</div><div class="ts-q">When does the pain occur?</div><div class="ts-opts">';
-  html+='<div class="ts-opt" onclick="showResult(this,'During movement only')">During movement only (fine at rest)</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Start of movement then clears')">At start of movement, then clears up</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Gets worse through session')">Gets worse as session continues</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'At rest or at night')">At rest or at night — RED FLAG</div>';
+  html+='<div class="ts-step"><div class="ts-num">Step 2 — Timing</div><div class="ts-q">When does the pain occur?</div><div class="ts-opts">';
+  html+='<div class="ts-opt" onclick="tsResult(this)">During movement only, fine at rest</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Starts at beginning of movement then clears</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Gets worse as the session continues</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">At rest or at night — this is a RED FLAG</div>';
   html+='</div></div>';
-  html+='<div class="ts-step"><div class="ts-num">Step 3</div><div class="ts-q">Has it improved since you started the daily snack?</div><div class="ts-opts">';
-  html+='<div class="ts-opt" onclick="showResult(this,'Improving — continue and progress')">Yes, noticeably better — pain is reducing</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Same — review snack and modify workout')">Same as before — no change after 5+ days</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Getting worse — reduce load and refer')">Getting worse — pain is increasing</div>';
+  html+='<div class="ts-step"><div class="ts-num">Step 3 — Progress</div><div class="ts-q">Has it improved since starting the daily snack?</div><div class="ts-opts">';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Yes — noticeably better and pain is reducing</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Same — no change after 5 or more days</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Getting worse — pain is increasing</div>';
   html+='</div></div>';
-  html+='<div class="ts-step"><div class="ts-num">Step 4</div><div class="ts-q">Does the pain change with load?</div><div class="ts-opts">';
-  html+='<div class="ts-opt" onclick="showResult(this,'Muscle lane — load is the variable')">More load = more pain (clear relationship)</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Joint lane — position is the variable')">Certain positions cause pain regardless of load</div>';
-  html+='<div class="ts-opt" onclick="showResult(this,'Nerve lane — refer alongside continuing safe work')">Pain or sensation radiates to another area</div>';
+  html+='<div class="ts-step"><div class="ts-num">Step 4 — Load Response</div><div class="ts-q">Does the pain change with load?</div><div class="ts-opts">';
+  html+='<div class="ts-opt" onclick="tsResult(this)">More load equals more pain — Muscle lane</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Certain positions cause pain regardless of load — Joint lane</div>';
+  html+='<div class="ts-opt" onclick="tsResult(this)">Pain or sensation radiates to another area — Nerve lane</div>';
   html+='</div></div>';
   html+='<div id="ts-result" style="display:none;" class="ts-result"><div style="font-weight:700;margin-bottom:6px;" id="ts-result-title"></div><div id="ts-result-body" style="font-size:12px;color:#c8cfe0;line-height:1.6;"></div></div>';
   return html;
 }
-function showResult(el,result){
+function tsResult(el){
   el.style.background='#1e3a6e';
   el.style.borderColor='#4d8ef0';
-  var res=document.getElementById('ts-result');
+  var res=el.textContent;
+  var resEl=document.getElementById('ts-result');
   var title=document.getElementById('ts-result-title');
   var body=document.getElementById('ts-result-body');
-  res.style.display='block';
-  title.textContent='Result: '+result;
+  if(!resEl)return;
+  resEl.style.display='block';
+  title.textContent='Your answer: '+res;
   var actions={
-    'Dull or Achy':'Lane: Muscle. Action: Continue current program. Train in pain-free range. Progress if pain is ≤3/10 and reducing session to session. Use Muscle filter on Template Adjustments tab.',
-    'Sharp or Pinching':'Lane: Joint. Action: Immediately modify or remove provocative exercise. Use Regressions tab to find safer version. Use Joint filter on Template Adjustments tab. If not improving in 7-10 days — refer.',
-    'Electric or Burning':'Lane: Nerve. Action: Stop the provocative exercise immediately. Refer to physio for assessment. Continue ALL safe training (upper body, core, hip thrust). Use Nerve filter on Template Adjustments tab.',
-    'During movement only':'Good sign. This is normal load response. Track whether it reduces session to session. If improving = continue and progress.',
-    'Start of movement then clears':'Classic muscle/joint warm-up pattern. Usually acceptable to continue. Monitor closely — pain should clear within 5 minutes.',
-    'Gets worse through session':'Load is too high. Reduce volume by 30-50%. If still worsening, remove the exercise and use regression.',
-    'At rest or at night':'RED FLAG. Pain at rest or night pain requires medical assessment. Refer immediately. Continue only unloaded movements until cleared.',
-    'Improving — continue and progress':'Great sign. Continue current plan. Progress one variable per week: range → reps → load.',
-    'Same — review snack and modify workout':'Check: is client doing snack DAILY? If yes, reduce workout volume 30%. If still no change after 5 more days — refer.',
-    'Getting worse — reduce load and refer':'Reduce all load significantly. Remove provocative exercises. Refer to physio. Continue snack only until referred.',
-    'Muscle lane — load is the variable':'Muscle lane confirmed. Use Muscle filter. Reduce load, keep movement. Progress load weekly as tolerance improves.',
-    'Joint lane — position is the variable':'Joint lane confirmed. Use Joint filter. Remove end-range loading. Find pain-free range and train there.',
-    'Nerve lane — refer alongside continuing safe work':'Nerve lane. Refer for assessment. Continue ALL pain-free training. Nerve clients often have 70-80% of their program unaffected.'
+    'Dull or achy, general soreness':'Muscle lane. Continue current program in pain-free range. Progress if pain is reducing session to session. Use Muscle filter on Template Adjustments tab.',
+    'Sharp, pinching, or catching pain':'Joint lane. Immediately modify or remove the provocative exercise. Use Regressions tab. Use Joint filter. If not improving in 7-10 days, refer.',
+    'Electric, burning, shooting, or radiating':'Nerve lane. Stop the provocative exercise. Refer to physio. Continue all other safe training. Use Nerve filter.',
+    'During movement only, fine at rest':'Good sign. Normal load response. Track whether it reduces session to session.',
+    'Starts at beginning of movement then clears':'Classic warm-up pattern. Usually acceptable to continue. Monitor closely.',
+    'Gets worse as the session continues':'Load is too high. Reduce volume by 30-50%. If still worsening, use regression.',
+    'At rest or at night — this is a RED FLAG':'Pain at rest requires medical assessment. Refer immediately.',
+    'Yes — noticeably better and pain is reducing':'Great sign. Continue current plan. Progress one variable per week.',
+    'Same — no change after 5 or more days':'Check if client is doing snack daily. If yes, reduce workout volume 30%. Refer if no change after 5 more days.',
+    'Getting worse — pain is increasing':'Reduce all load. Remove provocative exercises. Refer to physio. Snack only until referred.',
+    'More load equals more pain — Muscle lane':'Muscle lane confirmed. Use Muscle filter. Reduce load, keep movement. Progress load weekly.',
+    'Certain positions cause pain regardless of load — Joint lane':'Joint lane confirmed. Use Joint filter. Find and train in pain-free range.',
+    'Pain or sensation radiates to another area — Nerve lane':'Nerve lane. Refer for assessment. Continue all pain-free training.'
   };
-  body.textContent=actions[result]||'Use Ask Claude above for specific guidance on this presentation.';
-  res.scrollIntoView({behavior:'smooth'});
+  body.textContent=actions[res]||'Use Ask Claude above for specific guidance.';
+  resEl.scrollIntoView({behavior:'smooth'});
 }
 window.onload=function(){
   renderPills();
