@@ -790,9 +790,9 @@ renderContent();
 }
 function renderPills(){
 var pills=PILLS[cur.inj]||[];
-document.getElementById('ask-pills').innerHTML=pills.map(p=>
-'<span class="ask-pill" onclick="document.getElementById('ask-input').value=this.textContent">'+p+'</span>'
-).join('');
+document.getElementById('ask-pills').innerHTML=pills.map(function(p){
+return '<span class="ask-pill" onclick="document.getElementById(\x27ask-input\x27).value=this.textContent">'+p+'</span>';
+}).join('');
 var hint='Opens Claude.ai with the full '+INJ[cur.inj].name+' protocol loaded.';
 document.getElementById('ask-hint').textContent=hint;
 }
