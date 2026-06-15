@@ -141,11 +141,24 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 </div>
 <div class="sb-section">
 <div class="sb-lbl">Program Level</div>
-<div class="level-grid">
+<div class="level-grid" style="grid-template-columns:1fr 1fr;">
 <button class="level-btn on" onclick="selLevel('L1A',this)">L1A</button>
 <button class="level-btn" onclick="selLevel('L1B',this)">L1B</button>
-<button class="level-btn" onclick="selLevel('L2',this)">L2</button>
-<button class="level-btn" onclick="selLevel('ALL',this)">All</button>
+<button class="level-btn" onclick="selLevel('L2A',this)">L2A</button>
+<button class="level-btn" onclick="selLevel('L2B',this)">L2B</button>
+<button class="level-btn" onclick="selLevel('L3A',this)">L3A</button>
+<button class="level-btn" onclick="selLevel('L3B',this)">L3B</button>
+<button class="level-btn" onclick="selLevel('L4A',this)">L4A</button>
+<button class="level-btn" onclick="selLevel('L4B',this)">L4B</button>
+<button class="level-btn" onclick="selLevel('L5A',this)">L5A</button>
+<button class="level-btn" onclick="selLevel('L5B',this)">L5B</button>
+<button class="level-btn" onclick="selLevel('ALL',this)" style="grid-column:1/-1;">All Levels</button>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:8px;padding:9px 10px;margin:0 0 10px;font-size:11px;color:#8a95a8;line-height:1.5;">
+<div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">Level Guide</div>
+<div style="margin-bottom:2px;"><span style="color:#4dbd8e;font-weight:600;">A</span> = Upper body focused sessions</div>
+<div style="margin-bottom:2px;"><span style="color:#4dbd8e;font-weight:600;">B</span> = Lower body focused sessions</div>
+<div style="color:#5e6a85;font-size:10px;margin-top:3px;">L1→L5 = beginner to advanced</div>
 </div>
 </div>
 <div class="sb-section">
@@ -167,6 +180,13 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="pr-item"><div class="pr-dot" style="background:#e0a04d;"></div><span>Pinch/Sharp &#8594; Modify</span></div>
 <div class="pr-item"><div class="pr-dot" style="background:#e04d4d;"></div><span>Electric &#8594; Stop + Refer</span></div>
 </div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:8px;padding:9px 10px;margin:0 10px 10px;font-size:11px;color:#8a95a8;line-height:1.6;">
+<div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">What is a Pain Lane?</div>
+<div style="margin-bottom:3px;"><span style="color:#e0a04d;font-weight:600;">Muscle</span> — Muscle/tendon causing pain. Dull ache, gets worse with load.</div>
+<div style="margin-bottom:3px;"><span style="color:#4d8ef0;font-weight:600;">Joint</span> — Joint/cartilage/disc. Pinching, catching, position-specific.</div>
+<div><span style="color:#e04d4d;font-weight:600;">Nerve</span> — Nerve irritated. Electric, burning, radiating sensation.</div>
+<div style="color:#5e6a85;font-size:10px;margin-top:4px;">Diagnostics in Week 1 identify which lane. Each lane gets different exercise modifications.</div>
 </div>
 <div class="sb-ref">Progress only when: Pain &#8595; &middot; Movement easier</div>
 </div>
@@ -192,6 +212,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="tab" onclick="goTab('scripts',this)">&#128172; Client Scripts</div>
 <div class="tab" onclick="goTab('refer',this)">&#9888; Refer &amp; Red Flags</div>
 <div class="tab" onclick="goTab('troubleshoot',this)">&#128269; Troubleshoot</div>
+<div class="tab" onclick="goTab('resources',this)">&#128218; Coach Resources</div>
 </div>
 <div class="ask-bar">
 <div class="ask-pills" id="ask-pills"></div>
@@ -249,28 +270,35 @@ L1B:[
 {name:'4 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'4-day split with fundamentals emphasis. Phase 1 movement complexity.',link:EF+'home/program',notes:['Higher volume than 3-day: ensure client recovery is adequate','Monitor fatigue alongside pain scores']},
 {name:'5 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 5 Days/Week',days:['Day 1','Day 2','Day 3','Day 4','Day 5'],desc:'Full 5-day Phase 1 split. Highest volume L1B option. For well-recovered clients.',link:EF+'home/program',notes:['Only assign when client has been consistently pain-free for 2+ weeks on lower volume','Fundamentals: develop strength, mobility, and handstand foundations']}
 ],
-L2:[
-{name:'Phase 2 L2 - 5 Days/Week',weeks:7,badge:'L2 &middot; Intermediate &middot; 5 Days/Week',days:['Day 1: Upper Push','Day 2: Lower Body A','Day 3: Handstand/Skills','Day 4: Upper Pull','Day 5: Lower Body B + Mobility'],desc:'Full intermediate program. Assign only when client is pain-free on all L1B movements for 2+ consecutive weeks. Full range lower body reintroduced progressively.',link:EF+'home/program',notes:['Do NOT assign until client is pain at or below 1/10 consistently on all L1B exercises','Goblet squat returns to full range Week 2-3','Pain above 3/10 = return to L1B modifications immediately','Split squat reintroduced Week 3 at short range only']},
-{name:'4 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'4-day intermediate split. Full range loading reintroduced. Phase 2 complexity.',link:EF+'home/program',notes:['Full goblet squat from Week 1','Bulgarian split squat reintroduced Week 3-4 if pain-free']},
-{name:'4 DAY SPLIT - Phase 3',weeks:6,badge:'L2 &middot; Advanced &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'Advanced 4-day split. Phase 3 complexity and loading demands.',link:EF+'home/program',notes:['Highest volume and complexity in the L2 tier','Ensure full recovery from injury before assigning']},
-{name:'5 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate &middot; 5 Days/Week',days:['Day 1','Day 2','Day 3','Day 4','Day 5'],desc:'Full 5-day intermediate split at Phase 2 complexity.',link:EF+'home/program',notes:['Good for high-frequency clients who want maximum training volume']},
-{name:'3 DAY SPLIT - Phase 3',weeks:6,badge:'L2 &middot; Advanced &middot; 3 Days/Week',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'Advanced 3-day split. Phase 3 complexity with reduced weekly sessions.',link:EF+'home/program',notes:['Good for busy clients at advanced level who need lower frequency']},
-{name:'SNACK L2 - HANDSTAND',weeks:6,badge:'L2 &middot; Intermediate &middot; Daily Snack',days:['Handstand capacity','Alignment and control','Movement and strength snacks'],desc:'Intermediate handstand snack. Focuses on building handstand capacity, alignment, and control. Complements main program throughout the week.',link:EF+'home/program',notes:['Pair with any L2 main program','More demanding than L1 handstand snack: check shoulder health before assigning']},
-{name:'SNACK L2 - SPLITS',weeks:6,badge:'L2 &middot; Intermediate &middot; Daily Snack',days:['Splits-specific training 2x/week','Joint strength/mobility','Full body integration'],desc:'Intermediate splits snack. 2x/week splits-specific training plus joint strength on other days. Strengthens legs and lower body joints for faster splits progress.',link:EF+'home/program',notes:['Pair with any L2 main program','2 dedicated splits days per week plus maintenance on other days']},
-{name:'SNACKS - UPPER BODY SERIES',weeks:4,badge:'L2 &middot; Intermediate &middot; Daily Snack',days:['Shoulder focus','Upper back focus','Spine and posture','Wrist prep'],desc:'Upper body snack series targeting shoulders, upper back, spine, and wrists. Ideal companion for shoulder, elbow, wrist, and neck injury management.',link:EF+'home/program',notes:['Run alongside any main program','Particularly effective for impingement clients','Builds posterior shoulder strength which stabilizes the joint']},
-{name:'Handstand Program Phase 1',weeks:4,badge:'L2 &middot; Beginner &middot; Handstand Focus',days:['Fundamental elements','Body awareness','Shoulder strength'],desc:'Standalone handstand program. Fundamental elements of handstand and hand balancing.',link:EF+'home/program',notes:['Assign when client wants dedicated handstand focus','Safe for hip and lower body injury clients']},
-{name:'Handstand Program Phase 2',weeks:4,badge:'L2 &middot; Intermediate &middot; Handstand Focus',days:['Further fundamentals','Balance development','Control drills'],desc:'Further fundamental elements of handstand and hand balancing.',link:EF+'home/program',notes:['Progress from Phase 1 after foundational alignment is established']},
-{name:'Handstand Program Phase 3',weeks:4,badge:'L2 &middot; Intermediate &middot; Handstand Focus',days:['Entries','Holds','Rebalancing techniques'],desc:'Intermediate handstand: entries, holds, and rebalancing techniques introduced.',link:EF+'home/program',notes:['Introduces dynamic elements: monitor wrist and shoulder response']},
-{name:'Handstand Program Phase 4',weeks:4,badge:'L2 &middot; Advanced &middot; Handstand Focus',days:['Advanced entries','Extended holds','Rebalancing mastery'],desc:'Second phase of intermediate handstand. More advanced entries, holds, and rebalancing.',link:EF+'home/program',notes:['Advanced overhead demand: ensure full shoulder health before assigning']},
-{name:'Splits Program Phase 1',weeks:4,badge:'L2 &middot; Beginner &middot; Splits Focus',days:['Front splits fundamentals','Middle splits fundamentals','Pancake development'],desc:'Fundamental development of front splits, middle splits, and pancake.',link:EF+'home/program',notes:['Hip-safe modifications needed for labrum and FAI clients','Avoid deep groin positions that cause pinching']},
-{name:'Splits Program Phase 2',weeks:4,badge:'L2 &middot; Intermediate &middot; Splits Focus',days:['Further splits development','Active flexibility','Strength integration'],desc:'Further development of front splits, middle splits, and pancake.',link:EF+'home/program',notes:['Progress from Phase 1 when baseline flexibility is established']},
-{name:'Splits Program Phase 3',weeks:4,badge:'L2 &middot; Advanced &middot; Splits Focus',days:['Intermediate splits','Active range development','Integration'],desc:'Intermediate development of front splits, middle splits, and pancake.',link:EF+'home/program',notes:['Advanced hip flexibility demands: monitor hip/groin closely']},
-{name:'Structural Balance Phase 2',weeks:4,badge:'L2 &middot; Intermediate &middot; Structural Balance',days:['Lower body balance','Upper body balance','Joint strength'],desc:'Follows on from Phase 1 structural balance. Further develops joint strength and stability.',link:EF+'home/program',notes:['Assign after completing Structural Balance Phase 1','Increases joint demand: monitor injury areas closely']},
-{name:'Mobility Fundamentals',weeks:8,badge:'L2 &middot; All Levels &middot; Mobility Focus',days:['Foundation and Mobility (Wks 1-2)','Stability and Strength (Wks 3-4)','Advanced Stability (Wks 5-6)','Peak Integration (Wks 7-8)'],desc:'8-week mobility program building structure and foundations. Progresses from foundation to mobility, stability, strength, and integration.',link:EF+'home/program',notes:['Excellent companion for any injury client who needs structured mobility work','Week 1-2 appropriate for all injury conditions','Add load only when movement quality is established']},
-{name:'Upper Body Phase 1',weeks:4,badge:'L2 &middot; Intermediate &middot; Upper Body',days:['Push strength','Pull strength','Shoulder stability','Structural balance'],desc:'Dedicated upper body strength program. Transition here when shoulder is pain-free through all L1B movements.',link:EF+'home/program',notes:['Overhead pressing reintroduced from Week 1 with strict pain monitoring','Handstand load increases from Week 2 if pain-free']},
-{name:'Movement Flow Phase 1',weeks:4,badge:'L2 &middot; Intermediate &middot; Skills',days:['Ground patterns','Locomotion','Dance elements','Soft acrobatics'],desc:'Integrates movement into ground-based patterns, locomotion, dance, and soft acrobatics. Phase 1.',link:EF+'home/program',notes:['Low impact: generally safe during injury recovery','Check for any ground movements that load injured area']},
-{name:'Movement Flow Phase 2',weeks:6,badge:'L2 &middot; Advanced &middot; Skills',days:['Advanced ground patterns','Complex locomotion','Acrobatic integration'],desc:'Integrates movement into ground-based patterns, locomotion, dance, and soft acrobatics. Phase 2.',link:EF+'home/program',notes:['More dynamic demands than Phase 1: assess injury readiness']},
-{name:'Phase 1 Foundations',weeks:4,badge:'L2 &middot; All Levels &middot; General',days:['Strength foundations','Mobility fundamentals','Movement awareness'],desc:'Phase 1 focusing on strength in key areas, handstand basics, and mobility staples. Addresses common imbalances.',link:EF+'home/program',notes:['Good general foundations program for clients returning from extended rest']}
+L2A:[
+{name:'Phase 2 L2 - 5 Days/Week (Upper Focus)',weeks:7,badge:'L2A &middot; Intermediate &middot; Upper/Skills',days:['Day 1: Upper Push','Day 2: Lower Body A','Day 3: Handstand/Skills','Day 4: Upper Pull','Day 5: Lower Body B + Mobility'],desc:'Phase 2 intermediate program. Upper body and skill sessions are the primary focus (A). Assign when client is pain-free on all L1B movements for 2+ consecutive weeks.',link:'https://app.everfit.io/home/program',notes:['A sessions = upper push, pull, and handstand skill','Do NOT assign until client is pain at or below 1/10 consistently on all L1B','Goblet squat returns to full range Week 2-3','Split squat reintroduced Week 3 at short range only']},
+{name:'5 DAY SPLIT - Phase 2',weeks:6,badge:'L2A &middot; Intermediate &middot; 5 Days/Week',days:['Upper Push','Lower A','Handstand/Skills','Upper Pull','Lower B'],desc:'Full 5-day Phase 2 split with upper and skills emphasis.',link:'https://app.everfit.io/home/program',notes:['Highest volume at L2: ensure sustained pain-free performance on L1B first']},
+{name:'SNACK L2 - HANDSTAND',weeks:6,badge:'L2A &middot; Intermediate &middot; Daily Snack',days:['Handstand capacity','Alignment and control','Movement and strength snacks'],desc:'Intermediate handstand snack. Focuses on building capacity, alignment, and control. Complements any L2 main program.',link:'https://app.everfit.io/home/program',notes:['More demanding than L1 handstand snack: confirm shoulder health before assigning']}
+],
+L2B:[
+{name:'4 DAY SPLIT - Phase 2',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'Phase 2 four-day split with lower body as primary focus (B). Full range knee and hip loading reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['Full goblet squat from Week 1','Bulgarian split squat Week 3-4 if pain-free','B sessions = lower body dominant']},
+{name:'SNACK L2 - SPLITS',weeks:6,badge:'L2B &middot; Intermediate &middot; Daily Snack',days:['Splits-specific training 2x/week','Joint strength/mobility','Full body integration'],desc:'Intermediate splits snack. 2x/week splits-specific training plus joint strength on other days. Lower body focused (B).',link:'https://app.everfit.io/home/program',notes:['Pair with any L2 main program','2 dedicated lower-body flexibility days per week']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3',weeks:6,badge:'L3A &middot; Advanced &middot; Upper/Skills Focus',days:['Full Body A (upper dominant)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced 3-day split. Upper body and skills sessions lead (A). Highest complexity in the Phase 3 tier.',link:'https://app.everfit.io/home/program',notes:['Phase 3 complexity: advanced movement demands','Ensure full recovery from injury before assigning at this level','A = upper body and handstand skill days at advanced load']},
+{name:'Handstand Program Phase 3',weeks:4,badge:'L3A &middot; Advanced &middot; Handstand Focus',days:['Entries','Holds','Rebalancing techniques'],desc:'Intermediate-advanced handstand. Introduces entries, holds, and rebalancing techniques.',link:'https://app.everfit.io/home/program',notes:['Introduces dynamic elements: entries and kick-ups','Monitor wrist and shoulder response closely']},
+{name:'Handstand Program Phase 4',weeks:4,badge:'L3A &middot; Advanced &middot; Handstand Focus',days:['Advanced entries','Extended holds','Rebalancing mastery'],desc:'Advanced handstand program. Second phase of intermediate: more complex entries, holds, and rebalancing.',link:'https://app.everfit.io/home/program',notes:['Full advanced overhead demand: complete shoulder health required']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Body Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'Phase 3 advanced 4-day split. Lower body sessions are primary focus (B). Highest volume and complexity in the L3 tier.',link:'https://app.everfit.io/home/program',notes:['Highest volume in Phase 3','Lower body B sessions: full advanced loading','Ensure sustained pain-free performance on all Phase 2 work first']},
+{name:'Splits Program Phase 3',weeks:4,badge:'L3B &middot; Advanced &middot; Lower/Flexibility Focus',days:['Intermediate splits','Active range development','Strength integration'],desc:'Advanced splits development. Intermediate-level front splits, middle splits, and pancake.',link:'https://app.everfit.io/home/program',notes:['Advanced hip flexibility demands: monitor hip and groin closely','FAI/labrum clients: assess carefully before assigning']}
+],
+L4A:[
+{name:'L4A Programs',weeks:0,badge:'L4A &middot; Coming Soon',days:['Programs being built'],desc:'Phase 4 upper body and skills programs are currently in development in Everfit. Check back as new programs are added.',link:'https://app.everfit.io/home/program',notes:['Contact your head coach for L4A programming guidance','Advanced clients at this level may be on custom programs']}
+],
+L4B:[
+{name:'L4B Programs',weeks:0,badge:'L4B &middot; Coming Soon',days:['Programs being built'],desc:'Phase 4 lower body programs are currently in development in Everfit.',link:'https://app.everfit.io/home/program',notes:['Contact your head coach for L4B programming guidance']}
+],
+L5A:[
+{name:'L5A Programs',weeks:0,badge:'L5A &middot; Coming Soon',days:['Programs being built'],desc:'Phase 5 upper body and skills programs are currently in development.',link:'https://app.everfit.io/home/program',notes:['L5 represents the highest level of the MovesMethod system']}
+],
+L5B:[
+{name:'L5B Programs',weeks:0,badge:'L5B &middot; Coming Soon',days:['Programs being built'],desc:'Phase 5 lower body programs are currently in development.',link:'https://app.everfit.io/home/program',notes:['L5 represents the highest level of the MovesMethod system']}
 ]
 },
 shoulder:{
@@ -284,13 +312,26 @@ L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 3 Days/Week',days:['Full Body Push/Lower','Handstand/Skills','Pull/Lower'],desc:'3-day full body split. Overhead work scaled to pain-free range. Emphasis on horizontal pulling to rebuild posterior shoulder strength.',link:EF+'home/program',notes:['Replace overhead press with landmine or incline press in first 3 weeks','Passive hang priority every session','Increase overhead range by 10-15 degrees per week based on pain']},
 {name:'4 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower','Pull/Upper','Lower','Skills'],desc:'4-day split. More volume for shoulder recovery with higher frequency pulling work.',link:EF+'home/program',notes:['Higher pull frequency helps rebuild posterior shoulder','Monitor overhead work carefully: 2:1 pull:push ratio minimum']}
 ],
-L2:[
+L2A:[
 {name:'Upper Body Phase 1',weeks:4,badge:'L2 &middot; Intermediate',days:['Push strength','Pull strength','Shoulder stability','Structural balance'],desc:'Dedicated upper body strength program. Transition here when shoulder is pain-free through all L1B movements.',link:EF+'home/program',notes:['Overhead pressing reintroduced from Week 1 with strict pain monitoring','Handstand load increases from Week 2 if pain-free','Continue passive hang and band work as warmup throughout']},
 {name:'5 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate &middot; 5 Days/Week',days:['Upper Push','Lower A','Handstand/Skills','Upper Pull','Lower B + Mobility'],desc:'Full intermediate program when shoulder is fully recovered.',link:EF+'home/program',notes:['Assign only after full pain-free overhead range is confirmed','Continue structural balance work as warmup']},
 {name:'SNACK L2 - HANDSTAND',weeks:6,badge:'L2 &middot; Intermediate &middot; Daily Snack',days:['Handstand capacity','Alignment','Movement snacks'],desc:'Intermediate handstand snack. More demanding than L1 version. Monitor shoulder health.',link:EF+'home/program',notes:['Pair with any L2 main program when shoulder is fully recovered']},
 {name:'Handstand Program Phase 1',weeks:4,badge:'L2 &middot; Beginner &middot; Handstand Focus',days:['Fundamentals','Body awareness','Shoulder strength'],desc:'Standalone handstand program. Good standalone shoulder rehabilitation through aligned overhead loading.',link:EF+'home/program',notes:['Safe structured overhead loading: therapeutic when done aligned']},
 {name:'Handstand Program Phase 2',weeks:4,badge:'L2 &middot; Intermediate &middot; Handstand Focus',days:['Further fundamentals','Balance','Control'],desc:'Further handstand development.',link:EF+'home/program',notes:['Progress from Phase 1 when foundational alignment is solid']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 knee:{
 L1A:[
@@ -304,10 +345,23 @@ L1B:[
 {name:'3 DAY SPLIT - Phase 2',weeks:6,badge:'L1B &middot; Intermediate &middot; 3 Days/Week',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'Progression from Phase 1. Knee-loading exercises reintroduced conservatively. Goblet squat at quarter-depth from Week 1.',link:EF+'home/program',notes:['Goblet squat: quarter-depth Week 1, increase 10-15 degrees per week','Step-up only if pain-free step test: keep box below knee level until Week 4','Split squat: introduce Week 4 only if step-up is pain-free']},
 {name:'4 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'4-day split at Phase 1 complexity. Slightly higher volume for accelerated knee recovery.',link:EF+'home/program',notes:['More opportunities for hip-dominant loading in a 4-day structure','Monitor knee carefully with increased weekly volume']}
 ],
-L2:[
+L2A:[
 {name:'4 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'Full intermediate split. Full range knee loading reintroduced. Client ready when all L1B movements pain-free for 2+ consecutive weeks.',link:EF+'home/program',notes:['Full goblet squat from Week 1','Bulgarian split squat Week 3-4 if pain-free','Plyometric assessment Week 5-6 only if fully pain-free']},
 {name:'5 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate &middot; 5 Days/Week',days:['Upper Push','Lower A','Handstand/Skills','Upper Pull','Lower B'],desc:'Full intermediate 5-day program when knee is fully recovered.',link:EF+'home/program',notes:['Highest volume: ensure sustained pain-free performance on all L1B before assigning']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 wrist:{
 L1A:[
@@ -318,10 +372,23 @@ L1A:[
 L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate',days:['Full Body A (fist position)','Handstand/Skills','Full Body B (fist position)'],desc:'3-day split with wrist modifications throughout. Transition to flat palm based on pain response.',link:EF+'home/program',notes:['All floor pressing: fist or parallette position','Handstand: fist until flat palm is pain-free','Wrist CARs remain as warmup throughout']}
 ],
-L2:[
+L2A:[
 {name:'3 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate',days:['Full Body A (wrist loaded)','Handstand/Skills','Full Body B'],desc:'Return to full wrist loading. Transition here when fist push-ups and light wrist extension are pain-free.',link:EF+'home/program',notes:['Begin flat-palm push-up position at reduced range','Handstand: transition fist to flat palm Week 2-3 if pain-free','Wrist prep remains as warmup throughout']},
 {name:'SNACK L2 - HANDSTAND',weeks:6,badge:'L2 &middot; Intermediate &middot; Daily Snack',days:['Handstand capacity','Alignment'],desc:'Intermediate handstand snack for wrist. Introduces flat-palm loading progressively.',link:EF+'home/program',notes:['Transition from fist/parallette to flat palm in this program','Monitor wrist response at each step up in load']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 plantar:{
 L1A:[
@@ -332,9 +399,22 @@ L1A:[
 L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate',days:['Full Body A (impact-free)','Handstand/Skills','Full Body B (impact-free)'],desc:'3-day split. All jumping and running removed. Lower body strength continues with heel elevation modifications.',link:EF+'home/program',notes:['Heel-elevated goblet squat: reduces plantar fascia tension during loading','No plyometrics or running until morning pain is at or below 1/10','Single leg calf raise is milestone test before return to impact']}
 ],
-L2:[
+L2A:[
 {name:'3 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'Return to normal loading. Impact activities reintroduced gradually in Week 3-4.',link:EF+'home/program',notes:['Walk before run: 30 min pain-free walking = cleared for light jogging test','Jump landing mechanics: practice before any return to full plyometrics','Continue foot strengthening as warmup: maintain gains']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 lower:{
 L1A:[
@@ -347,10 +427,23 @@ L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate',days:['Full Body A (hip-hinge)','Handstand/Skills','Full Body B (hip-hinge)'],desc:'Transition program when acute phase resolved. Romanian deadlift reintroduced. Handstand work is therapeutic through spinal decompression.',link:EF+'home/program',notes:['Passive hang is PRIORITY for disc clients: spinal decompression','RDL returns Week 2 at short range if pain is at or below 2/10','No loaded flexion (good mornings, bent-over rows) until pain-free RDL','Side plank and dead bug every session: non-negotiable']},
 {name:'4 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate &middot; 4 Days/Week',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Higher volume option for lower back recovery. More hip-hinge opportunities per week.',link:EF+'home/program',notes:['More deadhinge training per week accelerates posterior chain development','Monitor cumulative fatigue with 4-day structure during recovery']}
 ],
-L2:[
+L2A:[
 {name:'4 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate',days:['Push/Lower A','Pull/Upper','Lower B','Skills/Mobility'],desc:'Return to full training. Barbell movements reintroduced. Client should be pain-free for 2+ weeks on all L1B work.',link:EF+'home/program',notes:['Goblet squat before barbell squat: ensure pattern is sound','Barbell deadlift reintroduced Week 3-4 at submaximal load','Continue passive hang and 90/90 breathing as warmup']},
 {name:'Phase 2 L2 - 5 Days/Week',weeks:7,badge:'L2 &middot; Intermediate &middot; 5 Days/Week',days:['Upper Push','Lower A','Handstand/Skills','Upper Pull','Lower B + Mobility'],desc:'Full intermediate program when lower back is fully recovered.',link:EF+'home/program',notes:['Highest volume at L2: sustained pain-free performance on all L1B required']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 elbow:{
 L1A:[
@@ -361,9 +454,22 @@ L1A:[
 L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'3-day split with elbow modifications. Return to full grip-loaded movements as pain allows.',link:EF+'home/program',notes:['Reintroduce grip loading gradually: use pain as guide','Continue eccentric protocol daily throughout L1B','Pull-ups usually return by Week 3-4 if eccentric work has been consistent']}
 ],
-L2:[
+L2A:[
 {name:'3 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'Return to full grip-loaded training.',link:EF+'home/program',notes:['Full grip loading returns when pain is at or below 1/10 on eccentric test','Maintain eccentric work as warmup: prevention is ongoing']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 },
 neck:{
 L1A:[
@@ -374,9 +480,22 @@ L1A:[
 L1B:[
 {name:'3 DAY SPLIT - Phase 1',weeks:6,badge:'L1B &middot; Intermediate',days:['Full Body A (inversions assessed)','Handstand/Skills (modified)','Full Body B'],desc:'Cautious return to overhead and inverted positions. Handstand work returned when neck is pain-free through cervical range.',link:EF+'home/program',notes:['Passive hang: return first for cervical decompression','Wall walk: return when pain-free through full cervical range','Freestanding handstand: last to return']}
 ],
-L2:[
+L2A:[
 {name:'3 DAY SPLIT - Phase 2',weeks:6,badge:'L2 &middot; Intermediate',days:['Full Body A','Handstand/Skills','Full Body B'],desc:'Return to full training including inversions. Continue cervical mobility as warmup maintenance.',link:EF+'home/program',notes:['Full handstand load returns when freestanding holds are pain-free','Continue chin tucks and cervical CARs as warmup']}
-]
+,
+L2B:[
+{name:'4 DAY SPLIT - Phase 2 (Lower Focus)',weeks:6,badge:'L2B &middot; Intermediate &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 2 lower body focused sessions. B = lower body dominant. Full range reintroduced progressively.',link:'https://app.everfit.io/home/program',notes:['B sessions = lower body as the primary focus','Assign when upper body at L2A standard and lower body pain-free']}
+],
+L3A:[
+{name:'3-DAY SPLIT - Phase 3 (Upper/Skills)',weeks:6,badge:'L3A &middot; Advanced &middot; Upper Focus',days:['Full Body A (upper)','Handstand/Skills','Full Body B'],desc:'Phase 3 advanced upper body and skills focus. Highest complexity in Phase 3 for upper body.',link:'https://app.everfit.io/home/program',notes:['Ensure full pain-free performance on all Phase 2 work first','A = upper body and handstand skill sessions']}
+],
+L3B:[
+{name:'4-DAY SPLIT - Phase 3 (Lower Focus)',weeks:6,badge:'L3B &middot; Advanced &middot; Lower Focus',days:['Push/Lower A','Pull/Upper','Lower B','Skills'],desc:'Phase 3 advanced lower body focus. Highest volume and complexity in Phase 3 for lower body.',link:'https://app.everfit.io/home/program',notes:['B = lower body as primary focus','Advanced loading demands: ensure complete recovery from Phase 2 first']}
+],
+L4A:[{name:'L4A Programs — Coming Soon',weeks:0,badge:'L4A &middot; In Development',days:['Programs being built'],desc:'Phase 4 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L4B:[{name:'L4B Programs — Coming Soon',weeks:0,badge:'L4B &middot; In Development',days:['Programs being built'],desc:'Phase 4 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['Contact head coach for L4 guidance']}],
+L5A:[{name:'L5A Programs — Coming Soon',weeks:0,badge:'L5A &middot; In Development',days:['Programs being built'],desc:'Phase 5 upper body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}],
+L5B:[{name:'L5B Programs — Coming Soon',weeks:0,badge:'L5B &middot; In Development',days:['Programs being built'],desc:'Phase 5 lower body programs in development.',link:'https://app.everfit.io/home/program',notes:['L5 = highest MovesMethod level']}]]
 }
 };
 var REGRESSIONS={
@@ -811,6 +930,7 @@ else if(t==='progression') el.innerHTML=renderProgression();
 else if(t==='scripts') el.innerHTML=renderScripts();
 else if(t==='refer') el.innerHTML=renderRefer();
 else if(t==='troubleshoot') el.innerHTML=renderTroubleshoot();
+else if(t==='resources') el.innerHTML=renderResources();
 document.querySelectorAll('.card-hdr').forEach(h=>{
 h.onclick=function(){this.parentElement.classList.toggle('open');};
 });
@@ -818,13 +938,15 @@ h.onclick=function(){this.parentElement.classList.toggle('open');};
 function getTplByLevel(){
 var tpls=TEMPLATES[cur.inj];
 if(!tpls) return [];
-if(cur.level==='ALL') return [].concat(tpls.L1A||[],tpls.L1B||[],tpls.L2||[]);
-return tpls[cur.level]||[];
+if(cur.level==='ALL') return [].concat(tpls.L1A||[],tpls.L1B||[],tpls.L2A||[],tpls.L2B||[],tpls.L3A||[],tpls.L3B||[],tpls.L4A||[],tpls.L4B||[],tpls.L5A||[],tpls.L5B||[]);
+// Map L2A/L2B to L2 data since Everfit uses single L2 bucket
+var lvMap={'L2A':'L2A','L2B':'L2B','L3A':'L3A','L3B':'L3B','L4A':'L4A','L4B':'L4B','L5A':'L5A','L5B':'L5B'};
+return tpls[cur.level]||tpls[lvMap[cur.level]]||[];
 }
 function renderEverfit(){
 var tpls=getTplByLevel();
 var tip=cur.mode==='beginner'?'<div class="tip-box"><strong>🌱 Beginner Tip: How to use Everfit templates with injuries</strong>Click the "Open in Everfit" link to find the program. Assign it to your client, then come back to the Template Adjustments tab to see exactly which exercises to modify based on their pain lane.</div>':'';
-if(!tpls.length) return '<div class="sec-title">Everfit Templates</div><p style="color:#8a95a8;margin-top:12px;">No templates found for '+INJ[cur.inj].name+' at level '+cur.level+'. Select a different level or use Ask Claude for custom programming guidance.</p>';
+if(!tpls.length) return '<div class="sec-title">Everfit Templates</div><p style="color:#8a95a8;margin-top:12px;">No templates found for '+INJ[cur.inj].name+' at level '+cur.level+'. Select a different level or use Ask Claude for custom programming guidance. L4 and L5 programs are currently being built in Everfit.</p>';
 var html='<div class="sec-title">Everfit Templates — '+INJ[cur.inj].name+'</div><div class="sec-sub">'+cur.level+' programs. Use these as the base — modify using the Template Adjustments tab based on pain lane.</div>'+tip;
 tpls.forEach(function(t){
 html+='<div class="tpl-card"><div class="tpl-hdr"><div class="tpl-name">'+t.name+'</div><div class="tpl-badge">'+t.badge+'</div></div>';
@@ -1105,6 +1227,151 @@ var actions={
 };
 body.textContent=actions[res]||'Use Ask Claude above for specific guidance.';
 resEl.scrollIntoView({behavior:'smooth'});
+}
+
+function renderResources(){
+var html='<div class="sec-title">Coach Resources — MovesMethod</div><div class="sec-sub">Tools, templates, and reference guides for every coaching situation.</div>';
+
+// Pain Scale Reference
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🎯 Pain Scale Reference Card</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">Use this EXACT scale with every client, every session. The numbers only mean something if everyone uses them the same way.</div>';
+var painScale=[
+{score:'1–2',label:'Barely there',desc:'Client is aware of it but would not mention it unless asked. Does not change movement.',color:'#4dbd8e',action:'Continue. Normal training.'},
+{score:'3',label:'Noticeable',desc:'Present but manageable. Movement is slightly altered. Client mentions it.',color:'#4dbd8e',action:'Continue with monitoring. Note it in the session.'},
+{score:'4–5',label:'Moderate',desc:'Clearly present. Affects how the client moves. They are compensating.',color:'#e0a04d',action:'Modify. Remove the provocative exercise. Use regression.'},
+{score:'6–7',label:'Significant',desc:'Hard to ignore. Movement quality drops. Client is guarding.',color:'#e0a04d',action:'Stop that exercise. Revert to snack only for that session.'},
+{score:'8–10',label:'Severe / Stop',desc:'Cannot continue. Client is protecting the area strongly. Sharp or electric quality.',color:'#e04d4d',action:'Stop immediately. Do not push through. Refer if electric/burning.'}
+];
+painScale.forEach(function(p){
+html+='<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #2a3347;">';
+html+='<div style="background:'+p.color+';color:#000;font-weight:700;font-size:13px;border-radius:6px;padding:4px 10px;min-width:40px;text-align:center;flex-shrink:0;">'+p.score+'</div>';
+html+='<div><div style="font-weight:600;font-size:12px;margin-bottom:2px;">'+p.label+'</div><div style="font-size:11px;color:#8a95a8;margin-bottom:3px;">'+p.desc+'</div><div style="font-size:11px;color:'+p.color+';">→ '+p.action+'</div></div>';
+html+='</div>';
+});
+html+='</div></div>';
+
+// Weekly Check-In Template
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">📋 Weekly Check-In Template</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">Send this to every injury client at the start of each week. Copy-paste directly into your messages.</div>';
+html+='<div class="script-box"><div class="script-title">Week Check-In Message (Copy and Send)</div>';
+html+='<div class="script-text">"Hey [Name] — quick weekly check-in before your session.<br><br>';
+html+='1. Pain this week compared to last week: Better / Same / Worse?<br>';
+html+='2. Are you doing your daily snack? Yes / Sometimes / No<br>';
+html+='3. Any movements that felt noticeably easier this week?<br>';
+html+='4. Anything that flared it up (outside of sessions)?<br><br>';
+html+='Be honest — this tells me exactly how to adjust your program this week."</div>';
+html+='<div class="script-note">📌 Send Sunday evening or Monday morning before their first session of the week. If they answer No to question 2, do not add workout volume this week.</div>';
+html+='</div>';
+
+html+='<div style="margin-top:12px;"><div style="font-size:11px;font-weight:600;color:#4d8ef0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">How to Use the Answers</div>';
+var checkInRules=[
+{q:'Better + doing snack daily',action:'Progress one variable this week (more range, more reps, or slightly more load).'},
+{q:'Same + doing snack daily',action:'Hold current level. Check if exercise selection is actually targeting the right lane.'},
+{q:'Worse + doing snack daily',action:'Cut workout volume 30%. Keep snack. Book a check-in call.'},
+{q:'Not doing the snack',action:'Do NOT add workout load. Week focus = build the daily snack habit first.'},
+{q:'Flare from outside session',action:'Identify the trigger. Reduce session load this week. Add to client notes.'}
+];
+checkInRules.forEach(function(r){
+html+='<div style="padding:8px 0;border-bottom:1px solid #2a3347;"><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:#c8cfe0;">If: '+r.q+'</div><div style="font-size:11px;color:#8a95a8;">→ '+r.action+'</div></div>';
+});
+html+='</div></div></div>';
+
+// Injury Intake Questions
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">📎 Injury Intake — First Session Questions</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">Ask ALL of these in the first session with any injured client BEFORE opening any program. This sets up your diagnostics correctly.</div>';
+var intakeQs=[
+{cat:'History',qs:['When did it start? (days, weeks, months, years ago)','Did it come on suddenly (acute) or build up slowly?','Has a doctor, physio, or specialist seen it?','Do you have any imaging: X-ray, MRI, or ultrasound?','Have you had this injury before?']},
+{cat:'Pain Profile',qs:['On a scale of 1-10, what is it RIGHT NOW?','What is it at its worst in a typical day?','Is it better or worse in the morning?','Does it improve with movement or get worse?']},
+{cat:'Pain Type',qs:['How would you describe the pain: dull/achy, sharp/pinching, or electric/burning?','Does it stay in one spot or travel/radiate?','Does it wake you up at night? (Red flag if yes)']},
+{cat:'What Makes It Worse',qs:['Which specific movements cause the most pain?','Does it hurt to sit/stand for long periods?','Does it affect your daily activities?']},
+{cat:'What Makes It Better',qs:['What relieves it: rest, movement, heat, ice?','Have you had treatment for it? What helped?']},
+{cat:'Goals',qs:['What do you want to be able to do that you cannot right now?','What does success look like for you in 6 weeks?']}
+];
+intakeQs.forEach(function(section){
+html+='<div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:#4d8ef0;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">'+section.cat+'</div>';
+section.qs.forEach(function(q){
+html+='<div style="font-size:12px;color:#c8cfe0;padding:4px 0;border-bottom:1px solid #1e2435;display:flex;gap:8px;"><span style="color:#5e6a85;flex-shrink:0;">→</span>'+q+'</div>';
+});
+html+='</div>';
+});
+html+='</div></div>';
+
+// In-Session Pain Decision Tree
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">⚡ In-Session Pain — What to Do RIGHT NOW</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">Client says something hurts mid-session. Use this in under 30 seconds.</div>';
+var decisionTree=[
+{step:'1',q:'What score 1-10?',opts:[
+{ans:'1-3',next:'Keep going. Note it. Monitor if it changes as session continues.'},
+{ans:'4-5',next:'Stop that exercise. Move to hip thrust or a regression. Do not push through.'},
+{ans:'6+',next:'Stop the session activity. Move to snack-only work. Check if electric or burning.'}
+]},
+{step:'2',q:'Is it electric, burning, shooting, or radiating?',opts:[
+{ans:'YES',next:'Stop all loading of that area immediately. Refer to physio. Continue upper body or unaffected areas only.'},
+{ans:'NO',next:'Continue with regressions. Use the Regressions tab to find the appropriate step.'}
+]},
+{step:'3',q:'After stopping the exercise, does the pain clear within 5 minutes?',opts:[
+{ans:'YES — clears quickly',next:'Good sign. Pain was load-related. Reduce load and range by 30% and try again.'},
+{ans:'NO — still there at rest',next:'Do not continue that body region today. Finish session on unaffected areas only. Note for check-in.'}
+]},
+{step:'4',q:'Is this the same pain as before, or a new/different pain?',opts:[
+{ans:'Same pain, same location',next:'Known pattern. Adjust load/range. Continue modified.'},
+{ans:'New pain or different location',next:'Stop. Do not continue. New pains in injured clients require assessment before continuing.'}
+]}
+];
+decisionTree.forEach(function(d){
+html+='<div class="ts-step" style="margin-bottom:8px;"><div class="ts-num">Step '+d.step+'</div><div class="ts-q">'+d.q+'</div><div style="display:flex;flex-direction:column;gap:6px;">';
+d.opts.forEach(function(o){
+html+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:8px;padding:8px 12px;"><span style="font-weight:600;color:#4d8ef0;">'+o.ans+':</span> <span style="font-size:11px;color:#c8cfe0;">'+o.next+'</span></div>';
+});
+html+='</div></div>';
+});
+html+='</div></div>';
+
+// Timeline Scripts
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🕒 Timeline Scripts — What to Say When Asked "How Long?"</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">Clients always ask how long recovery takes. Use these honest, science-backed answers. Never over-promise. Never say "I don't know" without a follow-up.</div>';
+var timelines=[
+{inj:'Hip Labrum / FAI',time:'6–12 weeks to manage symptoms. Permanent modification to some ranges. They can train hard for life within pain-free range.',script:'"If we are consistent with the protocol — daily snack, modified lower body, and no pushing through pinching pain — most clients feel significantly better within 6-8 weeks. Some positions may always be limited, but that does not stop you from training hard and feeling great."'},
+{inj:'Meniscus Tear',time:'6–12 weeks for conservative management to show results.',script:'"The research on meniscus tears shows that consistent strengthening gives results equal to surgery in most cases. 6-8 weeks of doing this correctly and most clients are back to full training. We just need to respect the range limits in the first few weeks."'},
+{inj:'ACL Recovery',time:'9–12 months total. Lower body training from 6-8 weeks post-surgery.',script:'"Full return to sport is 9-12 months minimum. But we start lower body training 6-8 weeks post-surgery. By month 4-5 you will feel strong. The last 4 months is about rebuilding confidence and passing hop tests — we will do that together."'},
+{inj:'Rotator Cuff (Partial)',time:'6–12 weeks for pain reduction. Full strength return: 3–6 months.',script:'"A partial tear responds really well to loading. 6-8 weeks of targeted work and most clients see major improvement. We never fully stop training — your lower body and core training are unaffected throughout."'},
+{inj:'Lower Back / Disc',time:'4–8 weeks for most cases with consistent protocol.',script:'"Lower back pain has one of the best recovery rates when managed correctly. 4-6 weeks of doing the breathing work, the daily snack, and modified loading — most people feel dramatically better. The key is never skipping the snack."'},
+{inj:'Tennis / Golfer Elbow',time:'4–12 weeks with daily eccentric protocol.',script:'"This is very predictable with the right exercise. Daily eccentric work and 4-6 weeks is the typical timeline. Some clients feel it faster, some slower. The one thing that guarantees slow recovery is complete rest — which is why we keep loading it correctly."'},
+{inj:'Plantar Fasciitis',time:'4–8 weeks with daily foot and calf work.',script:'"Plantar fasciitis responds really well to foot strengthening. The morning pain is usually the first thing that improves. 3-4 weeks of daily calf work and most clients notice it getting better. Full return to running usually 6-8 weeks."'},
+{inj:'Wrist (TFCC / Tendinitis)',time:'4–8 weeks on fist/parallette modifications.',script:'"We work around wrist pain very effectively. You will be on fists or parallettes for 4-6 weeks — many advanced practitioners prefer parallettes anyway. Most wrist issues settle down within that period when we remove the loaded wrist extension."'}
+];
+timelines.forEach(function(t){
+html+='<div style="margin-bottom:14px;border-bottom:1px solid #2a3347;padding-bottom:14px;">';
+html+='<div style="font-size:13px;font-weight:700;color:#c8cfe0;margin-bottom:4px;">'+t.inj+'</div>';
+html+='<div style="font-size:11px;color:#4d8ef0;margin-bottom:6px;">⏱ Typical Timeline: '+t.time+'</div>';
+html+='<div class="script-text" style="font-size:12px;line-height:1.6;border-left:3px solid #4d8ef0;padding-left:10px;font-style:italic;color:#c8cfe0;">'+t.script+'</div>';
+html+='</div>';
+});
+html+='</div></div>';
+
+// MovesMethod Level Guide
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🏀 MovesMethod Level System Guide</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="info-box" style="margin-bottom:12px;">How to explain the level system to clients and know which level to assign.</div>';
+var levels=[
+{level:'L1A',focus:'Upper body + Handstand',who:'New client or post-injury. Cannot do lower body safely yet. Strong enough upper body to start handstand work.',programs:'Phase 1 - L1A - 3 Day Program, SNACK L1 HANDSTAND'},
+{level:'L1B',focus:'Lower body return',who:'Client has controlled upper body work and is ready to reintroduce lower body volume. Pain is consistently at or below 3/10.',programs:'L1 Pull/Lower/HS/Lower/Pull, 3 DAY SPLIT Phase 1'},
+{level:'L2A',focus:'Intermediate Upper + Skills',who:'Pain-free on all L1B work for 2+ consecutive weeks. Ready for Phase 2 upper body loading and handstand skill development.',programs:'Phase 2 L2 5 Days/Week, 5 DAY SPLIT Phase 2'},
+{level:'L2B',focus:'Intermediate Lower',who:'Upper body at L2 standard. Lower body fully reintroduced at Phase 2 complexity.',programs:'4 DAY SPLIT Phase 2, SNACK L2 SPLITS'},
+{level:'L3A',focus:'Advanced Upper + Skills',who:'Consistent Phase 2 performance. Ready for Phase 3 skill complexity and upper body loading.',programs:'3-DAY SPLIT Phase 3, Handstand Phase 3 & 4'},
+{level:'L3B',focus:'Advanced Lower',who:'Phase 3 lower body loading. Advanced split squat variations, loaded single-leg work.',programs:'4-DAY SPLIT Phase 3, Splits Phase 3'},
+{level:'L4A–L5B',focus:'Elite Level',who:'In development. Reserved for highest-level MovesMethod athletes.',programs:'Programs being built in Everfit. Contact head coach.'}
+];
+levels.forEach(function(l){
+html+='<div style="padding:10px 0;border-bottom:1px solid #2a3347;display:grid;grid-template-columns:60px 1fr;gap:10px;">';
+html+='<div style="background:#1e3a6e;border:1px solid #4d8ef0;border-radius:6px;padding:6px 4px;text-align:center;font-size:12px;font-weight:700;color:#4d8ef0;align-self:start;">'+l.level+'</div>';
+html+='<div><div style="font-size:12px;font-weight:600;color:#c8cfe0;margin-bottom:2px;">'+l.focus+'</div>';
+html+='<div style="font-size:11px;color:#8a95a8;margin-bottom:3px;">'+l.who+'</div>';
+html+='<div style="font-size:10px;color:#5e6a85;">Programs: '+l.programs+'</div></div>';
+html+='</div>';
+});
+html+='</div></div>';
+
+return html;
 }
 window.onload=function(){
 renderPills();
