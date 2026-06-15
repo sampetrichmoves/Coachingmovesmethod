@@ -1056,7 +1056,7 @@ var sections=data[inj]?data[inj].sections:[];
 if(!sections.length) return '<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="info-box"><p>Detailed exercise modifications for '+INJ[inj].name+' are being added. Please use the Ask Claude button above to get specific guidance for your client.</p></div>';
 var html='<div class="sec-title">'+INJ[inj].name+' — Template Adjustments</div><div class="sec-sub">How each exercise changes depending on the pain lane. Use the filter to focus on Muscle, Joint, or Nerve presentations.</div>'+filterHtml+tip;
 sections.forEach(function(sec){
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">'+sec.title+'</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">'+sec.title+'</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 sec.exercises.forEach(function(ex){
 var lanesToShow=cur.filter==='All'?['Muscle','Joint','Nerve']:[cur.filter];
 lanesToShow.forEach(function(lane){
@@ -1085,7 +1085,7 @@ var tip=cur.mode==='beginner'?'<div class="tip-box"><strong>🌱 Beginner Tip: H
 var html='<div class="sec-title">'+INJ[cur.inj].name+' — Regression Library</div><div class="sec-sub">When pain increases: go left. When improving: move right one step at a time. Never skip steps.</div>'+tip;
 if(!regs.length) return html+'<div class="info-box"><p>Regression progressions for '+INJ[cur.inj].name+' are being added. Use Ask Claude for specific regression guidance.</p></div>';
 regs.forEach(function(r){
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">'+r.name+'</div><span class="card-arrow">▼</span></div><div class="card-body"><div class="prog-chain">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">'+r.name+'</div><span class="card-arrow">&#9660;</span></div><div class="card-body"><div class="prog-chain">';
 r.steps.forEach(function(s,i){
 html+='<div class="prog-step'+(s.cls?' '+s.cls:'')+'"><div class="step-num">'+s.label+'</div><div class="step-name">'+s.name+'</div><div class="step-cue">'+s.cue+'</div></div>';
 if(i<r.steps.length-1) html+='<div class="prog-arrow">→</div>';
@@ -1097,7 +1097,7 @@ if(seriousData&&Object.keys(seriousData).length){
 html+='<hr class="section-divider"><div class="sec-title" style="font-size:15px;margin-bottom:12px;">Serious Injury Protocols</div>';
 Object.entries(seriousData).forEach(function(entry){
 var name=entry[0],d=entry[1];
-html+='<div class="card"><div class="card-hdr"><div class="card-title">'+name+'</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card"><div class="card-hdr"><div class="card-title">'+name+'</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;"><p>'+d.overview+'</p></div>';
 html+='<div style="margin-bottom:10px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#5e6a85;margin-bottom:4px;">Pain Lane</div><div style="font-size:13px;">'+d.lane+'</div></div>';
 if(d.l1a) html+='<div style="margin-bottom:8px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#5e6a85;margin-bottom:4px;">L1A Approach</div><div style="font-size:12px;color:#c8cfe0;">'+d.l1a+'</div></div>';
@@ -1117,7 +1117,7 @@ if(!p) return html+'<div class="info-box"><p>4-6 week progression plan for '+INJ
 html+=tip;
 if(p.note) html+='<div class="info-box"><p>'+p.note+'</p></div>';
 if(p.snack){
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">Daily Snack — by Lane</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">Daily Snack — by Lane</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 ['Muscle','Joint','Nerve'].forEach(function(lane){
 if(p.snack[lane]) html+='<div style="margin-bottom:10px;"><div style="font-weight:600;font-size:13px;margin-bottom:4px;">'+lane+'</div><div style="font-size:12px;color:#8a95a8;">'+p.snack[lane]+'</div></div>';
 });
@@ -1166,7 +1166,7 @@ html+='<div class="flag-box green"><div class="flag-title">✓ Always keep going
 r.keep.forEach(function(item){html+='<div class="flag-item"><span style="color:#4dbd8e;flex-shrink:0;">✓</span>'+item+'</div>';});
 html+='</div>';
 if(r.pain){
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">The Pain Rule — '+INJ[cur.inj].name+'</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">The Pain Rule — '+INJ[cur.inj].name+'</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 var colors=['#4dbd8e','#e0a04d','#e04d4d'];
 r.pain.forEach(function(p,i){html+='<div class="flag-item" style="padding:6px 0;border-bottom:1px solid #1e2435;"><span style="color:'+colors[i]+';font-weight:700;flex-shrink:0;min-width:130px;">'+p.split(' — ')[0]+'</span><span style="color:#8a95a8;">'+p.split(' — ')[1]+'</span></div>';});
 html+='</div></div>';
@@ -1233,7 +1233,7 @@ function renderResources(){
 var html='<div class="sec-title">Coach Resources — MovesMethod</div><div class="sec-sub">Tools, templates, and reference guides for every coaching situation.</div>';
 
 // Pain Scale Reference
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🎯 Pain Scale Reference Card</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🎯 Pain Scale Reference Card</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">Use this EXACT scale with every client, every session. The numbers only mean something if everyone uses them the same way.</div>';
 var painScale=[
 {score:'1–2',label:'Barely there',desc:'Client is aware of it but would not mention it unless asked. Does not change movement.',color:'#4dbd8e',action:'Continue. Normal training.'},
@@ -1251,7 +1251,7 @@ html+='</div>';
 html+='</div></div>';
 
 // Weekly Check-In Template
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">📋 Weekly Check-In Template</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">📋 Weekly Check-In Template</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">Send this to every injury client at the start of each week. Copy-paste directly into your messages.</div>';
 html+='<div class="script-box"><div class="script-title">Week Check-In Message (Copy and Send)</div>';
 html+='<div class="script-text">"Hey [Name] — quick weekly check-in before your session.<br><br>';
@@ -1277,7 +1277,7 @@ html+='<div style="padding:8px 0;border-bottom:1px solid #2a3347;"><div style="f
 html+='</div></div></div>';
 
 // Injury Intake Questions
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">📎 Injury Intake — First Session Questions</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">📎 Injury Intake — First Session Questions</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">Ask ALL of these in the first session with any injured client BEFORE opening any program. This sets up your diagnostics correctly.</div>';
 var intakeQs=[
 {cat:'History',qs:['When did it start? (days, weeks, months, years ago)','Did it come on suddenly (acute) or build up slowly?','Has a doctor, physio, or specialist seen it?','Do you have any imaging: X-ray, MRI, or ultrasound?','Have you had this injury before?']},
@@ -1297,7 +1297,7 @@ html+='</div>';
 html+='</div></div>';
 
 // In-Session Pain Decision Tree
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">⚡ In-Session Pain — What to Do RIGHT NOW</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">⚡ In-Session Pain — What to Do RIGHT NOW</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">Client says something hurts mid-session. Use this in under 30 seconds.</div>';
 var decisionTree=[
 {step:'1',q:'What score 1-10?',opts:[
@@ -1328,7 +1328,7 @@ html+='</div></div>';
 html+='</div></div>';
 
 // Timeline Scripts
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🕒 Timeline Scripts — What to Say When Asked "How Long?"</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🕒 Timeline Scripts — What to Say When Asked "How Long?"</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">Clients always ask how long recovery takes. Use these honest, science-backed answers. Never over-promise. Never say "I don't know" without a follow-up.</div>';
 var timelines=[
 {inj:'Hip Labrum / FAI',time:'6–12 weeks to manage symptoms. Permanent modification to some ranges. They can train hard for life within pain-free range.',script:'"If we are consistent with the protocol — daily snack, modified lower body, and no pushing through pinching pain — most clients feel significantly better within 6-8 weeks. Some positions may always be limited, but that does not stop you from training hard and feeling great."'},
@@ -1350,7 +1350,7 @@ html+='</div>';
 html+='</div></div>';
 
 // MovesMethod Level Guide
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🏀 MovesMethod Level System Guide</div><span class="card-arrow">▼</span></div><div class="card-body">';
+html+='<div class="card open"><div class="card-hdr"><div class="card-title">🏀 MovesMethod Level System Guide</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
 html+='<div class="info-box" style="margin-bottom:12px;">How to explain the level system to clients and know which level to assign.</div>';
 var levels=[
 {level:'L1A',focus:'Upper body + Handstand',who:'New client or post-injury. Cannot do lower body safely yet. Strong enough upper body to start handstand work.',programs:'Phase 1 - L1A - 3 Day Program, SNACK L1 HANDSTAND'},
