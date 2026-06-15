@@ -189,6 +189,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div style="color:#5e6a85;font-size:10px;margin-top:4px;">Diagnostics in Week 1 identify which lane. Each lane gets different exercise modifications.</div>
 </div>
 <div class="sb-ref">Progress only when: Pain &#8595; &middot; Movement easier</div>
+<div class="sb-ref" style="margin-top:4px;">&#128197; Goals reviewed every <strong>30 days</strong></div>
+<div class="sb-ref" style="margin-top:2px;">&#128203; Diagnostics re-tested every <strong>8 weeks</strong></div>
 </div>
 <div class="main">
 <div class="topbar">
@@ -1221,6 +1223,21 @@ html+='</div>';
 });
 html+='</div>';
 }
+html+='<div style="background:#12151c;border:2px solid #4d8ef0;border-radius:10px;padding:14px;margin-top:16px;">';
+html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
+html+='<div style="background:#0e2d1a;border:1px solid #1e5c35;border-radius:8px;padding:12px;">';
+html+='<div style="color:#4ade80;font-weight:700;font-size:13px;margin-bottom:6px;">&#128197; 30-Day Goal Review</div>';
+html+='<div style="color:#c8cfe0;font-size:12px;margin-bottom:6px;">Every 30 days, evaluate:</div>';
+html+='<ul style="color:#8a95a8;font-size:11px;margin:0;padding-left:14px;"><li>Is the client moving toward their original goal?</li><li>What can they do now that they could NOT on Day 1?</li><li>What is still their #1 limitation?</li><li>What should the next 30-day focus be?</li></ul>';
+html+='<div style="margin-top:8px;background:#12151c;border-radius:5px;padding:6px 8px;font-size:11px;color:#8a95a8;">Go to &#9989; Check-In Protocol tab for the full 30-day review template.</div>';
+html+='</div>';
+html+='<div style="background:#2d1a0e;border:1px solid #5c3a1e;border-radius:8px;padding:12px;">';
+html+='<div style="color:#fb923c;font-weight:700;font-size:13px;margin-bottom:6px;">&#128203; 8-Week Diagnostic Re-Test</div>';
+html+='<div style="color:#c8cfe0;font-size:12px;margin-bottom:6px;">At 8 weeks, re-run the full Diagnostics Day:</div>';
+html+='<ul style="color:#8a95a8;font-size:11px;margin:0;padding-left:14px;"><li>Re-identify the pain lane (Muscle / Joint / Nerve)</li><li>Client may have shifted lanes as they improved</li><li>Nerve lane client may now be Joint or Muscle</li><li>Update ALL template modifications to match the new lane</li></ul>';
+html+='<div style="margin-top:8px;background:#12151c;border-radius:5px;padding:6px 8px;font-size:11px;color:#8a95a8;">Re-test due: _______________ &nbsp;|&nbsp; New lane: ___________</div>';
+html+='</div></div></div>';
+
 return html;
 }
 function renderScripts(){
@@ -1621,11 +1638,36 @@ html+='<div style="background:#0e2d1a;border:1px solid #1e5c35;border-radius:8px
 html+='<div style="background:#2d1a0e;border:1px solid #5c3a1e;border-radius:8px;padding:10px;text-align:center;"><div style="color:#fb923c;font-size:14px;font-weight:700;margin-bottom:3px;">HOLD</div><div style="color:#8a95a8;font-size:11px;">Pain stable not decreasing. Stay at current level 7 more days. Check compliance.</div></div>';
 html+='<div style="background:#2d0e0e;border:1px solid #5c1e1e;border-radius:8px;padding:10px;text-align:center;"><div style="color:#f87171;font-size:14px;font-weight:700;margin-bottom:3px;">RESET</div><div style="color:#8a95a8;font-size:11px;">Pain increasing or nerve symptoms. Step back to previous level. Keep training.</div></div>';
 html+='</div><div style="background:#1a1f2e;border-radius:7px;padding:10px;font-size:12px;color:#8a95a8;">Current week: _____ | Decision: PROGRESS / HOLD / RESET | Pain trend: ___________<br>Next week focus: _______________________________<br>Client message: ___________________________________</div></div></div>';
-html+='<div class="card"><div class="card-hdr"><div class="card-title">&#127919; 6-Week Milestone Tracker</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div style="font-size:12px;color:#8a95a8;margin-bottom:8px;">Check off each milestone when achieved. These confirm the program is working.</div>';
-var ms={hip:['Week 2: Hip snack pain-free (0/10) on all movements','Week 3: 90/90 hip switch both sides pain-free','Week 3: Hip thrust bodyweight pain-free full range','Week 4: Goblet squat to parallel without lateral shift','Week 5: Step-up 20cm box pain-free single leg','Week 6: Full lower body session all movements at 3/10 or below'],shoulder:['Week 2: Band pull-aparts and face pulls pain-free','Week 3: Horizontal pressing pain-free full range','Week 3: Shoulder snack pain-free (0/10)','Week 4: Overhead reach 90% range without pain','Week 5: Full overhead press at 50% load pain-free','Week 6: Full upper body session at 3/10 or below'],knee:['Week 2: Step-up 10cm box pain-free single leg','Week 3: Knee snack pain-free (0/10)','Week 3: Bodyweight squat to parallel pain-free','Week 4: Step-up 20cm box pain-free','Week 5: Single leg RDL pain-free','Week 6: Full lower body session at 3/10 or below, no swelling'],wrist:['Week 2: Wrist snack pain-free (0/10)','Week 3: Fist push-up position pain-free 30 seconds','Week 4: Flat hand push-up position pain-free 10 seconds','Week 5: Push-up position hold 30 seconds pain-free','Week 6: Full set of push-ups pain-free','Week 8: First handstand attempt against wall'],plantar:['Week 2: Morning first-step pain at 4/10 or below','Week 3: Snack pain-free (0/10)','Week 3: Single leg calf raise pain-free','Week 4: Walking 30 min pain-free','Week 5: Step-ups and squats pain-free','Week 6: Morning pain at 1/10 or below'],lower:['Week 2: Morning stiffness resolves within 5 minutes','Week 3: Snack pain-free (0/10)','Week 3: Hip hinge neutral spine pain-free','Week 4: Hip thrust full range pain-free','Week 5: Goblet squat and step-up pain-free','Week 6: Full lower body session at 3/10 or below'],elbow:['Week 2: Elbow snack pain-free (0/10)','Week 3: Pulling movements pain-free','Week 4: Grip exercises at light load pain-free','Week 5: Pushing movements pain-free','Week 6: Full upper body session at 3/10 or below','Week 8: Full load pressing pain-free'],neck:['Week 2: Cervical rotation improved 10+ degrees each side','Week 3: Snack pain-free (0/10)','Week 3: All horizontal pressing pain-free','Week 4: Headaches reduced or eliminated','Week 5: Overhead range returning','Week 6: Full upper body session at 3/10 or below']};
-(ms[cur.inj]||ms.hip).forEach(function(m){html+='<div style="background:#1a1f2e;border-radius:7px;padding:7px 12px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;gap:8px;"><span style="background:#12151c;border:1px solid #2a3347;border-radius:3px;min-width:16px;height:16px;display:inline-block;flex-shrink:0;"></span><span style="color:#c8cfe0;">'+m+'</span></div>';});
+html+='<div class="card"><div class="card-hdr"><div class="card-title">&#127919; 30-Day Goal Review</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
+html+='<div style="background:#12151c;border:1px solid #4d8ef0;border-radius:7px;padding:10px 12px;margin-bottom:12px;font-size:11px;">';
+html+='<div style="color:#4d8ef0;font-weight:700;margin-bottom:4px;">&#128197; Movesmethod Review Cadence</div>';
+html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+html+='<div style="background:#1a1f2e;border-radius:6px;padding:8px 10px;"><div style="color:#4ade80;font-weight:700;font-size:12px;margin-bottom:3px;">Every 30 Days</div><div style="color:#8a95a8;">Coach evaluates client goals. Are they making progress toward what they came for? Is the goal still the same? Adjust the program focus accordingly.</div></div>';
+html+='<div style="background:#1a1f2e;border-radius:6px;padding:8px 10px;"><div style="color:#fb923c;font-weight:700;font-size:12px;margin-bottom:3px;">Every 8 Weeks</div><div style="color:#8a95a8;">Full Diagnostics re-test. Re-run the pain lane assessment. The client may have shifted from Nerve to Joint or Joint to Muscle lane. Adjust all template modifications to the new lane.</div></div>';
 html+='</div></div>';
+html+='<div style="font-size:13px;font-weight:700;color:#e2e5f0;margin-bottom:8px;">30-Day Goal Check Questions</div>';
+var gq=['What was the original goal when they started? Has it changed?','On a scale of 1-10, how close are they to that goal now vs Day 1?','What movement or activity can they do now that they could NOT on Day 1?','What is still the biggest limitation? Pain, strength, mobility, or confidence?','Is the daily snack making a difference? (Yes / No / Unsure)','Are they more consistent with training than when they started?','What is the #1 thing they want to achieve in the NEXT 30 days?'];
+gq.forEach(function(q,i){html+='<div style="background:#1a1f2e;border-radius:7px;padding:8px 12px;margin-bottom:5px;font-size:12px;">';
+html+='<div style="color:#4d8ef0;font-weight:600;margin-bottom:3px;">Q'+(i+1)+': '+q+'</div>';
+html+='<div style="color:#8a95a8;">A: ___________________________________________________</div></div>';});
+html+='<div style="font-size:13px;font-weight:700;color:#e2e5f0;margin:12px 0 8px 0;">&#128203; 30-Day Movement Milestones</div>';
+html+='<div style="font-size:11px;color:#8a95a8;margin-bottom:8px;">Check off milestones achieved. Compare to where they were on Day 1.</div>';
+var ms={hip:['Pain during daily snack is at 2/10 or below (was it higher on Day 1?)','Hip thrust bodyweight completely pain-free','90/90 hip switch both sides without gripping or pain','Full lower body session completed at 3/10 or below','Step-up at 20cm box pain-free single leg','All daily activities (sitting, walking, stairs) at 2/10 or below','Client reports feeling stronger in the hip than Day 1'],
+shoulder:['Shoulder snack completely pain-free (0/10)','Band pull-aparts and face pulls pain-free','Can sleep on the shoulder without waking from pain','All horizontal pressing pain-free at full range','Overhead range improved vs Day 1','Full upper body session at 3/10 or below','Client reports upper body feels more stable than Day 1'],
+knee:['Knee snack pain-free (0/10)','Walking up and down stairs at 2/10 or below','Step-up 20cm box pain-free single leg','Bodyweight squat to parallel pain-free','No swelling after training sessions','Client reports knee feels stronger than Day 1','Full lower body session at 3/10 or below'],
+wrist:['Wrist snack pain-free (0/10)','Fist push-up position hold 30 seconds pain-free','Daily activities (typing, carrying) without wrist pain','Grip strength equal or improved vs Day 1','Flat hand push-up position hold 10 seconds pain-free','Full upper body session at 3/10 or below','Client reports wrist feels more stable than Day 1'],
+plantar:['Morning first-step pain at 2/10 or below (was it higher Day 1?)','Snack pain-free (0/10)','Single leg calf raise pain-free','Walking 30+ minutes pain-free','Client no longer avoids activities because of foot pain','Full lower body session at 3/10 or below','Heel pain does NOT return after training'],
+lower:['Morning stiffness resolves within 5 minutes','Snack pain-free (0/10)','Hip hinge with neutral spine pain-free','Sitting for 60+ minutes without significant pain increase','Hip thrust full range pain-free','Full lower body session at 3/10 or below','Client reports back feels stronger than Day 1'],
+elbow:['Elbow snack pain-free (0/10)','Can grip objects without forearm pain at rest','Pulling movements (rows) pain-free','Pushing movements pain-free','Grip strength improved vs Day 1','Full upper body session at 3/10 or below','Client performs daily activities without elbow pain'],
+neck:['Cervical rotation improved by 15+ degrees each side vs Day 1','Snack pain-free (0/10)','Headaches reduced or eliminated','All horizontal pressing pain-free','Sitting at desk for 2+ hours without neck pain spikes','Full upper body session at 3/10 or below','Client reports neck and upper back feel more mobile than Day 1']};
+(ms[cur.inj]||ms.hip).forEach(function(m){html+='<div style="background:#1a1f2e;border-radius:7px;padding:7px 12px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;gap:8px;">';
+html+='<span style="background:#12151c;border:1px solid #2a3347;border-radius:3px;min-width:16px;height:16px;display:inline-block;flex-shrink:0;"></span>';
+html+='<span style="color:#c8cfe0;">'+m+'</span></div>';});
+html+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:7px;padding:10px 12px;margin-top:12px;font-size:11px;">';
+html+='<div style="color:#fb923c;font-weight:700;margin-bottom:6px;">&#128203; 8-Week Diagnostic Re-Test Reminder</div>';
+html+='<div style="color:#8a95a8;">At 8 weeks: re-run the full Diagnostics Day from the template. Re-assess the pain lane. The client may have shifted lanes. A Nerve lane client may now be Joint or Muscle. <strong style="color:#c8cfe0;">Update the template modifications to match their new lane.</strong> This keeps the program progressing with them.</div>';
+html+='<div style="margin-top:8px;background:#1a1f2e;border-radius:5px;padding:8px;color:#8a95a8;">Re-test scheduled: _______________ &nbsp;|&nbsp; Current lane: ___________  &nbsp;|&nbsp; New lane after re-test: ___________</div>';
+html+='</div></div></div>';
 return html;
 }
 
