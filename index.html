@@ -1210,22 +1210,161 @@ var body=document.getElementById('ts-result-body');
 if(!resEl)return;
 resEl.style.display='block';
 title.textContent='Your answer: '+res;
-var actions={
-'Dull or achy, general soreness':'Muscle lane. Continue current program in pain-free range. Progress if pain is reducing session to session. Use Muscle filter on Template Adjustments tab.',
-'Sharp, pinching, or catching pain':'Joint lane. Immediately modify or remove the provocative exercise. Use Regressions tab. Use Joint filter. If not improving in 7-10 days, refer.',
-'Electric, burning, shooting, or radiating':'Nerve lane. Stop the provocative exercise. Refer to physio. Continue all other safe training. Use Nerve filter.',
-'During movement only, fine at rest':'Good sign. Normal load response. Track whether it reduces session to session.',
-'Starts at beginning of movement then clears':'Classic warm-up pattern. Usually acceptable to continue. Monitor closely.',
-'Gets worse as the session continues':'Load is too high. Reduce volume by 30-50%. If still worsening, use regression.',
-'At rest or at night: this is a RED FLAG':'Pain at rest requires medical assessment. Refer immediately.',
-'Yes: noticeably better and pain is reducing':'Great sign. Continue current plan. Progress one variable per week.',
-'Same: no change after 5 or more days':'Check if client is doing snack daily. If yes, reduce workout volume 30%. Refer if no change after 5 more days.',
-'Getting worse: pain is increasing':'Reduce all load. Remove provocative exercises. Refer to physio. Snack only until referred.',
-'More load equals more pain: Muscle lane':'Muscle lane confirmed. Use Muscle filter. Reduce load, keep movement. Progress load weekly.',
-'Certain positions cause pain regardless of load: Joint lane':'Joint lane confirmed. Use Joint filter. Find and train in pain-free range.',
-'Pain or sensation radiates to another area: Nerve lane':'Nerve lane. Refer for assessment. Continue all pain-free training.'
+var inj=cur.inj||'hip';
+var musclePlans={
+hip:'<strong>&#x2705; Lane: Muscle/Tendon (Hip &amp; Groin)</strong><br><br>'+
+'<strong>What this means:</strong> The hip flexors, glutes, or adductors are irritated from too much load — not the joint itself. This is the most manageable situation.<br><br>'+
+'<strong>What to change in the template RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> any deep squat or lunge — reduce range by 30-40%. Keep the movement, only go to where pain is 0-2/10.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> hip hinge (deadlift, RDL) — shorten the range. Do a proud chest hinge instead of full depth.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> high-rep hip flexor loading (leg raises, flutter kicks, mountain climbers) until pain-free for 3+ sessions.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all upper body and core work — pain is hip-specific.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> hip mobility and glute activation — this is therapeutic.<br><br>'+
+'<strong>Specific swaps for L1 lower body days (L1B):</strong><br>'+
+'&#x2022; Goblet squat &#x2192; Box squat (higher box = less depth = less pain)<br>'+
+'&#x2022; Bulgarian split squat &#x2192; Reverse lunge with a short step<br>'+
+'&#x2022; Full RDL &#x2192; Kickstand RDL (one foot forward, shorter range)<br>'+
+'&#x2022; Deep leg press &#x2192; Partial range leg press<br><br>'+
+'<strong>Pain monitoring rule:</strong> Pain must stay at 3/10 or below during the exercise. If it spikes above 3, stop that movement.<br><br>'+
+'<strong>When to progress:</strong> When pain is 0-1/10 for 3 sessions in a row, add 5% more range OR 5% more load — not both.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Hip &amp; Groin</strong> &#x2192; filter by <strong>Muscle</strong> to see the full exercise-by-exercise breakdown.',
+shoulder:'<strong>&#x2705; Lane: Muscle/Tendon (Shoulder)</strong><br><br>'+
+'<strong>What this means:</strong> Rotator cuff or bicep tendon is irritated from pressing or pulling load. Not structural — manageable.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> overhead pressing — bring elbows in front of body (incline angle instead of straight overhead).<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> pull-ups/rows — reduce range, do not shrug into the shoulder at end range.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> behind-the-neck movements and wide-grip upright rows.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all lower body work unchanged.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> scapular stability work — face pulls, band pull-aparts (therapeutic).<br><br>'+
+'<strong>Specific swaps for L1 upper body days (L1A):</strong><br>'+
+'&#x2022; Overhead press &#x2192; Landmine press (angled, shoulder-friendly)<br>'+
+'&#x2022; Pull-ups &#x2192; Lat pulldown with neutral grip<br>'+
+'&#x2022; Dips &#x2192; TRX row or cable row<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Shoulder</strong> &#x2192; filter by <strong>Muscle</strong>.',
+knee:'<strong>&#x2705; Lane: Muscle/Tendon (Knee)</strong><br><br>'+
+'<strong>What this means:</strong> Quad tendon or patellar tendon overloaded. Very common in L1 when clients jump into squat volume too fast.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> squats — reduce to quarter squat or box squat. No pain allowed below parallel.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> lunges — shorten stride length by 30%.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> jump squats, box jumps, any plyometrics until pain-free 2 weeks.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> hip hinges — deadlifts and RDLs are usually pain-free with knee tendon pain.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all upper body work.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Knee</strong> &#x2192; filter by <strong>Muscle</strong>.',
+wrist:'<strong>&#x2705; Lane: Muscle/Tendon (Wrist)</strong><br><br>'+
+'<strong>What this means:</strong> Wrist flexors or extensors overloaded from gripping or wrist-loading positions.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> push-ups — use fists or push-up handles to keep wrist neutral.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> barbell pressing — use dumbbells for neutral wrist position.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> direct wrist curls or extensions until pain settles.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all lower body work unchanged.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Wrist</strong> &#x2192; filter by <strong>Muscle</strong>.',
+back:'<strong>&#x2705; Lane: Muscle/Tendon (Lower Back)</strong><br><br>'+
+'<strong>What this means:</strong> Erectors or QL overloaded or in spasm. Fatigue-based — not a disc or nerve problem.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> deadlifts — reduce weight 40-50%, focus on bracing. Keep the movement.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> squats — elevate heels slightly, reduce depth, keep torso upright.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> hyperextensions or back extensions until pain settles.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> anti-rotation core work — pallof press, dead bugs, bird dogs (therapeutic).<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> upper body work if pain-free.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Lower Back</strong> &#x2192; filter by <strong>Muscle</strong>.',
+elbow:'<strong>&#x2705; Lane: Muscle/Tendon (Elbow)</strong><br><br>'+
+'<strong>What this means:</strong> Tennis elbow (lateral) or golfer&#39;s elbow (medial) — tendon irritation from repetitive gripping or curling load.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> all pulling work — use neutral (hammer) grip, reduce weight 30%.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> pressing — use neutral grip where possible.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> direct bicep curls and tricep extensions until pain settles.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all lower body work unchanged.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Elbow</strong> &#x2192; filter by <strong>Muscle</strong>.',
+neck:'<strong>&#x2705; Lane: Muscle/Tendon (Neck)</strong><br><br>'+
+'<strong>What this means:</strong> Upper trap or levator scapulae tension — posture during loading or stress accumulation.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> overhead work — bring load in front (incline vs overhead). Reduce weight 30%.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> shrugging movements — reduce range and load.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> behind-the-neck pressing or lat pulldowns.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all lower body work unchanged.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Neck</strong> &#x2192; filter by <strong>Muscle</strong>.',
+plantar:'<strong>&#x2705; Lane: Muscle/Tendon (Plantar Fascia)</strong><br><br>'+
+'<strong>What this means:</strong> Plantar fascia or Achilles overloaded. Very load-sensitive — needs volume reduction immediately.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> all standing exercises — add heel wedge or train in cushioned shoes.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> calf raises with full range until pain settles.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> any jumping or sprinting until 0/10 pain for 1 week.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> seated and upper body work unchanged.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Plantar</strong> &#x2192; filter by <strong>Muscle</strong>.'
 };
-body.textContent=actions[res]||'Use Ask Claude above for specific guidance.';
+var jointPlans={
+hip:'<strong>&#x26A0;&#xFE0F; Lane: Joint/Cartilage (Hip &amp; Groin)</strong><br><br>'+
+'<strong>What this means:</strong> The hip joint is irritated — likely from compression or impingement at end range. Could be FAI, labrum, or cartilage. More serious than muscle — needs careful management.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> any exercise causing pinching or catching — find the exact position and avoid it completely.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> deep squats past 90 degrees if they cause pinching at the front of the hip.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> hip hinge — widen stance slightly to external rotation (opens the joint).<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> lunges — narrower step, keep hips square, no lunge into the pinch position.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all exercises that are completely pain-free — this client can still train hard.<br><br>'+
+'<strong>Key rule:</strong> Find the pain-free range and ONLY train in that range. 50% range is better than stopping.<br><br>'+
+'<strong>If not improving in 7-10 days:</strong> Refer to physio. Do not push through joint pain.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Hip &amp; Groin</strong> &#x2192; filter by <strong>Joint</strong>.',
+shoulder:'<strong>&#x26A0;&#xFE0F; Lane: Joint/Cartilage (Shoulder)</strong><br><br>'+
+'<strong>What this means:</strong> Shoulder joint, labrum, or AC joint is the source. Pinching is the hallmark.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> any exercise causing the pinch — usually overhead pressing, behind-the-neck work, wide-grip movements.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> pressing — close grip, neutral grip, incline instead of flat or overhead.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> pulling — neutral grip lat pulldown instead of wide overhand pull-up.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> scapular work and lower body unchanged.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Shoulder</strong> &#x2192; filter by <strong>Joint</strong>.',
+knee:'<strong>&#x26A0;&#xFE0F; Lane: Joint/Cartilage (Knee)</strong><br><br>'+
+'<strong>What this means:</strong> Meniscus or cartilage irritation — position-specific pain regardless of load.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> any deep knee flexion causing pinching or catching.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> squats to quarter-squat only — zero pain allowed.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> hip hinges — usually pain-free with knee joint pain.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Knee</strong> &#x2192; filter by <strong>Joint</strong>.',
+default:'<strong>&#x26A0;&#xFE0F; Lane: Joint/Cartilage</strong><br><br>'+
+'<strong>What this means:</strong> The joint is the pain source — position-specific, often a pinch or catch.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> any movement causing the exact pinching sensation.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> similar movements to pain-free range only.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all pain-free movements — do not stop training entirely.<br><br>'+
+'<strong>If not improving in 7-10 days:</strong> Refer to physio.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; filter by <strong>Joint</strong>.'
+};
+var nervePlans={
+hip:'<strong>&#x1F6A8; Lane: Nerve (Hip/Sciatic)</strong><br><br>'+
+'<strong>What this means:</strong> The sciatic or femoral nerve is compressed or stretched. Requires IMMEDIATE changes — nerve pain ignored can get much worse fast.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">STOP</span> any exercise causing the radiating or electric sensation immediately.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> seated hamstring stretches and straight-leg deadlifts — aggravates sciatic nerve.<br>'+
+'&#x2022; <span style="color:#ef4444">REMOVE</span> high-load hip flexion — leg raises, mountain climbers.<br>'+
+'&#x2022; <span style="color:#f59e0b">MODIFY</span> squats — wide stance, toes out, reduce range, avoid deep hip flexion.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> upper body work completely as normal.<br>'+
+'&#x2022; <span style="color:#22c55e">ADD</span> nerve glides (sciatic flossing) as a daily snack.<br><br>'+
+'<strong>Referral rule:</strong> If sensation travels below the knee, or client has numbness/tingling in the foot — refer to physio or GP immediately. Do not wait.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; select <strong>Hip &amp; Groin</strong> &#x2192; filter by <strong>Nerve</strong>.',
+default:'<strong>&#x1F6A8; Lane: Nerve</strong><br><br>'+
+'<strong>What this means:</strong> A nerve is being irritated or compressed. Electric, burning, or radiating pain is the signature.<br><br>'+
+'<strong>What to change RIGHT NOW:</strong><br>'+
+'&#x2022; <span style="color:#ef4444">STOP</span> any exercise triggering the electric or radiating sensation.<br>'+
+'&#x2022; <span style="color:#22c55e">KEEP</span> all completely pain-free movements.<br>'+
+'&#x2022; <span style="color:#22c55e">ADD</span> nerve flossing or glides as a daily snack for that area.<br><br>'+
+'<strong>Referral rule:</strong> Nerve pain not improving in 5 days, or involving numbness or tingling, requires physio or GP referral.<br><br>'+
+'<strong>&#x27A1;&#xFE0F; Next step:</strong> Go to <strong>Template Adjustments</strong> tab &#x2192; filter by <strong>Nerve</strong>.'
+};
+var actions={
+'Dull or achy, general soreness':musclePlans[inj]||musclePlans.hip,
+'Sharp, pinching, or catching pain':jointPlans[inj]||jointPlans.default,
+'Electric, burning, shooting, or radiating':nervePlans[inj]||nervePlans.default,
+'During movement only, fine at rest':'<strong>&#x2705; Movement-Only Pain — Manageable</strong><br><br>Pain only during movement (and gone at rest) is a normal training signal — not a red flag.<br><br><strong>Rules:</strong><br>&#x2022; Keep pain at or below 3/10 during all movements.<br>&#x2022; Track whether it reduces session to session — it should be getting easier.<br>&#x2022; If the same or worse after 3 sessions, go to Step 4 and identify the pain lane.',
+'Starts at beginning of movement then clears':'<strong>&#x2705; Warm-Up Pattern — Safe to Continue</strong><br><br>Pain that starts and then clears during warm-up is a normal tissue response. Usually acceptable to continue through.<br><br><strong>Monitor closely:</strong><br>&#x2022; Pain must fully clear within 5-10 minutes of movement.<br>&#x2022; Pain must not return or worsen during the session.<br>&#x2022; If it stops clearing or starts getting worse mid-session, check load response in Step 4.',
+'Gets worse as the session continues':'<strong>&#x26A0;&#xFE0F; Pain Builds Through Session — Reduce Volume Now</strong><br><br>Pain building during a session means total volume is too high right now.<br><br><strong>What to do this week:</strong><br>&#x2022; Reduce total sets for the affected area by 30-50% — e.g., 4 sets down to 2 sets.<br>&#x2022; Keep the same exercises and weight — just fewer sets.<br>&#x2022; If it still builds, drop to 1 working set and reassess next session.',
+'At rest or at night: this is a RED FLAG':'<strong>&#x1F6A8; RED FLAG — Refer Immediately</strong><br><br>Pain at rest or at night is not normal training soreness. This requires medical assessment before continuing.<br><br><strong>Do NOT continue loading this area.</strong> Have the client see their GP or physio before their next session.<br><br>The client can continue any pain-free movements in other body areas while awaiting assessment.',
+'Yes: noticeably better and pain is reducing':'<strong>&#x2705; Improving — Keep Going</strong><br><br>Pain is reducing. Do NOT change what is working.<br><br><strong>How to progress safely:</strong><br>&#x2022; Progress only ONE variable per week — more reps, more sets, or more range. Never all three at once.<br>&#x2022; If pain stays at 0-1/10 for 3 sessions in a row, add the next progression.<br>&#x2022; If pain spikes above 3/10, go back to the previous level for one more week.',
+'Same: no change after 5 or more days':'<strong>&#x1F4CA; No Change After 5+ Days — Adjust the Plan</strong><br><br><strong>First, check with the client:</strong><br>&#x2022; Are they doing the daily snack every day? This is the most common reason for no progress.<br>&#x2022; Are they sleeping and eating well? Recovery matters as much as training.<br><br><strong>If doing everything right and still no change:</strong><br>&#x2022; Reduce workout volume for the affected area by 30%.<br>&#x2022; Increase snack frequency to twice daily if possible.<br>&#x2022; No change in another 5 days — refer to physio.',
+'Getting worse: pain is increasing':'<strong>&#x26A0;&#xFE0F; Pain Getting Worse — Reduce Load Now</strong><br><br><strong>What to do today:</strong><br>&#x2022; Reduce total training volume for the affected area by 50% immediately.<br>&#x2022; Remove all exercises rated above 3/10 pain.<br>&#x2022; Keep only the snack program for this area for the next 5-7 days.<br>&#x2022; If still worsening after 5 days on snack-only, refer to physio.<br><br><strong>Do NOT push through worsening pain.</strong>',
+'More load equals more pain: Muscle lane':musclePlans[inj]||musclePlans.hip,
+'Certain positions cause pain regardless of load: Joint lane':jointPlans[inj]||jointPlans.default,
+'Pain or sensation radiates to another area: Nerve lane':nervePlans[inj]||nervePlans.default
+};
+body.innerHTML=actions[res]||'<strong>Not sure?</strong> Use the Ask Claude box above — describe exactly what the client feels and it will guide you.';
 resEl.scrollIntoView({behavior:'smooth'});
 }
 
