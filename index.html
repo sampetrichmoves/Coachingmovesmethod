@@ -1737,7 +1737,7 @@ return html;
 }
 
 function renderSkills(){
-var inj=currentInjury||"none";
+var inj=(window.cur&&window.cur.inj)||"none";
 var c=document.getElementById("content");
 if(!c)return;
 var in2n={"hip":"Hip Pain","shoulder":"Shoulder Pain","knee":"Knee Pain","wrist":"Wrist/Hand Pain","plantar":"Plantar Fasciitis","lower":"Lower Back Pain","elbow":"Elbow/Forearm Pain","neck":"Neck Pain"};
