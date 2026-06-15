@@ -1413,150 +1413,139 @@ body.innerHTML=actions[res]||'<strong>Not sure?</strong> Use the Ask Claude box 
 resEl.scrollIntoView({behavior:'smooth'});
 }
 
-function renderResources(){
-var html='<div class="sec-title">Coach Resources — MovesMethod</div><div class="sec-sub">Tools, templates, and reference guides for every coaching situation.</div>';
-
-// Pain Scale Reference
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🎯 Pain Scale Reference Card</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">Use this EXACT scale with every client, every session. The numbers only mean something if everyone uses them the same way.</div>';
-var painScale=[
-{score:'1–2',label:'Barely there',desc:'Client is aware of it but would not mention it unless asked. Does not change movement.',color:'#4dbd8e',action:'Continue. Normal training.'},
-{score:'3',label:'Noticeable',desc:'Present but manageable. Movement is slightly altered. Client mentions it.',color:'#4dbd8e',action:'Continue with monitoring. Note it in the session.'},
-{score:'4–5',label:'Moderate',desc:'Clearly present. Affects how the client moves. They are compensating.',color:'#e0a04d',action:'Modify. Remove the provocative exercise. Use regression.'},
-{score:'6–7',label:'Significant',desc:'Hard to ignore. Movement quality drops. Client is guarding.',color:'#e0a04d',action:'Stop that exercise. Revert to snack only for that session.'},
-{score:'8–10',label:'Severe / Stop',desc:'Cannot continue. Client is protecting the area strongly. Sharp or electric quality.',color:'#e04d4d',action:'Stop immediately. Do not push through. Refer if electric/burning.'}
-];
-painScale.forEach(function(p){
-html+='<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #2a3347;">';
-html+='<div style="background:'+p.color+';color:#000;font-weight:700;font-size:13px;border-radius:6px;padding:4px 10px;min-width:40px;text-align:center;flex-shrink:0;">'+p.score+'</div>';
-html+='<div><div style="font-weight:600;font-size:12px;margin-bottom:2px;">'+p.label+'</div><div style="font-size:11px;color:#8a95a8;margin-bottom:3px;">'+p.desc+'</div><div style="font-size:11px;color:'+p.color+';">→ '+p.action+'</div></div>';
-html+='</div>';
-});
-html+='</div></div>';
-
-// Weekly Check-In Template
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">📋 Weekly Check-In Template</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">Send this to every injury client at the start of each week. Copy-paste directly into your messages.</div>';
-html+='<div class="script-box"><div class="script-title">Week Check-In Message (Copy and Send)</div>';
-html+='<div class="script-text">"Hey [Name] — quick weekly check-in before your session.<br><br>';
-html+='1. Pain this week compared to last week: Better / Same / Worse?<br>';
-html+='2. Are you doing your daily snack? Yes / Sometimes / No<br>';
-html+='3. Any movements that felt noticeably easier this week?<br>';
-html+='4. Anything that flared it up (outside of sessions)?<br><br>';
-html+='Be honest — this tells me exactly how to adjust your program this week."</div>';
-html+='<div class="script-note">📌 Send Sunday evening or Monday morning before their first session of the week. If they answer No to question 2, do not add workout volume this week.</div>';
-html+='</div>';
-
-html+='<div style="margin-top:12px;"><div style="font-size:11px;font-weight:600;color:#4d8ef0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">How to Use the Answers</div>';
-var checkInRules=[
-{q:'Better + doing snack daily',action:'Progress one variable this week (more range, more reps, or slightly more load).'},
-{q:'Same + doing snack daily',action:'Hold current level. Check if exercise selection is actually targeting the right lane.'},
-{q:'Worse + doing snack daily',action:'Cut workout volume 30%. Keep snack. Book a check-in call.'},
-{q:'Not doing the snack',action:'Do NOT add workout load. Week focus = build the daily snack habit first.'},
-{q:'Flare from outside session',action:'Identify the trigger. Reduce session load this week. Add to client notes.'}
-];
-checkInRules.forEach(function(r){
-html+='<div style="padding:8px 0;border-bottom:1px solid #2a3347;"><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:#c8cfe0;">If: '+r.q+'</div><div style="font-size:11px;color:#8a95a8;">→ '+r.action+'</div></div>';
-});
-html+='</div></div></div>';
-
-// Injury Intake Questions
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">📎 Injury Intake — First Session Questions</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">Ask ALL of these in the first session with any injured client BEFORE opening any program. This sets up your diagnostics correctly.</div>';
-var intakeQs=[
-{cat:'History',qs:['When did it start? (days, weeks, months, years ago)','Did it come on suddenly (acute) or build up slowly?','Has a doctor, physio, or specialist seen it?','Do you have any imaging: X-ray, MRI, or ultrasound?','Have you had this injury before?']},
-{cat:'Pain Profile',qs:['On a scale of 1-10, what is it RIGHT NOW?','What is it at its worst in a typical day?','Is it better or worse in the morning?','Does it improve with movement or get worse?']},
-{cat:'Pain Type',qs:['How would you describe the pain: dull/achy, sharp/pinching, or electric/burning?','Does it stay in one spot or travel/radiate?','Does it wake you up at night? (Red flag if yes)']},
-{cat:'What Makes It Worse',qs:['Which specific movements cause the most pain?','Does it hurt to sit/stand for long periods?','Does it affect your daily activities?']},
-{cat:'What Makes It Better',qs:['What relieves it: rest, movement, heat, ice?','Have you had treatment for it? What helped?']},
-{cat:'Goals',qs:['What do you want to be able to do that you cannot right now?','What does success look like for you in 6 weeks?']}
-];
-intakeQs.forEach(function(section){
-html+='<div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:#4d8ef0;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">'+section.cat+'</div>';
-section.qs.forEach(function(q){
-html+='<div style="font-size:12px;color:#c8cfe0;padding:4px 0;border-bottom:1px solid #1e2435;display:flex;gap:8px;"><span style="color:#5e6a85;flex-shrink:0;">→</span>'+q+'</div>';
-});
-html+='</div>';
-});
-html+='</div></div>';
-
-// In-Session Pain Decision Tree
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">⚡ In-Session Pain — What to Do RIGHT NOW</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">Client says something hurts mid-session. Use this in under 30 seconds.</div>';
-var decisionTree=[
-{step:'1',q:'What score 1-10?',opts:[
-{ans:'1-3',next:'Keep going. Note it. Monitor if it changes as session continues.'},
-{ans:'4-5',next:'Stop that exercise. Move to hip thrust or a regression. Do not push through.'},
-{ans:'6+',next:'Stop the session activity. Move to snack-only work. Check if electric or burning.'}
-]},
-{step:'2',q:'Is it electric, burning, shooting, or radiating?',opts:[
-{ans:'YES',next:'Stop all loading of that area immediately. Refer to physio. Continue upper body or unaffected areas only.'},
-{ans:'NO',next:'Continue with regressions. Use the Regressions tab to find the appropriate step.'}
-]},
-{step:'3',q:'After stopping the exercise, does the pain clear within 5 minutes?',opts:[
-{ans:'YES — clears quickly',next:'Good sign. Pain was load-related. Reduce load and range by 30% and try again.'},
-{ans:'NO — still there at rest',next:'Do not continue that body region today. Finish session on unaffected areas only. Note for check-in.'}
-]},
-{step:'4',q:'Is this the same pain as before, or a new/different pain?',opts:[
-{ans:'Same pain, same location',next:'Known pattern. Adjust load/range. Continue modified.'},
-{ans:'New pain or different location',next:'Stop. Do not continue. New pains in injured clients require assessment before continuing.'}
-]}
-];
-decisionTree.forEach(function(d){
-html+='<div class="ts-step" style="margin-bottom:8px;"><div class="ts-num">Step '+d.step+'</div><div class="ts-q">'+d.q+'</div><div style="display:flex;flex-direction:column;gap:6px;">';
-d.opts.forEach(function(o){
-html+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:8px;padding:8px 12px;"><span style="font-weight:600;color:#4d8ef0;">'+o.ans+':</span> <span style="font-size:11px;color:#c8cfe0;">'+o.next+'</span></div>';
-});
-html+='</div></div>';
-});
-html+='</div></div>';
-
-// Timeline Scripts
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🕒 Timeline Scripts — What to Say When Asked "How Long?"</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">Clients always ask how long recovery takes. Use these honest, science-backed answers. Never over-promise. Never say "I don&#39;t know" without a follow-up.</div>';
-var timelines=[
-{inj:'Hip Labrum / FAI',time:'6–12 weeks to manage symptoms. Permanent modification to some ranges. They can train hard for life within pain-free range.',script:'"If we are consistent with the protocol — daily snack, modified lower body, and no pushing through pinching pain — most clients feel significantly better within 6-8 weeks. Some positions may always be limited, but that does not stop you from training hard and feeling great."'},
-{inj:'Meniscus Tear',time:'6–12 weeks for conservative management to show results.',script:'"The research on meniscus tears shows that consistent strengthening gives results equal to surgery in most cases. 6-8 weeks of doing this correctly and most clients are back to full training. We just need to respect the range limits in the first few weeks."'},
-{inj:'ACL Recovery',time:'9–12 months total. Lower body training from 6-8 weeks post-surgery.',script:'"Full return to sport is 9-12 months minimum. But we start lower body training 6-8 weeks post-surgery. By month 4-5 you will feel strong. The last 4 months is about rebuilding confidence and passing hop tests — we will do that together."'},
-{inj:'Rotator Cuff (Partial)',time:'6–12 weeks for pain reduction. Full strength return: 3–6 months.',script:'"A partial tear responds really well to loading. 6-8 weeks of targeted work and most clients see major improvement. We never fully stop training — your lower body and core training are unaffected throughout."'},
-{inj:'Lower Back / Disc',time:'4–8 weeks for most cases with consistent protocol.',script:'"Lower back pain has one of the best recovery rates when managed correctly. 4-6 weeks of doing the breathing work, the daily snack, and modified loading — most people feel dramatically better. The key is never skipping the snack."'},
-{inj:'Tennis / Golfer Elbow',time:'4–12 weeks with daily eccentric protocol.',script:'"This is very predictable with the right exercise. Daily eccentric work and 4-6 weeks is the typical timeline. Some clients feel it faster, some slower. The one thing that guarantees slow recovery is complete rest — which is why we keep loading it correctly."'},
-{inj:'Plantar Fasciitis',time:'4–8 weeks with daily foot and calf work.',script:'"Plantar fasciitis responds really well to foot strengthening. The morning pain is usually the first thing that improves. 3-4 weeks of daily calf work and most clients notice it getting better. Full return to running usually 6-8 weeks."'},
-{inj:'Wrist (TFCC / Tendinitis)',time:'4–8 weeks on fist/parallette modifications.',script:'"We work around wrist pain very effectively. You will be on fists or parallettes for 4-6 weeks — many advanced practitioners prefer parallettes anyway. Most wrist issues settle down within that period when we remove the loaded wrist extension."'}
-];
-timelines.forEach(function(t){
-html+='<div style="margin-bottom:14px;border-bottom:1px solid #2a3347;padding-bottom:14px;">';
-html+='<div style="font-size:13px;font-weight:700;color:#c8cfe0;margin-bottom:4px;">'+t.inj+'</div>';
-html+='<div style="font-size:11px;color:#4d8ef0;margin-bottom:6px;">⏱ Typical Timeline: '+t.time+'</div>';
-html+='<div class="script-text" style="font-size:12px;line-height:1.6;border-left:3px solid #4d8ef0;padding-left:10px;font-style:italic;color:#c8cfe0;">'+t.script+'</div>';
-html+='</div>';
-});
-html+='</div></div>';
-
-// MovesMethod Level Guide
-html+='<div class="card open"><div class="card-hdr"><div class="card-title">🏀 MovesMethod Level System Guide</div><span class="card-arrow">&#9660;</span></div><div class="card-body">';
-html+='<div class="info-box" style="margin-bottom:12px;">How to explain the level system to clients and know which level to assign.</div>';
-var levels=[
-{level:'L1A',focus:'Upper body + Handstand',who:'New client or post-injury. Cannot do lower body safely yet. Strong enough upper body to start handstand work.',programs:'Phase 1 - L1A - 3 Day Program, SNACK L1 HANDSTAND'},
-{level:'L1B',focus:'Lower body return',who:'Client has controlled upper body work and is ready to reintroduce lower body volume. Pain is consistently at or below 3/10.',programs:'L1 Pull/Lower/HS/Lower/Pull, 3 DAY SPLIT Phase 1'},
-{level:'L2A',focus:'Intermediate Upper + Skills',who:'Pain-free on all L1B work for 2+ consecutive weeks. Ready for Phase 2 upper body loading and handstand skill development.',programs:'Phase 2 L2 5 Days/Week, 5 DAY SPLIT Phase 2'},
-{level:'L2B',focus:'Intermediate Lower',who:'Upper body at L2 standard. Lower body fully reintroduced at Phase 2 complexity.',programs:'4 DAY SPLIT Phase 2, SNACK L2 SPLITS'},
-{level:'L3A',focus:'Advanced Upper + Skills',who:'Consistent Phase 2 performance. Ready for Phase 3 skill complexity and upper body loading.',programs:'3-DAY SPLIT Phase 3, Handstand Phase 3 & 4'},
-{level:'L3B',focus:'Advanced Lower',who:'Phase 3 lower body loading. Advanced split squat variations, loaded single-leg work.',programs:'4-DAY SPLIT Phase 3, Splits Phase 3'},
-{level:'L4A–L5B',focus:'Elite Level',who:'In development. Reserved for highest-level MovesMethod athletes.',programs:'Programs being built in Everfit. Contact head coach.'}
-];
-levels.forEach(function(l){
-html+='<div style="padding:10px 0;border-bottom:1px solid #2a3347;display:grid;grid-template-columns:60px 1fr;gap:10px;">';
-html+='<div style="background:#1e3a6e;border:1px solid #4d8ef0;border-radius:6px;padding:6px 4px;text-align:center;font-size:12px;font-weight:700;color:#4d8ef0;align-self:start;">'+l.level+'</div>';
-html+='<div><div style="font-size:12px;font-weight:600;color:#c8cfe0;margin-bottom:2px;">'+l.focus+'</div>';
-html+='<div style="font-size:11px;color:#8a95a8;margin-bottom:3px;">'+l.who+'</div>';
-html+='<div style="font-size:10px;color:#5e6a85;">Programs: '+l.programs+'</div></div>';
-html+='</div>';
-});
-html+='</div></div>';
-
-return html;
+function toggleResCard(el){
+var body=el.nextElementSibling;
+var arrow=el.querySelector('.res-arrow');
+if(body.style.display==='block'){body.style.display='none';arrow.innerHTML='&#9660;';}
+else{body.style.display='block';arrow.innerHTML='&#9650;';}
 }
+function renderResources(){
+var tip=cur.mode==='beginner'?'<div class="tip-box"><strong>Beginner Tip</strong>Use this guide to find the right snacks and templates for each injury.</div>':'';
+var h='<div class="sec-title">&#x1F4DA; Coach Resource Guide</div>';
+h+='<div class="sec-sub">Movesmethod approach, snacks to prescribe, template application, key movements, and recovery timeline for every major injury.</div>';
+h+=tip;
+h+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;margin-bottom:16px;">';
+h+='<div style="font-weight:700;color:#e2e5f0;margin-bottom:10px;font-size:13px;">&#x1F4E6; All Everfit Snack Programs</div>';
+h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;">';
+var sl=[['SNACKS SERIES 1/2/3','Foundation series. Full body mobility, joint strength. L1 clients start here.'],
+['SNACK L1 - HANDSTAND','Beginner handstand. Alignment, wrist loading, shoulder stability. 6 weeks.'],
+['SNACKS L1 - SPLITS','Middle + front splits, lower body flexibility, joint strength. 6 weeks.'],
+['SNACK L2 - HANDSTAND','Intermediate handstand. Capacity, alignment, shoulder + wrist strength. 6 weeks.'],
+['SNACK L2 - SPLITS','Advanced splits. Lower body joints, 2x/week splits training. 6 weeks.'],
+['SNACKS - UPPER BODY SERIES','Shoulders, upper back, wrists, neck, spine snacks. 4 weeks.'],
+['SNACKS - LOWER BODY SERIES','Ankles, knees, hips, hamstrings, lower back snacks. 8 weeks.'],
+['SNACKS - FULL BODY SERIES','Every joint, full body warm-up. 24 weeks. General maintenance.']];
+sl.forEach(function(s){h+='<div style="background:#1a1f2e;border-radius:7px;padding:9px 10px;"><div style="font-weight:600;color:#4d8ef0;margin-bottom:3px;">'+s[0]+'</div><div style="color:#8a95a8;">'+s[1]+'</div></div>';});
+h+='</div></div>';
+var inj=[
+{ic:'&#x1F9B4;',nm:'Hip &amp; Groin',cn:'FAI &middot; Labrum Tear &middot; Hip Flexor &middot; Groin Strain &middot; Impingement',
+ph:'Movement IS the medicine. Stronger glutes and hip mobility decompress the joint. Most hip clients have already tried physio with no lasting results — this is where Movesmethod is different. We build the hip, we don&#39;t avoid it.',
+sn:[['SNACKS - LOWER BODY SERIES','Direct hip mobility and glute strengthening. Hip snack targets abductors, external rotators, hip flexor length. Assign from Week 1.','PRIMARY'],
+['SNACKS SERIES 1/2/3','Foundation series with hip circles, 90/90 work, hip mobility fundamentals. Good starting point.','SECONDARY'],
+['SNACKS - FULL BODY SERIES','Use for general maintenance alongside hip-specific work.','SUPPLEMENT']],
+tp:[['L1B','Main lower body template. MODIFY squats to pain-free depth, widen stance on hinges. KEEP glute bridges and hip activation. REMOVE deep lunges until pain settles.'],
+['L1A','Keep fully intact. Hip pain does not affect upper body training.'],
+['L2B','Progress when L1B is pain-free 3+ sessions. More single-leg hip loading.']],
+mv:'Glute bridges, side-lying hip abduction, 90/90 stretching, hip CARs, clamshells, banded walks, single-leg glute bridges.',
+tl:'Wks 1-2: Pain-free range + daily snack only. Wks 3-4: Add 5% depth and load per session as tolerated. Wks 5-6: Full template with modifications. 6-wk check: improving = progress. No change after 6 weeks = reassess.'},
+{ic:'&#x1F4AA;',nm:'Shoulder',cn:'Rotator Cuff Tear &middot; Impingement &middot; AC Joint &middot; Labrum &middot; Instability &middot; Post-surgical',
+ph:'The shoulder needs scapular stability and rotator cuff loading — not rest. Most shoulder injuries are a movement quality problem. Fix the scapular rhythm and the shoulder follows. Keep the rest of the body training completely.',
+sn:[['SNACKS - UPPER BODY SERIES','Contains Shoulder Snack, Rehab Snack Shoulders 1, Upper Back Snack, Neck Snack. The complete shoulder rehabilitation toolkit in one program.','PRIMARY'],
+['SNACK L1 - HANDSTAND','Shoulder alignment, passive/active hang progression, wrist prep. Doubles as shoulder rehab for overhead mobility.','SECONDARY'],
+['SNACK L2 - HANDSTAND','Advanced shoulder loading once foundation is established.','SECONDARY']],
+tp:[['L1A','MODIFY overhead pressing to landmine or incline. MODIFY pull-ups to neutral-grip lat pulldown. REMOVE behind-the-neck movements. KEEP all L1B lower body unchanged.'],
+['L2A','Progress when L1A modifications are pain-free 3+ sessions and overhead range is restored.']],
+mv:'Face pulls, band pull-aparts, prone Y/T/W, passive hang, active hang, wall slides, banded external rotation, landmine press.',
+tl:'Wks 1-2: Scapular snack daily, no overhead load, horizontal pressing only. Wks 3-4: Add incline pressing, neutral grip pulling. Wks 5-6: Test loaded overhead range. 8-12 weeks for significant improvement with daily snack.'},
+{ic:'&#x1F9B5;',nm:'Knee',cn:'Patellofemoral Syndrome &middot; Meniscus Tear &middot; ACL Post-surgical &middot; Patellar Tendinopathy',
+ph:'The knee is caught between the hip and ankle. Most knee pain is a hip stability or ankle mobility issue showing up at the knee. Fix the hip and ankle and the knee usually follows. Keep training — find the pain-free range.',
+sn:[['SNACKS - LOWER BODY SERIES','Targets ankles, knees, and hip stability. Includes knee joint prep, glute work for hip stability, ankle mobility. PRIMARY for all knee issues.','PRIMARY'],
+['SNACKS SERIES 1/2/3','Foundation joint prep. Good start or warm-up protocol.','SECONDARY']],
+tp:[['L1B','MODIFY squats to pain-free range (start quarter squat, use heel elevation). KEEP hip hinge (RDL, deadlift) — usually pain-free. REMOVE plyometrics and deep lunges.'],
+['L2B','Progress once L1B is pain-free 2+ weeks. More single-leg loading.']],
+mv:'VMO activation (terminal knee extensions, short arc quads), glute bridges, ankle dorsiflexion mobilization, heel elevation squats.',
+tl:'Wks 1-2: Pain-free range, daily lower snack. Wks 3-4: Add 10 degrees depth per week. Wks 5-6: Full depth if pain-free. ACL post-op: 6 months full gym, 9-12 months plyometrics.'},
+{ic:'&#x270B;',nm:'Wrist',cn:'TFCC Tear &middot; Wrist Tendinopathy &middot; Handstand Wrist Pain &middot; De Quervain&#39;s',
+ph:'Wrist injuries hit Movesmethod clients hard due to handstand work. The approach: maintain ALL other training completely and build wrist strength progressively through loading. Fist push-ups and parallettes are tools, not workarounds.',
+sn:[['SNACKS - UPPER BODY SERIES','Dedicated Wrist Snack with flexion/extension strengthening, tendon glides, progressive loading. Primary wrist rehab tool.','PRIMARY'],
+['SNACK L1 - HANDSTAND','Wrist preparation built into every session. Maintains handstand work while rehabbing the wrist.','PRIMARY'],
+['SNACK L2 - HANDSTAND','Advanced wrist loading via handstand once L1 is pain-free.','SECONDARY']],
+tp:[['L1A','MODIFY push-ups to fist/parallette/incline position. KEEP all pulling, lower body, and core unchanged. Wrist only affects weight-bearing wrist extension.'],
+['L2A','Progress once wrist is pain-free in push-up position 2+ weeks.']],
+mv:'Wrist circles, radial/ulnar deviation, finger tendon glides, wrist flex/extension with light resistance, fist push-ups, parallette progressions.',
+tl:'Wks 1-2: No loaded wrist flexion. Build through fist push-ups and neutral positions. Daily wrist snack. Wks 3-4: Progress to parallettes then flat hand. Wks 5-8: Return to full handstand load. TFCC: 8-16 weeks minimum.'},
+{ic:'&#x1F9B6;',nm:'Plantar Fascia &amp; Achilles',cn:'Plantar Fasciitis &middot; Achilles Tendinopathy &middot; Heel Pain &middot; Ankle Stiffness',
+ph:'This is a load management problem. The tissue needs the RIGHT amount of load to remodel. Too much = pain. Too little = chronic. The daily snack with heel raises and calf work is the primary intervention — not rest.',
+sn:[['SNACKS - LOWER BODY SERIES','Ankle mobility, calf strengthening progressions, plantar fascia loading. Foundation program for all plantar and Achilles issues.','PRIMARY'],
+['SNACKS SERIES 1/2/3','Full body series with ankle and foot mobility work. Good early stage or warm-up.','SECONDARY']],
+tp:[['L1B','REDUCE calf raise volume 50%. ADD heel lifts during all standing exercises. KEEP all seated, upper body, core. REMOVE jumping and plyometrics.'],
+['L2B','Progress once L1B is pain-free. More single-leg and impact patterns.']],
+mv:'Plantar fascia stretch (first thing morning, before first steps), towel scrunches, eccentric heel raises, ankle dorsiflexion stretching, foot doming.',
+tl:'Wks 1-2: Morning stretch protocol, daily snack, reduce calf volume. Wks 3-4: Add eccentric calf raises (most evidence-based treatment). Wks 5-8: Full training return. 6-12 weeks for full resolution.'},
+{ic:'&#x1F519;',nm:'Lower Back',cn:'Disc Bulge &middot; Sciatica &middot; SI Joint Dysfunction &middot; Muscle Strain &middot; Morning Stiffness',
+ph:'Almost always a movement and load distribution problem, not structural damage. Discs show changes on scans in people with zero pain. Build the anterior core and posterior chain that takes load off the spine. Movement is anti-inflammatory.',
+sn:[['SNACKS - LOWER BODY SERIES','Contains Spine Snack (Lower Back), core stability, and hip-spine integration. Direct therapeutic snack for lower back clients.','PRIMARY'],
+['SNACKS - UPPER BODY SERIES','Spine Snack (Lower Back) + upper back work improving thoracic mobility. Reduces compensatory lumbar load.','SECONDARY'],
+['SNACKS SERIES 1/2/3','Spine mobility and full body integration. Good daily protocol.','SECONDARY']],
+tp:[['L1B','MODIFY deadlifts — reduce load 40-50%, focus on bracing. MODIFY squats — elevate heels, reduce depth. REMOVE hyperextensions. KEEP all anti-rotation core work.'],
+['L1A','Usually fully intact. Lower back clients can do all upper body work normally.'],
+['L2B','Progress when L1B is pain-free 3+ sessions.']],
+mv:'Bird dogs, dead bugs, pallof press, hip hinge with brace cue, cat-cow, hip flexor stretching, glute bridges, McGill Big 3.',
+tl:'Wks 1-2: Bracing focus, reduce load 40%, daily snack. Wks 3-4: Increase load 10%/session as tolerated. Wks 5-6: Return to normal training weights. Sciatica: 4-8 weeks. Disc: 6-12 weeks with consistent loading.'},
+{ic:'&#x1F4A5;',nm:'Elbow',cn:'Tennis Elbow &middot; Golfer&#39;s Elbow &middot; Elbow Tendinopathy &middot; UCL Irritation',
+ph:'Elbow tendinopathy is the most common chronic injury with grip-intensive training. The MISTAKE is rest. Tendons remodel through load. Eccentric loading is the most evidence-based treatment available.',
+sn:[['SNACKS - UPPER BODY SERIES','Upper back and shoulder work reduces compensatory elbow load. Strong rotator cuff base takes stress off elbow tendons.','PRIMARY'],
+['SNACKS SERIES 1/2/3','Full body joint prep. Maintains joint health while elbow recovers.','SUPPLEMENT']],
+tp:[['L1A','MODIFY pulling to neutral (hammer) grip, reduce load 30-40%. REDUCE pulling volume 30%. REMOVE direct curls and tricep extensions while symptomatic. KEEP all lower body.'],
+['L2A','Progress when L1A is pain-free. Only add pulling volume when neutral grip is pain-free.']],
+mv:'Eccentric wrist extension (tennis elbow), eccentric wrist flexion (golfer elbow), reverse curls, neutral grip pulling, forearm stretching both directions.',
+tl:'Mild (2-3/10): 4-6 weeks with daily eccentric loading. Moderate (4-6/10): 8-12 weeks. Chronic 6+ months: 3-6 months. Daily eccentric wrist loading is non-negotiable.'},
+{ic:'&#x1F534;',nm:'Neck &amp; Cervical',cn:'Cervical Disc &middot; Nerve Root Irritation &middot; Muscle Stiffness &middot; Cervicogenic Headache',
+ph:'Almost always about position and load distribution during training. The neck hyperextends on overhead pressing, chin juts forward on pulls. Fix the position and the pain resolves. Keep training with better mechanics.',
+sn:[['SNACKS - UPPER BODY SERIES','Neck Snack 2 and Upper Back and Shoulders work. Directly addresses cervical position, deep neck flexor activation, upper trap release.','PRIMARY'],
+['SNACKS SERIES 1/2/3','Cervical mobility and full body joint integration.','SECONDARY']],
+tp:[['L1A','MODIFY overhead press — reduce load 30%, cue chin tuck throughout. MODIFY deadlift — eyes 45 degrees down, not chest up. REMOVE shrugs and behind-the-neck pressing. KEEP all lower body.'],
+['L2A','Progress when L1A mechanics corrected and pain-free 2+ weeks.']],
+mv:'Chin tucks (deep neck flexor activation), cervical rotation and lateral flexion, upper trap stretching, scapular retraction, thoracic extension over foam roller.',
+tl:'Wks 1-2: Position corrections + daily snack. Most clients see 50% improvement in 2 weeks just from fixing head position in training. Nerve root: refer if arm tingling doesn&#39;t resolve in 5 days.'}
+];
+h+='<div style="display:flex;flex-direction:column;gap:12px;">';
+inj.forEach(function(i){
+h+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;overflow:hidden;">';
+h+='<div style="background:#1a1f2e;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="toggleResCard(this)">';
+h+='<span style="font-size:18px;">'+i.ic+'</span><div style="flex:1;">';
+h+='<div style="font-weight:700;color:#e2e5f0;font-size:13px;">'+i.nm+'</div>';
+h+='<div style="font-size:10px;color:#5e6a85;margin-top:1px;">'+i.cn+'</div></div>';
+h+='<span class="res-arrow" style="color:#4d8ef0;font-size:12px;">&#9660;</span></div>';
+h+='<div style="display:none;padding:12px;">';
+h+='<div style="background:#1e2a1e;border-left:3px solid #22c55e;padding:9px 11px;border-radius:0 7px 7px 0;margin-bottom:11px;">';
+h+='<div style="font-size:10px;color:#22c55e;font-weight:700;margin-bottom:3px;">&#x1F4A1; MOVESMETHOD APPROACH</div>';
+h+='<div style="font-size:11.5px;color:#c8cfe0;line-height:1.6;">'+i.ph+'</div></div>';
+h+='<div style="font-weight:700;color:#4d8ef0;font-size:10px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">&#x1F4E6; Snacks to Prescribe</div>';
+i.sn.forEach(function(s){
+var bg=s[2]==='PRIMARY'?'#1e3a1e':s[2]==='SECONDARY'?'#1a2a3a':'#1a1f2e';
+var col=s[2]==='PRIMARY'?'#22c55e':s[2]==='SECONDARY'?'#4d8ef0':'#8a95a8';
+h+='<div style="background:'+bg+';border-radius:7px;padding:8px 10px;margin-bottom:5px;display:flex;gap:8px;">';
+h+='<div style="flex:1;"><div style="font-weight:600;color:'+col+';font-size:11px;">'+s[0]+'</div>';
+h+='<div style="font-size:10.5px;color:#8a95a8;margin-top:2px;">'+s[1]+'</div></div>';
+h+='<div style="background:'+col+';color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;height:fit-content;">'+s[2]+'</div></div>';
+});
+h+='<div style="font-weight:700;color:#4d8ef0;font-size:10px;margin:9px 0 6px;text-transform:uppercase;letter-spacing:0.5px;">&#x1F4CB; Template Application</div>';
+i.tp.forEach(function(t){
+h+='<div style="background:#1a1f2e;border-radius:7px;padding:8px 10px;margin-bottom:5px;">';
+h+='<div style="font-weight:700;color:#e2e5f0;font-size:11px;margin-bottom:2px;">'+t[0]+'</div>';
+h+='<div style="font-size:10.5px;color:#8a95a8;line-height:1.6;">'+t[1]+'</div></div>';
+});
+h+='<div style="font-weight:700;color:#4d8ef0;font-size:10px;margin:9px 0 6px;text-transform:uppercase;letter-spacing:0.5px;">&#x1F3CB; Daily Snack Movements</div>';
+h+='<div style="background:#1a1f2e;border-radius:7px;padding:8px 10px;font-size:10.5px;color:#c8cfe0;line-height:1.7;margin-bottom:9px;">'+i.mv+'</div>';
+h+='<div style="font-weight:700;color:#4d8ef0;font-size:10px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">&#x1F4C5; Recovery Timeline</div>';
+h+='<div style="background:#1a2a3a;border-left:3px solid #4d8ef0;padding:8px 10px;border-radius:0 7px 7px 0;font-size:10.5px;color:#c8cfe0;line-height:1.7;">'+i.tl+'</div>';
+h+='</div></div>';
+});
+h+='</div>';
+return h;
+}
+
 window.onload=function(){
 renderPills();
 renderContent();
