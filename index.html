@@ -1036,76 +1036,108 @@ var lvMap={'L2A':'L2A','L2B':'L2B','L3A':'L3A','L3B':'L3B','L4A':'L4A','L4B':'L4
 return tpls[cur.level]||tpls[lvMap[cur.level]]||[];
 }
 function renderEverfit(){
-var d=document.getElementById('content');
-if(!d)return;
-var lv=(window.cur&&window.cur.lvl)||'';
-var inj=(window.cur&&window.cur.inj)||'none';
-
-var templates=[
-{lvl:'L1A',name:'L1A — Upper Body Foundation',url:'https://app.everfit.io/workout',desc:'Strength & mobility upper body. Rings, push, pull, shoulder stability.',sessions:[
-  {n:'Session A1',focus:'Push Foundation',exs:['Push-up progression 3x8-12','Ring row 3x8','Shoulder CARs 2x5 each','Dead hang 3x20s']},
-  {n:'Session A2',focus:'Pull & Shoulder Stability',exs:['Ring row 3x10','Band pull-apart 3x15','Scapula push-up 3x10','Thoracic rotation 2x8 each']},
-  {n:'Session A3',focus:'Upper Body Integration',exs:['Push-up variation 3x10','Ring row hold 3x10s','KB press 3x8','Shoulder mobility flow 5min']}
-]},
-{lvl:'L1B',name:'L1B — Lower Body Foundation',url:'https://app.everfit.io/workout',desc:'Hip mobility, glute strength, single-leg stability. Bodyweight based.',sessions:[
-  {n:'Session B1',focus:'Hip Hinge & Glute',exs:['Glute bridge 3x15','Single-leg RDL 3x8 each','Hip 90/90 stretch 2x60s','Cossack squat 3x8 each']},
-  {n:'Session B2',focus:'Squat & Ankle',exs:['Goblet squat 3x12','Ankle CARs 2x8 each','Side-lying hip abduction 3x15','Step-up 3x10 each']},
-  {n:'Session B3',focus:'Hip Mobility & Single Leg',exs:['Split squat 3x10 each','Hip flexor stretch 2x60s','Glute bridge march 3x12','Lateral band walk 3x15 each']}
-]},
-{lvl:'L2A',name:'L2A — Upper Body Strength Build',url:'https://app.everfit.io/workout',desc:'Ring work, pull-up progressions, overhead loading, skill entry.',sessions:[
-  {n:'Session A1',focus:'Horizontal Push & Pull',exs:['Ring push-up 3x10','Ring row 3x10 (feet elevated)','DB floor press 3x10','Face pull 3x15']},
-  {n:'Session A2',focus:'Vertical Pull Entry',exs:['Jumping pull-up with 3s lower 3x6','Band-assisted pull-up 3x6','Active hang 3x30s','Hollow body hold 3x20s']},
-  {n:'Session A3',focus:'Overhead & Core',exs:['Z-press 3x8','Ring support hold 3x20s','L-sit progression 3x10s','Pike push-up 3x8']}
-]},
-{lvl:'L2B',name:'L2B — Lower Body Strength Build',url:'https://app.everfit.io/workout',desc:'Loaded squats, single-leg work, hip power, progressive loading.',sessions:[
-  {n:'Session B1',focus:'Squat Strength',exs:['KB goblet squat 3x12','Bulgarian split squat 3x8 each','Hip CARs 2x5 each','Nordic curl eccentric 3x5']},
-  {n:'Session B2',focus:'Hip Power & Hinge',exs:['KB swing 4x12','Single-leg RDL 3x10 each','Lateral lunge 3x8 each','Hip flexor loaded stretch 2x45s']},
-  {n:'Session B3',focus:'Single Leg & Stability',exs:['Pistol squat progression 3x5 each','Step-up with KB 3x10 each','Lateral band walk 3x20 each','Ankle stability drill 2x10 each']}
-]},
-{lvl:'L3A',name:'L3A — Upper Body Skill Development',url:'https://app.everfit.io/workout',desc:'Muscle-up foundations, handstand, advanced ring work, loaded pressing.',sessions:[
-  {n:'Session A1',focus:'Pull-Up Strength',exs:['Pull-up 4x5-8','Weighted ring row 3x8','False grip ring row 3x8','Hollow body rock 3x20']},
-  {n:'Session A2',focus:'Muscle-Up Transition',exs:['Jumping muscle-up 3x5','Ring dip 3x8','Banded muscle-up 3x3','Support hold to lower 3x5']},
-  {n:'Session A3',focus:'Handstand & Overhead',exs:['Kick-up to wall handstand 5x30s','Pike shoulder press 3x8','Wall handstand hold 3x45s','Shoulder opener flow 5min']}
-]},
-{lvl:'L3B',name:'L3B — Lower Body Advanced',url:'https://app.everfit.io/workout',desc:'Pistol squats, split progressions, loaded single-leg, hip power.',sessions:[
-  {n:'Session B1',focus:'Pistol Squat',exs:['Pistol squat 4x5 each','Shrimp squat 3x5 each','Hip 90/90 active 3x5 each','Cossack squat loaded 3x8 each']},
-  {n:'Session B2',focus:'Split & Hip Flexibility',exs:['Front split active PNF 3x60s each','Middle split active 3x45s','Hip flexor deep lunge 3x60s each','Pancake fold active 3x45s']},
-  {n:'Session B3',focus:'Lower Body Power',exs:['Box jump 4x5','Broad jump 4x5','Single-leg landing 3x5 each','Loaded split squat 4x6 each']}
-]}
-];
-
-var match=templates.filter(function(t){return t.lvl===lv;});
-var show=match.length?match:templates;
-
-var injBanner='';
-if(inj&&inj!=='none'){
-  injBanner='<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px 16px;margin-bottom:16px;border-radius:6px;"><strong>&#x26A0;&#xFE0F; Injury Active: '+inj+'</strong><br>All sessions below can be run. Swap any aggravating exercises for the injury-modified version from the Template Adjustments tab. Daily snack is still the #1 priority.</div>';
-}
-
-var html='<h2 style="margin:0 0 4px">&#x1F4F1; Everfit Templates</h2><p style="margin:0 0 16px;color:#555;font-size:14px">Click any session to open it in Everfit. Sessions are A=Upper Body, B=Lower Body.</p>';
-html+=injBanner;
-
-show.forEach(function(t){
-  html+='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:20px;overflow:hidden;">';
-  html+='<div style="background:#1a1a2e;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">';
-  html+='<div><strong style="font-size:16px">'+t.lvl+' — '+t.name.split('—')[1].trim()+'</strong><br><span style="font-size:12px;opacity:0.8">'+t.desc+'</span></div>';
-  html+='<a href="'+t.url+'" target="_blank" style="background:#e63946;color:#fff;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:13px;white-space:nowrap;">Open in Everfit &#x2197;</a>';
-  html+='</div>';
-  html+='<div style="padding:12px 16px;">';
-  t.sessions.forEach(function(s){
-    html+='<div style="margin-bottom:12px;padding:10px 12px;background:#f8f9fa;border-radius:8px;border-left:4px solid #2980b9;">';
-    html+='<strong>'+s.n+'</strong> — <em>'+s.focus+'</em>';
-    html+='<ul style="margin:6px 0 0;padding-left:20px;">';
-    s.exs.forEach(function(e){html+='<li style="font-size:13px;margin-bottom:3px;">'+e+'</li>';});
-    html+='</ul></div>';
+  var d=document.getElementById('mainContent');
+  if(!d)return;
+  var levels=[
+    {
+      id:'L1A',
+      label:'Level 1A — Foundation Upper & Mobility',
+      color:'#1a73e8',
+      desc:'Bodyweight foundations: push, pull, core, handstand prep and hip mobility.',
+      workouts:[
+        {name:'Upper Strength L1 A',url:'https://app.everfit.io/home/workout/643fde84f2b1ca001d6eda13/detail'},
+        {name:'Handstand / Upper Mobility L1 A',url:'https://app.everfit.io/home/workout/64bf3ea2289244001e74fd1c/detail'}
+      ]
+    },
+    {
+      id:'L1B',
+      label:'Level 1B — Foundation Lower',
+      color:'#1a73e8',
+      desc:'Squat, hinge and single-leg foundations. Hip and ankle mobility.',
+      workouts:[
+        {name:'Lower Body L1 A',url:'https://app.everfit.io/home/workout/6458ca0c234a47001db8a028/detail'},
+        {name:'Lower Body L1 B',url:'https://app.everfit.io/home/workout/6458ca20d7485d001f707415/detail'}
+      ]
+    },
+    {
+      id:'L2A',
+      label:'Level 2A — Build Upper Strength',
+      color:'#0f9d58',
+      desc:'Ring rows, dips, pike push-ups, pulling volume. Shoulder stability work.',
+      workouts:[
+        {name:'Upper Strength L2 A',url:'https://app.everfit.io/home/workout/64435deb45bd5b001d9f74ff/detail'},
+        {name:'Upper Strength L2 B',url:'https://app.everfit.io/home/workout/64435e1d42304a001e48de57/detail'}
+      ]
+    },
+    {
+      id:'L2B',
+      label:'Level 2B — Build Lower Strength',
+      color:'#0f9d58',
+      desc:'Bulgarian splits, RDLs, step-ups. Hip and glute strength development.',
+      workouts:[
+        {name:'Lower Body L2 A',url:'https://app.everfit.io/home/workout/644772d21b7e02001ee958f1/detail'},
+        {name:'Lower Body L2 B',url:'https://app.everfit.io/home/workout/6440de778f7e88001d6baf05/detail'}
+      ]
+    },
+    {
+      id:'L3A',
+      label:'Level 3A — Strength Upper',
+      color:'#e65100',
+      desc:'Muscle-up progressions, handstand push-up work, advanced ring work.',
+      workouts:[
+        {name:'Upper Strength L3 A',url:'https://app.everfit.io/home/workout/6441d27bef7d00001e0c3291/detail'}
+      ]
+    },
+    {
+      id:'L3B',
+      label:'Level 3B — Strength Lower',
+      color:'#e65100',
+      desc:'Pistol squats, heavy RDLs, single-leg strength. Power and control.',
+      workouts:[
+        {name:'Lower Body L3 A',url:'https://app.everfit.io/home/workout/64411a3b55f601001da98dcf/detail'},
+        {name:'Lower Body L3 B',url:'https://app.everfit.io/home/workout/6458ca4633a768002067460f/detail'}
+      ]
+    },
+    {
+      id:'L4',
+      label:'Level 4 — Advanced (Coming Soon)',
+      color:'#9e9e9e',
+      desc:'Advanced gymnastics strength and skill work. Program in development.',
+      workouts:[]
+    },
+    {
+      id:'L5',
+      label:'Level 5 — Elite (Coming Soon)',
+      color:'#9e9e9e',
+      desc:'Elite level programming. Program in development.',
+      workouts:[]
+    }
+  ];
+  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Everfit Templates</h2>';
+  html+='<p style="margin:0 0 16px;color:#555;font-size:13px">Tap any workout to open it directly in Everfit. Assign to a client in one click from there.</p></div>';
+  html+='<div style="display:flex;flex-direction:column;gap:12px">';
+  levels.forEach(function(lv){
+    var coming=lv.workouts.length===0;
+    html+='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;border-left:4px solid '+lv.color+'">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+    html+='<span style="background:'+lv.color+';color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px">'+lv.id+'</span>';
+    html+='<span style="font-weight:700;font-size:14px;color:#1a1a2e">'+lv.label+'</span></div>';
+    html+='<p style="margin:0 0 10px;font-size:12px;color:#666">'+lv.desc+'</p>';
+    if(coming){
+      html+='<div style="background:#f5f5f5;border-radius:6px;padding:8px 12px;font-size:12px;color:#999;text-align:center">Coming soon — program in development</div>';
+    } else {
+      html+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
+      lv.workouts.forEach(function(w){
+        html+='<a href="'+w.url+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#f0f6ff;border:1px solid '+lv.color+';color:'+lv.color+';font-size:12px;font-weight:600;padding:7px 12px;border-radius:6px;text-decoration:none;white-space:nowrap">';
+        html+='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+        html+=w.name+'</a>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
   });
-  html+='</div></div>';
-});
-
-html+='<div style="background:#e8f4fd;border-left:4px solid #2980b9;padding:12px 16px;border-radius:6px;font-size:13px;">';
-html+='<strong>&#x1F4CC; How to use:</strong> If a client is on L1, open L1A and L1B. Run A sessions on upper body days, B sessions on lower body days. Add the daily snack BEFORE each session (5-10 min). Retest diagnostics every 8 weeks to assess level progression.</div>';
-
-d.innerHTML=html;
+  html+='</div>';
+  d.innerHTML=html;
 }
 
 function renderTemplates(){
