@@ -906,7 +906,7 @@ function goTab(tab,btn){
 document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
 btn.classList.add('on');
 cur.tab=tab;
-renderContent(tab);
+renderContent();
 }
 function renderPills(){
 var pills=PILLS[cur.inj]||[];
@@ -1013,10 +1013,10 @@ function renderContent(){
 var el=document.getElementById('content');
 var t=cur.tab;
 if(t==='templates') el.innerHTML=renderTemplates();
-else if(t==='everfit') el.innerHTML=renderEverfit();
+else if(t==='everfit') renderEverfit();
 else if(t==='regressions') el.innerHTML=renderRegressions();
-else if(t==='progression') el.innerHTML=renderProgression();
-else if(t==='scripts') el.innerHTML=renderScripts();
+else if(t==='progression') renderProgression();
+else if(t==='scripts') renderScripts();
 else if(t==='refer') el.innerHTML=renderRefer();
 else if(t==='troubleshoot') el.innerHTML=renderTroubleshoot();
 else if(t==='resources') el.innerHTML=renderResources();
