@@ -906,7 +906,7 @@ function goTab(tab,btn){
 document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
 btn.classList.add('on');
 cur.tab=tab;
-renderContent();
+renderContent(tab);
 }
 function renderPills(){
 var pills=PILLS[cur.inj]||[];
