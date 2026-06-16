@@ -1253,6 +1253,12 @@ html+='</div></div>';
 }
 return html;
 }
+function selectProgLevel(el){
+window.cur=window.cur||{};
+window.cur.lvl=el.getAttribute('data-lvl')+'A';
+renderContent('progression');
+}
+
 function renderProgression(){
 var d=document.getElementById('content');
 if(!d)return;
@@ -1344,7 +1350,7 @@ var html='<h2 style="margin:0 0 4px">&#x1F4C8; Level Progressions</h2><p style="
 html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
 levels.forEach(function(lv){
   var active=lv.lvl===cur.substring(0,2);
-  html+='<div style="padding:6px 14px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;background:'+(active?lv.color:'#f0f0f0')+';color:'+(active?'#fff':'#555')+';border:2px solid '+(active?lv.color:'#e0e0e0')+'" onclick="window.cur=window.cur||{};window.cur.lvl=''+lv.lvl+'A';renderContent('progression')">'+lv.lvl+'</div>';
+    html+='<div style="padding:6px 14px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;background:'+(active?lv.color:'#f0f0f0')+';color:'+(active?'#fff':'#555')+';border:2px solid '+(active?lv.color:'#e0e0e0')+'" data-lvl="'+lv.lvl+'" onclick="selectProgLevel(this)">'+lv.lvl+'</div>';
 });
 html+='</div>';
 
