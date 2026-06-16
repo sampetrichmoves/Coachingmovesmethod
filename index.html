@@ -217,6 +217,9 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="tab" onclick="goTab('resources',this)">&#128218; Coach Resources</div>
 <div class="tab" onclick="goTab('checkin',this)">&#9989; Check-In Protocol</div>
 <div class="tab" onclick="goTab('movements',this)">&#127947; Movement Library</div><div class="tab" onclick="goTab('skills',this)">&#129337; Skill Progressions</div>
+      <div class="tab" onclick="goTab('snack')">&#127861; Snack Builder</div>
+      <div class="tab" onclick="goTab('checkinai')">&#128200; Check-In Decoder</div>
+      <div class="tab" onclick="goTab('goaltracker')">&#127919; Goal Tracker</div>
 
 </div>
 <div class="ask-bar">
@@ -1026,6 +1029,10 @@ else if(t==='skills'){renderSkills();}
 document.querySelectorAll('.card-hdr').forEach(h=>{
 h.onclick=function(){this.parentElement.classList.toggle('open');};
 });
+
+  else if(tab==='snack'){renderSnack();}
+  else if(tab==='checkinai'){renderCheckinAI();}
+  else if(tab==='goaltracker'){renderGoalTracker();}
 }
 function getTplByLevel(){
 var tpls=TEMPLATES[cur.inj];
@@ -2066,6 +2073,587 @@ html+="</div>";
 });
 return html;
 }
+function renderSnack(){
+  var d=document.getElementById('content');
+  if(!d)return;
+  var inj=window.cur&&window.cur.inj?window.cur.inj:'hip';
+  var lvl=window.cur&&window.cur.lvl?window.cur.lvl:'L1A';
+
+  var SNACKS={
+    hip:{
+      name:'Hip & Groin',
+      L1:{sets:'2-3',reps:'8-12',rest:'60s',
+        moves:[
+          {n:'90/90 Hip Switch',c:'Slow and controlled. Stop before any pinch. 5 each direction.'},
+          {n:'Prone Hip Extension hold',c:'Squeeze glute hard, hold 3s at top. No lower back arch.'},
+          {n:'Standing Hip CAR (Controlled Articular Rotation)',c:'Full pain-free range only. 5 reps each direction.'},
+          {n:'Side-lying Clamshell',c:'Keep pelvis still. Feel it in the glute, not the hip flexor.'},
+          {n:'Dead Bug',c:'Lower back stays flat on floor the whole time. Start with arms only.'}
+        ],
+        note:'Do this before every session and as a standalone on rest days. 10-15 min total.'},
+      L2:{sets:'3',reps:'10-15',rest:'45s',
+        moves:[
+          {n:'Deep Squat Hold with rotation',c:'Heels down, chest up. Hold 30-60s. Add rotation to open side.'},
+          {n:'Single Leg RDL (bodyweight)',c:'Hinge from hip. Slight bend in standing knee. Feel glute load.'},
+          {n:'Hip 90/90 Stretch with end-range push',c:'Use PAILs/RAILs: 20s passive, 10s push into floor, 10s pull up.'},
+          {n:'Banded Hip Flexion (standing)',c:'Drive knee up to 90 degrees. Hold 2s. Control the descent.'},
+          {n:'Lateral Band Walk',c:'Mini band above knees. Stay low. Drive knees OUT the whole time.'}
+        ],
+        note:'If pinching in front of hip, skip deep squat hold. Sub bodyweight good morning instead.'},
+      L3:{sets:'3-4',reps:'8-10',rest:'60s',
+        moves:[
+          {n:'Pistol Squat progression (box)',c:'Sit to box with control. Drive through full foot. No knee cave.'},
+          {n:'Copenhagen Plank (short lever)',c:'Support on inside of bottom knee. Build to 30s each side.'},
+          {n:'Single Leg Hip Thrust',c:'Drive through heel. Full hip extension. 2s hold at top.'},
+          {n:'Hip 90/90 with active lift',c:'Lift front shin off floor 1 inch. Hold 5s. Builds end-range strength.'},
+          {n:'Adductor Rock Back',c:'Rock back slowly feeling adductor stretch. Load at end range.'}
+        ],
+        note:'At L3 the snack becomes active mobility work. Keep it moving, never passive for long.'}
+    },
+    knee:{
+      name:'Knee',
+      L1:{sets:'2-3',reps:'10',rest:'60s',
+        moves:[
+          {n:'Terminal Knee Extension (band)',c:'Band behind knee. Straighten leg fully. Squeeze quad. 15 reps.'},
+          {n:'Seated Calf Raise',c:'Slow 3s down. Reduces compression through knee. 15 reps.'},
+          {n:'Straight Leg Raise',c:'Quad on, foot flexed, raise to 45 degrees. Slow and controlled.'},
+          {n:'Wall Sit (pain-free range)',c:'Go only as deep as pain-free. Even 20 degrees is fine to start.'},
+          {n:'Prone Knee Flexion',c:'Lying face down, bend knee slowly. Stop before pain. 10 reps.'}
+        ],
+        note:'No deep flexion until week 3+. Work in pain-free range only. Loading beats rest.'},
+      L2:{sets:'3',reps:'10-12',rest:'60s',
+        moves:[
+          {n:'Step Down (eccentric)',c:'Stand on step. Lower slowly 4s to floor. Drive back up. Control is everything.'},
+          {n:'Reverse Nordic Curl (assisted)',c:'Hands on floor for support. Lean back slowly. Feel quad load.'},
+          {n:'Split Squat (rear foot elevated)',c:'Front shin vertical. Drive through front heel. 3s down, 1s up.'},
+          {n:'Tibial Internal Rotation drill',c:'Sit, band on shin. Rotate shin inward. 15 reps. Stabilizes knee track.'},
+          {n:'Lateral Step-up',c:'Step sideways onto box. Control the lowering. No knee collapse.'}
+        ],
+        note:'If pain flares after session, reduce range of motion, not load. Knee needs stimulus.'},
+      L3:{sets:'3-4',reps:'8-10',rest:'90s',
+        moves:[
+          {n:'Bulgarian Split Squat (loaded)',c:'Add weight gradually. 4s eccentric. Feel load in quad and glute.'},
+          {n:'Sissy Squat progression',c:'Hold for support. Lean back slowly. Advanced quad tendon loading.'},
+          {n:'Box Jump (landing focus)',c:'Land soft, absorb through ankle-knee-hip. No knee cave on landing.'},
+          {n:'Single Leg Press (slow eccentric)',c:'4s lower. Drive through full foot. Track knee over 2nd toe.'},
+          {n:'Nordic Curl (band assisted)',c:'Band supports the lowering. Get full range over time. Best prehab.'}
+        ],
+        note:'Patellar tendon issues: isometrics first (45 degree wall sit 5x45s), THEN this progression.'}
+    },
+    shoulder:{
+      name:'Shoulder',
+      L1:{sets:'2-3',reps:'10-15',rest:'45s',
+        moves:[
+          {n:'Shoulder CAR (full)',c:'Slow full circle. Pain-free range only. 5 each direction.'},
+          {n:'Band Pull-Apart',c:'Light band. Squeeze shoulder blades together. 20 reps.'},
+          {n:'Wall Slides',c:'Forearms on wall. Slide up as high as pain-free. 10 reps.'},
+          {n:'Prone Y-T-W',c:'Small range, big squeeze. 10 reps each. Activates lower traps.'},
+          {n:'Doorway Pec Stretch',c:'Arm at 90 degrees. Gentle hold 30s. Releases impingement pattern.'}
+        ],
+        note:'Never push into impingement pain. Work around it with range and positioning changes.'},
+      L2:{sets:'3',reps:'10-12',rest:'60s',
+        moves:[
+          {n:'Ring Row (supine grip)',c:'Supine grip reduces impingement risk. Pull elbows back, not out.'},
+          {n:'Pike Push-up',c:'Elbows track back not flared. Focus on pressing tall through shoulder.'},
+          {n:'Band External Rotation (at side)',c:'Elbow pinned. Rotate out slowly. 15 reps. Cuff health.'},
+          {n:'Straight Arm Pulldown (band)',c:'Arms straight, pull down. Loads serratus and lat without impingement.'},
+          {n:'Scapular Push-up',c:'Arms straight. Only move shoulder blades apart and together. 15 reps.'}
+        ],
+        note:'Impingement: avoid overhead until scapular control is solid. Rotator cuff first.'},
+      L3:{sets:'3-4',reps:'8-10',rest:'60s',
+        moves:[
+          {n:'Arch hang to active hang',c:'Move from passive hang into hollow body. Activates serratus and lats.'},
+          {n:'Ring Push-up (feet elevated)',c:'Control the rings. Wrists neutral. Full range with scap protraction.'},
+          {n:'Cable Face Pull',c:'Pull to forehead, elbows high. Posterior cuff and scap stability.'},
+          {n:'Single Arm Overhead Carry',c:'Pack shoulder down. Brace core. Start light. Builds stability.'},
+          {n:'Banded Shoulder Flexion (end range)',c:'PAILs/RAILs at top of overhead range. 20s passive, 10s contract.'}
+        ],
+        note:'At L3: overhead mobility is priority. If range is limited, skill work will plateau. Snack fixes this.'}
+    },
+    back:{
+      name:'Lower Back',
+      L1:{sets:'2-3',reps:'8-10',rest:'60s',
+        moves:[
+          {n:'Cat-Cow',c:'Slow breath-led. Exhale into flexion, inhale into extension. 10 reps.'},
+          {n:'Childs Pose with lateral reach',c:'Hold 30s each side. Opens thoracic and QL. Breathe into it.'},
+          {n:'Glute Bridge (double leg)',c:'Drive through heels. Squeeze at top. Do NOT hyperextend lower back.'},
+          {n:'McGill Curl-up',c:'Hands under lower back. Curl ONLY head and shoulders. 8 reps.'},
+          {n:'Bird Dog',c:'Opposite arm and leg. Back stays flat. Hold 3s. No hip rotation.'}
+        ],
+        note:'First goal is to find pain-free movement. The snack restores movement confidence before loading.'},
+      L2:{sets:'3',reps:'10-12',rest:'60s',
+        moves:[
+          {n:'Deadbug (loaded)',c:'Add 1-2kg weight in hands. Maintain lower back contact. Breathe out on extend.'},
+          {n:'Pallof Press',c:'Band or cable at chest. Press out and hold 2s. Anti-rotation core work.'},
+          {n:'Hip Hinge with dowel',c:'Dowel on spine (3 points). Learn the hinge pattern before loading.'},
+          {n:'Side Plank (modified)',c:'From knees first. Build to feet. 30s each side. Quadratus lumborum.'},
+          {n:'World Greatest Stretch',c:'Lunge, rotate, reach. 5 reps each side. Full body mobility reset.'}
+        ],
+        note:'Back pain responds best to daily low-intensity movement. This snack is the medicine.'},
+      L3:{sets:'3-4',reps:'8-10',rest:'90s',
+        moves:[
+          {n:'Romanian Deadlift (loaded)',c:'Hinge back, weight close to body. Feel hamstrings load. 4s down.'},
+          {n:'Jefferson Curl (light)',c:'Slow controlled spinal flexion under load. Builds disc resilience.'},
+          {n:'Single Leg Deadlift',c:'Hip hinge on one leg. Develops posterior chain and balance together.'},
+          {n:'Loaded Carry (farmers)',c:'Walk tall. Core braced. Shoulder packed. 20m x 3. Builds spinal stiffness.'},
+          {n:'Copenhagen Plank',c:'Hip adduction and lateral core. Builds full trunk stability for L3 work.'}
+        ],
+        note:'L3 back: transition from recovery to performance. The snack primes the posterior chain.'}
+    },
+    wrist:{
+      name:'Wrist & Forearm',
+      L1:{sets:'2',reps:'10-15',rest:'30s',
+        moves:[
+          {n:'Wrist Circles (full range)',c:'Both directions. Slow. 10 each way. Rehydrates the joint.'},
+          {n:'Prayer Stretch',c:'Palms together, push down. Hold 30s. Flexor stretch.'},
+          {n:'Reverse Prayer Stretch',c:'Back of hands together, push down. Hold 30s. Extensor stretch.'},
+          {n:'Finger Spread and Squeeze',c:'Spread wide, make tight fist. 15 reps. Intrinsic hand strength.'},
+          {n:'Weighted Wrist Rotation (light)',c:'1kg or less. Rotate slowly through full range. 10 each way.'}
+        ],
+        note:'Do this before every session that involves pressing or gripping. 5 min is enough.'},
+      L2:{sets:'2-3',reps:'10',rest:'45s',
+        moves:[
+          {n:'Knuckle Push-up (elevated)',c:'Reduces wrist extension load. Build to flat surface over time.'},
+          {n:'Rice Bucket Training',c:'Dig, squeeze, rotate in rice. Best forearm and wrist conditioner.'},
+          {n:'Wrist Push-up (floor)',c:'Push through full range of wrist flexion. Load the extensors.'},
+          {n:'Towel Grip Hang',c:'Hang from towel over bar. 3x max. Builds grip and wrist tendon strength.'},
+          {n:'Loaded Wrist Flexion/Extension',c:'Dumbbell 1-3kg. Full range. Slow. Tendon loading protocol.'}
+        ],
+        note:'Wrist issues almost always respond to load, not rest. Tendons need stimulus to adapt.'},
+      L3:{sets:'3',reps:'8-10',rest:'60s',
+        moves:[
+          {n:'Fingertip Push-up',c:'Start elevated. Builds intrinsic finger and wrist strength progressively.'},
+          {n:'Pseudo Planche Lean',c:'Hands turned out, lean forward. Loads wrist extensors heavily.'},
+          {n:'Wrist Roller',c:'Load progressively. Both directions. Eccentric focus on the way down.'},
+          {n:'Hanging Wrist CARs',c:'Hang from bar, slowly rotate wrists through full range. 5 each way.'},
+          {n:'One Arm Hang (assisted)',c:'One arm, slight scapular depression. Builds full wrist and grip integrity.'}
+        ],
+        note:'Gymnastic wrist issues need both mobility AND strength work. Never just stretch.'}
+    },
+    neck:{
+      name:'Neck & Upper Trap',
+      L1:{sets:'2',reps:'8-10',rest:'45s',
+        moves:[
+          {n:'Chin Tucks',c:'Pull chin directly back. Feel stretch at base of skull. 10 reps, hold 3s.'},
+          {n:'Neck CARs',c:'Slow full rotation in pain-free range. 5 each direction. No forcing.'},
+          {n:'Levator Scapulae Stretch',c:'Head down and to side at 45 degrees. Hold 30s each side. Breathe.'},
+          {n:'Thoracic Extension over foam roller',c:'Hands behind head. Extend over roller. 5-8 segments. Opens thoracic.'},
+          {n:'Shoulder Shrug and Drop',c:'Breathe in, shrug high. Breathe out, drop shoulders completely. 10x.'}
+        ],
+        note:'Most neck tension originates from the thoracic spine. Mobilize the thorax first.'},
+      L2:{sets:'2-3',reps:'10-12',rest:'45s',
+        moves:[
+          {n:'Band Neck Retraction (with resistance)',c:'Light band at forehead. Retract chin against resistance. 15 reps.'},
+          {n:'Prone Cobra',c:'Hands by hips. Lift chest and head. Squeeze lower traps. Hold 3s. 10 reps.'},
+          {n:'Wall Angel',c:'Forearms on wall. Slide up as far as range allows. Thoracic mobility + strength.'},
+          {n:'Half-kneeling Thoracic Rotation',c:'Rotate toward front leg. Keep lower body still. 10 each side.'},
+          {n:'DNS 4-month position hold',c:'On back, knees at 90, arms up. Breathe into position. 3x60s.'}
+        ],
+        note:'Screen usage causes anterior head posture. Chin tucks daily + thoracic work is the fix.'},
+      L3:{sets:'3',reps:'8-10',rest:'60s',
+        moves:[
+          {n:'Wrestler Bridge (assisted)',c:'Start with hands on floor for support. Builds deep neck flexors.'},
+          {n:'Headstand Holds (wall assisted)',c:'Build neck strength for inversions. Start with kickup + 5s holds.'},
+          {n:'Neck Plank (side lying)',c:'Lift head off floor, hold 5s. Both sides. Deep neck lateral stabilizers.'},
+          {n:'Loaded Carry (head position)',c:'Farmers carry with conscious head position. Walk tall. Builds postural endurance.'},
+          {n:'Thoracic Opener with rotation',c:'On roller, arms wide. Rotate thorax. Full upper back mobility work.'}
+        ],
+        note:'L3 coaches doing inversions: neck strength IS a prerequisite. Build it before loading.'}
+    }
+  };
+
+  var html='<div style="padding:12px 0 4px">';
+  html+='<h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Daily Snack Builder</h2>';
+  html+='<p style="margin:0 0 14px;color:#555;font-size:13px">Pick the injury area and level. Get a ready-to-send snack prescription you can copy straight to the client.</p></div>';
+
+  // Injury selector
+  var injKeys=Object.keys(SNACKS);
+  html+='<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Injury Area</div>';
+  html+='<div style="display:flex;flex-wrap:wrap;gap:6px">';
+  injKeys.forEach(function(k){
+    var active=k===inj;
+    html+='<button data-snkinj="'+k+'" onclick="window.cur=window.cur||{};window.cur.inj=''+k+'';renderSnack()" style="padding:6px 14px;border-radius:20px;border:1.5px solid '+(active?'#1a73e8':'#d0d0d0')+';background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#444')+';font-size:12px;font-weight:600;cursor:pointer">'+SNACKS[k].name+'</button>';
+  });
+  html+='</div></div>';
+
+  // Level selector
+  var lvlKeys=['L1','L2','L3'];
+  var curLvl=lvl.substring(0,2);
+  html+='<div style="margin-bottom:16px"><div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Program Level</div>';
+  html+='<div style="display:flex;gap:6px">';
+  lvlKeys.forEach(function(lk){
+    var active=lk===curLvl;
+    html+='<button data-snklvl="'+lk+'" onclick="window.cur=window.cur||{};window.cur.lvl=''+lk+'A';renderSnack()" style="padding:6px 20px;border-radius:20px;border:1.5px solid '+(active?'#1a73e8':'#d0d0d0')+';background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#444')+';font-size:12px;font-weight:600;cursor:pointer">'+lk+'</button>';
+  });
+  html+='</div></div>';
+
+  // Get snack data
+  var snackData=SNACKS[inj]&&SNACKS[inj][curLvl]?SNACKS[inj][curLvl]:null;
+  if(!snackData){
+    html+='<div style="padding:20px;text-align:center;color:#999">Select an injury area and level above</div>';
+    d.innerHTML=html;
+    return;
+  }
+
+  // Build copy-paste block
+  var copyText='DAILY MOVEMENT SNACK \u2014 '+SNACKS[inj].name+' ('+curLvl+')\n';
+  copyText+='Do this daily, ideally before your session or on rest days (10-15 min).\n\n';
+  snackData.moves.forEach(function(m,i){
+    copyText+=(i+1)+'. '+m.n+'\n   Cue: '+m.c+'\n\n';
+  });
+  copyText+='Sets: '+snackData.sets+' | Reps: '+snackData.reps+' | Rest: '+snackData.rest+'\n\n';
+  copyText+='COACH NOTE: '+snackData.note;
+
+  html+='<div style="background:#f8f9ff;border:1px solid #c5cef5;border-radius:10px;padding:14px;margin-bottom:12px">';
+  html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+  html+='<div style="font-weight:700;font-size:13px;color:#1a1a2e">'+SNACKS[inj].name+' Snack — '+curLvl+'</div>';
+  html+='<div style="font-size:11px;color:#666">'+snackData.sets+' sets · '+snackData.reps+' reps · '+snackData.rest+' rest</div></div>';
+
+  snackData.moves.forEach(function(m,i){
+    html+='<div style="margin-bottom:8px;padding:8px 10px;background:#fff;border-radius:6px;border-left:3px solid #1a73e8">';
+    html+='<div style="font-weight:600;font-size:12px;color:#1a1a2e;margin-bottom:2px">'+(i+1)+'. '+m.n+'</div>';
+    html+='<div style="font-size:11px;color:#555">📌 '+m.c+'</div></div>';
+  });
+
+  html+='<div style="margin-top:10px;padding:8px 10px;background:#fff8e1;border-radius:6px;font-size:11px;color:#7a5c00">';
+  html+='<strong>Coach Note:</strong> '+snackData.note+'</div></div>';
+
+  // Copy button
+  var escaped=copyText.replace(/\/g,'\\').replace(/'/g,"\'").replace(/\n/g,'\n');
+  html+='<button onclick="(function(){var t=''+escaped+'';var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);this.textContent='Copied!';var me=this;setTimeout(function(){me.textContent='Copy Snack to Clipboard'},2000)}).call(this)" style="width:100%;padding:10px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">Copy Snack to Clipboard</button>';
+
+  d.innerHTML=html;
+}
+function renderCheckinAI(){
+  var d=document.getElementById('content');
+  if(!d)return;
+  if(!window._cia) window._cia={step:0,answers:{}};
+  var cia=window._cia;
+
+  function setAnswer(key,val){
+    cia.answers[key]=val;
+    cia.step++;
+    renderCheckinAI();
+  }
+  function resetCIA(){
+    window._cia={step:0,answers:{}};
+    renderCheckinAI();
+  }
+  window.ciaSet=setAnswer;
+  window.ciaReset=resetCIA;
+
+  var html='<div style="padding:12px 0 4px">';
+  html+='<h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Check-In Decoder</h2>';
+  html+='<p style="margin:0 0 14px;color:#555;font-size:13px">Answer 4 quick questions about your client. Get an exact action plan.</p></div>';
+
+  var QUESTIONS=[
+    {
+      key:'pain',
+      q:'How is the pain/discomfort this week compared to last week?',
+      opts:[
+        {v:'better',label:'⬇️ Better — less pain or more movement',col:'#0f9d58'},
+        {v:'same',label:'➡️ Same — no change either way',col:'#f4b400'},
+        {v:'worse',label:'⬆️ Worse — more pain or less movement',col:'#db4437'},
+        {v:'none',label:'✅ Pain-free — no symptoms this week',col:'#1a73e8'}
+      ]
+    },
+    {
+      key:'snack',
+      q:'How consistent was the client with the daily snack?',
+      opts:[
+        {v:'daily',label:'💪 5-7 days — very consistent',col:'#0f9d58'},
+        {v:'some',label:'👍 3-4 days — doing most of it',col:'#f4b400'},
+        {v:'minimal',label:'👎 1-2 days — barely doing it',col:'#db4437'},
+        {v:'zero',label:'❌ 0 days — did not do it',col:'#9e9e9e'}
+      ]
+    },
+    {
+      key:'load',
+      q:'How did the client respond to the session load this week?',
+      opts:[
+        {v:'good',label:'✅ Felt strong, good energy, minimal soreness',col:'#0f9d58'},
+        {v:'tired',label:'😴 Tired or sluggish but completed sessions',col:'#f4b400'},
+        {v:'flare',label:'🔥 Pain flared during or after session',col:'#db4437'},
+        {v:'easy',label:'⚡ Sessions felt too easy, ready for more',col:'#1a73e8'}
+      ]
+    },
+    {
+      key:'movement',
+      q:'Is the client moving better in their benchmark movement?',
+      opts:[
+        {v:'yes',label:'⬆️ Yes — cleaner, easier, more range',col:'#0f9d58'},
+        {v:'same',label:'➡️ Same — no visible change yet',col:'#f4b400'},
+        {v:'worse',label:'⬇️ Worse — movement has regressed',col:'#db4437'}
+      ]
+    }
+  ];
+
+  var step=cia.step;
+
+  if(step < QUESTIONS.length){
+    var q=QUESTIONS[step];
+    var answered=cia.answers[q.key];
+    html+='<div style="margin-bottom:12px">';
+    html+='<div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Question '+(step+1)+' of '+QUESTIONS.length+'</div>';
+    html+='<div style="background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:10px">';
+    html+='<div style="font-weight:700;font-size:14px;color:#1a1a2e;margin-bottom:12px">'+q.q+'</div>';
+    q.opts.forEach(function(opt){
+      var active=answered===opt.v;
+      html+='<button onclick="ciaSet(''+q.key+'',''+opt.v+'')" style="display:block;width:100%;text-align:left;margin-bottom:8px;padding:10px 14px;border-radius:8px;border:1.5px solid '+(active?opt.col:'#d0d0d0')+';background:'+(active?opt.col+'15':'#fff')+';color:#222;font-size:13px;font-weight:'+(active?'700':'400')+';cursor:pointer">'+opt.label+'</button>';
+    });
+    html+='</div></div>';
+
+    // Progress indicator
+    html+='<div style="display:flex;gap:4px;margin-bottom:16px">';
+    for(var i=0; i<QUESTIONS.length; i++){
+      html+='<div style="flex:1;height:4px;border-radius:2px;background:'+(i<step?'#1a73e8':i===step?'#1a73e8':'#e0e0e0')+'"></div>';
+    }
+    html+='</div>';
+
+  } else {
+    // All answered - generate action plan
+    var a=cia.answers;
+    var actions=[];
+    var color='#0f9d58';
+    var headline='';
+    var badge='';
+
+    // Logic tree
+    if(a.pain==='worse' && a.load==='flare'){
+      color='#db4437'; badge='MODIFY';
+      headline='Pain is up AND load caused a flare. Reduce session intensity immediately.';
+      actions=[
+        'Drop overall session volume by 30% this week.',
+        'Remove any exercises that directly loaded the painful area.',
+        'Increase daily snack frequency — twice daily if possible.',
+        'Check movement quality in the painful pattern — it may have broken down.',
+        'If no improvement in 5 days, flag for a check-in call.'
+      ];
+    } else if(a.pain==='worse' && a.snack==='zero'){
+      color='#f4b400'; badge='SNACK FIRST';
+      headline='Pain is up but the snack was not done. The snack is the fix here.';
+      actions=[
+        'Do not change the program yet — the intervention has not been tested.',
+        'Coach the snack compliance: help them put it in their calendar.',
+        'Keep session load the same this week.',
+        'Reassess in 7 days once the snack is being done daily.',
+        'This is the most common pattern: pain is not getting worse, just no input.'
+      ];
+    } else if(a.pain==='none' && a.movement==='yes' && a.load==='easy'){
+      color='#1a73e8'; badge='PROGRESS';
+      headline='Pain-free, moving better, sessions feel easy. Time to advance the program.';
+      actions=[
+        'Increase load or complexity in the primary movement pattern.',
+        'Add one new skill progression exercise to sessions.',
+        'Check if it has been 8 weeks — retest diagnostics if so.',
+        'Review their 30-day goals in the next check-in call.',
+        'Consider moving to the next level if benchmarks are met.'
+      ];
+    } else if(a.pain==='better' && a.snack==='daily'){
+      color='#0f9d58'; badge='ON TRACK';
+      headline='Pain improving and snack is happening daily. This is the process working.';
+      actions=[
+        'Maintain current program and snack prescription.',
+        'Add a small progression to 1-2 exercises (volume or range of motion).',
+        'Acknowledge the consistency — this is what drives results.',
+        'If pain has dropped 2+ points on scale, document and celebrate the win.',
+        'Set a specific movement goal to aim for next 2 weeks.'
+      ];
+    } else if(a.pain==='same' && a.snack==='some'){
+      color='#f4b400'; badge='HOLD & BUILD';
+      headline='No change yet. Likely needs more snack consistency before program adjustments.';
+      actions=[
+        'Do not change the program — the stimulus is not consistent enough to judge yet.',
+        'Focus this week entirely on snack consistency. Set a daily reminder with them.',
+        'Keep session load moderate.',
+        'Reassess next week: if snack is daily and pain still same, consider exercise swap.',
+        'Remind client: 4-6 weeks of consistent daily work is needed to see tissue change.'
+      ];
+    } else if(a.load==='flare'){
+      color='#db4437'; badge='LOAD ADJUST';
+      headline='Session load caused a flare. Adjust before next session.';
+      actions=[
+        'Identify the specific exercise or movement that caused the flare.',
+        'Reduce range of motion on that exercise by 20-30% first, not load.',
+        'Check their setup and form in that movement pattern.',
+        'Increase snack frequency this week to manage tissue response.',
+        'If you cannot identify the cause, reduce total volume by 25% and monitor.'
+      ];
+    } else if(a.movement==='worse'){
+      color='#db4437'; badge='DELOAD';
+      headline='Movement has regressed. This is a signal to deload and rebuild.';
+      actions=[
+        'Take a full deload week: 50% volume, same movements.',
+        'Focus on movement quality only — no new load this week.',
+        'Check sleep, stress and nutrition with the client this week.',
+        'Regression often signals accumulated fatigue, not program failure.',
+        'After deload, reassess and rebuild from clean movement.'
+      ];
+    } else {
+      color='#0f9d58'; badge='MAINTAIN';
+      headline='Things are progressing well overall. Stay the course.';
+      actions=[
+        'Maintain the current program and snack prescription.',
+        'Add a small challenge to one exercise — range, load, or tempo.',
+        'Check in on their goals — are they still meaningful to the client?',
+        'Document any wins or improvements in movement this week.',
+        'No big changes needed — trust the process.'
+      ];
+    }
+
+    html+='<div style="background:'+color+'15;border:2px solid '+color+';border-radius:10px;padding:14px;margin-bottom:12px">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+    html+='<span style="background:'+color+';color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px">'+badge+'</span>';
+    html+='<span style="font-weight:700;font-size:13px;color:#1a1a2e">'+headline+'</span></div>';
+    html+='<div style="display:flex;flex-direction:column;gap:6px">';
+    actions.forEach(function(act,i){
+      html+='<div style="display:flex;gap:8px;align-items:flex-start;background:#fff;border-radius:6px;padding:8px 10px">';
+      html+='<span style="background:'+color+';color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;white-space:nowrap;margin-top:1px">'+(i+1)+'</span>';
+      html+='<span style="font-size:12px;color:#222">'+act+'</span></div>';
+    });
+    html+='</div></div>';
+
+    // Summary of answers
+    html+='<div style="background:#f5f5f5;border-radius:8px;padding:10px;margin-bottom:12px;font-size:11px;color:#666">';
+    html+='<strong>Check-in summary:</strong> Pain: '+a.pain+' | Snack: '+a.snack+' | Load response: '+a.load+' | Movement: '+a.movement+'</div>';
+
+    html+='<button onclick="ciaReset()" style="width:100%;padding:10px;background:#1a1a2e;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">Start New Check-In</button>';
+  }
+
+  d.innerHTML=html;
+}
+function renderGoalTracker(){
+  var d=document.getElementById('content');
+  if(!d)return;
+  if(!window._gt) window._gt={tab:'goals',checks:{}};
+  var gt=window._gt;
+  window.gtSetTab=function(t){gt.tab=t;renderGoalTracker();};
+  window.gtToggle=function(k){gt.checks[k]=!gt.checks[k];renderGoalTracker();};
+  window.gtReset=function(){window._gt={tab:gt.tab,checks:{}};renderGoalTracker();};
+
+  var html='<div style="padding:12px 0 4px">';
+  html+='<h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Goal & Progress Tracker</h2>';
+  html+='<p style="margin:0 0 12px;color:#555;font-size:13px">30-day goal review + 8-week diagnostic retest. Run these on your client calls.</p>';
+
+  // Sub-tabs
+  html+='<div style="display:flex;gap:0;border-bottom:2px solid #e0e0e0;margin-bottom:16px">';
+  var subtabs=[{k:'goals',l:'🎯 30-Day Goal Review'},{k:'diag',l:'📊 8-Week Diagnostic Retest'}];
+  subtabs.forEach(function(st){
+    var active=gt.tab===st.k;
+    html+='<div onclick="gtSetTab(''+st.k+'')" style="padding:8px 16px;font-size:13px;font-weight:'+(active?'700':'400')+';color:'+(active?'#1a73e8':'#666')+';border-bottom:3px solid '+(active?'#1a73e8':'transparent')+';margin-bottom:-2px;cursor:pointer">'+st.l+'</div>';
+  });
+  html+='</div>';
+
+  if(gt.tab==='goals'){
+    // 30-day goal review checklist
+    var items=[
+      {k:'g1',cat:'Opening',text:'Ask: “What was your main goal 30 days ago?” — let them say it, not you.'},
+      {k:'g2',cat:'Opening',text:'Ask: “On a scale of 1-10, how close are you to that goal right now?”'},
+      {k:'g3',cat:'Progress Check',text:'Has pain or discomfort changed in the target area? (Better / Same / Worse)'},
+      {k:'g4',cat:'Progress Check',text:'Is the benchmark movement better, easier, or less painful than 30 days ago?'},
+      {k:'g5',cat:'Progress Check',text:'Are they moving more in daily life? (Walks, sport, hobbies, sleep quality)'},
+      {k:'g6',cat:'Snack Audit',text:'How many days per week have they been doing the daily snack on average?'},
+      {k:'g7',cat:'Snack Audit',text:'Any exercises in the snack they have been skipping or modifying? Find out why.'},
+      {k:'g8',cat:'Program Fit',text:'Are they completing sessions? How many per week vs. what was prescribed?'},
+      {k:'g9',cat:'Program Fit',text:'Is the session difficulty appropriate? (Too easy / Just right / Too hard)'},
+      {k:'g10',cat:'Goal Reset',text:'Reset or confirm the goal for the next 30 days. Make it specific and measurable.'},
+      {k:'g11',cat:'Goal Reset',text:'Identify ONE thing they will change or improve in the next 2 weeks.'},
+      {k:'g12',cat:'Goal Reset',text:'Book the next 30-day check-in call before ending this one.'}
+    ];
+
+    var cats=['Opening','Progress Check','Snack Audit','Program Fit','Goal Reset'];
+    var checked=items.filter(function(i){return gt.checks[i.k];}).length;
+
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+    html+='<div style="font-size:12px;color:#555">'+checked+' of '+items.length+' complete</div>';
+    html+='<div style="display:flex;gap:4px">';
+    for(var i=0;i<items.length;i++){
+      html+='<div style="width:8px;height:8px;border-radius:50%;background:'+(gt.checks[items[i].k]?'#0f9d58':'#e0e0e0')+'"></div>';
+    }
+    html+='</div></div>';
+
+    cats.forEach(function(cat){
+      var catItems=items.filter(function(x){return x.cat===cat;});
+      html+='<div style="margin-bottom:6px"><div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;padding-left:2px">'+cat+'</div>';
+      catItems.forEach(function(item){
+        var done=gt.checks[item.k];
+        html+='<div onclick="gtToggle(''+item.k+'')" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?'#f0faf4':'#fff')+';border:1px solid '+(done?'#0f9d58':'#e0e0e0')+';border-radius:8px;cursor:pointer">';
+        html+='<div style="width:18px;height:18px;min-width:18px;border-radius:4px;border:2px solid '+(done?'#0f9d58':'#ccc')+';background:'+(done?'#0f9d58':'#fff')+';display:flex;align-items:center;justify-content:center;margin-top:1px">';
+        if(done) html+='<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        html+='</div>';
+        html+='<div style="font-size:12px;color:'+(done?'#555':'#222')+';text-decoration:'+(done?'line-through':'none')+'">'+item.text+'</div></div>';
+      });
+      html+='</div>';
+    });
+
+    if(checked===items.length){
+      html+='<div style="background:#0f9d5815;border:2px solid #0f9d58;border-radius:10px;padding:12px;margin-top:8px;text-align:center;font-weight:700;font-size:13px;color:#0f9d58">';
+      html+='✅ 30-Day Review Complete. Book the next one.</div>';
+    }
+
+    html+='<button onclick="gtReset()" style="width:100%;margin-top:12px;padding:10px;background:#f5f5f5;color:#444;border:1px solid #d0d0d0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Clear Checklist</button>';
+
+  } else {
+    // 8-week diagnostic retest
+    var diagItems=[
+      {k:'d1',cat:'Mobility Retests',text:'Hip mobility retest: Can they hit 90/90 position without compensation? Compare to Week 1.'},
+      {k:'d2',cat:'Mobility Retests',text:'Overhead mobility: Flat against wall with arms overhead. Has range improved?'},
+      {k:'d3',cat:'Mobility Retests',text:'Hip flexor length: Thomas test. Has the restricted side improved visibly?'},
+      {k:'d4',cat:'Mobility Retests',text:'Ankle dorsiflexion: Knee-to-wall test (cm). Compare left vs right and vs Week 1 score.'},
+      {k:'d5',cat:'Strength Retests',text:'Primary push test: Max quality push-up reps or loaded press weight vs. Week 1.'},
+      {k:'d6',cat:'Strength Retests',text:'Primary pull test: Ring row or pull-up quality and rep count vs. Week 1.'},
+      {k:'d7',cat:'Strength Retests',text:'Hinge strength: RDL or deadlift load vs. Week 1, or single leg RDL quality.'},
+      {k:'d8',cat:'Strength Retests',text:'Single leg stability: Single leg balance hold (eyes closed). Count seconds each side.'},
+      {k:'d9',cat:'Pain/Symptom Retests',text:'Benchmark pain movement: Rate the target movement 0-10 for pain. Compare to Week 1.'},
+      {k:'d10',cat:'Pain/Symptom Retests',text:'Aggravating activity: Do the thing that used to aggravate it. What is it now?'},
+      {k:'d11',cat:'Skill Retests',text:'Benchmark skill: Where are they on the progression? Which phase or variation?'},
+      {k:'d12',cat:'Skill Retests',text:'Overall movement quality: Would you progress them to the next level? Y/N + why.'},
+      {k:'d13',cat:'Next 8 Weeks',text:'Reset training level if needed based on retest results.'},
+      {k:'d14',cat:'Next 8 Weeks',text:'Update the snack prescription based on where symptoms are now.'},
+      {k:'d15',cat:'Next 8 Weeks',text:'Set new 8-week outcome goal with the client. Specific and measurable.'}
+    ];
+
+    var diagCats=['Mobility Retests','Strength Retests','Pain/Symptom Retests','Skill Retests','Next 8 Weeks'];
+    var dChecked=diagItems.filter(function(i){return gt.checks[i.k];}).length;
+
+    html+='<div style="background:#fff3cd;border:1px solid #f4b400;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#7a5c00">';
+    html+='<strong>📅 Run at Week 8, 16, 24...</strong> Diagnostics reset the program and confirm real progress. Never skip this step.';
+    html+='</div>';
+
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+    html+='<div style="font-size:12px;color:#555">'+dChecked+' of '+diagItems.length+' complete</div>';
+    html+='<div style="display:flex;gap:4px">';
+    for(var j=0;j<diagItems.length;j++){
+      html+='<div style="width:8px;height:8px;border-radius:50%;background:'+(gt.checks[diagItems[j].k]?'#1a73e8':'#e0e0e0')+'"></div>';
+    }
+    html+='</div></div>';
+
+    diagCats.forEach(function(cat){
+      var catItems=diagItems.filter(function(x){return x.cat===cat;});
+      html+='<div style="margin-bottom:6px"><div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;padding-left:2px">'+cat+'</div>';
+      catItems.forEach(function(item){
+        var done=gt.checks[item.k];
+        html+='<div onclick="gtToggle(''+item.k+'')" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?'#e8f0fe':'#fff')+';border:1px solid '+(done?'#1a73e8':'#e0e0e0')+';border-radius:8px;cursor:pointer">';
+        html+='<div style="width:18px;height:18px;min-width:18px;border-radius:4px;border:2px solid '+(done?'#1a73e8':'#ccc')+';background:'+(done?'#1a73e8':'#fff')+';display:flex;align-items:center;justify-content:center;margin-top:1px">';
+        if(done) html+='<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        html+='</div>';
+        html+='<div style="font-size:12px;color:'+(done?'#555':'#222')+';text-decoration:'+(done?'line-through':'none')+'">'+item.text+'</div></div>';
+      });
+      html+='</div>';
+    });
+
+    if(dChecked===diagItems.length){
+      html+='<div style="background:#1a73e815;border:2px solid #1a73e8;border-radius:10px;padding:12px;margin-top:8px;text-align:center;font-weight:700;font-size:13px;color:#1a73e8">';
+      html+='✅ 8-Week Diagnostic Complete. Update the program now.</div>';
+    }
+
+    html+='<button onclick="gtReset()" style="width:100%;margin-top:12px;padding:10px;background:#f5f5f5;color:#444;border:1px solid #d0d0d0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Clear Checklist</button>';
+  }
+
+  html+='</div>';
+  d.innerHTML=html;
+}
+
 </script>
 </body>
 </html>
