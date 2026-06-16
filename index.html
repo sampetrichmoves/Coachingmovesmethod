@@ -217,9 +217,9 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="tab" onclick="goTab('resources',this)">&#128218; Coach Resources</div>
 <div class="tab" onclick="goTab('checkin',this)">&#9989; Check-In Protocol</div>
 <div class="tab" onclick="goTab('movements',this)">&#127947; Movement Library</div><div class="tab" onclick="goTab('skills',this)">&#129337; Skill Progressions</div>
-      <div class="tab" onclick="goTab('snack')">&#127861; Snack Builder</div>
-      <div class="tab" onclick="goTab('checkinai')">&#128202; Check-In Decoder</div>
-      <div class="tab" onclick="goTab('goaltracker')">&#127919; Goal Tracker</div>
+      <div class="tab" onclick="goTab('snack',this)">&#127861; Snack Builder</div>
+      <div class="tab" onclick="goTab('checkinai',this)">&#128202; Check-In Decoder</div>
+      <div class="tab" onclick="goTab('goaltracker',this)">&#127919; Goal Tracker</div>
 
 </div>
 <div class="ask-bar">
@@ -909,7 +909,7 @@ function goTab(tab,btn){
 document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
 btn.classList.add('on');
 cur.tab=tab;
-renderContent();
+renderContent(tab);
 }
 function renderPills(){
 var pills=PILLS[cur.inj]||[];
