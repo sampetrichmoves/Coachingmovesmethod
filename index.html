@@ -2352,7 +2352,7 @@ function renderGoalTracker(){
     catItems.forEach(function(item){
       var done=gt.checks[item.k];
       html+='<div data-ck="'+item.k+'" onclick="gtToggle(this.getAttribute(String.fromCharCode(100,97,116,97,45,99,107)))" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?pCol+'15':'#1a1f2e')+';border:1px solid '+(done?pCol:'#2a3347')+';border-radius:8px;cursor:pointer">';
-      html+='<div style="width:18px;height:18px;min-width:18px;border-radius:4px;border:2px solid '+(done?pCol:'#ccc')+';background:'+(done?pCol:'#fff')+';display:flex;align-items:center;justify-content:center;margin-top:1px">';
+      html+='<div style="width:18px;height:18px;min-width:18px;border-radius:4px;border:2px solid '+(done?pCol:'#4d8ef0')+';background:'+(done?pCol:'#fff')+';display:flex;align-items:center;justify-content:center;margin-top:1px">';
       if(done)html+='<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       html+='</div><div style="font-size:12px;color:'+(done?'#555':'#222')+';text-decoration:'+(done?'line-through':'none')+'">'+item.text+'</div></div>';
     });
