@@ -1132,22 +1132,22 @@ function renderEverfit(){
       workouts:[]
     }
   ];
-  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Everfit Templates</h2>';
-  html+='<p style="margin:0 0 16px;color:#555;font-size:13px">Tap any workout to open it directly in Everfit. Assign to a client in one click from there.</p></div>';
+  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#e2e5f0">Everfit Templates</h2>';
+  html+='<p style="margin:0 0 16px;color:#8892a4;font-size:13px">Tap any workout to open it directly in Everfit. Assign to a client in one click from there.</p></div>';
   html+='<div style="display:flex;flex-direction:column;gap:12px">';
   levels.forEach(function(lv){
     var coming=lv.workouts.length===0;
-    html+='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;border-left:4px solid '+lv.color+'">';
+    html+='<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px 16px;border-left:4px solid '+lv.color+'">';
     html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
     html+='<span style="background:'+lv.color+';color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px">'+lv.id+'</span>';
-    html+='<span style="font-weight:700;font-size:14px;color:#1a1a2e">'+lv.label+'</span></div>';
-    html+='<p style="margin:0 0 10px;font-size:12px;color:#666">'+lv.desc+'</p>';
+    html+='<span style="font-weight:700;font-size:14px;color:#e2e5f0">'+lv.label+'</span></div>';
+    html+='<p style="margin:0 0 10px;font-size:12px;color:#8892a4">'+lv.desc+'</p>';
     if(coming){
-      html+='<div style="background:#f5f5f5;border-radius:6px;padding:8px 12px;font-size:12px;color:#999;text-align:center">Coming soon — program in development</div>';
+      html+='<div style="background:#12151c;border-radius:6px;padding:8px 12px;font-size:12px;color:#999;text-align:center">Coming soon — program in development</div>';
     } else {
       html+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
       lv.workouts.forEach(function(w){
-        html+='<a href="'+w.url+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#f0f6ff;border:1px solid '+lv.color+';color:'+lv.color+';font-size:12px;font-weight:600;padding:7px 12px;border-radius:6px;text-decoration:none;white-space:nowrap">';
+        html+='<a href="'+w.url+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#1e2a3a;border:1px solid '+lv.color+';color:'+lv.color+';font-size:12px;font-weight:600;padding:7px 12px;border-radius:6px;text-decoration:none;white-space:nowrap">';
         html+='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
         html+=w.name+'</a>';
       });
@@ -1396,7 +1396,7 @@ var levels=[
 }
 ];
 
-var html='<h2 style="margin:0 0 4px">&#x1F4C8; Level Progressions</h2><p style="margin:0 0 16px;color:#555;font-size:14px">Specific benchmark criteria for each level progression. Retest diagnostics every 8 weeks. Evaluate goals every 30 days.</p>';
+var html='<h2 style="margin:0 0 4px">&#x1F4C8; Level Progressions</h2><p style="margin:0 0 16px;color:#8892a4;font-size:14px">Specific benchmark criteria for each level progression. Retest diagnostics every 8 weeks. Evaluate goals every 30 days.</p>';
 
 html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
 levels.forEach(function(lv){
@@ -1407,12 +1407,12 @@ html+='</div>';
 
 var activeLvl=levels.find(function(lv){return lv.lvl===cur.substring(0,2);})||levels[0];
 
-html+='<div style="border-left:5px solid '+activeLvl.color+';padding:12px 16px;background:#f8f9fa;border-radius:0 8px 8px 0;margin-bottom:20px;">';
-html+='<strong style="font-size:16px;color:'+activeLvl.color+'">'+activeLvl.label+'</strong><br><p style="margin:6px 0 0;color:#444;font-size:14px;">'+activeLvl.desc+'</p></div>';
+html+='<div style="border-left:5px solid '+activeLvl.color+';padding:12px 16px;background:#12151c;border-radius:0 8px 8px 0;margin-bottom:20px;">';
+html+='<strong style="font-size:16px;color:'+activeLvl.color+'">'+activeLvl.label+'</strong><br><p style="margin:6px 0 0;color:#c8d0e0;font-size:14px;">'+activeLvl.desc+'</p></div>';
 
 if(activeLvl.benchmarks.length){
   activeLvl.benchmarks.forEach(function(b){
-    html+='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:16px;overflow:hidden;">';
+    html+='<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;margin-bottom:16px;overflow:hidden;">';
     html+='<div style="background:'+b.color+';color:#fff;padding:10px 16px;"><strong>'+b.label+'</strong></div>';
     html+='<ul style="margin:0;padding:14px 16px 14px 32px;">';
     b.criteria.forEach(function(c){
@@ -1422,11 +1422,11 @@ if(activeLvl.benchmarks.length){
   });
 
   html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">';
-  html+='<div style="background:#e8f4fd;border-left:4px solid #2980b9;padding:12px;border-radius:6px;font-size:13px;"><strong>&#x23F1;&#xFE0F; Timeline</strong><br>'+activeLvl.timeline+'</div>';
-  html+='<div style="background:#fef9e7;border-left:4px solid #f39c12;padding:12px;border-radius:6px;font-size:13px;"><strong>&#x1F504; Retest Protocol</strong><br>'+activeLvl.retestNote+'</div>';
+  html+='<div style="background:#1a1f2e;border-left:4px solid #2980b9;padding:12px;border-radius:6px;font-size:13px;"><strong>&#x23F1;&#xFE0F; Timeline</strong><br>'+activeLvl.timeline+'</div>';
+  html+='<div style="background:#1e2a1e;border-left:4px solid #f39c12;padding:12px;border-radius:6px;font-size:13px;"><strong>&#x1F504; Retest Protocol</strong><br>'+activeLvl.retestNote+'</div>';
   html+='</div>';
 } else {
-  html+='<div style="background:#f0f0f0;padding:20px;text-align:center;border-radius:8px;color:#888;font-size:14px;">This level is coming soon. Content is in development.</div>';
+  html+='<div style="background:#1a1f2e;padding:20px;text-align:center;border-radius:8px;color:#6b7280;font-size:14px;">This level is coming soon. Content is in development.</div>';
 }
 
 d.innerHTML=html;
@@ -1522,7 +1522,7 @@ var allScripts={
 }
 };
 
-var html='<h2 style="margin:0 0 4px">&#x1F4AC; Client Scripts</h2><p style="margin:0 0 16px;color:#555;font-size:14px">Copy-paste scripts for coaches. Edit [Name], [Level], [Goal] before sending.</p>';
+var html='<h2 style="margin:0 0 4px">&#x1F4AC; Client Scripts</h2><p style="margin:0 0 16px;color:#8892a4;font-size:14px">Copy-paste scripts for coaches. Edit [Name], [Level], [Goal] before sending.</p>';
 
 // Show injury-specific scripts first if injury selected
 var order=Object.keys(allScripts);
@@ -1538,18 +1538,18 @@ if(inj&&inj!=='none'){
   // Put the relevant injury first
   order=order.filter(function(k){return k!==injKey;});
   order.unshift(injKey);
-  html+='<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:10px 14px;border-radius:6px;margin-bottom:14px;font-size:13px;"><strong>&#x26A0;&#xFE0F; Injury selected: '+inj+'</strong> — showing relevant scripts first.</div>';
+  html+='<div style="background:#2a2010;border-left:4px solid #ffc107;padding:10px 14px;border-radius:6px;margin-bottom:14px;font-size:13px;"><strong>&#x26A0;&#xFE0F; Injury selected: '+inj+'</strong> — showing relevant scripts first.</div>';
 }
 
 order.forEach(function(key){
   var grp=allScripts[key];
-  html+='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:18px;overflow:hidden;">';
+  html+='<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;margin-bottom:18px;overflow:hidden;">';
   html+='<div style="background:'+grp.color+';color:#fff;padding:10px 16px;"><strong>'+grp.title+'</strong></div>';
   html+='<div style="padding:12px 16px;">';
   grp.scripts.forEach(function(s){
     html+='<div style="margin-bottom:14px;">';
-    html+='<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px;">&#x1F4CB; '+s.label+'</div>';
-    html+='<div style="background:#f8f9fa;border-left:4px solid '+grp.color+';padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;position:relative;">';
+    html+='<div style="font-size:13px;font-weight:600;color:#e2e5f0;margin-bottom:6px;">&#x1F4CB; '+s.label+'</div>';
+    html+='<div style="background:#12151c;border-left:4px solid '+grp.color+';padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.6;position:relative;">';
     html+=s.text;
     html+='<br><button onclick="var t=this.previousSibling;var r=document.createRange();r.selectNode(t);window.getSelection().removeAllRanges();window.getSelection().addRange(r);" style="margin-top:8px;background:none;border:1px solid #ccc;border-radius:4px;padding:3px 10px;font-size:12px;cursor:pointer;">Select text</button>';
     html+='</div></div>';
@@ -1889,7 +1889,7 @@ var col=s[2]==='PRIMARY'?'#22c55e':s[2]==='SECONDARY'?'#4d8ef0':'#8a95a8';
 h+='<div style="background:'+bg+';border-radius:7px;padding:8px 10px;margin-bottom:5px;display:flex;gap:8px;">';
 h+='<div style="flex:1;"><div style="font-weight:600;color:'+col+';font-size:11px;">'+s[0]+'</div>';
 h+='<div style="font-size:10.5px;color:#8a95a8;margin-top:2px;">'+s[1]+'</div></div>';
-h+='<div style="background:'+col+';color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;height:fit-content;">'+s[2]+'</div></div>';
+h+='<div style="background:'+col+';color:#e2e5f0;font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;height:fit-content;">'+s[2]+'</div></div>';
 });
 h+='<div style="font-weight:700;color:#4d8ef0;font-size:10px;margin:9px 0 6px;text-transform:uppercase;letter-spacing:0.5px;">&#x1F4CB; Template Application</div>';
 i.tp.forEach(function(t){
@@ -2041,8 +2041,8 @@ var c=document.getElementById("content");
 if(!c)return;
 var in2n={"hip":"Hip Pain","shoulder":"Shoulder Pain","knee":"Knee Pain","wrist":"Wrist/Hand Pain","plantar":"Plantar Fasciitis","lower":"Lower Back Pain","elbow":"Elbow/Forearm Pain","neck":"Neck Pain"};
 var ib="";
-if(inj!=="none"){ib="<div style='background:#fff3cd;border:2px solid #f0a500;border-radius:10px;padding:15px;margin-bottom:20px;'><b>&#9888; Injury-Aware Programming: "+(in2n[inj]||inj)+"</b> - Each skill below includes specific modifications. Skills CAN be trained around injuries.</div>";}
-c.innerHTML="<h2 style='color:#e05c00'>&#129337; Skill Progressions</h2><p style='color:#666;margin-bottom:16px;'>Prerequisites, phase-by-phase programming, daily skill snacks, and injury-aware modifications for all major advanced skills.</p>"+ib+renderSkillsContent(inj);
+if(inj!=="none"){ib="<div style='background:#2a2010;border:2px solid #f0a500;border-radius:10px;padding:15px;margin-bottom:20px;'><b>&#9888; Injury-Aware Programming: "+(in2n[inj]||inj)+"</b> - Each skill below includes specific modifications. Skills CAN be trained around injuries.</div>";}
+c.innerHTML="<h2 style='color:#e05c00'>&#129337; Skill Progressions</h2><p style='color:#8892a4;margin-bottom:16px;'>Prerequisites, phase-by-phase programming, daily skill snacks, and injury-aware modifications for all major advanced skills.</p>"+ib+renderSkillsContent(inj);
 }
 
 function renderSkillsContent(inj){
@@ -2062,24 +2062,24 @@ var html="";
 skills.forEach(function(sk){
 var mHTML="";
 if(inj!=="none"&&sk.mod&&sk.mod[inj]){
-mHTML="<div style='background:#fff3cd;border-left:4px solid #f0a500;padding:12px;margin-top:10px;border-radius:6px;'><b>&#9888; "+(in2n[inj]||inj)+" Modification:</b> "+sk.mod[inj]+"</div>";
+mHTML="<div style='background:#2a2010;border-left:4px solid #f0a500;padding:12px;margin-top:10px;border-radius:6px;'><b>&#9888; "+(in2n[inj]||inj)+" Modification:</b> "+sk.mod[inj]+"</div>";
 }
 var preH=sk.pre.map(function(p){return "<li style='margin:3px 0;'>"+p+"</li>";}).join("");
 var phH=sk.ph.map(function(ph){
 var its=ph.i.map(function(it){return "<li style='margin:3px 0;'>"+it+"</li>";}).join("");
-var pdB=ph.pd?"<p style='font-size:13px;color:#555;margin:6px 0 8px 0;font-style:italic;border-left:3px solid #2980b9;padding-left:8px;'>"+ph.pd+"</p>":"";
+var pdB=ph.pd?"<p style='font-size:13px;color:#8892a4;margin:6px 0 8px 0;font-style:italic;border-left:3px solid #2980b9;padding-left:8px;'>"+ph.pd+"</p>":"";
 return "<div style='margin-bottom:12px;'><b style='color:#1a5276;'>"+ph.n+"</b>"+pdB+"<ul style='margin:4px 0 0 18px;font-size:13px;'>"+its+"</ul></div>";
 }).join("");
-html+="<div style='background:white;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #ddd;box-shadow:0 2px 6px rgba(0,0,0,0.06);'>";
+html+="<div style='background:#1a1f2e;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #2a3347;box-shadow:0 2px 6px rgba(0,0,0,0.06);'>";
 html+="<h3 style='margin:0 0 6px 0;color:#e05c00;'>"+sk.emoji+" "+sk.name+"</h3>";
 html+="<div style='margin-bottom:8px;'><span style='background:#e05c00;color:white;padding:2px 10px;border-radius:20px;font-size:12px;margin-right:6px;'>"+sk.level+"</span><span style='background:#2980b9;color:white;padding:2px 10px;border-radius:20px;font-size:12px;'>"+sk.tf+"</span></div>";
-html+="<p style='margin:0 0 10px 0;color:#555;font-size:14px;'>"+sk.desc+"</p>";
+html+="<p style='margin:0 0 10px 0;color:#8892a4;font-size:14px;'>"+sk.desc+"</p>";
 html+="<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;'>";
-html+="<div style='background:#eafaf1;border-radius:8px;padding:12px;'><b style='color:#1e8449;'>&#10003; Prerequisites</b><ul style='margin:8px 0 0 18px;font-size:13px;'>"+preH+"</ul></div>";
-html+="<div style='background:#eaf4fb;border-radius:8px;padding:12px;'><b style='color:#1a5276;'>&#9889; Daily Skill Snack</b><p style='font-size:13px;margin:6px 0 0 0;'>"+sk.snack+"</p></div>";
+html+="<div style='background:#0f2010;border-radius:8px;padding:12px;'><b style='color:#1e8449;'>&#10003; Prerequisites</b><ul style='margin:8px 0 0 18px;font-size:13px;'>"+preH+"</ul></div>";
+html+="<div style='background:#1a1f2e;border-radius:8px;padding:12px;'><b style='color:#1a5276;'>&#9889; Daily Skill Snack</b><p style='font-size:13px;margin:6px 0 0 0;'>"+sk.snack+"</p></div>";
 html+="</div>";
-html+="<div style='background:#fef9e7;border-radius:8px;padding:12px;margin-bottom:10px;'><b style='color:#7d6608;'>&#128197; Training Phases</b><div style='margin-top:8px;'>"+phH+"</div></div>";
-html+="<div style='background:#f4ecf7;border-radius:8px;padding:10px;'><b style='color:#6c3483;'>&#11088; Coach Cue</b><p style='font-size:13px;margin:6px 0 0 0;font-style:italic;'>"+sk.cue+"</p></div>";
+html+="<div style='background:#1e2a1e;border-radius:8px;padding:12px;margin-bottom:10px;'><b style='color:#7d6608;'>&#128197; Training Phases</b><div style='margin-top:8px;'>"+phH+"</div></div>";
+html+="<div style='background:#1e1a30;border-radius:8px;padding:10px;'><b style='color:#6c3483;'>&#11088; Coach Cue</b><p style='font-size:13px;margin:6px 0 0 0;font-style:italic;'>"+sk.cue+"</p></div>";
 html+=mHTML;
 html+="</div>";
 });
@@ -2193,28 +2193,28 @@ function renderSnack(){
     neck:{L1:'Most neck tension originates from the thoracic spine.',L2:'Screen usage causes anterior head posture. Chin tucks daily.',L3:'L3 coaches doing inversions: neck strength IS a prerequisite.'}};
   var moves=MOVES[inj]&&MOVES[inj][curLvl]?MOVES[inj][curLvl]:null;
   var note=notes[inj]&&notes[inj][curLvl]?notes[inj][curLvl]:'';
-  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Daily Snack Builder</h2>';
-  html+='<p style="margin:0 0 14px;color:#555;font-size:13px">Pick injury area and level. Get a ready-to-send prescription.</p></div>';
+  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#e2e5f0">Daily Snack Builder</h2>';
+  html+='<p style="margin:0 0 14px;color:#8892a4;font-size:13px">Pick injury area and level. Get a ready-to-send prescription.</p></div>';
   html+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">';
   Object.keys(INJ).forEach(function(k){
     var ac=k===inj;
-    html+='<button data-inj="'+k+'" onclick="snackSetInj(this)" style="padding:6px 14px;border-radius:20px;border:1.5px solid '+(ac?'#1a73e8':'#d0d0d0')+';background:'+(ac?'#1a73e8':'#fff')+';color:'+(ac?'#fff':'#444')+';font-size:12px;font-weight:600;cursor:pointer">'+INJ[k]+'</button>';
+    html+='<button data-inj="'+k+'" onclick="snackSetInj(this)" style="padding:6px 14px;border-radius:20px;border:1.5px solid '+(ac?'#4d8ef0':'#2a3347')+';background:'+(ac?'#4d8ef0':'#1a1f2e')+';color:'+(ac?'#e2e5f0':'#c8d0e0')+';font-size:12px;font-weight:600;cursor:pointer">'+INJ[k]+'</button>';
   });
   html+='</div><div style="display:flex;gap:6px;margin-bottom:16px">';
   ['L1','L2','L3'].forEach(function(lk){
     var ac=lk===curLvl;
-    html+='<button data-lvl="'+lk+'" onclick="snackSetLvl(this)" style="padding:6px 20px;border-radius:20px;border:1.5px solid '+(ac?'#1a73e8':'#d0d0d0')+';background:'+(ac?'#1a73e8':'#fff')+';color:'+(ac?'#fff':'#444')+';font-size:12px;font-weight:600;cursor:pointer">'+lk+'</button>';
+    html+='<button data-lvl="'+lk+'" onclick="snackSetLvl(this)" style="padding:6px 20px;border-radius:20px;border:1.5px solid '+(ac?'#4d8ef0':'#2a3347')+';background:'+(ac?'#4d8ef0':'#1a1f2e')+';color:'+(ac?'#e2e5f0':'#c8d0e0')+';font-size:12px;font-weight:600;cursor:pointer">'+lk+'</button>';
   });
   html+='</div>';
   if(!moves){html+='<div style="padding:20px;text-align:center;color:#999">Select injury area and level above</div>';d.innerHTML=html;return;}
-  html+='<div style="background:#f8f9ff;border:1px solid #c5cef5;border-radius:10px;padding:14px;margin-bottom:12px">';
-  html+='<div style="font-weight:700;font-size:13px;color:#1a1a2e;margin-bottom:10px">'+INJ[inj]+' \u2014 '+curLvl+'</div>';
+  html+='<div style="background:#12151c;border:1px solid #c5cef5;border-radius:10px;padding:14px;margin-bottom:12px">';
+  html+='<div style="font-weight:700;font-size:13px;color:#e2e5f0;margin-bottom:10px">'+INJ[inj]+' \u2014 '+curLvl+'</div>';
   moves.forEach(function(m,i){
-    html+='<div style="margin-bottom:8px;padding:8px 10px;background:#fff;border-radius:6px;border-left:3px solid #1a73e8">';
-    html+='<div style="font-weight:600;font-size:12px;color:#1a1a2e">'+(i+1)+'. '+m.n+'</div>';
-    html+='<div style="font-size:11px;color:#555">'+m.c+'</div></div>';
+    html+='<div style="margin-bottom:8px;padding:8px 10px;background:#1a1f2e;border-radius:6px;border-left:3px solid #1a73e8">';
+    html+='<div style="font-weight:600;font-size:12px;color:#e2e5f0">'+(i+1)+'. '+m.n+'</div>';
+    html+='<div style="font-size:11px;color:#8892a4">'+m.c+'</div></div>';
   });
-  if(note)html+='<div style="margin-top:10px;padding:8px 10px;background:#fff8e1;border-radius:6px;font-size:11px;color:#7a5c00"><strong>Coach Note:</strong> '+note+'</div>';
+  if(note)html+='<div style="margin-top:10px;padding:8px 10px;background:#1e2a1e;border-radius:6px;font-size:11px;color:#7a5c00"><strong>Coach Note:</strong> '+note+'</div>';
   html+='</div>';
   d.innerHTML=html;
 }
@@ -2247,13 +2247,13 @@ function renderCheckinAI(){
       {v:'worse',label:'\u2b07\ufe0f Worse \u2014 movement has regressed',col:'#db4437'}]}
   ];
   var step=cia.step;
-  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Check-In Decoder</h2>';
-  html+='<p style="margin:0 0 14px;color:#555;font-size:13px">Answer 4 quick questions. Get an exact action plan.</p></div>';
+  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#e2e5f0">Check-In Decoder</h2>';
+  html+='<p style="margin:0 0 14px;color:#8892a4;font-size:13px">Answer 4 quick questions. Get an exact action plan.</p></div>';
   if(step<QS.length){
     var q=QS[step];var answered=cia.answers[q.key];
-    html+='<div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px">Question '+(step+1)+' of '+QS.length+'</div>';
-    html+='<div style="background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:10px">';
-    html+='<div style="font-weight:700;font-size:14px;color:#1a1a2e;margin-bottom:12px">'+q.q+'</div>';
+    html+='<div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;margin-bottom:4px">Question '+(step+1)+' of '+QS.length+'</div>';
+    html+='<div style="background:#12151c;border-radius:10px;padding:14px;margin-bottom:10px">';
+    html+='<div style="font-weight:700;font-size:14px;color:#e2e5f0;margin-bottom:12px">'+q.q+'</div>';
     q.opts.forEach(function(opt){
       var ac=answered===opt.v;
       html+='<button data-qk="'+q.key+'" data-qv="'+opt.v+'" onclick="ciaSet(this.getAttribute(String.fromCharCode(100,97,116,97,45,113,107)),this.getAttribute(String.fromCharCode(100,97,116,97,45,113,118)))" style="display:block;width:100%;text-align:left;margin-bottom:8px;padding:10px 14px;border-radius:8px;border:1.5px solid '+(ac?opt.col:'#d0d0d0')+';background:'+(ac?opt.col+'15':'#fff')+';color:#222;font-size:13px;font-weight:'+(ac?'700':'400')+';cursor:pointer">'+opt.label+'</button>';
@@ -2275,15 +2275,15 @@ function renderCheckinAI(){
     html+='<div style="background:'+color+'15;border:2px solid '+color+';border-radius:10px;padding:14px;margin-bottom:12px">';
     html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
     html+='<span style="background:'+color+';color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px">'+badge+'</span>';
-    html+='<span style="font-weight:700;font-size:13px;color:#1a1a2e">'+headline+'</span></div>';
+    html+='<span style="font-weight:700;font-size:13px;color:#e2e5f0">'+headline+'</span></div>';
     html+='<div style="display:flex;flex-direction:column;gap:6px">';
     actions.forEach(function(act,i){
-      html+='<div style="display:flex;gap:8px;align-items:flex-start;background:#fff;border-radius:6px;padding:8px 10px">';
+      html+='<div style="display:flex;gap:8px;align-items:flex-start;background:#1a1f2e;border-radius:6px;padding:8px 10px">';
       html+='<span style="background:'+color+';color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">'+(i+1)+'</span>';
       html+='<span style="font-size:12px;color:#222">'+act+'</span></div>';
     });
     html+='</div></div>';
-    html+='<div style="background:#f5f5f5;border-radius:8px;padding:10px;margin-bottom:12px;font-size:11px;color:#666">';
+    html+='<div style="background:#12151c;border-radius:8px;padding:10px;margin-bottom:12px;font-size:11px;color:#8892a4">';
     html+='Pain: '+a.pain+' | Snack: '+a.snack+' | Load: '+a.load+' | Movement: '+a.movement+'</div>';
     html+='<button onclick="ciaReset()" style="width:100%;padding:10px;background:#1a1a2e;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">Start New Check-In</button>';
   }
@@ -2297,9 +2297,9 @@ function renderGoalTracker(){
   var d=document.getElementById('content');if(!d)return;
   if(!window._gt)window._gt={tab:'goals',checks:{}};
   var gt=window._gt;
-  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#1a1a2e">Goal & Progress Tracker</h2>';
-  html+='<p style="margin:0 0 12px;color:#555;font-size:13px">30-day goal review + 8-week diagnostic retest. Run these on your client calls.</p>';
-  html+='<div style="display:flex;border-bottom:2px solid #e0e0e0;margin-bottom:16px">';
+  var html='<div style="padding:12px 0 4px"><h2 style="margin:0 0 4px;font-size:18px;font-weight:700;color:#e2e5f0">Goal & Progress Tracker</h2>';
+  html+='<p style="margin:0 0 12px;color:#8892a4;font-size:13px">30-day goal review + 8-week diagnostic retest. Run these on your client calls.</p>';
+  html+='<div style="display:flex;border-bottom:2px solid #2a3347;margin-bottom:16px">';
   [{k:'goals',l:'\ud83c\udfaf 30-Day Goal Review'},{k:'diag',l:'\ud83d\udcca 8-Week Retest'}].forEach(function(st){
     var ac=gt.tab===st.k;
     html+='<div data-stab="'+st.k+'" onclick="gtSetTab(this.getAttribute(String.fromCharCode(100,97,116,97,45,115,116,97,98)))" style="padding:8px 16px;font-size:13px;font-weight:'+(ac?'700':'400')+';color:'+(ac?'#1a73e8':'#666')+';border-bottom:3px solid '+(ac?'#1a73e8':'transparent')+';margin-bottom:-2px;cursor:pointer">'+st.l+'</div>';
@@ -2340,15 +2340,15 @@ function renderGoalTracker(){
   var pCol=gt.tab==='goals'?'#0f9d58':'#1a73e8';
   var checked=items.filter(function(x){return gt.checks[x.k];}).length;
   html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
-  html+='<div style="font-size:12px;color:#555">'+checked+' of '+items.length+' complete</div>';
+  html+='<div style="font-size:12px;color:#8892a4">'+checked+' of '+items.length+' complete</div>';
   html+='<div style="display:flex;gap:4px">';
   items.forEach(function(x){html+='<div style="width:8px;height:8px;border-radius:50%;background:'+(gt.checks[x.k]?pCol:'#e0e0e0')+'></div>';});
   html+='</div></div>';
-  if(gt.tab==='diag'){html+='<div style="background:#fff3cd;border:1px solid #f4b400;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#7a5c00"><strong>Run at Week 8, 16, 24...</strong> Diagnostics reset the program and confirm real progress.</div>';}
+  if(gt.tab==='diag'){html+='<div style="background:#2a2010;border:1px solid #f4b400;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#7a5c00"><strong>Run at Week 8, 16, 24...</strong> Diagnostics reset the program and confirm real progress.</div>';}
   var cats=[...new Set(items.map(function(x){return x.cat;}))]
   cats.forEach(function(cat){
     var catItems=items.filter(function(x){return x.cat===cat;});
-    html+='<div style="margin-bottom:6px"><div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px">'+cat+'</div>';
+    html+='<div style="margin-bottom:6px"><div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;margin-bottom:4px">'+cat+'</div>';
     catItems.forEach(function(item){
       var done=gt.checks[item.k];
       html+='<div data-ck="'+item.k+'" onclick="gtToggle(this.getAttribute(String.fromCharCode(100,97,116,97,45,99,107)))" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?pCol+'15':'#fff')+';border:1px solid '+(done?pCol:'#e0e0e0')+';border-radius:8px;cursor:pointer">';
@@ -2359,25 +2359,25 @@ function renderGoalTracker(){
     html+='</div>';
   });
   if(checked===items.length)html+='<div style="background:'+pCol+'15;border:2px solid '+pCol+';border-radius:10px;padding:12px;margin-top:8px;text-align:center;font-weight:700;font-size:13px;color:'+pCol+'">\u2705 Complete! Take action now.</div>';
-  html+='<button onclick="gtReset()" style="width:100%;margin-top:12px;padding:10px;background:#f5f5f5;color:#444;border:1px solid #d0d0d0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Clear Checklist</button>';
+  html+='<button onclick="gtReset()" style="width:100%;margin-top:12px;padding:10px;background:#12151c;color:#c8d0e0;border:1px solid #2a3347;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Clear Checklist</button>';
   d.innerHTML=html;
 }
 
 
 
-  function renderOnboarding(){var d=document.getElementById('content');if(!d)return;d.innerHTML='<div style="padding:18px;max-width:900px;margin:0 auto;font-family:sans-serif"><h2 style="color:#1a472a;border-bottom:3px solid #2d6a4f;padding-bottom:8px">&#128640; Client Onboarding Script</h2><p style="color:#555;margin-bottom:16px">Structured first-call guide. Qualify clients, set expectations, map their program from Day 1.</p><div style="background:#e8f5e9;border-left:4px solid #2d6a4f;padding:12px 16px;border-radius:6px;margin-bottom:20px"><b style="color:#1a472a">Before the Call:</b> Have intake form open. Review injury history, goals, activity level.</div><div style="display:grid;gap:12px">'+obCard('1','OPEN & RAPPORT',['Start: Tell me where you are at and what made you reach out.','Listen for pain mentions, injury history, frustration with past attempts.','Goal: Make them feel heard before you mention the program.'])+obCard('2','PAIN & MOVEMENT HISTORY',['Ask: How long has this been bothering you and what have you tried?','Ask: Does it hurt during movement, after, or both?','Ask: Have you seen a physio, chiro or doctor?','Identify Pain Lane. Muscle = dull/achy. Joint = pinch/click. Nerve = electric/shooting.'])+obCard('3','GOALS & TIMELINE',['Ask: What does success look like in 3 months?','Injury goal means daily snack is primary focus.','Performance goal means template L1-L3 based on movement screen.'])+obCard('4','ROUTINE & COMPLIANCE',['Ask: What does a typical week look like - realistic time available?','Daily snack = 10-15 min. A+B sessions = 45-60 min.','Walk them through Everfit before ending the call.'])+obCard('5','MOVEMENT SCREEN & LEVEL',['Review diagnostic result: L1 / L2 / L3.','L1: Foundations - mobility, activation, joint prep.','L2: Strength and load - body owns the pattern first.','L3: Performance - tempo, load, complexity.'])+obCard('6','THE SNACK EXPECTATION',['Every day is a daily snack - this is the medicine.','It targets their specific area and keeps the body moving between sessions.','Consistency beats intensity. Missing snacks stalls progress.'])+obCard('7','PROGRAM MAP',['30-day plan: Level A + B sessions plus daily snack every day.','Wk 1-2: Movement quality. Wk 3-4: Add load when patterns are clean.','30-day goal review. 8-week full diagnostic retest.'])+obCard('8','NEXT STEPS & CLOSE',['Send Everfit access right after the call.','Book 30-day review NOW - before they leave.','If anything hurts in a new way - stop and message me.'])+'</div><div style="margin-top:18px;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:14px"><b style="color:#856404">&#9888; Red Flags to Note:</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Night pain waking them</div><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Pain with no clear cause</div><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Unexplained weight loss</div><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Saddle numbness or bladder issues</div><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Bilateral leg symptoms</div><div style="background:#fff;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Cancer history with new back pain</div></div><p style="margin:10px 0 0;font-size:13px;color:#856404">Any red flag = refer for medical clearance BEFORE starting.</p></div></div>'}
-  function obCard(n,t,pts){return '<div style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:13px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:7px"><span style="background:#2d6a4f;color:#fff;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0">'+n+'</span><b style="color:#1a472a;font-size:14px">'+t+'</b></div><ul style="margin:0;padding-left:18px">'+pts.map(function(p){return '<li style="margin:3px 0;font-size:13px;color:#444">'+p+'</li>';}).join('')+'</ul></div>';}
+  function renderOnboarding(){var d=document.getElementById('content');if(!d)return;d.innerHTML='<div style="padding:18px;max-width:900px;margin:0 auto;font-family:sans-serif"><h2 style="color:#1a472a;border-bottom:3px solid #2d6a4f;padding-bottom:8px">&#128640; Client Onboarding Script</h2><p style="color:#8892a4;margin-bottom:16px">Structured first-call guide. Qualify clients, set expectations, map their program from Day 1.</p><div style="background:#0f2010;border-left:4px solid #2d6a4f;padding:12px 16px;border-radius:6px;margin-bottom:20px"><b style="color:#1a472a">Before the Call:</b> Have intake form open. Review injury history, goals, activity level.</div><div style="display:grid;gap:12px">'+obCard('1','OPEN & RAPPORT',['Start: Tell me where you are at and what made you reach out.','Listen for pain mentions, injury history, frustration with past attempts.','Goal: Make them feel heard before you mention the program.'])+obCard('2','PAIN & MOVEMENT HISTORY',['Ask: How long has this been bothering you and what have you tried?','Ask: Does it hurt during movement, after, or both?','Ask: Have you seen a physio, chiro or doctor?','Identify Pain Lane. Muscle = dull/achy. Joint = pinch/click. Nerve = electric/shooting.'])+obCard('3','GOALS & TIMELINE',['Ask: What does success look like in 3 months?','Injury goal means daily snack is primary focus.','Performance goal means template L1-L3 based on movement screen.'])+obCard('4','ROUTINE & COMPLIANCE',['Ask: What does a typical week look like - realistic time available?','Daily snack = 10-15 min. A+B sessions = 45-60 min.','Walk them through Everfit before ending the call.'])+obCard('5','MOVEMENT SCREEN & LEVEL',['Review diagnostic result: L1 / L2 / L3.','L1: Foundations - mobility, activation, joint prep.','L2: Strength and load - body owns the pattern first.','L3: Performance - tempo, load, complexity.'])+obCard('6','THE SNACK EXPECTATION',['Every day is a daily snack - this is the medicine.','It targets their specific area and keeps the body moving between sessions.','Consistency beats intensity. Missing snacks stalls progress.'])+obCard('7','PROGRAM MAP',['30-day plan: Level A + B sessions plus daily snack every day.','Wk 1-2: Movement quality. Wk 3-4: Add load when patterns are clean.','30-day goal review. 8-week full diagnostic retest.'])+obCard('8','NEXT STEPS & CLOSE',['Send Everfit access right after the call.','Book 30-day review NOW - before they leave.','If anything hurts in a new way - stop and message me.'])+'</div><div style="margin-top:18px;background:#2a2010;border:1px solid #ffc107;border-radius:8px;padding:14px"><b style="color:#856404">&#9888; Red Flags to Note:</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Night pain waking them</div><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Pain with no clear cause</div><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Unexplained weight loss</div><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Saddle numbness or bladder issues</div><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Bilateral leg symptoms</div><div style="background:#1a1f2e;border:1px solid #ffc107;border-radius:4px;padding:7px 10px;font-size:13px">&#128308; Cancer history with new back pain</div></div><p style="margin:10px 0 0;font-size:13px;color:#856404">Any red flag = refer for medical clearance BEFORE starting.</p></div></div>'}
+  function obCard(n,t,pts){return '<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:8px;padding:13px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:7px"><span style="background:#2d6a4f;color:#fff;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0">'+n+'</span><b style="color:#1a472a;font-size:14px">'+t+'</b></div><ul style="margin:0;padding-left:18px">'+pts.map(function(p){return '<li style="margin:3px 0;font-size:13px;color:#c8d0e0">'+p+'</li>';}).join('')+'</ul></div>';}
   function renderSessionDesign(){
     var d=document.getElementById("content");if(!d)return;
     var lv=window._sdL||"L1",tp=window._sdT||"A";
-    var ab="background:#2d6a4f;color:#fff;",ib="background:#fff;color:#2d6a4f;",bs="padding:7px 16px;border:2px solid #2d6a4f;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;";
+    var ab="background:#2d6a4f;color:#fff;",ib="background:#1a1f2e;color:#2d6a4f;",bs="padding:7px 16px;border:2px solid #2d6a4f;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;";
     var lb=["L1","L2","L3"].map(function(l){return "<button style=\""+( l===lv?ab:ib)+bs+"\" onclick=\"window._sdL='"+l+"';renderSessionDesign()\">"+l+"</button>";}).join("");
     var tb=["A","B"].map(function(t){return "<button style=\""+( t===tp?ab:ib)+bs+"\" onclick=\"window._sdT='"+t+"';renderSessionDesign()\">"+t+(t==="A"?" — Upper":" — Lower")+"</button>";}).join("");
     var D={L1:{A:{w:"Shoulder CARs x5 | T-spine rotation x10 | Band pull-apart x15",p:"Push-up progression x8 | DB row x10/side | Banded face pull x15",s:"Ring row x10 | Incline push-up x10 | Lateral raise x12",c:"Doorway chest stretch 30s | Lat hang 20s | Thread the needle x5/side",n:"Control over load. Regress push-up to elevated if form breaks. No pain = green light."},B:{w:"Hip CARs x5 | Glute bridge x10 | Lateral band walk x10/side | Calf raise x15",p:"Goblet squat x10 | KB deadlift x10 | Step-up x8/side",s:"Single-leg glute bridge x8 | Wall sit 30s | Split squat x8/side",c:"Figure-4 stretch 30s | Hip flexor stretch 30s | Calf stretch 30s",n:"Hip hinge is the priority. Knee cave in squat means regress to box squat."}},L2:{A:{w:"Band pull-apart x20 | Y-T-W x10 | Shoulder CARs x5 | Serratus punch x10",p:"DB bench press x10 | DB row x10 | Overhead press x10",s:"Cable fly x12 | Neutral grip pull-down x10 | Rear delt fly x15",c:"Pec stretch 30s | Lat stretch 30s | Cross-body shoulder stretch",n:"Scapular control on all pressing. Impingement means drop ROM and elevate start position."},B:{w:"Hip CARs x5 | Banded clamshell x15/side | SL glute bridge x10/side | Inchworm x5",p:"Back squat x8 | Romanian deadlift x10 | Reverse lunge x8/side",s:"Bulgarian split squat x8/side | Nordic hamstring x5 | Lateral lunge x10/side",c:"Pigeon stretch 45s | Hamstring stretch 30s | Adductor rock x10",n:"Single-leg stability is the metric. Poor balance means use TRX until the pattern locks."}},L3:{A:{w:"Thoracic rotation loaded x10 | Band pull-apart x25 | Pike push-up x10",p:"Weighted push-up or bench x8 | Weighted pull-up x8 | Arnold press x10",s:"Dips x10 | Pendlay row x8 | L-sit hold 20s",c:"Wall shoulder stretch 30s | Foam roll thoracic 60s | Overhead lat stretch",n:"3-1-1 tempo on all compounds. Snapping or clicking means drop load immediately."},B:{w:"Hip 90/90 flow x5/side | SL RDL x5/side | Pogo jumps x20 | Hip CARs x5",p:"Barbell squat x6 | Trap bar deadlift x6 | Box jump x5",s:"Single-leg press x10/side | Nordic x6 | Lateral hurdle hop x8/side",c:"Hip flexor stretch 60s | Hamstring PNF stretch | Ankle mobility circles",n:"Power development with joint health. Any snapping or clicking means drop load."}}};
     var sel=D[lv][tp];
     var phases=[{name:"WARM-UP",time:"10 min",bg:"#e3f2fd",icon:"&#127981;",content:sel.w,tip:"Never skip. This IS the snack if they are short on time."},{name:"PRIME LIFTS",time:"20-25 min",bg:"#e8f5e9",icon:"&#127947;",content:sel.p,tip:"Quality reps over max reps. Stop 1-2 before form breaks."},{name:"SECONDARY WORK",time:"10-15 min",bg:"#fff8e1",icon:"&#128293;",content:sel.s,tip:"This is where volume lives. Can superset for time efficiency."},{name:"COOL-DOWN",time:"5-10 min",bg:"#fce4ec",icon:"&#129332;",content:sel.c,tip:"Non-negotiable for injury-prone clients."}];
-    var cards=phases.map(function(ph){return "<div style=\"background:"+ph.bg+";border-radius:8px;padding:13px;border-left:4px solid #2d6a4f\"><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:7px\"><b style=\"color:#1a472a\">"+ph.icon+" "+ph.name+"</b><span style=\"background:#2d6a4f;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px\">"+ph.time+"</span></div><p style=\"margin:0 0 5px;font-size:14px;color:#333\">"+ph.content+"</p><p style=\"margin:0;font-size:12px;color:#666;font-style:italic\">&#128161; "+ph.tip+"</p></div>";}).join("");
-    d.innerHTML="<div style=\"padding:18px;max-width:900px;margin:0 auto;font-family:sans-serif\"><h2 style=\"color:#1a472a;border-bottom:3px solid #2d6a4f;padding-bottom:8px\">&#128208; Session Design Guide</h2><p style=\"color:#555;margin-bottom:16px\">Build perfectly structured sessions for any level and body focus.</p><div style=\"display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px\"><div><b style=\"color:#1a472a;font-size:13px\">LEVEL:</b><br><div style=\"display:flex;gap:8px;margin-top:6px\">"+lb+"</div></div><div><b style=\"color:#1a472a;font-size:13px\">SESSION:</b><br><div style=\"display:flex;gap:8px;margin-top:6px\">"+tb+"</div></div></div><div style=\"display:grid;gap:11px\">"+cards+"</div><div style=\"margin-top:14px;background:#f5f5f5;border-radius:8px;padding:13px\"><b style=\"color:#1a472a\">&#128203; Coach Notes — "+lv+tp+":</b><p style=\"margin:7px 0 0;font-size:14px;color:#333\">"+sel.n+"</p></div><div style=\"margin-top:14px;background:#e8f5e9;border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center\"><div><div style=\"font-size:20px\">&#9203;</div><b style=\"color:#1a472a;font-size:13px\">Total Time</b><p style=\"margin:3px 0;font-size:13px;color:#333\">45-60 min</p></div><div><div style=\"font-size:20px\">&#128139;</div><b style=\"color:#1a472a;font-size:13px\">Daily Snack</b><p style=\"margin:3px 0;font-size:13px;color:#333\">10-15 min add-on</p></div><div><div style=\"font-size:20px\">&#128260;</div><b style=\"color:#1a472a;font-size:13px\">Frequency</b><p style=\"margin:3px 0;font-size:13px;color:#333\">3x/week minimum</p></div></div></div>";
+    var cards=phases.map(function(ph){return "<div style=\"background:"+ph.bg+";border-radius:8px;padding:13px;border-left:4px solid #2d6a4f\"><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:7px\"><b style=\"color:#1a472a\">"+ph.icon+" "+ph.name+"</b><span style=\"background:#2d6a4f;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px\">"+ph.time+"</span></div><p style=\"margin:0 0 5px;font-size:14px;color:#e2e5f0\">"+ph.content+"</p><p style=\"margin:0;font-size:12px;color:#8892a4;font-style:italic\">&#128161; "+ph.tip+"</p></div>";}).join("");
+    d.innerHTML="<div style=\"padding:18px;max-width:900px;margin:0 auto;font-family:sans-serif\"><h2 style=\"color:#1a472a;border-bottom:3px solid #2d6a4f;padding-bottom:8px\">&#128208; Session Design Guide</h2><p style=\"color:#8892a4;margin-bottom:16px\">Build perfectly structured sessions for any level and body focus.</p><div style=\"display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px\"><div><b style=\"color:#1a472a;font-size:13px\">LEVEL:</b><br><div style=\"display:flex;gap:8px;margin-top:6px\">"+lb+"</div></div><div><b style=\"color:#1a472a;font-size:13px\">SESSION:</b><br><div style=\"display:flex;gap:8px;margin-top:6px\">"+tb+"</div></div></div><div style=\"display:grid;gap:11px\">"+cards+"</div><div style=\"margin-top:14px;background:#12151c;border-radius:8px;padding:13px\"><b style=\"color:#1a472a\">&#128203; Coach Notes — "+lv+tp+":</b><p style=\"margin:7px 0 0;font-size:14px;color:#e2e5f0\">"+sel.n+"</p></div><div style=\"margin-top:14px;background:#0f2010;border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center\"><div><div style=\"font-size:20px\">&#9203;</div><b style=\"color:#1a472a;font-size:13px\">Total Time</b><p style=\"margin:3px 0;font-size:13px;color:#e2e5f0\">45-60 min</p></div><div><div style=\"font-size:20px\">&#128139;</div><b style=\"color:#1a472a;font-size:13px\">Daily Snack</b><p style=\"margin:3px 0;font-size:13px;color:#e2e5f0\">10-15 min add-on</p></div><div><div style=\"font-size:20px\">&#128260;</div><b style=\"color:#1a472a;font-size:13px\">Frequency</b><p style=\"margin:3px 0;font-size:13px;color:#e2e5f0\">3x/week minimum</p></div></div></div>";
   }
 // PROGRESS NOTES
 function renderProgressNotes(){
