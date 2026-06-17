@@ -1401,7 +1401,7 @@ var html='<h2 style="margin:0 0 4px">&#x1F4C8; Level Progressions</h2><p style="
 html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
 levels.forEach(function(lv){
   var active=lv.lvl===cur.substring(0,2);
-    html+='<div style="padding:6px 14px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;background:'+(active?lv.color:'#f0f0f0')+';color:'+(active?'#fff':'#555')+';border:2px solid '+(active?lv.color:'#e0e0e0')+'" data-lvl="'+lv.lvl+'" onclick="selectProgLevel(this)">'+lv.lvl+'</div>';
+    html+='<div style="padding:6px 14px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;background:'+(active?lv.color:'#1a1f2e')+';color:'+(active?'#e2e5f0':'#c8d0e0')+';border:2px solid '+(active?lv.color:'#2a3347')+'" data-lvl="'+lv.lvl+'" onclick="selectProgLevel(this)">'+lv.lvl+'</div>';
 });
 html+='</div>';
 
@@ -2256,11 +2256,11 @@ function renderCheckinAI(){
     html+='<div style="font-weight:700;font-size:14px;color:#e2e5f0;margin-bottom:12px">'+q.q+'</div>';
     q.opts.forEach(function(opt){
       var ac=answered===opt.v;
-      html+='<button data-qk="'+q.key+'" data-qv="'+opt.v+'" onclick="ciaSet(this.getAttribute(String.fromCharCode(100,97,116,97,45,113,107)),this.getAttribute(String.fromCharCode(100,97,116,97,45,113,118)))" style="display:block;width:100%;text-align:left;margin-bottom:8px;padding:10px 14px;border-radius:8px;border:1.5px solid '+(ac?opt.col:'#d0d0d0')+';background:'+(ac?opt.col+'15':'#fff')+';color:#222;font-size:13px;font-weight:'+(ac?'700':'400')+';cursor:pointer">'+opt.label+'</button>';
+      html+='<button data-qk="'+q.key+'" data-qv="'+opt.v+'" onclick="ciaSet(this.getAttribute(String.fromCharCode(100,97,116,97,45,113,107)),this.getAttribute(String.fromCharCode(100,97,116,97,45,113,118)))" style="display:block;width:100%;text-align:left;margin-bottom:8px;padding:10px 14px;border-radius:8px;border:1.5px solid '+(ac?opt.col:'#2a3347')+';background:'+(ac?opt.col+'15':'#1a1f2e')+';color:#c8d0e0;font-size:13px;font-weight:'+(ac?'700':'400')+';cursor:pointer">'+opt.label+'</button>';
     });
     html+='</div>';
     html+='<div style="display:flex;gap:4px;margin-bottom:16px">';
-    for(var i=0;i<QS.length;i++)html+='<div style="flex:1;height:4px;border-radius:2px;background:'+(i<step?'#1a73e8':i===step?'#1a73e8':'#e0e0e0')+'></div>';
+    for(var i=0;i<QS.length;i++)html+='<div style="flex:1;height:4px;border-radius:2px;background:'+(i<step?'#1a73e8':i===step?'#1a73e8':'#2a3347')+'></div>';
     html+='</div>';
   } else {
     var a=cia.answers,actions=[],color='#0f9d58',badge='MAINTAIN',headline='Things are progressing well. Stay the course.';
@@ -2280,7 +2280,7 @@ function renderCheckinAI(){
     actions.forEach(function(act,i){
       html+='<div style="display:flex;gap:8px;align-items:flex-start;background:#1a1f2e;border-radius:6px;padding:8px 10px">';
       html+='<span style="background:'+color+';color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">'+(i+1)+'</span>';
-      html+='<span style="font-size:12px;color:#222">'+act+'</span></div>';
+      html+='<span style="font-size:12px;color:#c8d0e0">'+act+'</span></div>';
     });
     html+='</div></div>';
     html+='<div style="background:#12151c;border-radius:8px;padding:10px;margin-bottom:12px;font-size:11px;color:#8892a4">';
@@ -2342,7 +2342,7 @@ function renderGoalTracker(){
   html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
   html+='<div style="font-size:12px;color:#8892a4">'+checked+' of '+items.length+' complete</div>';
   html+='<div style="display:flex;gap:4px">';
-  items.forEach(function(x){html+='<div style="width:8px;height:8px;border-radius:50%;background:'+(gt.checks[x.k]?pCol:'#e0e0e0')+'></div>';});
+  items.forEach(function(x){html+='<div style="width:8px;height:8px;border-radius:50%;background:'+(gt.checks[x.k]?pCol:'#2a3347')+'></div>';});
   html+='</div></div>';
   if(gt.tab==='diag'){html+='<div style="background:#2a2010;border:1px solid #f4b400;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#7a5c00"><strong>Run at Week 8, 16, 24...</strong> Diagnostics reset the program and confirm real progress.</div>';}
   var cats=[...new Set(items.map(function(x){return x.cat;}))]
@@ -2351,7 +2351,7 @@ function renderGoalTracker(){
     html+='<div style="margin-bottom:6px"><div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;margin-bottom:4px">'+cat+'</div>';
     catItems.forEach(function(item){
       var done=gt.checks[item.k];
-      html+='<div data-ck="'+item.k+'" onclick="gtToggle(this.getAttribute(String.fromCharCode(100,97,116,97,45,99,107)))" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?pCol+'15':'#fff')+';border:1px solid '+(done?pCol:'#e0e0e0')+';border-radius:8px;cursor:pointer">';
+      html+='<div data-ck="'+item.k+'" onclick="gtToggle(this.getAttribute(String.fromCharCode(100,97,116,97,45,99,107)))" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:4px;background:'+(done?pCol+'15':'#1a1f2e')+';border:1px solid '+(done?pCol:'#2a3347')+';border-radius:8px;cursor:pointer">';
       html+='<div style="width:18px;height:18px;min-width:18px;border-radius:4px;border:2px solid '+(done?pCol:'#ccc')+';background:'+(done?pCol:'#fff')+';display:flex;align-items:center;justify-content:center;margin-top:1px">';
       if(done)html+='<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       html+='</div><div style="font-size:12px;color:'+(done?'#555':'#222')+';text-decoration:'+(done?'line-through':'none')+'">'+item.text+'</div></div>';
