@@ -2850,6 +2850,18 @@ function renderProgressDash(){var d=document.getElementById('content');if(!d)ret
   }
   updateRecentDots();
 
+
+  // ---- GLOBAL CARD TOGGLE ----
+  document.addEventListener('click', function(e) {
+    const hdr = e.target.closest('.card-hdr');
+    if (!hdr) return;
+    const card = hdr.closest('.card');
+    if (!card) return;
+    card.classList.toggle('open');
+    const arrow = hdr.querySelector('.card-arrow');
+    if (arrow) arrow.textContent = card.classList.contains('open') ? '\u25B2' : '\u25BC';
+  });
+
 })();
 
 </script>
