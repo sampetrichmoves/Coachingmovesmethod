@@ -273,13 +273,173 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="tab" onclick="goTab('sessionprep',this)">&#128196; Session Prep</div>
 <div class="tab" onclick="goTab('progressdash',this)">&#128200; Progress Dashboard</div>
 
-</div>
+
+<span class="tab" onclick="goTab('moat',this)">&#127958; Our Moat</span>
+<span class="tab" onclick="goTab('northstar',this)">&#11088; North Star</span>
+<span class="tab" onclick="goTab('playground',this)">&#129504; Coach Intelligence</span>
+<span class="tab" onclick="goTab('flywheel',this)">&#128260; Flywheel</span></div>
 <div class="ask-bar">
 <div class="ask-pills" id="ask-pills"></div>
 <div id="pill-answer" style="display:none;background:#1e2a3a;border:1px solid #4d8ef0;border-radius:10px;padding:14px 16px;margin-top:10px;max-height:420px;overflow-y:auto;"></div>
 </div>
 <div class="content" id="content"></div>
-</div><script>
+</div>
+<div id="sec-moat" style="display:none">
+<div class="sec-title">&#127958; Our Moat &#8212; What Can't Be Copied</div>
+<div class="sec-sub">If another mobility company saw this tomorrow and built the same thing &#8212; here's what would take them years to replicate.</div>
+<div class="info-box">This is a living document. As we build more &#8212; proprietary data, coach decisions, outcome tracking &#8212; the moat deepens. The tool is not the moat. The <strong>compound intelligence inside it</strong> is.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+<div class="flag-box green">
+<div class="flag-title" style="color:#4dbd8e;">&#128994; Hard to Replicate (2&#8211;5 years)</div>
+<div class="flag-item">&#129504; <span><strong>Proprietary Pain Lane Framework</strong> &#8212; Muscle/Joint/Nerve classification is unique to MovesMethod. No competitor has codified this decision tree for coaching.</span></div>
+<div class="flag-item">&#128218; <span><strong>Injury-Specific Protocol Library</strong> &#8212; 7 injury areas x 3 lanes x 5+ levels. Years of clinical and coaching experience compressed into prescriptions.</span></div>
+<div class="flag-item">&#127941; <span><strong>Coach Decision Data</strong> &#8212; Every tool use captures implicit decision-making. That corpus becomes an asset competitors cannot buy.</span></div>
+<div class="flag-item">&#128101; <span><strong>Elite Coach Collective</strong> &#8212; Vanja, Sam, Caliste, Manny, Kyle, Dagan. Their combined pattern recognition is the model. You cannot hire that fast.</span></div>
+</div>
+<div class="flag-box yellow">
+<div class="flag-title" style="color:#e0a04d;">&#128993; Copyable But Expensive (6&#8211;18 months)</div>
+<div class="flag-item">&#128196; <span><strong>The Tool Itself</strong> &#8212; The interface and tabs can be rebuilt. Without the protocols, it is an empty shell.</span></div>
+<div class="flag-item">&#128293; <span><strong>Everfit Integration</strong> &#8212; Any competitor can link to a programming tool. The differentiator is what gets prescribed, not how.</span></div>
+<div class="flag-item">&#128200; <span><strong>Onboarding System</strong> &#8212; The 4-week coach ramp can eventually be documented by others. Our head start compounds while they're still hiring.</span></div>
+</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:16px;">
+<div style="font-size:13px;font-weight:700;color:#4d8ef0;margin-bottom:12px;">&#128176; The Flywheel No One Can Step Into Mid-Spin</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+<div style="background:#1e3a6e;border:1px solid #4d8ef0;border-radius:8px;padding:8px 12px;font-size:12px;text-align:center;"><strong>Better Coaches</strong><br><span style="color:#8a95a8;font-size:11px;">use the tool</span></div>
+<div style="color:#4d8ef0;font-size:18px;">&#8594;</div>
+<div style="background:#1e3a2e;border:1px solid #4dbd8e;border-radius:8px;padding:8px 12px;font-size:12px;text-align:center;"><strong>Better Outcomes</strong><br><span style="color:#8a95a8;font-size:11px;">for clients</span></div>
+<div style="color:#4dbd8e;font-size:18px;">&#8594;</div>
+<div style="background:#3a2e1e;border:1px solid #e0a04d;border-radius:8px;padding:8px 12px;font-size:12px;text-align:center;"><strong>Higher Retention</strong><br><span style="color:#8a95a8;font-size:11px;">= more data</span></div>
+<div style="color:#e0a04d;font-size:18px;">&#8594;</div>
+<div style="background:#2e1e3a;border:1px solid #a04de0;border-radius:8px;padding:8px 12px;font-size:12px;text-align:center;"><strong>Smarter Tool</strong><br><span style="color:#8a95a8;font-size:11px;">learns patterns</span></div>
+<div style="color:#a04de0;font-size:18px;">&#8594;</div>
+<div style="background:#1e3a6e;border:1px solid #4d8ef0;border-radius:8px;padding:8px 12px;font-size:12px;text-align:center;"><strong>Better Coaches</strong><br><span style="color:#8a95a8;font-size:11px;">&#8635; repeat</span></div>
+</div>
+</div>
+<div class="tip-box"><strong>The honest answer to "what's the moat?"</strong> It's not the tool. It's the compounding intelligence of your best coaches, encoded into a system every new coach inherits from day one. A competitor could build this tool in 3 months. They cannot compress 10 years of Vanja's pattern recognition in 3 months.</div>
+</div>
+
+<div id="sec-northstar" style="display:none">
+<div class="sec-title">&#11088; North Star Metric &#8212; The One Number That Matters</div>
+<div class="sec-sub">What would Ben, Izzy, Vanja, Josh look at every Monday morning to know if this is working?</div>
+<div style="background:#1a1f2e;border:2px solid #4d8ef0;border-radius:12px;padding:20px;margin-bottom:16px;text-align:center;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#5e6a85;margin-bottom:8px;">Recommended North Star</div>
+<div style="font-size:26px;font-weight:700;color:#4d8ef0;margin-bottom:6px;">&#128200; Client Pain Reduction Rate</div>
+<div style="font-size:14px;color:#8a95a8;margin-bottom:12px;">% of active clients showing 2+ pt pain reduction within 4 weeks</div>
+<div style="background:#12151c;border-radius:8px;padding:10px;font-size:12px;color:#c8cfe0;">Why: This is the one metric that proves the protocol works AND correlates with everything else leadership cares about &#8212; retention, referrals, resign rates, and coach confidence.</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4dbd8e;margin-bottom:8px;">&#9989; Metrics the North Star Drives</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128200; <strong>Re-sign rate</strong> &#8212; clients who see results re-sign. Pain reduction IS the product.</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128101; <strong>Coach retention</strong> &#8212; coaches who see clients improve stay longer and perform better.</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128226; <strong>Referral rate</strong> &#8212; pain-free clients refer family. Word of mouth on autopilot.</div>
+<div style="font-size:12px;color:#c8cfe0;">&#9201; <strong>Coach ramp-up speed</strong> &#8212; new coaches hit protocol faster = outcomes faster.</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#e0a04d;margin-bottom:8px;">&#9888; Secondary Metrics to Track</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128198; <strong>Days to first win</strong> &#8212; how fast does a client report feeling better? Target: under 14 days.</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128203; <strong>Snack compliance rate</strong> &#8212; clients doing 5+/7 days show 3x better outcomes.</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:6px;">&#128101; <strong>Prescriber accuracy</strong> &#8212; % of prescriptions using the correct pain lane.</div>
+<div style="font-size:12px;color:#c8cfe0;">&#8987; <strong>Time to escalate</strong> &#8212; how fast does a coach identify a red flag and refer out?</div>
+</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;margin-bottom:12px;">
+<div style="font-size:13px;font-weight:700;margin-bottom:10px;">&#128201; The Leadership Dashboard &#8212; 5 Numbers Every Monday</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+<div style="background:#12151c;border-radius:8px;padding:10px;text-align:center;border:1px solid #2a3347;"><div style="font-size:20px;font-weight:700;color:#4dbd8e;">?%</div><div style="font-size:10px;color:#5e6a85;margin-top:4px;">Pain Reduction Rate</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;text-align:center;border:1px solid #2a3347;"><div style="font-size:20px;font-weight:700;color:#4d8ef0;">?%</div><div style="font-size:10px;color:#5e6a85;margin-top:4px;">Re-sign Rate</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;text-align:center;border:1px solid #2a3347;"><div style="font-size:20px;font-weight:700;color:#e0a04d;">?d</div><div style="font-size:10px;color:#5e6a85;margin-top:4px;">Days to First Win</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;text-align:center;border:1px solid #2a3347;"><div style="font-size:20px;font-weight:700;color:#a04de0;">?%</div><div style="font-size:10px;color:#5e6a85;margin-top:4px;">Snack Compliance</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;text-align:center;border:1px solid #2a3347;"><div style="font-size:20px;font-weight:700;color:#e04d4d;">?d</div><div style="font-size:10px;color:#5e6a85;margin-top:4px;">Coach Ramp Time</div></div>
+</div>
+<div style="font-size:11px;color:#5e6a85;margin-top:8px;text-align:center;">These become real numbers once Progress Dashboard tracks clients consistently across all coaches.</div>
+</div>
+<div class="tip-box"><strong>The pitch to Ben / Izzy / Vanja / Josh:</strong> "This tool doesn't just help coaches coach better. It makes our outcomes measurable, our protocol reproducible, and our differentiation defensible. The North Star is client pain reduction &#8212; every feature in this tool is designed to move that number."</div>
+</div>
+
+<div id="sec-playground" style="display:none">
+<div class="sec-title">&#129504; Coach Intelligence &#8212; The Playground</div>
+<div class="sec-sub">Capturing what Vanja, Sam, Caliste, Manny, Kyle, and Dagan know &#8212; so every coach inherits their best decisions from day one.</div>
+<div class="info-box">&#128161; <strong>The vision:</strong> Every time a senior coach makes a great call &#8212; a regression that works, a cue that clicks, a pattern they notice &#8212; it gets captured here. Over time, this becomes the collective intelligence of your best coaches, available to every coach on the team.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4d8ef0;margin-bottom:10px;">&#127775; Senior Coach Decision Library</div>
+<div style="font-size:12px;color:#8a95a8;margin-bottom:8px;">Patterns your senior coaches have already seen 1000 times:</div>
+<div style="background:#12151c;border-left:3px solid #4d8ef0;border-radius:0 6px 6px 0;padding:8px 10px;margin-bottom:6px;font-size:12px;"><strong>&#128170; Hip pain + nerve lane + worse in morning</strong><br><span style="color:#8a95a8;">Vanja: Start with supine nerve floss, not loaded movement. Skip squat pattern week 1 entirely.</span></div>
+<div style="background:#12151c;border-left:3px solid #4dbd8e;border-radius:0 6px 6px 0;padding:8px 10px;margin-bottom:6px;font-size:12px;"><strong>&#128128; Client pain 8/10 after week 2</strong><br><span style="color:#8a95a8;">Sam: Full reset to Level 1. Daily check-in for 5 days. Flag for refer if no improvement.</span></div>
+<div style="background:#12151c;border-left:3px solid #e0a04d;border-radius:0 6px 6px 0;padding:8px 10px;font-size:12px;"><strong>&#128101; Great compliance but pain unchanged</strong><br><span style="color:#8a95a8;">Caliste: Re-test pain lane. Often muscle originally diagnosed was actually joint. Reframe the snack.</span></div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4dbd8e;margin-bottom:10px;">&#128203; Add a Coach Insight</div>
+<div style="margin-bottom:8px;"><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Your name</div><input id="pg-coach-name" type="text" placeholder="e.g. Vanja, Sam..." style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+<div style="margin-bottom:8px;"><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Situation / Pattern</div><input id="pg-situation" type="text" placeholder="e.g. Hip pain + nerve + worse morning..." style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+<div style="margin-bottom:8px;"><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Your decision / what you did</div><textarea id="pg-decision" rows="3" placeholder="What did you prescribe? What worked?" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;resize:vertical;"></textarea></div>
+<div style="margin-bottom:8px;"><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Outcome</div><select id="pg-outcome" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"><option>&#128994; Worked well</option><option>&#128993; Partial improvement</option><option>&#128308; Didn't work</option><option>&#128680; Red flag &#8212; referred out</option></select></div>
+<button onclick="pgSaveInsight()" style="width:100%;background:#4d8ef0;border:none;border-radius:8px;padding:9px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">&#128190; Save Insight</button>
+<div id="pg-saved-msg" style="display:none;margin-top:8px;font-size:12px;color:#4dbd8e;text-align:center;">&#10003; Saved!</div>
+</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;margin-bottom:12px;">
+<div style="font-size:13px;font-weight:700;margin-bottom:8px;">&#128218; Saved Coach Insights (this session)</div>
+<div id="pg-insights-list"><div style="font-size:12px;color:#5e6a85;font-style:italic;">No insights saved yet. Add the first one above.</div></div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;margin-bottom:12px;">
+<div style="font-size:13px;font-weight:700;margin-bottom:10px;">&#128161; How This Becomes a Real System</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+<div style="background:#12151c;border-radius:8px;padding:10px;border-left:3px solid #4d8ef0;"><div style="font-size:10px;color:#4d8ef0;font-weight:700;text-transform:uppercase;margin-bottom:4px;">Phase 1 &#8212; Now</div><div style="font-size:11px;color:#c8cfe0;">Coaches log insights here. Senior coaches review weekly. Best ones promoted into the main tool tabs.</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;border-left:3px solid #4dbd8e;"><div style="font-size:10px;color:#4dbd8e;font-weight:700;text-transform:uppercase;margin-bottom:4px;">Phase 2 &#8212; 3 months</div><div style="font-size:11px;color:#c8cfe0;">Connect a shared database. Insights persist across sessions. Coaches vote on what's most useful.</div></div>
+<div style="background:#12151c;border-radius:8px;padding:10px;border-left:3px solid #a04de0;"><div style="font-size:10px;color:#a04de0;font-weight:700;text-transform:uppercase;margin-bottom:4px;">Phase 3 &#8212; 6+ months</div><div style="font-size:11px;color:#c8cfe0;">AI trained on coach decisions + outcomes. Tool surfaces "Vanja would do X here" in real time.</div></div>
+</div>
+</div>
+</div>
+
+<div id="sec-flywheel" style="display:none">
+<div class="sec-title">&#128260; Flywheel &#8212; How the System Gets Smarter</div>
+<div class="sec-sub">Feedback loops, analytics, and error tracking. Why Arize (and tools like it) matter here.</div>
+<div class="info-box">&#128161; <strong>The core insight:</strong> A static protocol library is a textbook. A learning system is a coach that gets better every week. The difference is feedback loops.</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:16px;">
+<div style="font-size:13px;font-weight:700;margin-bottom:14px;">&#128260; The 4 Feedback Loops That Drive Improvement</div>
+<div style="border-left:3px solid #4d8ef0;padding:10px 14px;background:#12151c;border-radius:0 8px 8px 0;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#4d8ef0;margin-bottom:4px;">Loop 1 &#8212; Client Outcome Tracking</div><div style="font-size:12px;color:#c8cfe0;">Signal: Weekly pain scores + snack days from Progress Dashboard &#8212; compare protocol prescribed vs outcome.</div><div style="font-size:12px;color:#8a95a8;margin-top:4px;">Action: Protocols with less than 2pt improvement by week 4 get flagged for senior coach review.</div></div>
+<div style="border-left:3px solid #4dbd8e;padding:10px 14px;background:#12151c;border-radius:0 8px 8px 0;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#4dbd8e;margin-bottom:4px;">Loop 2 &#8212; Coach Decision Logging</div><div style="font-size:12px;color:#c8cfe0;">Signal: Regression Tree decisions + Fast Prescriber choices &#8212; which paths are used most vs least.</div><div style="font-size:12px;color:#8a95a8;margin-top:4px;">Action: Unused paths flag training gaps or protocol gaps. Both are fixable.</div></div>
+<div style="border-left:3px solid #e0a04d;padding:10px 14px;background:#12151c;border-radius:0 8px 8px 0;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e0a04d;margin-bottom:4px;">Loop 3 &#8212; Red Flag and Refer Rate</div><div style="font-size:12px;color:#c8cfe0;">Signal: How often coaches use Refer tab + how fast they escalate.</div><div style="font-size:12px;color:#8a95a8;margin-top:4px;">Action: High refer rate on a specific injury = protocol needs refinement. Low rate = coaches may be missing flags.</div></div>
+<div style="border-left:3px solid #a04de0;padding:10px 14px;background:#12151c;border-radius:0 8px 8px 0;"><div style="font-size:12px;font-weight:700;color:#a04de0;margin-bottom:4px;">Loop 4 &#8212; Coach Playground Insights</div><div style="font-size:12px;color:#c8cfe0;">Signal: What senior coaches submit to the playground &#8212; edge cases, pattern breaks, surprise wins.</div><div style="font-size:12px;color:#8a95a8;margin-top:4px;">Action: Monthly review &#8212; senior coaches vote on insights to promote into the main protocol library. The tool literally rewrites itself.</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4d8ef0;margin-bottom:10px;">&#127381; Why Arize and Observability Tools Matter</div>
+<div style="font-size:12px;color:#c8cfe0;margin-bottom:8px;">Arize is an ML observability platform &#8212; it watches model outputs and flags when they drift, fail, or produce unexpected results.</div>
+<div style="background:#12151c;border-radius:6px;padding:8px;margin-bottom:6px;font-size:12px;"><strong>&#128269; Drift detection</strong> &#8212; if the Fast Prescriber returns the same snack for 90% of cases, something is wrong. Arize catches this.</div>
+<div style="background:#12151c;border-radius:6px;padding:8px;margin-bottom:6px;font-size:12px;"><strong>&#9888; Error tracking</strong> &#8212; bad outcomes get connected back to which prescription was given and the protocol gets flagged.</div>
+<div style="background:#12151c;border-radius:6px;padding:8px;font-size:12px;"><strong>&#128202; Ground truth logging</strong> &#8212; linking what was prescribed to what happened. This is how the model improves vs just guessing.</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4dbd8e;margin-bottom:10px;">&#128200; 90-Day Flywheel Activation</div>
+<div style="font-size:12px;font-weight:600;color:#4d8ef0;margin-bottom:4px;">Month 1 &#8212; Instrument</div>
+<div style="font-size:11px;color:#8a95a8;margin-bottom:10px;">Every coach logs client pain scores weekly in Progress Dashboard. Tag which snack was prescribed. Shared spreadsheet as raw data layer.</div>
+<div style="font-size:12px;font-weight:600;color:#4dbd8e;margin-bottom:4px;">Month 2 &#8212; Analyze</div>
+<div style="font-size:11px;color:#8a95a8;margin-bottom:10px;">Sam or Vanja reviews: which protocols have the best outcomes? Which injury+lane combos are coaches struggling with?</div>
+<div style="font-size:12px;font-weight:600;color:#e0a04d;margin-bottom:4px;">Month 3 &#8212; Improve</div>
+<div style="font-size:11px;color:#8a95a8;">Update the tool with better prescriptions based on real data. Run a coach calibration session. The tool is now demonstrably smarter than 90 days ago.</div>
+</div>
+</div>
+<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:14px;margin-bottom:12px;">
+<div style="font-size:13px;font-weight:700;margin-bottom:10px;">&#128200; Track the Flywheel &#8212; Weekly Log</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+<div><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Week of</div><input id="fw-week" type="text" placeholder="e.g. June 16" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+<div><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Clients showing improvement</div><input id="fw-improving" type="number" placeholder="e.g. 18" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+<div><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Total active clients</div><input id="fw-total" type="number" placeholder="e.g. 24" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+<div><div style="font-size:11px;color:#5e6a85;margin-bottom:4px;">Protocol flags this week</div><input id="fw-flags" type="number" placeholder="e.g. 2" style="width:100%;background:#12151c;border:1px solid #2a3347;border-radius:6px;padding:7px 10px;color:#e2e5f0;font-size:12px;outline:none;"></div>
+</div>
+<button onclick="fwLog()" style="margin-top:10px;width:100%;background:#4d8ef0;border:none;border-radius:8px;padding:9px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">&#128200; Calculate and Log</button>
+<div id="fw-result" style="display:none;margin-top:10px;background:#12151c;border-radius:8px;padding:12px;font-size:13px;text-align:center;"></div>
+</div>
+<div class="tip-box"><strong>The answer to "why Arize?"</strong> Right now the system learns slowly &#8212; through senior coach intuition and monthly reviews. Arize makes that automatic: it watches every prescription, every outcome, and flags when the system is drifting. That's the difference between a tool and a platform.</div>
+</div>
+
+
+<script>
 var cur={inj:'hip',tab:'templates',level:'L1A',mode:'beginner',filter:'All'};
 
 var INJ={
@@ -1065,6 +1225,12 @@ var PILL_ANSWERS={
 'Can they do handstands with neck issues?':'<h3>Handstands With Neck Issues</h3><p><strong>It depends on the type of neck issue.</strong></p><p>GREEN LIGHT: General neck stiffness from desk work. Muscle-lane neck pain (dull ache, not position-specific). History of neck pain that is currently resolved.</p><p>AMBER LIGHT - modified handstand work: Mild cervical disc irritation = wall handstand only, less time inverted. Active neck pain = pike position first, progress to full handstand when pain-free in pike for 2 weeks.</p><p>RED LIGHT - avoid handstands: Active radiating arm pain from neck. Recent cervical surgery or fusion. Severe cervical disc herniation with neurological signs.</p><p>Progression: Pike hold - Elevated pike - Wall handstand 5 sec - Wall handstand 30 sec - Freestanding. SNACKS L2 - HANDSTAND builds this safely.</p>',
 'Whiplash history, upper back and neck stiff':'<h3>Whiplash History - Stiffness</h3><p><strong>Whiplash creates protective stiffness.</strong> The nervous system learned to guard the neck after injury. Even years later, stiffness is often neural (protective) rather than structural (physical restriction).</p><p>Approach: Gradual, progressive loading in controlled ranges. No aggressive manipulation or rapid stretching.</p><p>Template priority: Thoracic mobility is the biggest lever - upper back stiffness forces the neck to compensate. Open the thoracic spine and the neck often frees up. ADD thoracic rotation exercises and extension over foam roller BEFORE any upper body work.</p><p>SNACKS - UPPER BODY SERIES: neck module + upper back work together. Noticeable range improvement at 4-6 weeks. Significant functional improvement at 8-12 weeks.</p>'
 };
+
+function renderMoat(){document.getElementById('content').innerHTML=document.getElementById('sec-moat').innerHTML;}
+function renderNorthStar(){document.getElementById('content').innerHTML=document.getElementById('sec-northstar').innerHTML;}
+function renderPlayground(){document.getElementById('content').innerHTML=document.getElementById('sec-playground').innerHTML;}
+function renderFlywheel(){document.getElementById('content').innerHTML=document.getElementById('sec-flywheel').innerHTML;}
+
 function renderContent(tab){
   var d=document.getElementById('content');
   if(!d)return;
@@ -1098,7 +1264,11 @@ function renderContent(tab){
     coachinit:renderCoachInit,
     movlookup:renderMovLookup,
     sessionprep:renderSessionPrep,
-    progressdash:renderProgressDash
+    progressdash:renderProgressDash,
+moat:renderMoat,
+northstar:renderNorthStar,
+playground:renderPlayground,
+flywheel:renderFlywheel
   };
   if(dispatch[tab]) dispatch[tab]();
   else d.innerHTML=renderTemplates();
@@ -2678,6 +2848,31 @@ function renderProgressDash(){var d=document.getElementById('content');if(!d)ret
 
 
 // ===== UX IMPROVEMENTS: SEARCH, PINS, KEYBOARD SHORTCUTS =====
+
+function pgSaveInsight(){
+  var name=document.getElementById('pg-coach-name')?document.getElementById('pg-coach-name').value:'';
+  var sit=document.getElementById('pg-situation')?document.getElementById('pg-situation').value:'';
+  var dec=document.getElementById('pg-decision')?document.getElementById('pg-decision').value:'';
+  var out=document.getElementById('pg-outcome')?document.getElementById('pg-outcome').value:'';
+  if(!sit||!dec){alert('Please fill in the situation and decision.');return;}
+  var list=document.getElementById('pg-insights-list');
+  if(list){var item=document.createElement('div');item.style.cssText='background:#12151c;border-left:3px solid #4d8ef0;border-radius:0 6px 6px 0;padding:8px 10px;margin-bottom:8px;font-size:12px;';item.innerHTML='<strong style="color:#4d8ef0;">'+(name||'Anonymous')+'</strong><br><span style="color:#c8cfe0;">'+sit+'</span><br><span style="color:#8a95a8;">'+dec+'</span><br><span style="font-size:11px;color:#5e6a85;">'+out+'</span>';var empty=list.querySelector('[style*="italic"]');if(empty)list.innerHTML='';list.appendChild(item);}
+  var msg=document.getElementById('pg-saved-msg');if(msg){msg.style.display='block';setTimeout(function(){msg.style.display='none';},2500);}
+  ['pg-coach-name','pg-situation','pg-decision'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+}
+function fwLog(){
+  var week=document.getElementById('fw-week')?document.getElementById('fw-week').value:'';
+  var imp=parseInt(document.getElementById('fw-improving')?document.getElementById('fw-improving').value:0)||0;
+  var tot=parseInt(document.getElementById('fw-total')?document.getElementById('fw-total').value:0)||0;
+  var flags=parseInt(document.getElementById('fw-flags')?document.getElementById('fw-flags').value:0)||0;
+  if(!tot){alert('Enter total active clients.');return;}
+  var rate=Math.round((imp/tot)*100);
+  var col=rate>=75?'#4dbd8e':rate>=50?'#e0a04d':'#e04d4d';
+  var status=rate>=75?'&#128994; On track':rate>=50?'&#128993; Moderate — review flagged protocols':'&#128308; Below target — senior coach review needed';
+  var r=document.getElementById('fw-result');
+  if(r){r.style.display='block';r.innerHTML='<div style="font-size:24px;font-weight:700;color:'+col+';">'+rate+'%</div><div style="font-size:12px;color:#8a95a8;">Pain Reduction Rate — Week of '+(week||'?')+'</div><div style="font-size:12px;color:#c8cfe0;margin-top:6px;">'+imp+' of '+tot+' improving | '+flags+' flags</div><div style="font-size:11px;color:#5e6a85;margin-top:4px;">'+status+'</div>';}
+}
+
 (function(){
   // TAB DATA for search
   const TAB_DATA=[
