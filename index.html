@@ -127,10 +127,43 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 .ts-opt:hover{border-color:#4d8ef0;color:#4d8ef0;}
 .ts-result{background:#1e3a2e;border:1px solid #4dbd8e;border-radius:10px;padding:14px;margin-top:12px;}
 .section-divider{border:none;border-top:1px solid #2a3347;margin:16px 0;}
+
+#qnav-wrap{padding:8px 10px;border-bottom:1px solid #1e2435;background:#12151c;position:relative;}
+#qnav{width:100%;background:#1a1f2e;border:1px solid #2a3347;border-radius:8px;padding:7px 10px 7px 30px;color:#e2e5f0;font-size:12px;outline:none;transition:border-color .15s;}
+#qnav:focus{border-color:#4d8ef0;}
+#qnav-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#5e6a85;font-size:13px;pointer-events:none;}
+#qnav-results{position:absolute;top:100%;left:10px;right:10px;background:#1a1f2e;border:1px solid #4d8ef0;border-radius:8px;z-index:999;max-height:220px;overflow-y:auto;display:none;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+.qnr-item{padding:8px 12px;font-size:12px;cursor:pointer;color:#c8cfe0;border-bottom:1px solid #2a3347;display:flex;align-items:center;gap:8px;transition:background .1s;}
+.qnr-item:last-child{border:none;}
+.qnr-item:hover,.qnr-item.active{background:#1e3a6e;color:#fff;}
+.qnr-group{font-size:10px;color:#5e6a85;margin-left:auto;}
+#ef-side-btn{display:flex;align-items:center;gap:6px;background:#1e3a6e;border:1px solid #4d8ef0;border-radius:8px;color:#4d8ef0;font-size:11px;font-weight:700;padding:6px 10px;cursor:pointer;margin:8px 10px 10px;text-decoration:none;transition:all .15s;justify-content:center;letter-spacing:.3px;}
+#ef-side-btn:hover{background:#4d8ef0;color:#fff;}
+#tb-ef-btn{display:flex;align-items:center;gap:6px;background:#1e3a6e;border:1px solid #4d8ef0;border-radius:8px;color:#4d8ef0;font-size:12px;font-weight:700;padding:6px 14px;cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap;}
+#tb-ef-btn:hover{background:#4d8ef0;color:#fff;}
+#pin-bar{display:none;padding:5px 10px;gap:4px;border-bottom:1px solid #1e2435;background:#0f1117;flex-wrap:wrap;align-items:center;}
+#pin-bar.has-pins{display:flex;}
+.pin-tab{display:flex;align-items:center;gap:4px;background:#1e3a6e;border:1px solid #4d8ef0;border-radius:6px;padding:3px 8px;font-size:11px;color:#4d8ef0;cursor:pointer;white-space:nowrap;transition:all .1s;}
+.pin-tab:hover{background:#4d8ef0;color:#fff;}
+.pin-x{font-size:10px;color:#8a95a8;margin-left:2px;}
+.pin-tab:hover .pin-x{color:#fff;}
+#pin-bar-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#5e6a85;display:flex;align-items:center;padding-right:4px;}
+.tab{position:relative;padding-right:20px!important;}
+.tab-pin-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:9px;color:#5e6a85;opacity:0;transition:opacity .15s;cursor:pointer;line-height:1;}
+.tab:hover .tab-pin-btn{opacity:1;}
+.tab-pin-btn:hover{color:#4d8ef0;}
+#kb-hint{position:fixed;bottom:12px;right:14px;background:#1a1f2e;border:1px solid #2a3347;border-radius:8px;padding:6px 10px;font-size:10px;color:#5e6a85;z-index:500;letter-spacing:.3px;}
+#kb-hint kbd{background:#12151c;border:1px solid #2a3347;border-radius:4px;padding:1px 4px;font-size:10px;color:#8a95a8;font-family:monospace;}
+#back-top{position:fixed;bottom:12px;right:120px;background:#1e3a6e;border:1px solid #4d8ef0;border-radius:8px;padding:6px 10px;font-size:11px;color:#4d8ef0;cursor:pointer;z-index:500;display:none;transition:all .15s;}
+#back-top:hover{background:#4d8ef0;color:#fff;}
+.tab.recently-used::after{content:'';position:absolute;top:4px;right:16px;width:5px;height:5px;border-radius:50%;background:#4dbd8e;}
+
 </style>
 </head>
 <body><div class="sb">
 <div class="logo"><span>Moves</span>Method<span style="font-size:10px;color:#5e6a85;font-weight:400;display:block;margin-top:1px;">Coach Protocol Tool</span></div>
+<a id="ef-side-btn" href="https://app.everfit.io" target="_blank">🏃 Open Everfit</a>
+<div id="qnav-wrap"><span id="qnav-icon">🔍</span><input id="qnav" type="text" placeholder="Search tools... (/ to focus)" autocomplete="off"><div id="qnav-results"></div></div>
 <div class="sb-scroll">
 <div class="sb-section">
 <div class="sb-lbl">Coach Mode</div>
@@ -195,7 +228,9 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="main">
 <div class="topbar">
 <div class="tb-left">
-<div class="tb-icon" id="tb-icon">&#129467;</div>
+<div class="tb-icon" id="tb-icon">&#129467;
+<a id="tb-ef-btn" href="https://app.everfit.io" target="_blank">🏃 Open Everfit</a>
+</div>
 <div>
 <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
 <div class="tb-title" id="tb-title">Hip &amp; Groin &#8212; Coach Protocol</div>
@@ -206,6 +241,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 </div>
 <div id="mode-badge" style="font-size:11px;color:#5e6a85;background:#1a1f2e;padding:4px 10px;border-radius:20px;border:1px solid #2a3347;">&#127807; Beginner Mode</div>
 </div>
+<div id="pin-bar"><span id="pin-bar-lbl">⭐ Pinned</span></div>
 <div class="tabbar">
 <div class="tab on" onclick="goTab('templates',this)">&#128203; Template Adjustments</div>
 <div class="tab" onclick="goTab('everfit',this)">&#128241; Everfit Templates</div>
@@ -2638,6 +2674,181 @@ var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 sty
 function renderSessionPrep(){var d=document.getElementById('content');if(!d)return;var inj=window._spInj||'Hip & Groin',lv=window._spLv||'L1A';var injs=['Hip & Groin','Knee','Shoulder','Lower Back','Ankle & Foot','Neck','Wrist & Elbow'];var lvs=['L1A','L1B','L2A','L2B','L3A','L3B'];var preps={'Hip & Groin':{f:'Hip mobility &mdash; passive and active rotation, hip CAR, 90/90 transitions',demo:['90/90 Hip Switch','Prone Hip Extension','Standing Hip CAR','Side-lying Clamshell','Dead Bug'],cues:['Move slow and controlled &mdash; stop before the pinch','Breathe out as you push into end range','Keep the pelvis still &mdash; only the leg moves','Pain-free range only'],watch:['Hip clicking or catching mid-range &mdash; check Joint lane','Groin pinching at end of internal rotation','Compensation at the lumbar spine during hip rotation'],opener:'How has the hip been feeling since we last checked in? Any change in morning stiffness?'},Knee:{f:'Quad control, tibialis loading, knee-friendly mobility',demo:['Tibialis Raises','Calf Raises','Reverse Nordic (assisted)','Step Down (eccentric)','Terminal Knee Extension'],cues:['Lower slowly &mdash; 4 seconds down on every eccentric','Keep the knee tracking over the 2nd toe','Load through the whole foot, not just the heel','Control beats speed every time'],watch:['Swelling after the session &mdash; sign to reduce load','Locking or clicking at a specific knee angle','Quad dominance &mdash; heel lifting in single leg work'],opener:'How did the knee respond after last session? Any lingering ache or swelling?'},Shoulder:{f:'Thoracic mobility, passive hang, shoulder packing and scapular control',demo:['Passive Hang','Shoulder Dislocates','Wall Slides','Prone T & Y Raises','Band Pull Aparts'],cues:['Hang completely &mdash; let gravity do the work','Shoulder blade down and in before any pressing','Initiate pulls from the armpit, not the elbow','No shrugging &mdash; keep the neck long'],watch:['Pain at the front of shoulder during the hang','Thoracic restriction limiting overhead range','Scapular winging during wall slides'],opener:'How has overhead range felt this week? Any change in morning stiffness or ache?'},'Lower Back':{f:'Spinal decompression, gentle loading, hip-spine dissociation',demo:['Cat Cow','Child Pose','Bird Dog','Dead Bug','Glute Bridge'],cues:['Never push through sharp or electric lower back pain','Brace the core before every rep &mdash; a light belt of tension','Breathe in to prepare, breathe out to move','Hip hinge, not a back bend'],watch:['Pain that radiates into the leg &mdash; nerve involvement, escalate if new','Pain that gets worse with gentle movement','Any change in bladder or bowel function &mdash; red flag, escalate immediately'],opener:'On a scale of 1-10, where is the lower back right now? Morning vs end of day?'},'Ankle & Foot':{f:'Ankle mobility, calf strength, proprioception and foot mechanics',demo:['Ankle Circles','Tibialis Raises','Calf Raises (double then single)','Balance on single leg','Ankle Glides'],cues:['Full range every circle &mdash; do not rush','Lower the heel slowly &mdash; 3-4 seconds','Grab the floor with your toes on every balance rep','Foot position matters &mdash; keep the arch lifted'],watch:['Swelling above or below the ankle','Ankle giving way under load &mdash; ligament stability check','Pain on the sole of the foot &mdash; adjust loading for plantar fascia'],opener:'How has the ankle felt on uneven ground or stairs this week? Any instability?'},Neck:{f:'Cervical mobility, decompression, chin tuck pattern and thoracic link',demo:['Chin Tucks','Neck Side Glide','Neck Rotation','Upper Trap Stretch','Seated Thoracic Rotation'],cues:['Chin tucks are subtle &mdash; imagine a double chin','Never rotate into pain or resistance','Keep the jaw relaxed throughout','The neck and thoracic spine are linked &mdash; work both'],watch:['Electric or shooting pain down the arm &mdash; cervical nerve root, escalate','Dizziness during neck movement','Head forward posture increasing under fatigue'],opener:'Any headaches, arm symptoms, or changes in sensation this week?'},'Wrist & Elbow':{f:'Wrist mobility, loading tolerance, grip preparation',demo:['Wrist Circles','Wrist Flexion/Extension Raises','Forearm Stretch','Radial Deviation','Pronation/Supination'],cues:['Treat the wrists like the ankles &mdash; they need daily mobility','Slow eccentrics are the tendon treatment &mdash; 4 seconds down','Load only what the tendon can handle today','Build progressively over weeks, not sessions'],watch:['Sharp pain during wrist weight-bearing &mdash; check loading position','Tingling in the fingers &mdash; carpal tunnel or nerve','Forearm fatigue before grip strength is challenged'],opener:'Any wrist or hand symptoms after computer work, climbing, or grip activities this week?'}};var p=preps[inj]||preps['Hip & Groin'];var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 style="font-size:19px;font-weight:700;color:#e2e5f0;margin-bottom:4px;">&#128196; Pre-Session Prep Card</h2>';s+='<p style="font-size:13px;color:#8892a4;margin-bottom:18px;">Generate your prep card the night before. Walk in ready, not reactive.</p>';s+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">Injury Focus</div><select onchange="window._spInj=this.value;renderContent(\x27sessionprep\x27)" style="width:100%;padding:9px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';injs.forEach(function(n){s+='<option value="'+n+'" '+(n===inj?'selected':'')+'>'+n+'</option>';});s+='</select></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">Client Level</div><select onchange="window._spLv=this.value;renderContent(\x27sessionprep\x27)" style="width:100%;padding:9px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';lvs.forEach(function(n){s+='<option value="'+n+'" '+(n===lv?'selected':'')+'>'+n+'</option>';});s+='</select></div></div>';s+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';s+='<div style="background:#1a1f2e;border:1px solid #4d8ef044;border-radius:10px;padding:14px;grid-column:1/-1;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">&#127919; Session Focus</div><div style="font-size:14px;color:#e2e5f0;font-weight:600;">'+p.f+'</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#4dbd8e;margin-bottom:6px;">&#128221; Demo These Movements</div><div style="display:flex;flex-direction:column;gap:4px;">';p.demo.forEach(function(mv,i){s+='<div style="font-size:12px;color:#c8d0e0;"><span style="color:#5e6a85;">'+(i+1)+'. </span>'+mv+'</div>';});s+='</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#f0b04d;margin-bottom:6px;">&#128483; Coaching Cues</div><div style="display:flex;flex-direction:column;gap:5px;">';p.cues.forEach(function(c){s+='<div style="font-size:12px;color:#c8d0e0;line-height:1.4;">&#10003; '+c+'</div>';});s+='</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#f04d4d;margin-bottom:6px;">&#128064; Watch For</div><div style="display:flex;flex-direction:column;gap:5px;">';p.watch.forEach(function(w){s+='<div style="font-size:12px;color:#c8d0e0;line-height:1.4;">&#9888; '+w+'</div>';});s+='</div></div>';s+='<div style="background:#1e2a3a;border:1px solid #4d8ef044;border-radius:10px;padding:14px;grid-column:1/-1;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">&#128172; Session Opener Question</div><div style="font-size:14px;color:#e2e5f0;font-style:italic;">&ldquo;'+p.opener+'&rdquo;</div></div>';s+='</div></div>';d.innerHTML=s;}
 
 function renderProgressDash(){var d=document.getElementById('content');if(!d)return;var cls=window._pdClients||{},sel=window._pdSel||null;var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 style="font-size:19px;font-weight:700;color:#e2e5f0;margin-bottom:4px;">&#128200; Progress Dashboard</h2>';s+='<p style="font-size:13px;color:#8892a4;margin-bottom:18px;">Track weekly pain, compliance &amp; movement for each client. Spot trends fast.</p>';s+='<div style="display:flex;gap:8px;margin-bottom:20px;"><input id="pdn" type="text" placeholder="Client name..." style="flex:1;padding:9px 12px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';s+='<button onclick="(function(){var n=document.getElementById(\x27pdn\x27).value.trim();if(!n)return;window._pdClients=window._pdClients||{};if(!window._pdClients[n])window._pdClients[n]={weeks:[]};window._pdSel=n;renderContent(\x27progressdash\x27);})()" style="padding:9px 14px;background:#1e3a6e;color:#4d8ef0;border:1px solid #4d8ef0;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">+ Add Client</button></div>';var nms=Object.keys(cls);if(nms.length>0){s+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">';nms.forEach(function(n){var on=n===sel;s+='<button onclick="window._pdSel=\x27'+n+'\x27;renderContent(\x27progressdash\x27)" style="padding:6px 14px;border-radius:20px;border:1px solid '+(on?'#4d8ef0':'#2a3347')+';background:'+(on?'#1e3a6e':'#1a1f2e')+';color:'+(on?'#4d8ef0':'#8892a4')+';font-size:12px;font-weight:600;cursor:pointer;">'+n+'</button>';});s+='</div>';}if(sel&&cls[sel]){var cl=cls[sel],wks=cl.weeks||[];s+='<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:16px;">';s+='<div style="font-size:12px;font-weight:700;color:#e2e5f0;margin-bottom:12px;">Log Week '+(wks.length+1)+' for '+sel+'</div>';s+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;">';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Pain (0-10)</div><input id="pdp" type="number" min="0" max="10" placeholder="e.g. 5" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Snack Days (0-7)</div><input id="pdc" type="number" min="0" max="7" placeholder="e.g. 6" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Movement (%)</div><input id="pdm" type="number" min="0" max="100" placeholder="e.g. 70" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Coach Note</div><input id="pdnt" type="text" placeholder="e.g. First pain-free squat" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='</div><button onclick="(function(){var p=parseInt(document.getElementById(\x27pdp\x27).value);var c=parseInt(document.getElementById(\x27pdc\x27).value);var m=parseInt(document.getElementById(\x27pdm\x27).value)||0;var n=document.getElementById(\x27pdnt\x27).value;if(isNaN(p)||isNaN(c))return;window._pdClients[window._pdSel].weeks.push({pain:p,comp:c,mov:m,note:n,date:new Date().toLocaleDateString()});renderContent(\x27progressdash\x27);})()" style="padding:8px 14px;background:#1e3a2e;color:#4dbd8e;border:1px solid #4dbd8e;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">&#10010; Log This Week</button>';s+='</div>';if(wks.length>0){s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:12px;">';s+='<div style="font-size:12px;font-weight:700;color:#e2e5f0;margin-bottom:12px;">&#128200; '+sel+' &mdash; '+wks.length+' week'+(wks.length!==1?'s':'')+' logged</div>';s+='<div style="margin-bottom:10px;"><div style="font-size:10px;text-transform:uppercase;color:#f04d4d;margin-bottom:6px;">Pain Score (lower = better)</div><div style="display:flex;align-items:flex-end;gap:4px;height:60px;">';wks.forEach(function(w,i){var h=Math.max(Math.round((w.pain/10)*60),3);var col=w.pain<=2?'#4dbd8e':w.pain<=5?'#f0b04d':'#f04d4d';s+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;"><div style="font-size:9px;color:'+col+';">'+w.pain+'</div><div style="width:100%;background:'+col+';height:'+h+'px;border-radius:2px 2px 0 0;"></div><div style="font-size:9px;color:#5e6a85;">W'+(i+1)+'</div></div>';});s+='</div></div>';s+='<div style="margin-bottom:10px;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">Snack Compliance (days/week)</div><div style="display:flex;align-items:flex-end;gap:4px;height:60px;">';wks.forEach(function(w,i){var h=Math.max(Math.round((w.comp/7)*60),3);var col=w.comp>=5?'#4dbd8e':w.comp>=3?'#f0b04d':'#f04d4d';s+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;"><div style="font-size:9px;color:'+col+';">'+w.comp+'</div><div style="width:100%;background:'+col+';height:'+h+'px;border-radius:2px 2px 0 0;"></div><div style="font-size:9px;color:#5e6a85;">W'+(i+1)+'</div></div>';});s+='</div></div>';var avg=Math.round(wks.reduce(function(a,w){return a+w.pain;},0)/wks.length*10)/10;var ac=Math.round(wks.reduce(function(a,w){return a+w.comp;},0)/wks.length*10)/10;var tr=wks.length>1?(wks[wks.length-1].pain<wks[0].pain?'&#128994; Improving':wks[wks.length-1].pain>wks[0].pain?'&#128308; Worsening':'&#128993; Stable'):'&mdash;';s+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:18px;font-weight:700;color:#e2e5f0;">'+avg+'</div><div style="font-size:10px;color:#5e6a85;">Avg Pain</div></div>';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:13px;font-weight:700;color:#e2e5f0;">'+tr+'</div><div style="font-size:10px;color:#5e6a85;">Trend</div></div>';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:18px;font-weight:700;color:#e2e5f0;">'+ac+'</div><div style="font-size:10px;color:#5e6a85;">Avg Days/Wk</div></div></div>';var notes=wks.filter(function(w){return w.note;});if(notes.length>0){s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:6px;">Coach Notes</div>';notes.forEach(function(w){s+='<div style="font-size:12px;color:#c8d0e0;margin-bottom:3px;">&bull; '+w.date+': '+w.note+'</div>';});s+='</div>';}s+='</div>';}}else if(nms.length===0){s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:24px;text-align:center;color:#5e6a85;">Add a client above to start tracking. Note: data lives in this browser session only.</div>';}s+='</div>';d.innerHTML=s;}
+
+
+
+// ===== UX IMPROVEMENTS: SEARCH, PINS, KEYBOARD SHORTCUTS =====
+(function(){
+  // TAB DATA for search
+  const TAB_DATA=[
+    {name:'Template Adjustments',id:'templates',group:'Core',emoji:'📋'},
+    {name:'Everfit Templates',id:'everfit',group:'Core',emoji:'📱'},
+    {name:'Regressions',id:'regressions',group:'Core',emoji:'⇩'},
+    {name:'4–6 Week Plan',id:'progression',group:'Core',emoji:'📈'},
+    {name:'Client Scripts',id:'scripts',group:'Core',emoji:'💬'},
+    {name:'Refer & Red Flags',id:'refer',group:'Core',emoji:'⚠'},
+    {name:'Troubleshoot',id:'troubleshoot',group:'Core',emoji:'🔍'},
+    {name:'Coach Resources',id:'resources',group:'Core',emoji:'📚'},
+    {name:'Check-In Protocol',id:'checkin',group:'Core',emoji:'✅'},
+    {name:'Movement Library',id:'movements',group:'Library',emoji:'🏋'},
+    {name:'Skill Progressions',id:'skills',group:'Library',emoji:'🤹'},
+    {name:'Snack Builder',id:'snack',group:'Library',emoji:'🍵'},
+    {name:'Check-In Decoder',id:'checkinai',group:'Library',emoji:'📊'},
+    {name:'Goal Tracker',id:'goaltracker',group:'Library',emoji:'🎯'},
+    {name:'Onboarding',id:'onboarding',group:'Library',emoji:'🚀'},
+    {name:'Session Design',id:'session',group:'Library',emoji:'📐'},
+    {name:'Progress Notes',id:'notes',group:'Library',emoji:'📝'},
+    {name:'Client Comms',id:'comms',group:'Library',emoji:'💬'},
+    {name:'Red Flags',id:'redflags',group:'Library',emoji:'🚩'},
+    {name:'Snack Library',id:'snacklibrary',group:'Power',emoji:'🍳'},
+    {name:'Fast Prescriber',id:'prescriber',group:'Power',emoji:'⚡'},
+    {name:'Regression Tree',id:'regression',group:'Power',emoji:'🔄'},
+    {name:'Weekly Briefing',id:'briefing',group:'Power',emoji:'📋'},
+    {name:'Win Tracker',id:'wintracker',group:'Power',emoji:'🏆'},
+    {name:'Message Tones',id:'msgtones',group:'Power',emoji:'🎤'},
+    {name:'Phase Checklist',id:'phasechecklist',group:'Power',emoji:'✅'},
+    {name:'Coach Onboarding',id:'coachinit',group:'Power',emoji:'🎓'},
+    {name:'Movement Lookup',id:'movlookup',group:'Power',emoji:'🔎'},
+    {name:'Session Prep',id:'sessionprep',group:'Power',emoji:'📄'},
+    {name:'Progress Dashboard',id:'progressdash',group:'Power',emoji:'📈'},
+  ];
+
+  function jumpToTab(tabId){
+    const matchTab=Array.from(document.querySelectorAll('.tab')).find(t=>t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+tabId+"'"));
+    if(matchTab){matchTab.click();}
+  }
+
+  // ---- SEARCH ----
+  let activeIdx=-1;
+  const qnav=document.getElementById('qnav');
+  const qnavResults=document.getElementById('qnav-results');
+
+  function showResults(items){
+    if(!items.length){qnavResults.style.display='none';return;}
+    qnavResults.innerHTML=items.map((t,i)=>'<div class="qnr-item" data-id="'+t.id+'" data-idx="'+i+'"><span>'+t.emoji+'</span><span>'+t.name+'</span><span class="qnr-group">'+t.group+'</span></div>').join('');
+    qnavResults.style.display='block';
+    activeIdx=-1;
+    qnavResults.querySelectorAll('.qnr-item').forEach(el=>{
+      el.addEventListener('mousedown',e=>{
+        e.preventDefault();
+        jumpToTab(el.dataset.id);
+        qnav.value='';qnavResults.style.display='none';
+      });
+    });
+  }
+
+  qnav.addEventListener('input',()=>{
+    const q=qnav.value.trim().toLowerCase();
+    if(!q){qnavResults.style.display='none';return;}
+    const matches=TAB_DATA.filter(t=>t.name.toLowerCase().includes(q)||t.group.toLowerCase().includes(q)||t.emoji.includes(q));
+    showResults(matches.slice(0,9));
+  });
+
+  qnav.addEventListener('keydown',e=>{
+    const items=qnavResults.querySelectorAll('.qnr-item');
+    if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('active',i===activeIdx));}
+    else if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);items.forEach((el,i)=>el.classList.toggle('active',i===activeIdx));}
+    else if(e.key==='Enter'){if(activeIdx>=0&&items[activeIdx]){items[activeIdx].dispatchEvent(new MouseEvent('mousedown'));}else if(items.length===1){items[0].dispatchEvent(new MouseEvent('mousedown'));}}
+    else if(e.key==='Escape'){qnavResults.style.display='none';qnav.value='';}
+  });
+
+  qnav.addEventListener('blur',()=>{setTimeout(()=>{qnavResults.style.display='none';},150);});
+
+  // / key to focus search
+  document.addEventListener('keydown',e=>{
+    if(e.key==='/'&&document.activeElement!==qnav&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+      e.preventDefault();qnav.focus();qnav.select();
+    }
+  });
+
+  // ---- PINS ----
+  let pins=[];
+  try{pins=JSON.parse(localStorage.getItem('mm_pins')||'[]');}catch(e){}
+  const pinBar=document.getElementById('pin-bar');
+
+  function savePins(){localStorage.setItem('mm_pins',JSON.stringify(pins));}
+
+  function renderPinBar(){
+    pinBar.querySelectorAll('.pin-tab').forEach(el=>el.remove());
+    if(pins.length){
+      pinBar.classList.add('has-pins');
+      pins.forEach(pin=>{
+        const pt=document.createElement('div');
+        pt.className='pin-tab';
+        pt.innerHTML=pin.emoji+' '+pin.name+' <span class="pin-x">✕</span>';
+        pt.title='Click to open · ✕ to unpin';
+        pt.addEventListener('click',e=>{
+          if(e.target.classList.contains('pin-x')){pins=pins.filter(p=>p.id!==pin.id);savePins();renderPinBar();}
+          else{jumpToTab(pin.id);}
+        });
+        pinBar.appendChild(pt);
+      });
+    }else{pinBar.classList.remove('has-pins');}
+  }
+
+  // Add pin button to each tab
+  document.querySelectorAll('.tab').forEach(tab=>{
+    const onclickVal=tab.getAttribute('onclick')||'';
+    const match=onclickVal.match(/goTab\('([^']+)'/);
+    if(!match)return;
+    const tabId=match[1];
+    const tabData=TAB_DATA.find(t=>t.id===tabId);
+    if(!tabData)return;
+    const pinBtn=document.createElement('span');
+    pinBtn.className='tab-pin-btn';pinBtn.textContent='📌';pinBtn.title='Pin for quick access';
+    pinBtn.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(!pins.find(p=>p.id===tabId)){pins.push({id:tabId,name:tabData.name,emoji:tabData.emoji});savePins();renderPinBar();}
+    });
+    tab.appendChild(pinBtn);
+  });
+
+  renderPinBar();
+
+  // ---- BACK TO TOP ----
+  const backTop=document.createElement('div');
+  backTop.id='back-top';backTop.innerHTML='↑ Top';backTop.title='Back to top';
+  document.body.appendChild(backTop);
+  const contentDiv=document.getElementById('content');
+  if(contentDiv){
+    contentDiv.addEventListener('scroll',()=>{backTop.style.display=contentDiv.scrollTop>200?'block':'none';});
+    backTop.addEventListener('click',()=>{contentDiv.scrollTo({top:0,behavior:'smooth'});});
+  }
+
+  // ---- KEYBOARD HINT ----
+  const kbHint=document.createElement('div');
+  kbHint.id='kb-hint';
+  kbHint.innerHTML='<kbd>/</kbd> search &nbsp;|&nbsp; <kbd>↑↓</kbd> nav results';
+  document.body.appendChild(kbHint);
+
+  // ---- RECENTLY USED TABS (green dot) ----
+  let recentTabs=[];
+  try{recentTabs=JSON.parse(localStorage.getItem('mm_recent')||'[]');}catch(e){}
+  function markRecent(tabId){
+    recentTabs=recentTabs.filter(r=>r!==tabId);
+    recentTabs.unshift(tabId);
+    recentTabs=recentTabs.slice(0,5);
+    localStorage.setItem('mm_recent',JSON.stringify(recentTabs));
+    updateRecentDots();
+  }
+  function updateRecentDots(){
+    document.querySelectorAll('.tab').forEach(tab=>{
+      const onclickVal=tab.getAttribute('onclick')||'';
+      const match=onclickVal.match(/goTab\('([^']+)'/);
+      if(match){
+        const isRecent=recentTabs.includes(match[1])&&recentTabs.indexOf(match[1])>0;
+        tab.classList.toggle('recently-used',isRecent);
+      }
+    });
+  }
+  // Wrap goTab to track recently used
+  if(typeof goTab==='function'){
+    const origGoTab=goTab;
+    window.goTab=function(id,el){origGoTab(id,el);markRecent(id);};
+  }
+  updateRecentDots();
+
+})();
 
 </script>
 </body>
