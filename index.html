@@ -158,6 +158,42 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 #back-top:hover{background:#4d8ef0;color:#fff;}
 .tab.recently-used::after{content:'';position:absolute;top:4px;right:16px;width:5px;height:5px;border-radius:50%;background:#4dbd8e;}
 
+
+/* ===== UX IMPROVEMENTS ===== */
+/* Grouped tabbar */
+.tab-groups-wrap{background:#0f1117;}
+.tab-group-section{border-bottom:1px solid #1a2035;}
+.tab-group-toggle{display:flex;align-items:center;gap:8px;padding:6px 16px;cursor:pointer;user-select:none;transition:background .15s;}
+.tab-group-toggle:hover{background:#12151c;}
+.tab-group-icon{font-size:13px;flex-shrink:0;}
+.tab-group-lbl{font-size:11px;font-weight:600;color:#8a95a8;letter-spacing:.5px;flex:1;}
+.tab-group-arrow{font-size:9px;color:#5e6a85;transition:transform .2s;margin-left:auto;}
+.tab-group-section.open .tab-group-arrow{transform:rotate(90deg);}
+.tab-group-tabs{display:none;flex-wrap:wrap;padding:2px 8px 6px 8px;gap:2px;background:#0a0d14;}
+.tab-group-section.open .tab-group-tabs{display:flex;}
+.tab-group-section.open .tab-group-lbl{color:#c8cfe0;}
+/* Override tab styles inside groups */
+.tab-groups-wrap .tab{padding:5px 9px;font-size:11.5px;border-bottom:2px solid transparent;border-radius:6px 6px 0 0;}
+.tab-groups-wrap .tab.on{color:#4d8ef0;background:#12151c;border-bottom-color:#4d8ef0;}
+/* Sidebar step labels */
+.step-lbl{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#5e6a85;padding:0 4px 6px;}
+.step-num-badge{width:15px;height:15px;border-radius:50%;background:#1e3a6e;color:#4d8ef0;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #4d8ef0;}
+/* Quick scenarios label */
+.scenarios-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#4dbd8e;padding:0 20px 4px;background:#12151c;}
+/* Welcome banner */
+.welcome-banner{background:linear-gradient(135deg,#1a2544,#0f1117);border:1px solid #4d8ef0;border-radius:12px;margin:12px 16px;padding:14px;position:relative;}
+.welcome-banner.hidden{display:none;}
+.wb-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#5e6a85;font-size:16px;cursor:pointer;line-height:1;padding:0;}
+.wb-close:hover{color:#c8cfe0;}
+.wb-title{font-size:13px;font-weight:700;color:#4d8ef0;margin-bottom:8px;}
+.wb-steps{display:flex;gap:8px;flex-wrap:wrap;}
+.wb-step{background:#0f1117;border:1px solid #2a3347;border-radius:8px;padding:10px 12px;flex:1;min-width:130px;}
+.wb-step-num{font-size:9px;color:#4d8ef0;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:700;}
+.wb-step-title{font-size:12px;font-weight:700;margin-bottom:3px;}
+.wb-step-desc{font-size:11px;color:#8a95a8;line-height:1.4;}
+.wb-footer{margin-top:10px;font-size:11px;color:#5e6a85;}
+/* Level tooltips */
+.level-btn[title]{cursor:help;}
 </style>
 </head>
 <body><div class="sb">
@@ -166,14 +202,14 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div id="qnav-wrap"><span id="qnav-icon">🔍</span><input id="qnav" type="text" placeholder="Search tools... (/ to focus)" autocomplete="off"><div id="qnav-results"></div></div>
 <div class="sb-scroll">
 <div class="sb-section">
-<div class="sb-lbl">Coach Mode</div>
+<div class="sb-lbl"><span class="step-num-badge">1</span> Coach Mode</div>
 <div class="coach-toggle">
 <button class="on" id="btn-beginner" onclick="setMode('beginner',this)">&#127807; Beginner</button>
 <button id="btn-advanced" onclick="setMode('advanced',this)">&#9889; Advanced</button>
 </div>
 </div>
 <div class="sb-section">
-<div class="sb-lbl">Program Level</div>
+<div class="sb-lbl"><span class="step-num-badge">2</span> Program Level</div>
 <div class="level-grid" style="grid-template-columns:1fr 1fr;">
 <button class="level-btn on" onclick="selLevel('L1A',this)">L1A</button>
 <button class="level-btn" onclick="selLevel('L1B',this)">L1B</button>
@@ -195,7 +231,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 </div>
 </div>
 <div class="sb-section">
-<div class="sb-lbl">Injury / Joint</div>
+<div class="sb-lbl"><span class="step-num-badge">3</span> Injury / Joint</div>
 <div class="inj-grid">
 <button class="inj-btn on" onclick="sel(this,'hip')">&#129467; Hip &amp; Groin</button>
 <button class="inj-btn" onclick="sel(this,'shoulder')">&#128170; Shoulder</button>
@@ -242,43 +278,81 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div id="mode-badge" style="font-size:11px;color:#5e6a85;background:#1a1f2e;padding:4px 10px;border-radius:20px;border:1px solid #2a3347;">&#127807; Beginner Mode</div>
 </div>
 <div id="pin-bar"><span id="pin-bar-lbl">⭐ Pinned</span></div>
-<div class="tabbar">
-<div class="tab on" onclick="goTab('templates',this)">&#128203; Template Adjustments</div>
-<div class="tab" onclick="goTab('everfit',this)">&#128241; Everfit Templates</div>
-<div class="tab" onclick="goTab('regressions',this)">&#8681; Regressions</div>
-<div class="tab" onclick="goTab('progression',this)">&#128200; 4&#8211;6 Week Plan</div>
-<div class="tab" onclick="goTab('scripts',this)">&#128172; Client Scripts</div>
-<div class="tab" onclick="goTab('refer',this)">&#9888; Refer &amp; Red Flags</div>
-<div class="tab" onclick="goTab('troubleshoot',this)">&#128269; Troubleshoot</div>
-<div class="tab" onclick="goTab('resources',this)">&#128218; Coach Resources</div>
-<div class="tab" onclick="goTab('checkin',this)">&#9989; Check-In Protocol</div>
-<div class="tab" onclick="goTab('movements',this)">&#127947; Movement Library</div><div class="tab" onclick="goTab('skills',this)">&#129337; Skill Progressions</div>
-      <div class="tab" onclick="goTab('snack',this)">&#127861; Snack Builder</div>
-      <div class="tab" onclick="goTab('checkinai',this)">&#128202; Check-In Decoder</div>
-      <div class="tab" onclick="goTab('goaltracker',this)">&#127919; Goal Tracker</div>
-<div class="tab" onclick="goTab('onboarding',this)">&#128640; Onboarding</div>
-<div class="tab" onclick="goTab('session',this)">&#128208; Session Design</div>
-<div class="tab" onclick="goTab('notes',this)">&#128221; Progress Notes</div>
-<div class="tab" onclick="goTab('comms',this)">&#128172; Client Comms</div>
-<div class="tab" onclick="goTab('redflags',this)">&#128681; Red Flags</div>
-<div class="tab" onclick="goTab('snacklibrary',this)">&#127859; Snack Library</div>
-<div class="tab" onclick="goTab('prescriber',this)">&#9889; Fast Prescriber</div>
-<div class="tab" onclick="goTab('regression',this)">&#128260; Regression Tree</div>
-<div class="tab" onclick="goTab('briefing',this)">&#128203; Weekly Briefing</div>
-<div class="tab" onclick="goTab('wintracker',this)">&#127942; Win Tracker</div>
-<div class="tab" onclick="goTab('msgtones',this)">&#127908; Message Tones</div>
-<div class="tab" onclick="goTab('phasechecklist',this)">&#9989; Phase Checklist</div>
-<div class="tab" onclick="goTab('coachinit',this)">&#127891; Coach Onboarding</div>
-<div class="tab" onclick="goTab('movlookup',this)">&#128270; Movement Lookup</div>
-<div class="tab" onclick="goTab('sessionprep',this)">&#128196; Session Prep</div>
-<div class="tab" onclick="goTab('progressdash',this)">&#128200; Progress Dashboard</div>
-
-
-<span class="tab" onclick="goTab('moat',this)">&#127958; Our Moat</span>
-<span class="tab" onclick="goTab('northstar',this)">&#11088; North Star</span>
-<span class="tab" onclick="goTab('playground',this)">&#129504; Coach Intelligence</span>
-<span class="tab" onclick="goTab('flywheel',this)">&#128260; Flywheel</span></div>
+<div id="welcome-banner" class="welcome-banner hidden">
+<button id="wb-close" class="wb-close" title="Dismiss">✕</button>
+<div class="wb-title">👋 How to use this tool</div>
+<div class="wb-steps">
+<div class="wb-step"><div class="wb-step-num">Step 1 — Sidebar</div><div class="wb-step-title">Pick Injury &amp; Level</div><div class="wb-step-desc">Choose the client's injury type and their program level (L1A–L5B)</div></div>
+<div class="wb-step"><div class="wb-step-num">Step 2 — Navigation</div><div class="wb-step-title">Open a Category</div><div class="wb-step-desc">Click a category below to expand it, then choose the tool you need</div></div>
+<div class="wb-step"><div class="wb-step-num">Step 3 — Quick Find</div><div class="wb-step-title">Use Quick Scenarios</div><div class="wb-step-desc">Click a scenario pill below to jump straight to the right answer</div></div>
+</div>
+<div class="wb-footer">📌 Pin your most-used tabs for even faster access. Press / to search all tools.</div>
+</div>
+<div class="tabbar" id="main-tabbar">
+<div class="tab-groups-wrap">
+<div class="tab-group-section open" data-group="session">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">🔥</span><span class="tab-group-lbl">During Session</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('templates',this)">📋 Template Adjustments<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('prescriber',this)">⚡ Fast Prescriber<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('movlookup',this)">🔎 Movement Lookup<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('regressions',this)">⇩ Regressions<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('regression',this)">🔄 Regression Tree<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('troubleshoot',this)">🔍 Troubleshoot<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('refer',this)">⚠ Refer &amp; Red Flags<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('sessionprep',this)">📄 Session Prep<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+<div class="tab-group-section" data-group="client">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">👥</span><span class="tab-group-lbl">Client Management</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('scripts',this)">💬 Client Scripts<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('comms',this)">💬 Client Comms<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('msgtones',this)">🎤 Message Tones<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('notes',this)">📝 Progress Notes<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('checkin',this)">✅ Check-In Protocol<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('checkinai',this)">📊 Check-In Decoder<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('redflags',this)">🚩 Red Flags<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('phasechecklist',this)">✅ Phase Checklist<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('wintracker',this)">🏆 Win Tracker<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('briefing',this)">📋 Weekly Briefing<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('progressdash',this)">📈 Progress Dashboard<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+<div class="tab-group-section" data-group="program">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">📋</span><span class="tab-group-lbl">Program Building</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('everfit',this)">📱 Everfit Templates<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('progression',this)">📈 4–6 Week Plan<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('movements',this)">🏋 Movement Library<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('skills',this)">🤹 Skill Progressions<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('snack',this)">🍵 Snack Builder<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('snacklibrary',this)">🍳 Snack Library<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('goaltracker',this)">🎯 Goal Tracker<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('session',this)">📐 Session Design<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+<div class="tab-group-section" data-group="onboarding">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">🚀</span><span class="tab-group-lbl">Onboarding &amp; Resources</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('onboarding',this)">🚀 Onboarding<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('coachinit',this)">🎓 Coach Onboarding<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('resources',this)">📚 Coach Resources<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+<div class="tab-group-section" data-group="strategy">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">⭐</span><span class="tab-group-lbl">Strategy</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('moat',this)">🏖 Our Moat<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('northstar',this)">⭐ North Star<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('playground',this)">🧠 Coach Intelligence<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+<div class="tab" onclick="goTab('flywheel',this)">🔄 Flywheel<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+</div>
+</div>
 <div class="ask-bar">
+<div class="scenarios-label">💡 Quick Scenarios — click to jump to the answer</div>
 <div class="ask-pills" id="ask-pills"></div>
 <div id="pill-answer" style="display:none;background:#1e2a3a;border:1px solid #4d8ef0;border-radius:10px;padding:14px 16px;margin-top:10px;max-height:420px;overflow-y:auto;"></div>
 </div>
@@ -3059,6 +3133,65 @@ function fwLog(){
 
 })();
 
+</script>
+
+<script>
+// ===== UX IMPROVEMENTS =====
+// Toggle tab group sections
+function toggleTabGroup(btn) {
+  var section = btn.parentElement;
+  section.classList.toggle('open');
+}
+
+// Open the group containing the active tab when goTab is called
+(function() {
+  var origGoTab = goTab;
+  window.goTab = function(id, btn) {
+    origGoTab(id, btn);
+    // Ensure the group containing this tab is open
+    if (btn && btn.closest) {
+      var section = btn.closest('.tab-group-section');
+      if (section) section.classList.add('open');
+    }
+  };
+})();
+
+// Add level label tooltips
+(function() {
+  var levelLabels = {
+    'L1A': 'L1A — Week 1-4: Initial Assessment Phase',
+    'L1B': 'L1B — Week 5-8: Foundation Building',
+    'L2A': 'L2A — Week 9-12: Progressive Loading',
+    'L2B': 'L2B — Week 13-16: Strength Accumulation',
+    'L3A': 'L3A — Week 17-20: Performance Phase',
+    'L3B': 'L3B — Week 21-24: Advanced Strength',
+    'L4A': 'L4A — Week 25-28: Mastery Phase',
+    'L4B': 'L4B — Week 29-32: Peak Performance',
+    'L5A': 'L5A — Week 33-36: Elite Level',
+    'L5B': 'L5B — Week 37+: Graduate / Alumni'
+  };
+  document.querySelectorAll('.level-btn').forEach(function(btn) {
+    var txt = btn.textContent.trim();
+    if (levelLabels[txt]) btn.title = levelLabels[txt];
+  });
+})();
+
+// Show welcome banner if first visit
+(function() {
+  var banner = document.getElementById('welcome-banner');
+  if (!banner) return;
+  var dismissed = localStorage.getItem('mm_welcome_dismissed');
+  if (!dismissed) {
+    banner.classList.remove('hidden');
+  }
+  var closeBtn = document.getElementById('wb-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      banner.classList.add('hidden');
+      localStorage.setItem('mm_welcome_dismissed', '1');
+    });
+  }
+})();
 </script>
 </body>
 </html>
