@@ -3073,6 +3073,189 @@ var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 sty
 function renderSessionPrep(){var d=document.getElementById('content');if(!d)return;var inj=window._spInj||'Hip & Groin',lv=window._spLv||'L1A';var injs=['Hip & Groin','Knee','Shoulder','Lower Back','Ankle & Foot','Neck','Wrist & Elbow'];var lvs=['L1A','L1B','L2A','L2B','L3A','L3B'];var preps={'Hip & Groin':{f:'Hip mobility &mdash; passive and active rotation, hip CAR, 90/90 transitions',demo:['90/90 Hip Switch','Prone Hip Extension','Standing Hip CAR','Side-lying Clamshell','Dead Bug'],cues:['Move slow and controlled &mdash; stop before the pinch','Breathe out as you push into end range','Keep the pelvis still &mdash; only the leg moves','Pain-free range only'],watch:['Hip clicking or catching mid-range &mdash; check Joint lane','Groin pinching at end of internal rotation','Compensation at the lumbar spine during hip rotation'],opener:'How has the hip been feeling since we last checked in? Any change in morning stiffness?'},Knee:{f:'Quad control, tibialis loading, knee-friendly mobility',demo:['Tibialis Raises','Calf Raises','Reverse Nordic (assisted)','Step Down (eccentric)','Terminal Knee Extension'],cues:['Lower slowly &mdash; 4 seconds down on every eccentric','Keep the knee tracking over the 2nd toe','Load through the whole foot, not just the heel','Control beats speed every time'],watch:['Swelling after the session &mdash; sign to reduce load','Locking or clicking at a specific knee angle','Quad dominance &mdash; heel lifting in single leg work'],opener:'How did the knee respond after last session? Any lingering ache or swelling?'},Shoulder:{f:'Thoracic mobility, passive hang, shoulder packing and scapular control',demo:['Passive Hang','Shoulder Dislocates','Wall Slides','Prone T & Y Raises','Band Pull Aparts'],cues:['Hang completely &mdash; let gravity do the work','Shoulder blade down and in before any pressing','Initiate pulls from the armpit, not the elbow','No shrugging &mdash; keep the neck long'],watch:['Pain at the front of shoulder during the hang','Thoracic restriction limiting overhead range','Scapular winging during wall slides'],opener:'How has overhead range felt this week? Any change in morning stiffness or ache?'},'Lower Back':{f:'Spinal decompression, gentle loading, hip-spine dissociation',demo:['Cat Cow','Child Pose','Bird Dog','Dead Bug','Glute Bridge'],cues:['Never push through sharp or electric lower back pain','Brace the core before every rep &mdash; a light belt of tension','Breathe in to prepare, breathe out to move','Hip hinge, not a back bend'],watch:['Pain that radiates into the leg &mdash; nerve involvement, escalate if new','Pain that gets worse with gentle movement','Any change in bladder or bowel function &mdash; red flag, escalate immediately'],opener:'On a scale of 1-10, where is the lower back right now? Morning vs end of day?'},'Ankle & Foot':{f:'Ankle mobility, calf strength, proprioception and foot mechanics',demo:['Ankle Circles','Tibialis Raises','Calf Raises (double then single)','Balance on single leg','Ankle Glides'],cues:['Full range every circle &mdash; do not rush','Lower the heel slowly &mdash; 3-4 seconds','Grab the floor with your toes on every balance rep','Foot position matters &mdash; keep the arch lifted'],watch:['Swelling above or below the ankle','Ankle giving way under load &mdash; ligament stability check','Pain on the sole of the foot &mdash; adjust loading for plantar fascia'],opener:'How has the ankle felt on uneven ground or stairs this week? Any instability?'},Neck:{f:'Cervical mobility, decompression, chin tuck pattern and thoracic link',demo:['Chin Tucks','Neck Side Glide','Neck Rotation','Upper Trap Stretch','Seated Thoracic Rotation'],cues:['Chin tucks are subtle &mdash; imagine a double chin','Never rotate into pain or resistance','Keep the jaw relaxed throughout','The neck and thoracic spine are linked &mdash; work both'],watch:['Electric or shooting pain down the arm &mdash; cervical nerve root, escalate','Dizziness during neck movement','Head forward posture increasing under fatigue'],opener:'Any headaches, arm symptoms, or changes in sensation this week?'},'Wrist & Elbow':{f:'Wrist mobility, loading tolerance, grip preparation',demo:['Wrist Circles','Wrist Flexion/Extension Raises','Forearm Stretch','Radial Deviation','Pronation/Supination'],cues:['Treat the wrists like the ankles &mdash; they need daily mobility','Slow eccentrics are the tendon treatment &mdash; 4 seconds down','Load only what the tendon can handle today','Build progressively over weeks, not sessions'],watch:['Sharp pain during wrist weight-bearing &mdash; check loading position','Tingling in the fingers &mdash; carpal tunnel or nerve','Forearm fatigue before grip strength is challenged'],opener:'Any wrist or hand symptoms after computer work, climbing, or grip activities this week?'}};var p=preps[inj]||preps['Hip & Groin'];var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 style="font-size:19px;font-weight:700;color:#e2e5f0;margin-bottom:4px;">&#128196; Pre-Session Prep Card</h2>';s+='<p style="font-size:13px;color:#8892a4;margin-bottom:18px;">Generate your prep card the night before. Walk in ready, not reactive.</p>';s+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">Injury Focus</div><select onchange="window._spInj=this.value;renderContent(\x27sessionprep\x27)" style="width:100%;padding:9px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';injs.forEach(function(n){s+='<option value="'+n+'" '+(n===inj?'selected':'')+'>'+n+'</option>';});s+='</select></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:5px;">Client Level</div><select onchange="window._spLv=this.value;renderContent(\x27sessionprep\x27)" style="width:100%;padding:9px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';lvs.forEach(function(n){s+='<option value="'+n+'" '+(n===lv?'selected':'')+'>'+n+'</option>';});s+='</select></div></div>';s+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';s+='<div style="background:#1a1f2e;border:1px solid #4d8ef044;border-radius:10px;padding:14px;grid-column:1/-1;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">&#127919; Session Focus</div><div style="font-size:14px;color:#e2e5f0;font-weight:600;">'+p.f+'</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#4dbd8e;margin-bottom:6px;">&#128221; Demo These Movements</div><div style="display:flex;flex-direction:column;gap:4px;">';p.demo.forEach(function(mv,i){s+='<div style="font-size:12px;color:#c8d0e0;"><span style="color:#5e6a85;">'+(i+1)+'. </span>'+mv+'</div>';});s+='</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#f0b04d;margin-bottom:6px;">&#128483; Coaching Cues</div><div style="display:flex;flex-direction:column;gap:5px;">';p.cues.forEach(function(c){s+='<div style="font-size:12px;color:#c8d0e0;line-height:1.4;">&#10003; '+c+'</div>';});s+='</div></div>';s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:14px;"><div style="font-size:10px;text-transform:uppercase;color:#f04d4d;margin-bottom:6px;">&#128064; Watch For</div><div style="display:flex;flex-direction:column;gap:5px;">';p.watch.forEach(function(w){s+='<div style="font-size:12px;color:#c8d0e0;line-height:1.4;">&#9888; '+w+'</div>';});s+='</div></div>';s+='<div style="background:#1e2a3a;border:1px solid #4d8ef044;border-radius:10px;padding:14px;grid-column:1/-1;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">&#128172; Session Opener Question</div><div style="font-size:14px;color:#e2e5f0;font-style:italic;">&ldquo;'+p.opener+'&rdquo;</div></div>';s+='</div></div>';d.innerHTML=s;}
 
 function renderProgressDash(){var d=document.getElementById('content');if(!d)return;var cls=window._pdClients||{},sel=window._pdSel||null;var s='<div style="padding:20px 24px;overflow-y:auto;height:100%;">';s+='<h2 style="font-size:19px;font-weight:700;color:#e2e5f0;margin-bottom:4px;">&#128200; Progress Dashboard</h2>';s+='<p style="font-size:13px;color:#8892a4;margin-bottom:18px;">Track weekly pain, compliance &amp; movement for each client. Spot trends fast.</p>';s+='<div style="display:flex;gap:8px;margin-bottom:20px;"><input id="pdn" type="text" placeholder="Client name..." style="flex:1;padding:9px 12px;background:#1a1f2e;color:#e2e5f0;border:1px solid #2a3347;border-radius:8px;font-size:13px;">';s+='<button onclick="(function(){var n=document.getElementById(\x27pdn\x27).value.trim();if(!n)return;window._pdClients=window._pdClients||{};if(!window._pdClients[n])window._pdClients[n]={weeks:[]};window._pdSel=n;renderContent(\x27progressdash\x27);})()" style="padding:9px 14px;background:#1e3a6e;color:#4d8ef0;border:1px solid #4d8ef0;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">+ Add Client</button></div>';var nms=Object.keys(cls);if(nms.length>0){s+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">';nms.forEach(function(n){var on=n===sel;s+='<button onclick="window._pdSel=\x27'+n+'\x27;renderContent(\x27progressdash\x27)" style="padding:6px 14px;border-radius:20px;border:1px solid '+(on?'#4d8ef0':'#2a3347')+';background:'+(on?'#1e3a6e':'#1a1f2e')+';color:'+(on?'#4d8ef0':'#8892a4')+';font-size:12px;font-weight:600;cursor:pointer;">'+n+'</button>';});s+='</div>';}if(sel&&cls[sel]){var cl=cls[sel],wks=cl.weeks||[];s+='<div style="background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:16px;">';s+='<div style="font-size:12px;font-weight:700;color:#e2e5f0;margin-bottom:12px;">Log Week '+(wks.length+1)+' for '+sel+'</div>';s+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;">';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Pain (0-10)</div><input id="pdp" type="number" min="0" max="10" placeholder="e.g. 5" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Snack Days (0-7)</div><input id="pdc" type="number" min="0" max="7" placeholder="e.g. 6" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Movement (%)</div><input id="pdm" type="number" min="0" max="100" placeholder="e.g. 70" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:4px;">Coach Note</div><input id="pdnt" type="text" placeholder="e.g. First pain-free squat" style="width:100%;padding:8px;background:#12151c;color:#e2e5f0;border:1px solid #2a3347;border-radius:6px;font-size:13px;"></div>';s+='</div><button onclick="(function(){var p=parseInt(document.getElementById(\x27pdp\x27).value);var c=parseInt(document.getElementById(\x27pdc\x27).value);var m=parseInt(document.getElementById(\x27pdm\x27).value)||0;var n=document.getElementById(\x27pdnt\x27).value;if(isNaN(p)||isNaN(c))return;window._pdClients[window._pdSel].weeks.push({pain:p,comp:c,mov:m,note:n,date:new Date().toLocaleDateString()});renderContent(\x27progressdash\x27);})()" style="padding:8px 14px;background:#1e3a2e;color:#4dbd8e;border:1px solid #4dbd8e;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">&#10010; Log This Week</button>';s+='</div>';if(wks.length>0){s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:16px;margin-bottom:12px;">';s+='<div style="font-size:12px;font-weight:700;color:#e2e5f0;margin-bottom:12px;">&#128200; '+sel+' &mdash; '+wks.length+' week'+(wks.length!==1?'s':'')+' logged</div>';s+='<div style="margin-bottom:10px;"><div style="font-size:10px;text-transform:uppercase;color:#f04d4d;margin-bottom:6px;">Pain Score (lower = better)</div><div style="display:flex;align-items:flex-end;gap:4px;height:60px;">';wks.forEach(function(w,i){var h=Math.max(Math.round((w.pain/10)*60),3);var col=w.pain<=2?'#4dbd8e':w.pain<=5?'#f0b04d':'#f04d4d';s+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;"><div style="font-size:9px;color:'+col+';">'+w.pain+'</div><div style="width:100%;background:'+col+';height:'+h+'px;border-radius:2px 2px 0 0;"></div><div style="font-size:9px;color:#5e6a85;">W'+(i+1)+'</div></div>';});s+='</div></div>';s+='<div style="margin-bottom:10px;"><div style="font-size:10px;text-transform:uppercase;color:#4d8ef0;margin-bottom:6px;">Snack Compliance (days/week)</div><div style="display:flex;align-items:flex-end;gap:4px;height:60px;">';wks.forEach(function(w,i){var h=Math.max(Math.round((w.comp/7)*60),3);var col=w.comp>=5?'#4dbd8e':w.comp>=3?'#f0b04d':'#f04d4d';s+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;"><div style="font-size:9px;color:'+col+';">'+w.comp+'</div><div style="width:100%;background:'+col+';height:'+h+'px;border-radius:2px 2px 0 0;"></div><div style="font-size:9px;color:#5e6a85;">W'+(i+1)+'</div></div>';});s+='</div></div>';var avg=Math.round(wks.reduce(function(a,w){return a+w.pain;},0)/wks.length*10)/10;var ac=Math.round(wks.reduce(function(a,w){return a+w.comp;},0)/wks.length*10)/10;var tr=wks.length>1?(wks[wks.length-1].pain<wks[0].pain?'&#128994; Improving':wks[wks.length-1].pain>wks[0].pain?'&#128308; Worsening':'&#128993; Stable'):'&mdash;';s+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:18px;font-weight:700;color:#e2e5f0;">'+avg+'</div><div style="font-size:10px;color:#5e6a85;">Avg Pain</div></div>';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:13px;font-weight:700;color:#e2e5f0;">'+tr+'</div><div style="font-size:10px;color:#5e6a85;">Trend</div></div>';s+='<div style="background:#1a1f2e;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:18px;font-weight:700;color:#e2e5f0;">'+ac+'</div><div style="font-size:10px;color:#5e6a85;">Avg Days/Wk</div></div></div>';var notes=wks.filter(function(w){return w.note;});if(notes.length>0){s+='<div><div style="font-size:10px;text-transform:uppercase;color:#5e6a85;margin-bottom:6px;">Coach Notes</div>';notes.forEach(function(w){s+='<div style="font-size:12px;color:#c8d0e0;margin-bottom:3px;">&bull; '+w.date+': '+w.note+'</div>';});s+='</div>';}s+='</div>';}}else if(nms.length===0){s+='<div style="background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:24px;text-align:center;color:#5e6a85;">Add a client above to start tracking. Note: data lives in this browser session only.</div>';}s+='</div>';d.innerHTML=s;}
+function renderQuickRef(){
+  const d=document.getElementById('content');
+  const inj=cur.inj||'hip';
+  const injName={hip:'Hip & Groin',shoulder:'Shoulder',knee:'Knee',wrist:'Wrist',plantar:'Plantar Fascia',lower:'Lower Back',elbow:'Elbow',neck:'Neck'}[inj]||inj;
+  d.innerHTML=`
+<div class="qr-wrap">
+  <div class="qr-heading">&#129504; Coach Quick Reference</div>
+  <div class="qr-sub">Decision framework, session flow, and refer checklist. Current injury: <strong style="color:#4d8ef0">${injName}</strong></div>
+  
+  <div class="qr-decision">
+    <div class="qr-decision-title">&#9889; Pain Lane Decision Tree</div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">Dull ache, worse with load, no catch</span><span class="qr-decision-action">&#8594; Muscle lane</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">Pinching, catching, position-specific</span><span class="qr-decision-action">&#8594; Joint lane</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">Electric, burning, radiating pain</span><span class="qr-decision-action">&#8594; Nerve lane</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">Sharp, swollen, hot to touch</span><span class="qr-decision-action">&#8594; Refer immediately</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">Bilateral symptoms, bowel/bladder</span><span class="qr-decision-action">&#8594; Refer immediately</span></div>
+  </div>
+  
+  <div class="qr-session-flow">
+    <div class="qr-flow-title">&#128203; Session Flow (30-45 min)</div>
+    <div class="qr-flow-step"><div class="qr-flow-num">1</div><div><strong style="color:#e0e8f4">Open (3 min)</strong> &#8212; Check-in question, pain rating vs last session, ask about snack compliance</div></div>
+    <div class="qr-flow-step"><div class="qr-flow-num">2</div><div><strong style="color:#e0e8f4">Benchmark (5 min)</strong> &#8212; Test the benchmark movement. Note quality, pain, restriction.</div></div>
+    <div class="qr-flow-step"><div class="qr-flow-num">3</div><div><strong style="color:#e0e8f4">Program (25-35 min)</strong> &#8212; Work through prescribed session. Demo first, coach second.</div></div>
+    <div class="qr-flow-step"><div class="qr-flow-num">4</div><div><strong style="color:#e0e8f4">Close (2 min)</strong> &#8212; Pain rating now vs start, one win to acknowledge, next session date.</div></div>
+  </div>
+  
+  <div class="qr-grid">
+    <div class="qr-card">
+      <div class="qr-card-title">&#9989; Progress: Good Signs</div>
+      <div class="qr-item"><strong>Pain trending down</strong>2+ sessions in a row lower than baseline</div>
+      <div class="qr-item"><strong>ROM increasing</strong>Measurable range-of-motion improvement</div>
+      <div class="qr-item"><strong>Movement quality better</strong>Less compensation, smoother pattern</div>
+      <div class="qr-item"><strong>Daily function improved</strong>Stairs, sleep, sport all easier</div>
+      <div class="qr-item"><strong>Snack compliance high</strong>4+ days per week for 2+ weeks</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-card-title">&#128308; Plateau: Action Plan</div>
+      <div class="qr-item"><strong>Pain same for 3+ weeks</strong>Audit lane selection, check snack execution</div>
+      <div class="qr-item"><strong>ROM stuck</strong>Add passive loading, check lifestyle factors</div>
+      <div class="qr-item"><strong>Client disengaged</strong>Re-anchor to their goal, reduce complexity</div>
+      <div class="qr-item"><strong>Snack dropped off</strong>Simplify snack to 2 exercises only</div>
+      <div class="qr-item"><strong>Pain inconsistent</strong>Check sleep, stress, hydration first</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-card-title">&#128200; When to Progress</div>
+      <div class="qr-item"><strong>Pain 2/10 or less</strong>During all exercises in current program</div>
+      <div class="qr-item"><strong>Form solid</strong>No compensation under current load</div>
+      <div class="qr-item"><strong>2+ sessions consistent</strong>Same result in back-to-back sessions</div>
+      <div class="qr-item"><strong>Client feels ready</strong>Confidence matters &#8212; check in verbally</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-card-title">&#8679; When to Regress</div>
+      <div class="qr-item"><strong>Pain spikes mid-session</strong>Stop, regress immediately, reassess</div>
+      <div class="qr-item"><strong>Pain above 4/10</strong>On any exercise &#8212; always modify</div>
+      <div class="qr-item"><strong>24hr soreness rule</strong>If still sore 24hrs post, volume was too high</div>
+      <div class="qr-item"><strong>Form breaking down</strong>Reduce range, load, or reps first</div>
+    </div>
+    <div class="qr-card qr-full">
+      <div class="qr-card-title">&#128683; Refer Out Checklist &#8212; If ANY are YES, refer to physio/GP</div>
+      <div class="qr-item">Pain that is worsening session to session despite reducing load</div>
+      <div class="qr-item">Hot, swollen, or acutely inflamed joint</div>
+      <div class="qr-item">Numbness or tingling that does not change with position</div>
+      <div class="qr-item">Unexplained weight loss, fever, or fatigue alongside pain</div>
+      <div class="qr-item">Bilateral symptoms (both sides) or bowel/bladder changes</div>
+      <div class="qr-item">Pain at rest or waking the client from sleep</div>
+      <div class="qr-item">Any fall, acute trauma, or suspected fracture</div>
+      <div class="qr-item">Client mentions chest tightness, shortness of breath, or dizziness</div>
+    </div>
+  </div>
+  
+  <div class="qr-decision">
+    <div class="qr-decision-title">&#128172; Go-To Coaching Language</div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">When client says it hurts</span><span class="qr-decision-action">Ask: where exactly, and does it feel sharp, dull, or burning?</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">When progress is slow</span><span class="qr-decision-action">Tissue change takes 6-8 weeks &#8212; you are on track.</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">When client skipped snack</span><span class="qr-decision-action">Ask: what got in the way? Make it 5 min and idiot-proof.</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">When client wants to push harder</span><span class="qr-decision-action">Earn range first, load second.</span></div>
+    <div class="qr-decision-row"><span class="qr-decision-cond">When client is discouraged</span><span class="qr-decision-action">Name one thing easier than when we started. That is the proof.</span></div>
+  </div>
+</div>
+`;
+}
+
+function renderFlareScripts(){
+  const d=document.getElementById('content');
+  const inj=cur.inj||'hip';
+  const injName={hip:'Hip & Groin',shoulder:'Shoulder',knee:'Knee',wrist:'Wrist',plantar:'Plantar Fascia',lower:'Lower Back',elbow:'Elbow',neck:'Neck'}[inj]||inj;
+  d.innerHTML=`
+<div class="fl-wrap">
+  <div class="fl-heading">&#128222; Flare & Pain Response Scripts</div>
+  <div class="fl-sub">Copy-paste messages for when clients report a pain flare, setback, or spike. Injury: <strong style="color:#4d8ef0">${injName}</strong></div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#128680; Client Texts: My pain spiked after last session</div>
+    <div class="fl-scenario-context">Use this immediately when a client reports post-session pain increase</div>
+    <div class="fl-script">Hey [Name], thanks for letting me know. A small flare after a session can be normal -- it means we loaded the tissue. Here is what I want you to do: skip the snack today and tomorrow, take it easy, and tell me your pain level on a scale of 1-10 right now vs. how it felt before our session. Once I know, I can adjust your program.</div>
+  </div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#128680; Client Reports Pain Got Worse This Week (No Obvious Cause)</div>
+    <div class="fl-scenario-context">Use when check-in shows pain trending up without a clear reason</div>
+    <div class="fl-script">Hey [Name], I saw your check-in and I want us to get to the bottom of this before we do anything else. A few questions: (1) Did anything change this week outside of training -- sleep, stress, sitting longer, a new activity? (2) Did any specific exercise feel different? (3) Is the pain in the exact same spot or has it moved? Answer those when you can and I will adjust your program based on what you share.</div>
+  </div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#9889; Client Asks: Should I rest completely?</div>
+    <div class="fl-scenario-context">Counter the rest-is-best belief -- this is a coaching moment</div>
+    <div class="fl-script">I understand why resting feels right -- but with most ${injName} issues, complete rest actually slows recovery. Tissues need movement to heal. What we ARE going to do is pull back the intensity for a few days, modify the exercises that aggravate it, and keep the snack going but in a reduced version. Rest does not fix this -- smart movement does. I have got you.</div>
+  </div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#128293; Client is Frustrated: Why is this not getting better?</div>
+    <div class="fl-scenario-context">Emotional reassurance plus clear action -- do not just empathize, give direction</div>
+    <div class="fl-script">I hear you and I want to be straight with you. [Name], tissue change takes 6-8 weeks of consistent loading -- not 2-3 sessions. The fact that you have moments of feeling better means the body IS responding. Flares are part of the process. Here is what I am going to do: I am reviewing your program today and I am adjusting the load. You focus on showing up. I will handle the rest.</div>
+  </div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#127973; Client Missed Sessions Due to Pain</div>
+    <div class="fl-scenario-context">Re-engage without guilt -- keep them in the program</div>
+    <div class="fl-script">Hey [Name], no stress about missing this week -- protecting yourself when pain is high is the smart call. Here is where I want us to start fresh: do just the first 2 exercises of your snack tomorrow, both at 50% effort, and tell me how it feels. That is the whole assignment. When you come back, we rebuild from there -- no need to catch up, we just pick up where your body is at right now.</div>
+  </div>
+
+  <div class="fl-scenario">
+    <div class="fl-scenario-title">&#128683; When to Refer -- What to Say</div>
+    <div class="fl-scenario-context">Use this when symptoms suggest the client needs a physio or GP assessment</div>
+    <div class="fl-script">Hey [Name], I want to be transparent with you. What you are describing -- [specific symptom] -- is something I want a physio or GP to assess before we go further. This is not a red flag that something is seriously wrong, but it is my job to make sure we have the right picture before loading the area. I can still support your training around it. Can you get an assessment booked in the next 1-2 weeks?</div>
+  </div>
+</div>
+`;
+}
+
+function renderRetention(){
+  const d=document.getElementById('content');
+  d.innerHTML=`
+<div class="rt-wrap">
+  <div class="rt-heading">&#129309; Retention & Re-Engagement Scripts</div>
+  <div class="rt-sub">Scripts for motivation dips, missed check-ins, plateaus, and keeping clients long-term.</div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128232; Client Went Quiet -- No Check-In for 1-2 Weeks</div>
+    <div class="rt-context">Low pressure re-open. Never guilt them.</div>
+    <div class="rt-script">Hey [Name] -- just checking in. No need to have done everything perfectly, I just want to know how you are doing and how the body feels. What is one word that describes where you are at right now?</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128200; Client Hit a Big Win -- Celebrate It</div>
+    <div class="rt-context">Wins need to be acknowledged explicitly. This builds identity as someone who heals.</div>
+    <div class="rt-script">I have to say this because you probably undersold it: [specific win] is a big deal. When you started, that was not possible. That is not luck -- that is consistent work paying off. I want you to sit with that for a second. This is exactly what we are building toward.</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128337; Client Thinking About Cancelling or Feels Stuck</div>
+    <div class="rt-context">Acknowledge, anchor to goal, give a clear short-term next step</div>
+    <div class="rt-script">I hear you, and I would rather have this conversation than lose you silently. Let me ask -- when you signed up, what was the one thing you most wanted to change? [Let them answer.] Are we still working toward that? Because from the outside, you have made progress -- even if it does not feel that way from the inside. Can we set one specific target for the next 30 days and measure against that? That way we both have clarity.</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128081; Client Completed a Phase -- Re-sign or Progress</div>
+    <div class="rt-context">Use at 4-week or 8-week milestone to anchor the conversation on next phase</div>
+    <div class="rt-script">We have just wrapped up Phase [X] -- I want to take a minute to look at where you started and where you are now. [Acknowledge 2-3 specific improvements.] The next phase is where things start to get really interesting -- we are going to [brief description of next phase goal]. You have done the hard part: building the base. The next 4 weeks are about layering on top of it. Are you in?</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128584; Client Has Low Session Compliance (Missed 2+ in a Row)</div>
+    <div class="rt-context">Identify the barrier -- do not assume it is motivation</div>
+    <div class="rt-script">Hey [Name], I noticed you have missed a couple of sessions. I am not checking up on you -- I am just trying to understand what is in the way so I can make this easier for you. Is it time? Energy? The program feeling too hard? Or something else? Even a 10-minute version of your snack on the hard weeks counts. Help me understand what would make this more doable right now.</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#127775; Client is Feeling Great -- Lock in the Next Goal</div>
+    <div class="rt-context">Momentum moment. Do not let it drift. Set the next target immediately.</div>
+    <div class="rt-script">Love hearing this. When you feel this good, it is the perfect moment to set the next target -- because this is exactly the foundation we have been building. What is the one physical thing you want to be able to do in the next 8 weeks that you cannot do right now? Let us make that the target and build the next phase around it.</div>
+  </div>
+
+  <div class="rt-scenario">
+    <div class="rt-scenario-title">&#128172; Monthly Re-anchor Message</div>
+    <div class="rt-context">Send this at the start of each month to every active client</div>
+    <div class="rt-script">New month, [Name]. Quick check-in: on a scale of 1-10, how would you rate (1) your consistency this last month, (2) how your body feels vs. 30 days ago, and (3) how confident you feel in the program? Just three numbers. That helps me calibrate exactly what to focus on for this month.</div>
+  </div>
+</div>
+`;
+}
+
+
 
 
 
@@ -3194,195 +3377,7 @@ function fwLog(){
 
   function savePins(){localStorage.setItem('mm_pins',JSON.stringify(pins));}
 
-  function renderQuickRef(){
-  const d=document.getElementById('content');
-  const inj=cur.inj||'hip';
-  const injName={hip:'Hip & Groin',shoulder:'Shoulder',knee:'Knee',wrist:'Wrist',plantar:'Plantar Fascia',lower:'Lower Back',elbow:'Elbow',neck:'Neck'}[inj]||inj;
-  d.innerHTML=`
-<div class="qr-wrap">
-  <div class="qr-heading">&#129504; Coach Quick Reference</div>
-  <div class="qr-sub">Decision framework, session flow, and refer checklist. Current injury: <strong style="color:#4d8ef0">${injName}</strong></div>
-  
-  <div class="qr-decision">
-    <div class="qr-decision-title">&#9889; Pain Lane Decision Tree</div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">Dull ache, worse with load, no catch</span><span class="qr-decision-action">&#8594; Muscle lane</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">Pinching, catching, position-specific</span><span class="qr-decision-action">&#8594; Joint lane</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">Electric, burning, radiating pain</span><span class="qr-decision-action">&#8594; Nerve lane</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">Sharp, swollen, hot to touch</span><span class="qr-decision-action">&#8594; Refer immediately</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">Bilateral symptoms, bowel/bladder</span><span class="qr-decision-action">&#8594; Refer immediately</span></div>
-  </div>
-  
-  <div class="qr-session-flow">
-    <div class="qr-flow-title">&#128203; Session Flow (30-45 min)</div>
-    <div class="qr-flow-step"><div class="qr-flow-num">1</div><div><strong style="color:#e0e8f4">Open (3 min)</strong> — Check-in question, pain rating vs last session, ask about snack compliance</div></div>
-    <div class="qr-flow-step"><div class="qr-flow-num">2</div><div><strong style="color:#e0e8f4">Benchmark (5 min)</strong> — Test the benchmark movement. Note quality, pain, restriction.</div></div>
-    <div class="qr-flow-step"><div class="qr-flow-num">3</div><div><strong style="color:#e0e8f4">Program (25-35 min)</strong> — Work through prescribed session. Demo first, coach second.</div></div>
-    <div class="qr-flow-step"><div class="qr-flow-num">4</div><div><strong style="color:#e0e8f4">Close (2 min)</strong> — Pain rating now vs start, one win to acknowledge, next session date.</div></div>
-  </div>
-  
-  <div class="qr-grid">
-    <div class="qr-card">
-      <div class="qr-card-title">&#9989; Progress: Good Signs</div>
-      <div class="qr-item"><strong>Pain trending down</strong>2+ sessions in a row lower than baseline</div>
-      <div class="qr-item"><strong>ROM increasing</strong>Measurable range-of-motion improvement</div>
-      <div class="qr-item"><strong>Movement quality better</strong>Less compensation, smoother pattern</div>
-      <div class="qr-item"><strong>Daily function improved</strong>Stairs, sleep, sport all easier</div>
-      <div class="qr-item"><strong>Snack compliance high</strong>4+ days per week for 2+ weeks</div>
-    </div>
-    <div class="qr-card">
-      <div class="qr-card-title">&#128308; Plateau: Action Plan</div>
-      <div class="qr-item"><strong>Pain same for 3+ weeks</strong>Audit lane selection, check snack execution</div>
-      <div class="qr-item"><strong>ROM stuck</strong>Add passive loading, check lifestyle factors</div>
-      <div class="qr-item"><strong>Client disengaged</strong>Re-anchor to their goal, reduce complexity</div>
-      <div class="qr-item"><strong>Snack dropped off</strong>Simplify snack to 2 exercises only</div>
-      <div class="qr-item"><strong>Pain inconsistent</strong>Check sleep, stress, hydration first</div>
-    </div>
-    <div class="qr-card">
-      <div class="qr-card-title">&#128200; When to Progress</div>
-      <div class="qr-item"><strong>Pain &#8804; 2/10</strong>During all exercises in current program</div>
-      <div class="qr-item"><strong>Form solid</strong>No compensation under current load</div>
-      <div class="qr-item"><strong>2+ sessions consistent</strong>Same result in back-to-back sessions</div>
-      <div class="qr-item"><strong>Client feels ready</strong>Confidence matters — check in verbally</div>
-    </div>
-    <div class="qr-card">
-      <div class="qr-card-title">&#8679; When to Regress</div>
-      <div class="qr-item"><strong>Pain spikes mid-session</strong>Stop, regress immediately, reassess</div>
-      <div class="qr-item"><strong>Pain &gt; 4/10</strong>On any exercise — always modify</div>
-      <div class="qr-item"><strong>24hr soreness rule</strong>If still sore 24hrs post, volume was too high</div>
-      <div class="qr-item"><strong>Form breaking down</strong>Reduce range, load, or reps first</div>
-    </div>
-    <div class="qr-card qr-full">
-      <div class="qr-card-title">&#128683; Refer Out Checklist — If ANY are YES, refer to physio/GP</div>
-      <div class="qr-item">Pain that is worsening session to session despite reducing load</div>
-      <div class="qr-item">Hot, swollen, or acutely inflamed joint</div>
-      <div class="qr-item">Numbness / tingling that doesn't change with position</div>
-      <div class="qr-item">Unexplained weight loss, fever, or fatigue alongside pain</div>
-      <div class="qr-item">Bilateral symptoms (both sides) or bowel/bladder changes</div>
-      <div class="qr-item">Pain at rest or waking the client from sleep</div>
-      <div class="qr-item">Any fall, acute trauma, or suspected fracture</div>
-      <div class="qr-item">Client mentions chest tightness, shortness of breath, or dizziness</div>
-    </div>
-  </div>
-  
-  <div class="qr-decision">
-    <div class="qr-decision-title">&#128172; Go-To Coaching Language</div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">When client says "it hurts"</span><span class="qr-decision-action">"Where exactly, and does it feel sharp, dull, or burning?"</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">When progress is slow</span><span class="qr-decision-action">"Tissue change takes 6-8 weeks — you are on track. Let&apos;s look at what IS better."</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">When client skipped snack</span><span class="qr-decision-action">"What got in the way? Let&apos;s make it 5 min and idiot-proof."</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">When client wants to push harder</span><span class="qr-decision-action">"I love the energy — let&apos;s earn range first, load second."</span></div>
-    <div class="qr-decision-row"><span class="qr-decision-cond">When client is discouraged</span><span class="qr-decision-action">"Name one thing that is easier than when we started. That is the proof."</span></div>
-  </div>
-</div>
-`;
-}
-
-function renderFlareScripts(){
-  const d=document.getElementById('content');
-  const inj=cur.inj||'hip';
-  const injName={hip:'Hip & Groin',shoulder:'Shoulder',knee:'Knee',wrist:'Wrist',plantar:'Plantar Fascia',lower:'Lower Back',elbow:'Elbow',neck:'Neck'}[inj]||inj;
-  d.innerHTML=`
-<div class="fl-wrap">
-  <div class="fl-heading">&#128222; Flare &amp; Pain Response Scripts</div>
-  <div class="fl-sub">Copy-paste messages for when clients report a pain flare, setback, or spike. Injury: <strong style="color:#4d8ef0">${injName}</strong></div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#128680; Client Texts: "My pain spiked after last session"</div>
-    <div class="fl-scenario-context">Use this immediately when a client reports post-session pain increase</div>
-    <div class="fl-script">Hey [Name], thanks for letting me know. A small flare after a session can be normal — it means we loaded the tissue. Here&apos;s what I want you to do: skip the snack today and tomorrow, take it easy, and tell me your pain level on a scale of 1-10 right now vs. how it felt before our session. Once I know, I can adjust your program.</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#128680; Client Reports Pain Got Worse This Week (No Obvious Cause)</div>
-    <div class="fl-scenario-context">Use when check-in shows pain trending up without a clear reason</div>
-    <div class="fl-script">Hey [Name], I saw your check-in and I want us to get to the bottom of this before we do anything else. A few questions: (1) Did anything change this week outside of training — sleep, stress, sitting longer, a new activity? (2) Did any specific exercise feel different? (3) Is the pain in the exact same spot or has it moved? Answer those when you can and I&apos;ll adjust your program based on what you share.</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#9889; Client Says: "Should I rest completely?"</div>
-    <div class="fl-scenario-context">Counter the "rest is best" belief — this is a coaching moment</div>
-    <div class="fl-script">I understand why resting feels right — but with most ${injName} issues, complete rest actually slows recovery. Tissues need movement to heal. What we ARE going to do is pull back the intensity for a few days, modify the exercises that aggravate it, and keep the snack going but in a reduced version. Rest doesn&apos;t fix this — smart movement does. I&apos;ve got you.</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#128293; Client is Frustrated: "Why isn&apos;t this getting better?"</div>
-    <div class="fl-scenario-context">Emotional reassurance + clear action — don&apos;t just empathize, give direction</div>
-    <div class="fl-script">I hear you and I want to be straight with you. [Name], tissue change takes 6-8 weeks of consistent loading — not 2-3 sessions. The fact that you have moments of feeling better means the body IS responding. Flares are part of the process. Here&apos;s what I&apos;m going to do: I&apos;m reviewing your program today and I&apos;m adjusting the load. You focus on showing up. I&apos;ll handle the rest.</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#127973; Client Missed Sessions Due to Pain</div>
-    <div class="fl-scenario-context">Re-engage without guilt — keep them in the program</div>
-    <div class="fl-script">Hey [Name], no stress about missing this week — protecting yourself when pain is high is the smart call. Here&apos;s where I want us to start fresh: do just the first 2 exercises of your snack tomorrow, both at 50% effort, and tell me how it feels. That&apos;s the whole assignment. When you come back, we rebuild from there — no need to catch up, we just pick up where your body is at right now.</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-
-  <div class="fl-scenario">
-    <div class="fl-scenario-title">&#128683; When to Refer — What to Say</div>
-    <div class="fl-scenario-context">Use this when symptoms suggest the client needs a physio or GP assessment</div>
-    <div class="fl-script">Hey [Name], I want to be transparent with you. What you&apos;re describing — [specific symptom] — is something I want a physio/GP to assess before we go further. This isn&apos;t a red flag that something is seriously wrong, but it is my job to make sure we have the right picture before loading the area. I can still support your training around it. Can you get an assessment booked in the next 1-2 weeks?</div>
-    <div class="fl-copy-hint">Click to select all text, then copy</div>
-  </div>
-</div>
-`;
-}
-
-function renderRetention(){
-  const d=document.getElementById('content');
-  d.innerHTML=`
-<div class="rt-wrap">
-  <div class="rt-heading">&#129309; Retention &amp; Re-Engagement Scripts</div>
-  <div class="rt-sub">Scripts for motivation dips, missed check-ins, plateaus, and keeping clients long-term.</div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128232; Client Went Quiet — No Check-In for 1-2 Weeks</div>
-    <div class="rt-context">Low pressure re-open. Never guilt them.</div>
-    <div class="rt-script">Hey [Name] — just checking in. No need to have done everything perfectly, I just want to know how you&apos;re doing and how the body feels. What&apos;s one word that describes where you&apos;re at right now?</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128200; Client Hit a Big Win — Celebrate It</div>
-    <div class="rt-context">Wins need to be acknowledged explicitly. This builds identity as someone who heals.</div>
-    <div class="rt-script">I have to say this because you probably undersold it: [specific win] is a big deal. When you started, that wasn&apos;t possible. That&apos;s not luck — that&apos;s consistent work paying off. I want you to sit with that for a second. This is exactly what we&apos;re building toward.</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128337; Client Thinking About Cancelling / Feels Stuck</div>
-    <div class="rt-context">Acknowledge, anchor to goal, give a clear short-term next step</div>
-    <div class="rt-script">I hear you, and I&apos;d rather have this conversation than lose you silently. Let me ask — when you signed up, what was the one thing you most wanted to change? [Let them answer.] Are we still working toward that? Because from the outside, you have made progress — even if it doesn&apos;t feel that way from the inside. Can we set one specific target for the next 30 days and measure against that? That way we both have clarity.</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128081; Client Completed a Phase — Re-sign or Progress</div>
-    <div class="rt-context">Use at 4-week or 8-week milestone to anchor the conversation on next phase</div>
-    <div class="rt-script">We&apos;ve just wrapped up Phase [X] — I want to take a minute to look at where you started and where you are now. [Acknowledge 2-3 specific improvements.] The next phase is where things start to get really interesting — we&apos;re going to [brief description of next phase goal]. You&apos;ve done the hard part: building the base. The next 4 weeks are about layering on top of it. Are you in?</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128584; Client Has Low Session Compliance (Missed 2+ in a Row)</div>
-    <div class="rt-context">Identify the barrier — don&apos;t assume it&apos;s motivation</div>
-    <div class="rt-script">Hey [Name], I noticed you&apos;ve missed a couple of sessions. I&apos;m not checking up on you — I&apos;m just trying to understand what&apos;s in the way so I can make this easier for you. Is it time? Energy? The program feeling too hard? Or something else? Even a 10-minute version of your snack on the hard weeks counts. Help me understand what would make this more doable right now.</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#127775; Client is Feeling Great — Lock in the Next Goal</div>
-    <div class="rt-context">Momentum moment. Don&apos;t let it drift. Set the next target immediately.</div>
-    <div class="rt-script">Love hearing this. When you feel this good, it&apos;s the perfect moment to set the next target — because this is exactly the foundation we&apos;ve been building. What&apos;s the one physical thing you want to be able to do in the next 8 weeks that you can&apos;t do right now? Let&apos;s make that the target and build the next phase around it.</div>
-  </div>
-
-  <div class="rt-scenario">
-    <div class="rt-scenario-title">&#128172; Monthly Re-anchor Message</div>
-    <div class="rt-context">Send this at the start of each month to every active client</div>
-    <div class="rt-script">New month, [Name]. Quick check-in: on a scale of 1-10, how would you rate (1) your consistency this last month, (2) how your body feels vs. 30 days ago, and (3) how confident you feel in the program? Just three numbers. That helps me calibrate exactly what to focus on for this month.</div>
-  </div>
-</div>
-`;
-}
-
-function renderPinBar(){
+  function renderPinBar(){
     pinBar.querySelectorAll('.pin-tab').forEach(el=>el.remove());
     if(pins.length){
       pinBar.classList.add('has-pins');
