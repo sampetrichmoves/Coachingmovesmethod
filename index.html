@@ -247,6 +247,27 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 .ctx-chip.mode-b{background:#1a2a1a;color:#4dbd8e;border:1px solid #2a4a2a;}
 .ctx-chip.mode-a{background:#3a2e1e;color:#e0a04d;border:1px solid #4a3a1e;}
 .ctx-spacer{flex:1;}
+
+/* ===== PREHAB & REHAB SECTION ===== */
+.pr-wrap{padding:16px 20px;max-width:900px;}
+.pr-heading{font-size:20px;font-weight:700;color:#4d8ef0;margin-bottom:8px;}
+.pr-overview{font-size:13px;color:#a0aabb;line-height:1.6;margin-bottom:20px;background:#0a0d14;border:1px solid #1a2035;border-radius:8px;padding:12px 16px;}
+.pr-section{margin-bottom:24px;}
+.pr-section-title{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#4dbd8e;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1a2035;}
+.pr-flag-title{color:#e05a5a;}
+.pr-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.pr-card{background:#0f1117;border:1px solid #1a2035;border-radius:8px;padding:12px 14px;}
+.pr-card-title{font-size:12px;font-weight:700;color:#c8cfe0;margin-bottom:5px;}
+.pr-card-desc{font-size:11.5px;color:#8a95a8;line-height:1.5;}
+.pr-phases{display:flex;flex-direction:column;gap:10px;}
+.pr-phase{background:#0f1117;border:1px solid #1a2035;border-left:3px solid #4d8ef0;border-radius:0 8px 8px 0;padding:12px 14px;}
+.pr-phase-title{font-size:12px;font-weight:700;color:#4d8ef0;margin-bottom:5px;}
+.pr-phase-desc{font-size:11.5px;color:#8a95a8;line-height:1.5;}
+.pr-flags{display:flex;flex-direction:column;gap:7px;}
+.pr-flag-item{font-size:12px;color:#e05a5a;background:#1a1010;border:1px solid #3a1a1a;border-radius:6px;padding:8px 12px;line-height:1.4;}
+.pr-coach-note{background:linear-gradient(135deg,#12181c,#0f1117);border:1px solid #4dbd8e;border-radius:8px;padding:14px 16px;margin-top:4px;}
+.pr-note-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#4dbd8e;margin-bottom:6px;}
+.pr-note-text{font-size:12px;color:#a0aabb;line-height:1.6;}
 </style>
 </head>
 <body><div class="sb">
@@ -416,6 +437,12 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="tab" onclick="goTab('onboarding',this)">🚀 Onboarding<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
 <div class="tab" onclick="goTab('coachinit',this)">🎓 Coach Onboarding<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
 <div class="tab" onclick="goTab('resources',this)">📚 Coach Resources<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
+</div>
+</div>
+<div class="tab-group-section" data-group="prehab">
+<div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">🩹</span><span class="tab-group-lbl">Prehab &amp; Rehab</span><span class="tab-group-arrow">▶</span></div>
+<div class="tab-group-tabs">
+<div class="tab" onclick="goTab('prehab',this)">🩹 Injury Guide<span class="tab-pin-btn" title="Pin for quick access">📌</span></div>
 </div>
 </div>
 <div class="tab-group-section" data-group="strategy">
@@ -1249,7 +1276,7 @@ document.querySelectorAll('.inj-btn').forEach(b=>b.classList.remove('on'));
 btn.classList.add('on');
 cur.inj=inj;
 var d=INJ[inj];
-document.getElementById('tb-icon').textContent=d.icon;
+document.getElementById('tb-icon').innerHTML=d.icon;
 document.getElementById('tb-title').textContent=d.name+' — Coach Protocol';
 document.getElementById('tb-sub').innerHTML=d.sub;
 renderPills();
@@ -1420,6 +1447,7 @@ function renderContent(tab){
 moat:renderMoat,
 northstar:renderNorthStar,
 playground:renderPlayground,
+prehab:renderPrehab,
 flywheel:renderFlywheel
   };
   if(dispatch[tab]) dispatch[tab]();
@@ -3360,6 +3388,181 @@ document.querySelectorAll('.tab-group-section').forEach(function(s){
 // 9. Init
 updateGroupActiveState();
 setTimeout(updateContextBar,100);
+
+// Prehab & Rehab Resource Section
+function renderPrehab(){
+  var d=document.getElementById('content');
+  if(!d)return;
+  var inj=cur.inj||'hip';
+  var injName=(INJ[inj]&&INJ[inj].name)||'Hip & Groin';
+  
+  var data={
+    hip:{
+      overview:'Hip & groin injuries in training clients typically fall into three categories: muscle/tendon issues (hip flexor, adductor strains), joint issues (FAI, labrum), and nerve-related (sciatica, lumbar referred). Understanding which lane the client is in determines the entire rehab approach.',
+      prehab:[
+        {title:'Hip Flexor Strengthening', desc:'Dead bugs, Copenhagen adductor holds (short lever), hip flexion in standing with light band. Build capacity at end range progressively.'},
+        {title:'Glute Activation', desc:'Hip thrusts, side-lying clamshells, single-leg glute bridges. Strong glutes protect the hip joint and reduce anterior load.'},
+        {title:'Hip Mobility (Pain-Free Range Only)', desc:'90/90 hip stretch, pigeon with towel support, active hip CARs. Never push into pain — stay 2-3 reps below provocation.'},
+        {title:'Core & Pelvic Control', desc:'Dead bugs (short lever), Pallof press, McGill Big 3. Pelvic stability reduces shear forces on hip structures.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Calm Down (Weeks 1–2)', desc:'Remove provoking movements. Keep: hip thrusts, dead bugs, isometric holds. Load at non-painful ranges only. Pain goal: 0–2/10.'},
+        {title:'Phase 2 — Load Progressively (Weeks 3–6)', desc:'Reintroduce goblet squats (short range), split squats (modified), step-ups at low height. Increase range and load weekly if pain stays ≤3/10.'},
+        {title:'Phase 3 — Return to Full Training (Weeks 7+)', desc:'Progressive return to all movements. Monitor response 24hrs after each session. Flare-up = reduce range/load, not stop training.'}
+      ],
+      redFlags:['Groin pain radiating to knee or below','Sharp locking or catching that stops movement','Pain at rest or at night','Recent hip surgery — confirm surgeon clearance before loading'],
+      coachNotes:'Always identify pain lane first (Muscle / Joint / Nerve) before modifying program. Use Troubleshoot tab if unsure. Most hip clients can continue training with smart modifications — avoidance slows recovery.'
+    },
+    shoulder:{
+      overview:'Shoulder injuries in handstand/gymnastics clients are common. Key structures: rotator cuff (strength/stability), labrum (structural), biceps tendon (overhead load), and AC joint. Pain on overhead pressing vs pulling vs passive hanging narrows the diagnosis quickly.',
+      prehab:[
+        {title:'Rotator Cuff Strengthening', desc:'External rotation with band (90/90 and side-lying), prone Y/T/W, face pulls. Build rotator cuff endurance before increasing overhead volume.'},
+        {title:'Scapular Control', desc:'Scapular pushups, wall slides, bear crawl holds. Proper scapular upward rotation is essential for safe overhead movement.'},
+        {title:'Thoracic Mobility', desc:'Foam roller thoracic extension, thread the needle, cat-cow. Limited T-spine mobility forces the shoulder to compensate.'},
+        {title:'Passive Hang Capacity', desc:'Start with feet-assisted hangs, progress to full passive hang. Decompresses the joint and builds shoulder resilience.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Reduce Irritation (Weeks 1–2)', desc:'Keep: passive hangs (feet-assisted), band external rotation, scapular work. Remove: overhead pressing, dips, loaded push patterns if painful.'},
+        {title:'Phase 2 — Rebuild Capacity (Weeks 3–6)', desc:'Add: push-up progressions, pike pushups (short range), ring row variations. Progress to overhead only when hanging is pain-free.'},
+        {title:'Phase 3 — Return to Overhead (Weeks 7+)', desc:'Handstand progressions starting with wall-supported holds. Test with box handstands before full kick-ups. Monitor front shoulder response.'}
+      ],
+      redFlags:['Sharp pain on passive hang (rare — if so, refer)','Numbness/tingling down the arm','Significant loss of range vs other side','Post-surgical — confirm clearance'],
+      coachNotes:'Most shoulder issues in our clients are load management problems. Reducing volume before increasing range almost always works. Avoid removing all pushing — this delays recovery of the pattern.'
+    },
+    knee:{
+      overview:'Knee issues split into anterior (patellofemoral, patellar tendon), posterior (hamstring, PCL), and internal (meniscus, ACL). Anterior knee pain is most common in our client base due to squat and lunge loading. Always ask: pain going down stairs? That points anterior. Pain squatting deep? Joint/meniscus.',
+      prehab:[
+        {title:'VMO Strengthening', desc:'Terminal knee extensions (TKE) with band, step-downs from low height, split squat with front foot elevated. VMO weakness is the #1 driver of patellofemoral pain.'},
+        {title:'Hip Strengthening', desc:'Hip thrusts, lateral band walks, clamshells. Strong hips reduce knee valgus and lower patellar tendon load.'},
+        {title:'Single-Leg Stability', desc:'Single-leg deadlifts (light), step-ups (low box), single-leg balance on foam. Neuromuscular control protects the knee.'},
+        {title:'Calf and Ankle Mobility', desc:'Ankle dorsiflexion work reduces knee compensation patterns. Wall ankle mobility drills daily.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Offload (Weeks 1–2)', desc:'Remove deep squatting and loading into pain. Keep: hip thrusts, leg press (short range), TKEs, isometric wall sits at 60°. Pain target: 0–3/10.'},
+        {title:'Phase 2 — Rebuild Pattern (Weeks 3–6)', desc:'Goblet squat (short range, upright torso), split squat (elevated front foot), step-ups (low). Progress depth weekly by 2–3cm if pain allows.'},
+        {title:'Phase 3 — Full Load Return (Weeks 7+)', desc:'Progress to full depth squat, add load. Return to jump/plyometric work only when full range squat is pain-free with good control.'}
+      ],
+      redFlags:['Significant swelling after activity','Locking or giving way of the knee','Pain at rest or disrupts sleep','Post-surgical — need clearance'],
+      coachNotes:'Patellofemoral pain responds best to load management + VMO/hip strengthening. Do not remove squatting entirely — modify range and load. Full resolution typically takes 6–12 weeks of consistent work.'
+    },
+    wrist:{
+      overview:'Wrist injuries in handstand training are common: TFCC (ulnar side, loading/rotation pain), scaphoid (radial side, snuffbox tenderness), carpal tunnel (nerve compression, nighttime symptoms), and tendinitis (extensor/flexor overuse). Wrist pain that only occurs on load vs. pain at rest have very different timelines.',
+      prehab:[
+        {title:'Wrist Flexor/Extensor Strengthening', desc:'Wrist curls and reverse curls with light load. Rice bucket pronation/supination. Builds tendon capacity to handle handstand load.'},
+        {title:'Progressive Loading', desc:'Knuckle pushups reduce wrist extension load. Parallettes or push-up handles eliminate wrist extension entirely for acute phases.'},
+        {title:'Mobility & CARs', desc:'Wrist CARs (controlled articular rotations) 2x daily. Prayer stretch and reverse prayer — never forcing range. Maintains joint health without provoking tissue.'},
+        {title:'Finger Flexor Rehab', desc:'Passive hang progressions for grip/tendon health. Start with 5-second supported hangs, progress duration before removing assistance.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Avoid Provoking Positions (Weeks 1–3)', desc:'Use parallettes or fists for all weight-bearing. Keep: passive hang, scapular work, lower body training. Remove: flat-palm handstand work.'},
+        {title:'Phase 2 — Progressive Extension Loading (Weeks 4–8)', desc:'Introduce wrist extension slowly: table/floor lean progressions, then pike pushup on flat palm, then handstand on wall with short holds.'},
+        {title:'Phase 3 — Return to Full Handstand (Weeks 9+)', desc:'Full handstand training returns. Monitor wrist response post-session. TFCC clients may need permanent parallette use — this is fine.'}
+      ],
+      redFlags:['Pain at rest or at night (nerve involvement)','Numbness or tingling in fingers','Significant loss of grip strength','History of fall on outstretched hand — possible scaphoid fracture, needs imaging'],
+      coachNotes:'Wrist rehab takes patience. Most clients want to remove wrist loading completely — this delays recovery. Gradual exposure with parallettes is almost always the right call.'
+    },
+    plantar:{
+      overview:'Plantar fascia issues in training clients are often aggravated by high-volume jumping, single-leg landing, or barefoot training on hard surfaces. Classic presentation: morning stiffness, heel pain first steps, eases with movement. Rarely stops training entirely with smart modifications.',
+      prehab:[
+        {title:'Calf Eccentric Strengthening', desc:'Single-leg eccentric calf raises off a step. 3x15 daily. This is the most evidence-based intervention for plantar fascia health.'},
+        {title:'Plantar Fascia Stretching', desc:'Towel stretch (foot dorsiflexed), golf ball rolling under arch. Do first thing in the morning before first steps.'},
+        {title:'Intrinsic Foot Strength', desc:'Towel scrunches, marble pick-ups, short foot exercise. Builds the arch musculature that supports the fascia.'},
+        {title:'Load Management', desc:'Reduce high-impact volume (jumping, sprinting). Increase gradually — 10% weekly rule applies to foot impact work.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Reduce Inflammation (Weeks 1–2)', desc:'Ice after training. Frozen water bottle rolling 10 min. Tape arch with zinc oxide for immediate relief. Reduce jumping volume by 50%.'},
+        {title:'Phase 2 — Eccentric Loading (Weeks 3–8)', desc:'Eccentric calf protocol is the priority. Continue training upper body and all non-impact lower body. Return to low-impact jumping if pain ≤3/10.'},
+        {title:'Phase 3 — Return to Full Load (Weeks 9+)', desc:'Gradual return to jump volume. Use arch support insoles if training on hard surfaces. Morning stiffness resolve = good healing signal.'}
+      ],
+      redFlags:['Heel numbness (tarsal tunnel nerve involvement)','No improvement after 8–12 weeks of protocol','Night pain / pain at rest','Bruising or acute injury mechanism'],
+      coachNotes:'Plantar fasciitis is one of the most manageable injuries with consistent eccentric work. Most clients can continue full training with jump modifications. Complete rest worsens outcomes.'
+    },
+    lower:{
+      overview:'Lower back pain in training clients usually falls into: disc (pain with flexion, possible leg symptoms), SI joint (one-sided, pelvic asymmetry), facet (pain with extension, worse standing), or muscle strain (acute, very movement-specific). The pain lane approach from our system applies directly here.',
+      prehab:[
+        {title:'McGill Big 3', desc:'Modified curl-up, side plank, bird dog. These 3 exercises are the gold standard for lumbar spine stability. Do daily for injury prevention and rehab.'},
+        {title:'Hip Hinge Pattern', desc:'RDL with light load, kettlebell deadlift. Teaching the hip hinge removes lumbar shear during lower body work. Critical for all clients.'},
+        {title:'Hip Flexor & Psoas Length', desc:'Couch stretch, half-kneeling hip flexor. Tight hip flexors increase anterior pelvic tilt and lumbar compression.'},
+        {title:'Thoracic Rotation', desc:'Thread the needle, seated thoracic rotation. T-spine rotation deficits force compensation at the lumbar level.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Calm Irritability (Weeks 1–2)', desc:'Keep: hip thrusts, bird dogs, side planks, RDLs. Remove: loaded flexion (good mornings, Jefferson curl), loaded rotation under load. Avoid sitting for long periods.'},
+        {title:'Phase 2 — Rebuild Capacity (Weeks 3–6)', desc:'Add: goblet squats (upright torso), Jefferson curl (bodyweight only if tolerated), cable rows. Monitor 24hr response after each session.'},
+        {title:'Phase 3 — Return to Full Loading (Weeks 7+)', desc:'Progressive return to all spinal loading. Disc clients: monitor any leg symptoms — new neurological signs = refer immediately.'}
+      ],
+      redFlags:['Leg pain below the knee (possible disc herniation with nerve involvement)','Bladder or bowel changes (emergency — refer immediately)','Significant night pain','Progressive neurological weakness in legs'],
+      coachNotes:'Most lower back pain in our clients is non-specific and responds well to loading with good movement quality. "Rest and avoid" is the worst advice. Movement is medicine — load the right things in the right range.'
+    },
+    elbow:{
+      overview:'Elbow issues in training clients: lateral epicondylitis (tennis elbow, extensor overload), medial epicondylitis (golfer's elbow, flexor/pronator overload), UCL stress (throwing/loaded valgus), and triceps tendinopathy. Grip-intensive training and repetitive push/pull patterns are common drivers.',
+      prehab:[
+        {title:'Wrist Extensor Eccentric (Lateral Elbow)', desc:'Reverse Tyler Twist with Thera-Band. 3x15 daily. Most evidence-based intervention for lateral epicondylalgia.'},
+        {title:'Wrist Flexor Eccentric (Medial Elbow)', desc:'Standard Tyler Twist with Thera-Band for medial pain. Same protocol — 3x15 daily.'},
+        {title:'Grip Strengthening', desc:'Farmer carries (light), hand gripper, rice bucket. Build tendon capacity to handle training load.'},
+        {title:'Load Distribution', desc:'Alternate pushing and pulling days. Avoid cumulative loading of elbow in same plane across multiple sessions.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Reduce Provocative Load (Weeks 1–2)', desc:'Keep: pulling work (rows, hangs — if tolerated). Reduce: pushing volume, grip-intensive exercises. Start Tyler Twist protocol immediately.'},
+        {title:'Phase 2 — Load Progressively (Weeks 3–6)', desc:'Introduce pushing movements at reduced range. Monitor grip-heavy work. Continue Tyler Twist. Most elbow tendinopathies respond in 6–8 weeks.'},
+        {title:'Phase 3 — Full Return (Weeks 7+)', desc:'Return to full training volume and intensity. Continue Tyler Twist 3x/week as maintenance. Elbow tendinopathy recurs with rapid load increases.'}
+      ],
+      redFlags:['Significant instability or valgus stress pain (UCL)','Numbness/tingling in ring or little finger (ulnar nerve)','Complete inability to grip','Recent elbow dislocation history'],
+      coachNotes:'Elbow tendinopathy takes 3–6 months for full resolution but clients can train through it with modifications. Pain ≤4/10 during the Tyler Twist is acceptable and actually speeds healing.'
+    },
+    neck:{
+      overview:'Neck pain in training clients: cervical disc (nerve symptoms into arm), facet joint (stiffness, local pain), muscle strain (acute, post-training), and postural-related (prolonged desk posture before training). Differentiate nerve symptoms (arm, hand) from local neck pain — these have very different timelines.',
+      prehab:[
+        {title:'Deep Neck Flexor Strengthening', desc:'Chin tucks supine, head lifts supine. Builds the stabilizer muscles that protect the cervical spine during loading.'},
+        {title:'Cervical Range of Motion', desc:'Cervical CARs (controlled articular rotations) — gently. Not aggressively. Maintains joint health and detects early restriction.'},
+        {title:'Scapular Retraction', desc:'Band pull-aparts, face pulls, prone Y/T. Upper trapezius dominance is reduced when lower trap is stronger.'},
+        {title:'Thoracic Extension', desc:'Foam roller thoracic work, thoracic extension over chair. T-spine extension reduces cervical compensation during overhead work.'}
+      ],
+      rehab:[
+        {title:'Phase 1 — Reduce Irritability (Weeks 1–2)', desc:'Remove: overhead loading if provokes symptoms, loaded neck extension. Keep: lower body training, pulling work below shoulder height, scapular work.'},
+        {title:'Phase 2 — Reload Pattern (Weeks 3–6)', desc:'Reintroduce overhead gradually: pike pushups, wall handstand holds. Monitor for arm symptoms during and 24hrs after. Any arm symptoms = back to Phase 1.'},
+        {title:'Phase 3 — Return to Full Training (Weeks 7+)', desc:'Full overhead training returns. Cervical disc clients may always need to monitor — they typically do well long-term if scapular/thoracic work is maintained.'}
+      ],
+      redFlags:['Arm pain, numbness, or weakness (possible cervical nerve compression — refer if not improving)','Headache with neck pain (possible upper cervical issue)','Night pain or rest pain','Drop attacks / loss of balance / coordination issues (immediate referral)'],
+      coachNotes:'Neck pain is one of the most anxiety-provoking injuries for clients. Reassure them: most neck pain in active people resolves with load management and targeted work. Avoid neck manipulation and aggressive manual therapy.'
+    }
+  };
+  
+  var info=data[inj]||data['hip'];
+  
+  var prehabRows=info.prehab.map(function(p){
+    return '<div class="pr-card"><div class="pr-card-title">'+p.title+'</div><div class="pr-card-desc">'+p.desc+'</div></div>';
+  }).join('');
+  
+  var rehabRows=info.rehab.map(function(r){
+    return '<div class="pr-phase"><div class="pr-phase-title">'+r.title+'</div><div class="pr-phase-desc">'+r.desc+'</div></div>';
+  }).join('');
+  
+  var flagRows=info.redFlags.map(function(f){
+    return '<div class="pr-flag-item">⚠ '+f+'</div>';
+  }).join('');
+  
+  d.innerHTML='<div class="pr-wrap">'+
+    '<h2 class="pr-heading">🩹 '+injName+' — Prehab &amp; Rehab Guide</h2>'+
+    '<p class="pr-overview">'+info.overview+'</p>'+
+    '<div class="pr-section">'+
+      '<div class="pr-section-title">🏋️ Prehab — Keep These Clients Strong &amp; Resilient</div>'+
+      '<div class="pr-cards">'+prehabRows+'</div>'+
+    '</div>'+
+    '<div class="pr-section">'+
+      '<div class="pr-section-title">🔄 Rehab Phases — Return to Full Training</div>'+
+      '<div class="pr-phases">'+rehabRows+'</div>'+
+    '</div>'+
+    '<div class="pr-section">'+
+      '<div class="pr-section-title pr-flag-title">🚨 Red Flags — Refer Out</div>'+
+      '<div class="pr-flags">'+flagRows+'</div>'+
+    '</div>'+
+    '<div class="pr-coach-note">'+
+      '<div class="pr-note-label">💡 Coach Note</div>'+
+      '<div class="pr-note-text">'+info.coachNotes+'</div>'+
+    '</div>'+
+  '</div>';
+}
+
 </script>
 </body>
 </html>
