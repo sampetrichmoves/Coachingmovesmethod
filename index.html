@@ -3284,130 +3284,82 @@ function toggleTabGroup(btn) {
 
 
 <script>
-// ===== ROUND 2 UX IMPROVEMENTS =====
-
-// 1. Mark groups that contain the active tab
-function updateGroupActiveState() {
-  document.querySelectorAll('.tab-group-section').forEach(function(section) {
-    var hasActive = !!section.querySelector('.tab.on');
-    if (hasActive) section.classList.add('has-active-tab');
-    else section.classList.remove('has-active-tab');
+// ROUND 2 UX IMPROVEMENTS
+// 1. Mark groups with active tab
+function updateGroupActiveState(){
+  document.querySelectorAll('.tab-group-section').forEach(function(s){
+    s.classList.toggle('has-active-tab',!!s.querySelector('.tab.on'));
   });
 }
 
-// 2. Wrap goTab to also update group states and context bar
-(function() {
-  var prev = window.goTab;
-  window.goTab = function(id, btn) {
-    prev(id, btn);
-    updateGroupActiveState();
-    // Auto-open the group containing the clicked tab
-    if (btn && btn.closest) {
-      var section = btn.closest('.tab-group-section');
-      if (section) section.classList.add('open');
-    }
-  };
-})();
+// 2. Wrap goTab
+var _r2GoTab=window.goTab;
+window.goTab=function(id,btn){
+  _r2GoTab(id,btn);
+  updateGroupActiveState();
+  if(btn&&btn.closest){var sec=btn.closest('.tab-group-section');if(sec)sec.classList.add('open');}
+};
 
-// 3. Expand / Collapse all groups
-function expandAllGroups() {
-  document.querySelectorAll('.tab-group-section').forEach(function(s) { s.classList.add('open'); });
-}
-function collapseAllGroups() {
-  document.querySelectorAll('.tab-group-section').forEach(function(s) { s.classList.remove('open'); });
-}
+// 3. Expand/collapse all
+function expandAllGroups(){document.querySelectorAll('.tab-group-section').forEach(function(s){s.classList.add('open');});}
+function collapseAllGroups(){document.querySelectorAll('.tab-group-section').forEach(function(s){s.classList.remove('open');});}
 
-// 4. Update context bar when injury/level/mode changes
-function updateContextBar() {
-  var activeInj = document.querySelector('.inj-btn.on');
-  var activeLevel = document.querySelector('.level-btn.on');
-  var activeMode = document.querySelector('.coach-toggle button.on');
-  var ci = document.getElementById('ctx-injury');
-  var cl = document.getElementById('ctx-level');
-  var cm = document.getElementById('ctx-mode');
-  if (ci && activeInj) ci.textContent = activeInj.textContent.trim();
-  if (cl && activeLevel) cl.textContent = activeLevel.textContent.trim();
-  if (cm && activeMode) {
-    var modeText = activeMode.textContent.trim();
-    cm.textContent = modeText;
-    cm.className = 'ctx-chip ' + (modeText.includes('Adv') ? 'mode-a' : 'mode-b');
+// 4. Context bar update
+function updateContextBar(){
+  var ai=document.querySelector('.inj-btn.on');
+  var al=document.querySelector('.level-btn.on');
+  var am=document.querySelector('.coach-toggle button.on');
+  var ci=document.getElementById('ctx-injury');
+  var cl=document.getElementById('ctx-level');
+  var cm=document.getElementById('ctx-mode');
+  if(ci&&ai)ci.textContent=ai.textContent.trim();
+  if(cl&&al)cl.textContent=al.textContent.trim();
+  if(cm&&am){
+    var mt=am.textContent.trim();
+    cm.textContent=mt;
+    cm.className='ctx-chip '+(mt.indexOf('Adv')>=0?'mode-a':'mode-b');
   }
-  // Sync the injury strip buttons
-  var injBtn = activeInj ? activeInj.getAttribute('onclick') : null;
-  var injId = injBtn ? (injBtn.match(/sel(this,'([^']+)'/) || [])[1] : null;
-  if (injId) syncInjuryStrip(injId);
+  var injBtn=ai?ai.getAttribute('onclick'):'';
+  var injId=injBtn&&injBtn.indexOf("'")+1>0?injBtn.split("'")[1]:'';
+  if(injId)syncInjuryStrip(injId);
 }
 
-// 5. Injury strip sync with sidebar
-function selStripInj(btn, id) {
-  // Call the existing sel() function with the matching sidebar button
-  var sidebarBtn = Array.from(document.querySelectorAll('.inj-btn')).find(function(b) {
-    return (b.getAttribute('onclick') || '').includes("'" + id + "'");
-  });
-  if (sidebarBtn) sidebarBtn.click();
+// 5. Injury strip
+function selStripInj(btn,id){
+  var sb=Array.from(document.querySelectorAll('.inj-btn')).find(function(b){return(b.getAttribute('onclick')||'').indexOf("'"+id+"'")>=0;});
+  if(sb)sb.click();
+}
+function syncInjuryStrip(injId){
+  document.querySelectorAll('.inj-strip-btn').forEach(function(b){b.classList.toggle('on',(b.getAttribute('onclick')||'').indexOf("'"+injId+"'")>=0);});
 }
 
-function syncInjuryStrip(injId) {
-  document.querySelectorAll('.inj-strip-btn').forEach(function(b) {
-    var matches = (b.getAttribute('onclick') || '').includes("'" + injId + "'");
-    b.classList.toggle('on', matches);
-  });
-}
-
-// 6. Intercept sel() and selLevel() to update context bar
-(function() {
-  var origSel = window.sel;
-  if (origSel) {
-    window.sel = function(btn, id) {
-      origSel(btn, id);
-      setTimeout(updateContextBar, 50);
-    };
-  }
-  var origSelLevel = window.selLevel;
-  if (origSelLevel) {
-    window.selLevel = function(id, btn) {
-      origSelLevel(id, btn);
-      setTimeout(updateContextBar, 50);
-    };
-  }
-  var origSetMode = window.setMode;
-  if (origSetMode) {
-    window.setMode = function(mode, btn) {
-      origSetMode(mode, btn);
-      setTimeout(updateContextBar, 50);
-    };
-  }
-})();
+// 6. Wrap sel, selLevel, setMode
+var _r2Sel=window.sel;
+if(_r2Sel){window.sel=function(btn,id){_r2Sel(btn,id);setTimeout(updateContextBar,80);};}
+var _r2SelLevel=window.selLevel;
+if(_r2SelLevel){window.selLevel=function(id,btn){_r2SelLevel(id,btn);setTimeout(updateContextBar,80);};}
+var _r2SetMode=window.setMode;
+if(_r2SetMode){window.setMode=function(mode,btn){_r2SetMode(mode,btn);setTimeout(updateContextBar,80);};}
 
 // 7. Keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-  var tag = document.activeElement.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-  if (e.key === 'e' || e.key === 'E') expandAllGroups();
-  if (e.key === 'c' || e.key === 'C') collapseAllGroups();
-  if (e.key === 'Escape') {
-    var kbPanel = document.getElementById('kb-panel');
-    if (kbPanel) kbPanel.classList.remove('visible');
-  }
+document.addEventListener('keydown',function(e){
+  var t=document.activeElement.tagName;
+  if(t==='INPUT'||t==='TEXTAREA')return;
+  if(e.key==='e'||e.key==='E')expandAllGroups();
+  if(e.key==='c'||e.key==='C')collapseAllGroups();
+  if(e.key==='Escape'){var kp=document.getElementById('kb-panel');if(kp)kp.classList.remove('visible');}
 });
 
-// 8. Add tab count badges to group headers
-(function() {
-  document.querySelectorAll('.tab-group-section').forEach(function(section) {
-    var count = section.querySelectorAll('.tab').length;
-    var lbl = section.querySelector('.tab-group-lbl');
-    if (lbl) {
-      var badge = document.createElement('span');
-      badge.className = 'tab-count';
-      badge.textContent = count;
-      lbl.parentNode.insertBefore(badge, lbl.nextSibling);
-    }
-  });
-})();
+// 8. Tab count badges
+document.querySelectorAll('.tab-group-section').forEach(function(s){
+  var cnt=s.querySelectorAll('.tab').length;
+  var lbl=s.querySelector('.tab-group-lbl');
+  if(lbl){var b=document.createElement('span');b.className='tab-count';b.textContent=cnt;lbl.parentNode.insertBefore(b,lbl.nextSibling);}
+});
 
-// 9. Initialize on load
+// 9. Init
 updateGroupActiveState();
-setTimeout(updateContextBar, 100);
+setTimeout(updateContextBar,100);
 </script>
 </body>
 </html>
