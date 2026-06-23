@@ -194,6 +194,59 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 .wb-footer{margin-top:10px;font-size:11px;color:#5e6a85;}
 /* Level tooltips */
 .level-btn[title]{cursor:help;}
+
+/* ===== ROUND 2 UX IMPROVEMENTS ===== */
+
+/* Active group indicator - dot on collapsed group when tab inside is active */
+.tab-group-section.has-active-tab > .tab-group-toggle::before{
+  content:'';width:7px;height:7px;border-radius:50%;background:#4d8ef0;flex-shrink:0;box-shadow:0 0 6px #4d8ef0;
+}
+.tab-group-section.has-active-tab.open > .tab-group-toggle::before{background:#4dbd8e;box-shadow:0 0 6px #4dbd8e;}
+.tab-group-section.has-active-tab > .tab-group-toggle .tab-group-lbl{color:#c8cfe0;}
+
+/* Tab count badge on group headers */
+.tab-count{font-size:9px;color:#5e6a85;background:#1a1f2e;border:1px solid #2a3347;border-radius:10px;padding:1px 6px;margin-left:4px;flex-shrink:0;}
+.tab-group-section.open .tab-count{color:#8a95a8;}
+
+/* Quick-access injury strip (horizontal row above tab groups) */
+.injury-strip{display:flex;align-items:center;gap:4px;padding:6px 12px;background:#0a0d14;border-bottom:1px solid #1a2035;overflow-x:auto;flex-shrink:0;}
+.inj-strip-lbl{font-size:9px;color:#5e6a85;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;flex-shrink:0;margin-right:2px;}
+.inj-strip-btn{background:#1a1f2e;border:1px solid #2a3347;border-radius:14px;color:#8a95a8;font-size:11px;padding:3px 9px;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.inj-strip-btn:hover{border-color:#4d8ef0;color:#c8cfe0;}
+.inj-strip-btn.on{background:#1e3a6e;border-color:#4d8ef0;color:#fff;font-weight:600;}
+
+/* Expand / collapse all controls */
+.tab-group-controls{display:flex;align-items:center;gap:6px;padding:4px 12px;background:#0a0d14;border-bottom:1px solid #1a2035;justify-content:flex-end;}
+.tgc-btn{background:none;border:none;color:#5e6a85;font-size:10px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:all .15s;}
+.tgc-btn:hover{color:#c8cfe0;background:#1a1f2e;}
+
+/* Recently-used dot in grouped tabs */
+.tab-groups-wrap .tab.recently-used::after{content:'';position:absolute;top:4px;right:20px;width:5px;height:5px;border-radius:50%;background:#4dbd8e;}
+.tab-groups-wrap .tab{position:relative;}
+
+/* Group toggle improvements */
+.tab-group-toggle{padding:5px 14px;}
+.tab-group-section:last-child{border-bottom:none;}
+
+/* Keyboard shortcuts panel */
+.kb-panel{position:fixed;bottom:16px;right:16px;background:#12151c;border:1px solid #2a3347;border-radius:10px;padding:12px;font-size:11px;color:#8a95a8;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.5);min-width:180px;display:none;}
+.kb-panel.visible{display:block;}
+.kb-title{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#5e6a85;margin-bottom:8px;font-weight:700;}
+.kb-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;gap:12px;}
+.kb-key{background:#1a1f2e;border:1px solid #3a4460;border-radius:4px;padding:1px 6px;font-family:monospace;font-size:10px;color:#c8cfe0;}
+.kb-trigger{position:fixed;bottom:16px;right:16px;background:#12151c;border:1px solid #2a3347;border-radius:8px;padding:5px 10px;font-size:10px;color:#5e6a85;cursor:pointer;z-index:99;transition:all .15s;}
+.kb-trigger:hover{color:#c8cfe0;border-color:#4d8ef0;}
+
+/* Context status bar below topbar */
+.context-bar{display:flex;align-items:center;gap:8px;padding:5px 18px;background:#0a0d14;border-bottom:1px solid #1a2035;font-size:11px;}
+.ctx-item{display:flex;align-items:center;gap:4px;color:#8a95a8;}
+.ctx-sep{color:#2a3347;}
+.ctx-chip{padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;}
+.ctx-chip.injury{background:#1e3a6e;color:#4d8ef0;border:1px solid #4d8ef0;}
+.ctx-chip.level{background:#1e3a2e;color:#4dbd8e;border:1px solid #4dbd8e;}
+.ctx-chip.mode-b{background:#1a2a1a;color:#4dbd8e;border:1px solid #2a4a2a;}
+.ctx-chip.mode-a{background:#3a2e1e;color:#e0a04d;border:1px solid #4a3a1e;}
+.ctx-spacer{flex:1;}
 </style>
 </head>
 <body><div class="sb">
@@ -277,6 +330,15 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 </div>
 <div id="mode-badge" style="font-size:11px;color:#5e6a85;background:#1a1f2e;padding:4px 10px;border-radius:20px;border:1px solid #2a3347;">&#127807; Beginner Mode</div>
 </div>
+<div class="context-bar" id="context-bar">
+<span class="ctx-item">Injury: <span id="ctx-injury" class="ctx-chip injury">🦻 Hip &amp; Groin</span></span>
+<span class="ctx-sep">·</span>
+<span class="ctx-item">Level: <span id="ctx-level" class="ctx-chip level">L1A</span></span>
+<span class="ctx-sep">·</span>
+<span class="ctx-item">Mode: <span id="ctx-mode" class="ctx-chip mode-b">🌿 Beginner</span></span>
+<span class="ctx-spacer"></span>
+<button class="tgc-btn" onclick="document.getElementById('kb-panel').classList.toggle('visible')" title="Keyboard shortcuts">⌨ Shortcuts</button>
+</div>
 <div id="pin-bar"><span id="pin-bar-lbl">⭐ Pinned</span></div>
 <div id="welcome-banner" class="welcome-banner hidden">
 <button id="wb-close" class="wb-close" title="Dismiss">✕</button>
@@ -289,6 +351,22 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:#e2e5f0
 <div class="wb-footer">📌 Pin your most-used tabs for even faster access. Press / to search all tools.</div>
 </div>
 <div class="tabbar" id="main-tabbar">
+<div class="injury-strip" id="inj-strip">
+<span class="inj-strip-lbl">Switch:</span>
+<button class="inj-strip-btn on" onclick="selStripInj(this,'hip')">🦻 Hip</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'shoulder')">💪 Shoulder</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'knee')">🦴 Knee</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'wrist')">✋ Wrist</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'plantar')">🦾 Plantar</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'back')">🔙 Lower Back</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'elbow')">💥 Elbow</button>
+<button class="inj-strip-btn" onclick="selStripInj(this,'neck')">🔵 Neck</button>
+</div>
+<div class="tab-group-controls">
+<span style="font-size:10px;color:#5e6a85;flex:1;">Tools</span>
+<button class="tgc-btn" onclick="expandAllGroups()" title="Expand all categories">▼ All</button>
+<button class="tgc-btn" onclick="collapseAllGroups()" title="Collapse all categories">▲ All</button>
+</div>
 <div class="tab-groups-wrap">
 <div class="tab-group-section open" data-group="session">
 <div class="tab-group-toggle" onclick="toggleTabGroup(this)"><span class="tab-group-icon">🔥</span><span class="tab-group-lbl">During Session</span><span class="tab-group-arrow">▶</span></div>
@@ -3192,6 +3270,144 @@ function toggleTabGroup(btn) {
     });
   }
 })();
+</script>
+<div id="kb-panel" class="kb-panel">
+<div class="kb-title">⌨ Keyboard Shortcuts</div>
+<div class="kb-row"><span>/</span><span class="kb-key">/</span></div>
+<div class="kb-row"><span>Search all tools</span></div>
+<div class="kb-row" style="margin-top:4px"><span>Nav results</span><span class="kb-key">↑↓</span></div>
+<div class="kb-row"><span>Open result</span><span class="kb-key">Enter</span></div>
+<div class="kb-row" style="margin-top:4px"><span>Expand all groups</span><span class="kb-key">E</span></div>
+<div class="kb-row"><span>Collapse all groups</span><span class="kb-key">C</span></div>
+<div class="kb-row" style="margin-top:4px"><span>Close this panel</span><span class="kb-key">Esc</span></div>
+</div>
+
+
+<script>
+// ===== ROUND 2 UX IMPROVEMENTS =====
+
+// 1. Mark groups that contain the active tab
+function updateGroupActiveState() {
+  document.querySelectorAll('.tab-group-section').forEach(function(section) {
+    var hasActive = !!section.querySelector('.tab.on');
+    if (hasActive) section.classList.add('has-active-tab');
+    else section.classList.remove('has-active-tab');
+  });
+}
+
+// 2. Wrap goTab to also update group states and context bar
+(function() {
+  var prev = window.goTab;
+  window.goTab = function(id, btn) {
+    prev(id, btn);
+    updateGroupActiveState();
+    // Auto-open the group containing the clicked tab
+    if (btn && btn.closest) {
+      var section = btn.closest('.tab-group-section');
+      if (section) section.classList.add('open');
+    }
+  };
+})();
+
+// 3. Expand / Collapse all groups
+function expandAllGroups() {
+  document.querySelectorAll('.tab-group-section').forEach(function(s) { s.classList.add('open'); });
+}
+function collapseAllGroups() {
+  document.querySelectorAll('.tab-group-section').forEach(function(s) { s.classList.remove('open'); });
+}
+
+// 4. Update context bar when injury/level/mode changes
+function updateContextBar() {
+  var activeInj = document.querySelector('.inj-btn.on');
+  var activeLevel = document.querySelector('.level-btn.on');
+  var activeMode = document.querySelector('.coach-toggle button.on');
+  var ci = document.getElementById('ctx-injury');
+  var cl = document.getElementById('ctx-level');
+  var cm = document.getElementById('ctx-mode');
+  if (ci && activeInj) ci.textContent = activeInj.textContent.trim();
+  if (cl && activeLevel) cl.textContent = activeLevel.textContent.trim();
+  if (cm && activeMode) {
+    var modeText = activeMode.textContent.trim();
+    cm.textContent = modeText;
+    cm.className = 'ctx-chip ' + (modeText.includes('Adv') ? 'mode-a' : 'mode-b');
+  }
+  // Sync the injury strip buttons
+  var injBtn = activeInj ? activeInj.getAttribute('onclick') : null;
+  var injId = injBtn ? (injBtn.match(/sel(this,'([^']+)'/) || [])[1] : null;
+  if (injId) syncInjuryStrip(injId);
+}
+
+// 5. Injury strip sync with sidebar
+function selStripInj(btn, id) {
+  // Call the existing sel() function with the matching sidebar button
+  var sidebarBtn = Array.from(document.querySelectorAll('.inj-btn')).find(function(b) {
+    return (b.getAttribute('onclick') || '').includes("'" + id + "'");
+  });
+  if (sidebarBtn) sidebarBtn.click();
+}
+
+function syncInjuryStrip(injId) {
+  document.querySelectorAll('.inj-strip-btn').forEach(function(b) {
+    var matches = (b.getAttribute('onclick') || '').includes("'" + injId + "'");
+    b.classList.toggle('on', matches);
+  });
+}
+
+// 6. Intercept sel() and selLevel() to update context bar
+(function() {
+  var origSel = window.sel;
+  if (origSel) {
+    window.sel = function(btn, id) {
+      origSel(btn, id);
+      setTimeout(updateContextBar, 50);
+    };
+  }
+  var origSelLevel = window.selLevel;
+  if (origSelLevel) {
+    window.selLevel = function(id, btn) {
+      origSelLevel(id, btn);
+      setTimeout(updateContextBar, 50);
+    };
+  }
+  var origSetMode = window.setMode;
+  if (origSetMode) {
+    window.setMode = function(mode, btn) {
+      origSetMode(mode, btn);
+      setTimeout(updateContextBar, 50);
+    };
+  }
+})();
+
+// 7. Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  var tag = document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if (e.key === 'e' || e.key === 'E') expandAllGroups();
+  if (e.key === 'c' || e.key === 'C') collapseAllGroups();
+  if (e.key === 'Escape') {
+    var kbPanel = document.getElementById('kb-panel');
+    if (kbPanel) kbPanel.classList.remove('visible');
+  }
+});
+
+// 8. Add tab count badges to group headers
+(function() {
+  document.querySelectorAll('.tab-group-section').forEach(function(section) {
+    var count = section.querySelectorAll('.tab').length;
+    var lbl = section.querySelector('.tab-group-lbl');
+    if (lbl) {
+      var badge = document.createElement('span');
+      badge.className = 'tab-count';
+      badge.textContent = count;
+      lbl.parentNode.insertBefore(badge, lbl.nextSibling);
+    }
+  });
+})();
+
+// 9. Initialize on load
+updateGroupActiveState();
+setTimeout(updateContextBar, 100);
 </script>
 </body>
 </html>
