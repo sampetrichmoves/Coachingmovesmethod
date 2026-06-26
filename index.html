@@ -4096,10 +4096,12 @@ function renderPrehab(){
 
 </script>
 <script>
-/* ===== CONTENT SEARCH ENHANCEMENT v2 (additive, self-contained) =====
-   - Searches scenarios, regressions & red flags plus tool names
-   - Typo tolerant, shows a no-matches message, clear button, accessible
-   - Also improves Client Scripts readability (line spacing) */
+/* ===== CONTENT SEARCH ENHANCEMENT v3 (additive, self-contained) =====
+   - Search: scenarios, regressions & red flags + tool names; typo tolerant;
+     no-matches message; clear button; accessible roles
+   - Client Scripts readability (line spacing)
+   - Layout: roomier answer area (caps nav height, gives content a min height,
+     auto-collapses other tool groups & scrolls to the answer when a tool opens) */
 (function(){
   try{
   var TOOLS=[["Template Adjustments","tpl"],["Fast Prescriber","fast"],["Movement Lookup","move"],["Regressions","regr"],["Regression Tree","tree"],["Troubleshoot","trbl"],["Refer & Red Flags","refer"],["Session Prep","prep"],["Quick Ref","qref"],["Template Overview","tov"],["Client Scripts","cscript"],["Client Comms","ccomm"],["Message Tones","mtone"],["Progress Notes","pnote"],["Check-In Protocol","cin"],["Check-In Decoder","cdec"],["Red Flags","rflag"],["Phase Checklist","phase"],["Win Tracker","win"],["Weekly Briefing","brief"],["Progress Dashboard","dash"],["Flare Scripts","flare"],["Retention Scripts","reten"],["Program Building","prog"],["Onboarding & Resources","onb"],["Prehab & Rehab","preh"],["Strategy","strat"]];
@@ -4125,9 +4127,14 @@ function renderPrehab(){
   qnav.addEventListener("keydown",function(e){if(e.key==="Escape"){qnav.value="";render("");qnav.blur();}});
   document.addEventListener("keydown",function(e){if(e.key==="/"&&document.activeElement!==qnav&&!/input|textarea/i.test((document.activeElement||{}).tagName||"")){e.preventDefault();qnav.focus();}});
   var styleId="ms-cscript-readability";if(!document.getElementById(styleId)){var st=document.createElement("style");st.id=styleId;st.textContent="#content .ms-script-card{line-height:1.6 !important;font-size:14.5px !important;}#content .ms-script-card *{line-height:1.6 !important;}";document.head.appendChild(st);}
+  var lid="ms-layout-fix";if(!document.getElementById(lid)){var ls=document.createElement("style");ls.id=lid;ls.textContent="#main-tabbar{flex:0 0 auto !important;max-height:34vh !important;min-height:118px !important;overflow-y:auto !important;}#content{flex:1 1 auto !important;min-height:46vh !important;overflow-y:auto !important;}";document.head.appendChild(ls);}
   function enhanceScripts(){var content=document.getElementById("content");if(!content)return;var isScripts=false;content.querySelectorAll("h2").forEach(function(x){if(/Client Scripts/i.test(x.textContent))isScripts=true;});if(!isScripts)return;content.querySelectorAll("div").forEach(function(el){var t=el.innerText||"";if(/Hey \[Name\]/.test(t)&&t.length<900&&el.children.length<=3){el.classList.add("ms-script-card");}});}
+  function collapseInactiveGroups(){var sections=document.querySelectorAll(".tab-group-section");if(!sections.length)return;var active=null;sections.forEach(function(s){if(s.querySelector(".tab.on, .tab.active"))active=s;});if(!active)return;sections.forEach(function(s){if(s===active){s.classList.add("open");}else{s.classList.remove("open");}});}
+  function scrollContentTop(){var c=document.getElementById("content");if(c)c.scrollTop=0;}
+  var tabbar=document.getElementById("main-tabbar");if(tabbar&&!tabbar.__msHooked){tabbar.addEventListener("click",function(e){var tt=e.target.closest&&e.target.closest(".tab");if(tt&&!tt.classList.contains("tab-group-toggle")){setTimeout(function(){collapseInactiveGroups();scrollContentTop();},60);}},true);tabbar.__msHooked=true;}
   var content=document.getElementById("content");if(content){var obs=new MutationObserver(function(){try{enhanceScripts();}catch(e){}});obs.observe(content,{childList:true,subtree:true});enhanceScripts();}
-  window.__contentSearchInstalled=true;window.__enhV=2;
+  try{collapseInactiveGroups();scrollContentTop();}catch(e){}
+  window.__contentSearchInstalled=true;window.__enhV=3;
   }catch(e){if(window.console)console.warn("content search enh error",e);}
 })();
 </script>
