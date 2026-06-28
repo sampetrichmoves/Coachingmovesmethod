@@ -4138,6 +4138,47 @@ function renderPrehab(){
   }catch(e){if(window.console)console.warn("content search enh error",e);}
 })();
 </script>
+<script>
+/* CONTENT SEARCH ENHANCEMENT v4 - keyboard nav, synonyms, error guard (additive, runs after v3) */
+(function(){try{
+  function init(){
+    var q=document.querySelector("#qnav");
+    var wrap=document.querySelector("#qnav-results");
+    if(!q||!wrap){return false;}
+    if(window.__enhV4){return true;}
+    window.__enhV4=true;
+    var SYN={"mobility":"warm up flexibility range","warmup":"warm up","nutrition":"diet macros food eating","macros":"nutrition diet","pricing":"cost price payment money","cost":"price pricing payment","cancel":"cancellation membership quit pause","refund":"cancellation money payment","lowback":"lower back lumbar","lbp":"lower back pain lumbar","tweaked":"flare flare-up injury","sore":"flare soreness doms","rehab":"regression prehab injury","newbie":"beginner new client onboarding","onboard":"onboarding new client intake","checkin":"check-in check in weekly","plateau":"stall progress stuck","sleep":"recovery rest","stress":"recovery lifestyle"};
+    function realItems(){return [].slice.call(wrap.querySelectorAll(".qnr-item")).filter(function(it){return !/No matches/i.test(it.textContent||"");});}
+    var synGuard=false;
+    q.addEventListener("input",function(){
+      if(synGuard){return;}
+      var raw=q.value,low=raw.toLowerCase().trim();
+      if(low.length<3){return;}
+      if(realItems().length>=3){return;}
+      var extra=[];Object.keys(SYN).forEach(function(k){if(low.indexOf(k)!==-1){extra.push(SYN[k]);}});
+      if(!extra.length){return;}
+      synGuard=true;
+      try{q.value=raw+" "+extra.join(" ");q.dispatchEvent(new Event("input",{bubbles:true}));}
+      finally{q.value=raw;synGuard=false;}
+    });
+    if(!document.getElementById("qnav-kbd-style")){var st=document.createElement("style");st.id="qnav-kbd-style";st.textContent="#qnav-results .qnr-item.qnav-kbd-sel{outline:2px solid #2d8cff;outline-offset:-2px;background:rgba(45,140,255,0.12)!important;border-radius:6px}";document.head.appendChild(st);}
+    var selIdx=-1;
+    function clearSel(){wrap.querySelectorAll(".qnav-kbd-sel").forEach(function(e){e.classList.remove("qnav-kbd-sel");});}
+    function applySel(){var its=realItems();clearSel();if(selIdx>=0&&selIdx<its.length){its[selIdx].classList.add("qnav-kbd-sel");its[selIdx].scrollIntoView({block:"nearest"});}}
+    q.addEventListener("input",function(){selIdx=-1;setTimeout(clearSel,0);});
+    q.addEventListener("keydown",function(e){
+      var its=realItems();
+      if(e.key==="ArrowDown"){e.preventDefault();if(its.length){selIdx=(selIdx+1)%its.length;applySel();}}
+      else if(e.key==="ArrowUp"){e.preventDefault();if(its.length){selIdx=(selIdx-1+its.length)%its.length;applySel();}}
+      else if(e.key==="Enter"){if(selIdx>=0&&its[selIdx]){e.preventDefault();its[selIdx].click();}}
+      else if(e.key==="Escape"){q.value="";q.dispatchEvent(new Event("input",{bubbles:true}));q.blur();}
+    });
+    window.__enhV=4;
+    return true;
+  }
+  if(!init()){var tries=0;var iv=setInterval(function(){tries++;if(init()||tries>40){clearInterval(iv);}},150);}
+}catch(e){if(window.console){console.warn("enhV4 init error",e);}}})();
+</script>
 
 </body>
 </html>
