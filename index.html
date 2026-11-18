@@ -510,6 +510,103 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 .adj-name::placeholder{color:var(--muted-fg);}
 .adj-name:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
 
+/* ===== Whole-Program Fix, My Clients, ready-made links ===== */
+/* page head: copy link */
+.ph-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ph-link{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--fg-2);font-size:12.5px;font-weight:600;cursor:pointer;}
+.ph-link:hover{border-color:var(--accent-line);color:var(--fg);}
+.ph-link.copied{border-color:var(--success);background:var(--success-soft);color:var(--fg);}
+/* menu badge */
+.tab-badge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--gold, var(--warn));color:var(--on-accent);font-family:var(--font-mono);font-size:11px;font-weight:700;display:inline-grid;place-items:center;line-height:1;}
+.tab-badge[hidden]{display:none;}
+.tab.on .tab-badge{background:var(--bg);color:var(--fg);}
+/* adjuster -> program fix link */
+.adj-xlink{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--fg-2);}
+
+/* severity buttons */
+.adj-opts.three .adj-opt{flex:1 1 0;min-width:0;}
+.adj-opt.sev{flex-direction:column;align-items:flex-start;gap:2px;font-family:var(--font-mono);}
+.adj-opt.sev .hint{font-family:var(--font-sans);text-transform:none;letter-spacing:0;font-size:12px;}
+.adj-opt.sev-low.on{background:var(--success);border-color:var(--success);}
+.adj-opt.sev-mid.on{background:var(--warn);border-color:var(--warn);}
+.adj-opt.sev-high.on{background:var(--danger);border-color:var(--danger);}
+
+/* program fix */
+.pf-area .adj-qh{flex-wrap:wrap;}
+.pf-drop{margin-left:auto;font-size:13px;font-weight:600;}
+.pf-select{width:100%;height:40px;border-radius:10px;border:1px solid var(--border-strong);background:var(--bg);color:var(--fg);padding:0 10px;font:inherit;font-size:14px;margin-top:2px;}
+.pf-count{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.pf-c{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-strong);color:var(--fg-2);background:var(--bg);}
+.pf-c.s-remove{border-color:var(--danger);color:var(--danger);}
+.pf-c.s-mod{border-color:var(--warn);color:var(--warn);}
+.pf-c.s-keep{border-color:var(--success);color:var(--success);}
+.pf-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.pf-row{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:start;padding:10px 12px;border:1px solid var(--border);border-left-width:3px;border-radius:10px;background:var(--bg);}
+.pf-row.s-remove{border-left-color:var(--danger);}
+.pf-row.s-mod{border-left-color:var(--warn);}
+.pf-row.s-keep{border-left-color:var(--success);}
+.pf-pill{justify-self:start;font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 7px;border-radius:6px;white-space:nowrap;}
+.s-remove .pf-pill{background:var(--danger-soft);color:var(--danger);}
+.s-mod .pf-pill{background:var(--warn-soft);color:var(--warn);}
+.s-keep .pf-pill{background:var(--success-soft);color:var(--success);}
+.pf-main b{display:block;color:var(--fg);font-size:14.5px;}
+.pf-rule{margin-top:4px;font-size:13.5px;line-height:1.5;color:var(--fg-2);}
+.pf-rule .pf-cue{color:var(--fg);}
+.pf-rule .pf-why{display:block;color:var(--muted-fg);font-size:12.5px;margin-top:1px;}
+.pf-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;margin-right:6px;border-radius:5px;border:1px solid var(--border-strong);color:var(--fg-2);}
+@media (max-width:520px){ .pf-row{grid-template-columns:minmax(0,1fr);gap:6px;} }
+
+/* my clients */
+.cl-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.cl-spacer{flex:1 1 auto;}
+.cl-search{flex:1 1 200px;max-width:280px;height:38px;border-radius:10px;border:1px solid var(--border-strong);background:var(--bg);color:var(--fg);padding:0 12px;font:inherit;font-size:14px;}
+.cl-import{position:relative;overflow:hidden;}
+.cl-import input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.cl-group{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+.cl-card{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+.cl-card.due{border-color:var(--warn);box-shadow:inset 3px 0 0 var(--warn);}
+.cl-card.soon{border-color:var(--border-strong);}
+.cl-head{display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+.cl-name{font-family:var(--font-display);font-stretch:105%;font-size:18px;font-weight:800;color:var(--fg);margin-right:4px;}
+.cl-chip{font-size:12.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--border-strong);color:var(--fg-2);background:var(--bg);}
+.cl-chip.lvl{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);border-color:var(--accent-line);}
+.cl-when{font-size:13.5px;color:var(--fg-2);}
+.cl-when b{color:var(--fg);}
+.cl-card.due .cl-rel{color:var(--warn);font-weight:600;}
+.cl-last{font-size:13.5px;color:var(--fg-2);}
+.cl-last span{font-family:var(--font-mono);font-size:11.5px;color:var(--muted-fg);margin-right:6px;}
+.cl-notes{font-size:13px;color:var(--muted-fg);font-style:italic;}
+.cl-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.cl-actions .adj-btn{min-height:34px;font-size:13px;}
+.cl-log{margin:2px 0 0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--fg-2);}
+.cl-log-top span{font-family:var(--font-mono);font-size:11.5px;color:var(--muted-fg);margin-right:8px;}
+.cl-log-top b{color:var(--fg);font-weight:600;}
+.cl-log details{margin-top:4px;}
+.cl-log summary{cursor:pointer;color:var(--accent);font-size:13px;}
+.cl-log pre{white-space:pre-wrap;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--fg-2);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;margin:6px 0;max-height:260px;overflow:auto;}
+.cl-form{display:flex;flex-direction:column;gap:12px;margin-bottom:14px;}
+.cl-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+.cl-fields label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--fg-2);}
+.cl-fields label.wide{grid-column:1/-1;}
+.cl-fields input,.cl-fields select,.cl-fields textarea,.cl-save input,.cl-save select{height:38px;border-radius:9px;border:1px solid var(--border-strong);background:var(--bg);color:var(--fg);padding:0 10px;font:inherit;font-size:14px;font-weight:400;}
+.cl-fields textarea{height:auto;padding:8px 10px;resize:vertical;}
+.cl-fields input:focus,.cl-fields select:focus,.cl-fields textarea:focus,.cl-save input:focus,.cl-save select:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.adj-btn.danger{border-color:var(--danger);color:var(--danger);background:transparent;}
+.adj-btn.danger:hover{background:var(--danger-soft);}
+.cl-save{display:flex;flex-direction:column;gap:6px;}
+.cl-save .install-sub{margin-bottom:6px;}
+.cl-lbl{font-size:12.5px;font-weight:600;color:var(--fg-2);margin-top:6px;}
+.cl-save .cl-actions{margin-top:12px;}
+.cl-save [hidden]{display:none;}
+/* toast */
+.mm-toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);z-index:300;max-width:min(560px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--border-strong);border-radius:12px;padding:11px 16px;font-size:14px;color:var(--fg);box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .18s ease, transform .18s ease;}
+.mm-toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto;}
+.mm-toast-link{border:0;background:none;color:var(--accent);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;padding:0;}
+@media print{ .mm-toast,.ph-link{display:none!important;} }
+.grp-due{margin-left:8px;font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold, var(--warn));color:var(--on-accent);white-space:nowrap;}
+.grp-due[hidden]{display:none;}
+.grp-due:not([hidden]) + .tab-count{display:none;}
+
 /* ===== Tool content (original components, recolored) ===== */
 .sec-title{font-size:18px;font-weight:700;margin-bottom:4px;}
 .sec-sub{font-size:14px;color:var(--muted-fg);margin-bottom:16px;}
@@ -810,6 +907,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <button type="button" class="tab-group-toggle" onclick="toggleTabGroup(this)" aria-expanded="true"><span class="tab-group-icon" aria-hidden="true">🔥</span><span class="tab-group-lbl">During Session</span><span class="tab-group-arrow" aria-hidden="true"></span></button>
 <div class="tab-group-tabs">
 <button type="button" class="tab" onclick="goTab('adjust',this)" data-keywords="adjust adjustment scale regress regression progress progression modify harder easier difficulty dose too hard too easy struggling bored"><span class="tab-ico" aria-hidden="true">&#127898;&#65039;</span><span class="tab-lbl">Too Hard / Too Easy</span></button>
+<button type="button" class="tab" onclick="goTab('progfix',this)" data-keywords="whole program fix template pain two injuries areas both swap substitute remove keep change lane wrist hip"><span class="tab-ico" aria-hidden="true">&#129513;</span><span class="tab-lbl">Whole-Program Fix</span></button>
 <button type="button" class="tab" onclick="goTab('templates',this)"><span class="tab-ico" aria-hidden="true">📋</span><span class="tab-lbl">Template Adjustments</span></button>
 <button type="button" class="tab" onclick="goTab('prescriber',this)"><span class="tab-ico" aria-hidden="true">⚡</span><span class="tab-lbl">Fast Prescriber</span></button>
 <button type="button" class="tab" onclick="goTab('movlookup',this)"><span class="tab-ico" aria-hidden="true">🔎</span><span class="tab-lbl">Movement Lookup</span></button>
@@ -825,6 +923,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <div class="tab-group-section" data-group="client">
 <button type="button" class="tab-group-toggle" onclick="toggleTabGroup(this)" aria-expanded="false"><span class="tab-group-icon" aria-hidden="true">👥</span><span class="tab-group-lbl">Client Management</span><span class="tab-group-arrow" aria-hidden="true"></span></button>
 <div class="tab-group-tabs">
+<button type="button" class="tab" onclick="goTab('clients',this)" data-keywords="my clients client list roster recheck re-check follow up due history save log"><span class="tab-ico" aria-hidden="true">&#128199;</span><span class="tab-lbl">My Clients</span><span class="tab-badge" id="cl-badge" hidden></span></button>
 <button type="button" class="tab" onclick="goTab('scripts',this)"><span class="tab-ico" aria-hidden="true">💬</span><span class="tab-lbl">Client Scripts</span></button>
 <button type="button" class="tab" onclick="goTab('comms',this)"><span class="tab-ico" aria-hidden="true">💬</span><span class="tab-lbl">Client Comms</span></button>
 <button type="button" class="tab" onclick="goTab('msgtones',this)"><span class="tab-ico" aria-hidden="true">🎤</span><span class="tab-lbl">Message Tones</span></button>
@@ -902,7 +1001,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <div class="sb-backdrop" id="sb-backdrop"></div>
 <main class="main" id="main">
 <div class="page-head">
-<nav class="crumb" aria-label="You are here"><span id="crumb-group">During Session</span><span class="crumb-sep" aria-hidden="true">/</span><span id="crumb-tool">Too Hard / Too Easy</span></nav>
+<div class="ph-top"><nav class="crumb" aria-label="You are here"><span id="crumb-group">During Session</span><span class="crumb-sep" aria-hidden="true">/</span><span id="crumb-tool">Too Hard / Too Easy</span></nav><button type="button" class="ph-link" id="copy-link" onclick="mmCopyLink(this)" title="Copy a link that opens the tool set up exactly like this">&#128279; Copy link</button></div>
 <div class="ph-ctx"><span class="tb-icon" id="tb-icon" aria-hidden="true">&#129461;</span><h1 class="tb-title" id="tb-title">Hip &amp; Groin</h1><span class="tb-badge" id="tb-level" title="Program level">L1A</span><span class="mode-chip" id="mode-badge">&#127793; Beginner Mode</span></div>
 <div class="tb-sub" id="tb-sub">Labrum Tear &middot; FAI &middot; Groin Strain &middot; Hip Flexor</div>
 </div>
@@ -1936,6 +2035,8 @@ flarescripts:renderFlareScripts,
 retention:renderRetention,
 tmplguide:function(){renderTemplateGuide(d);},
 adjust:function(){renderAdjust();},
+progfix:function(){renderProgFix();},
+clients:function(){renderClients();},
 flywheel:renderFlywheel
   };
   if(dispatch[tab]) dispatch[tab]();
@@ -4609,7 +4710,8 @@ function renderPrehab(){
     if(!st || st.inj!==cur.inj){
       var o=st||{};
       st=window._adj={inj:cur.inj, dir:o.dir||null, sig:o.sig||null, lane:o.lane||null, score:(o.score==null?null:o.score),
-        whole:!!o.whole, ex:'', step:null, gates:o.gates||{pain:false,form:false,snack:false}, text:o.text||'', said:o.said||null, name:o.name||''};
+        whole:!!o.whole, ex:'', step:null, gates:o.gates||{pain:false,form:false,snack:false}, text:o.text||'', said:o.said||null, name:o.name||window._adjName||''};
+      window._adjName=null;
     }
     return st;
   }
@@ -5159,6 +5261,7 @@ function renderPrehab(){
       h+='<section class="adj-result tone-'+P.tone+'" aria-live="polite">';
       h+='<div class="adj-top"><span class="adj-badge">'+esc(P.badge)+'</span><h3 class="adj-head">'+P.head+'</h3><p class="adj-why">'+P.why+'</p>'+(P.hint?'<p class="adj-hint">'+P.hint+'</p>':'')+'</div>';
       h+='<div class="adj-sec"><span class="adj-eyebrow">Do this — one change at a time</span><ol class="adj-do">'+P.steps.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol></div>';
+      if(st.dir==='hard' && st.lane) h+='<div class="adj-sec adj-xlink"><span>Pain showing up across the program, or in two areas?</span><button type="button" class="adj-link" onclick="adjToProgFix()">Fix the whole program →</button></div>';
       if(P.keep && P.keep.length) h+='<div class="adj-sec"><span class="adj-eyebrow">Keep these at full effort</span><ul class="adj-list">'+P.keep.map(function(k){return '<li>'+esc(k)+'</li>';}).join('')+'</ul></div>';
       if(P.refer && P.refer.length) h+='<div class="adj-sec"><details class="adj-flags"'+(P.tone==='stop'?' open':'')+'><summary>🚩 Red flags for '+esc(injName())+': refer if any are true</summary><ul class="adj-list">'+P.refer.map(function(k){return '<li>'+esc(k)+'</li>';}).join('')+'</ul></details></div>';
       if(P.chain && P.tone!=='stop' || (P.chain && P.move<0)) h+='<div class="adj-sec"><span class="adj-eyebrow">'+esc(P.chain.name)+' · easier → harder</span>'+chainHtml(P)+'</div>';
@@ -5185,6 +5288,7 @@ function renderPrehab(){
         '<blockquote class="adj-msg" id="adj-msg" data-tpl="'+esc(P.client)+'">'+nameIn(P.client, st.name)+'</blockquote><button type="button" class="adj-btn" onclick="adjCopyMsg(this)">Copy message</button></div>';
       if(P.recheck) h+='<div class="adj-sec"><span class="adj-eyebrow">Re-check</span><p class="adj-p">'+P.recheck+'</p></div>';
       h+='<div class="adj-actions"><button type="button" class="adj-btn primary" onclick="adjCopyPlan(this)">Copy plan for Everfit notes</button>'+
+         (window.mmSaveToClient?'<button type="button" class="adj-btn" onclick="adjSave()">Save to a client</button>':'')+
          '<a class="adj-btn" href="'+claudeUrl(st,cat,P)+'" target="_blank" rel="noopener" title="Opens Claude with this client’s situation and the MovesMethod rules filled in">Ask Claude about this client ↗</a>'+
          '<button type="button" class="adj-btn ghost" onclick="adjReset()">Start over</button></div>';
       h+='</section>';
@@ -5260,8 +5364,526 @@ function renderPrehab(){
   function nameIn(html, name){ name=String(name||'').trim(); return name ? html.split('[Name]').join(esc(name)) : html; }
   window.adjName=function(v){ var st=S(); st.name=v; var m=document.getElementById('adj-msg'); if(m) m.innerHTML=nameIn(m.getAttribute('data-tpl')||'', v); };
   window.adjCopyMsg=function(btn){ var m=document.getElementById('adj-msg'); if(m) copyText(m.textContent, btn); };
+  function recheckDays(t){ t=String(t||''); if(/2[–-]3 days/.test(t)) return 3; if(/session/.test(t) && !/week/.test(t)) return 7; if(/1[–-]2 weeks|2 weeks/.test(t)) return 14; if(/week/.test(t)) return 7; return 14; }
+  window.adjToProgFix=function(){
+    var st=S(); window._pf={areas:[{inj:cur.inj, lane:st.lane||null}], sev:st.score==null?null:(st.score<=3?'low':st.score<=6?'mid':'high'), name:st.name||''};
+    goTab('progfix'); window.scrollTo(0,0);
+  };
+  window.adjSave=function(){
+    var st=S(), cat=catalog(), P=plan(st,cat); if(!P || !window.mmSaveToClient) return;
+    var ex=exLabel(st,cat);
+    mmSaveToClient({source:'adjust', name:st.name||'', inj:cur.inj, inj2:'', level:cur.level,
+      title:(ex?ex+': ':'')+P.badge+' — '+plain(P.head), text:planText(st,cat,P), recheckDays:recheckDays(P.recheck)});
+  };
   window.adjCopyPlan=function(btn){ var st=S(), cat=catalog(), P=plan(st,cat); if(P) copyText(planText(st,cat,P), btn); };
   window.__adjParse=parse;  // used by tests
+  // shared with the Whole-Program Fix and My Clients tools
+  window.MMA={esc:esc, plain:plain, copyText:copyText, cleanCue:cleanCue, subOf:subOf, lowerFirst:lowerFirst, toks:toks, overlap:overlap,
+    LANES:LANES, PR_INJ:PR_INJ, lvlNum:lvlNum, lvlLetter:lvlLetter, painGate:painGate,
+    plan:function(){ var st=S(), cat=catalog(); return {st:st, P:plan(st,cat), text:(function(){ var P=plan(st,cat); return P ? planText(st,cat,P) : ''; })(), situation:(st.dir?situation(st,cat):'')}; }};
+})();
+
+</script>
+<script>
+/* ===== Whole-Program Fix =====
+   For pain that affects the whole template, not one exercise. Pick what the pain
+   feels like for each problem area (up to two) and every exercise in the injury
+   template is marked keep / change / swap out, with the snack and the Everfit
+   programs for the client's level. Built only on the tool's own rules and data. */
+(function(){
+  function M(){ return window.MMA || {}; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function cleanCue(c){ return M().cleanCue ? M().cleanCue(c) : String(c||''); }
+  function subOf(c){ return M().subOf ? M().subOf(c) : ''; }
+  function norm(n){ return M().toks ? M().toks(n).join(' ') : String(n||'').toLowerCase(); }
+  var LANES=[
+    {k:'Muscle', t:'Dull / achy', h:'Muscle lane', rule:'Dull / achy = muscle lane: keep training in the pain-free range and change the dose, not the movement.'},
+    {k:'Joint', t:'Pinch / sharp / catching', h:'Joint lane', rule:'Pinch / sharp = joint lane: modify the provocative position and use the template substitutes.'},
+    {k:'Nerve', t:'Electric / burning / tingling', h:'Nerve lane', rule:'Electric / burning / tingling = nerve lane: stop anything that brings it on and refer to a physio, while they keep training safe work.'}
+  ];
+  var SEV=[{k:'low', t:'0–3', h:'Mild'}, {k:'mid', t:'4–6', h:'Moderate'}, {k:'high', t:'7+', h:'Severe'}];
+  var PR_INJ={hip:'Hip & Groin', knee:'Knee', shoulder:'Shoulder', lower:'Lower Back', plantar:'Ankle & Foot', neck:'Neck', wrist:'Wrist & Elbow', elbow:'Wrist & Elbow'};
+  var RANK={keep:0, mod:1, remove:2};
+  var PILL={keep:'Keep', mod:'Change', remove:'Swap out'};
+
+  function injName(k){ return (window.INJ && INJ[k] && INJ[k].name) || k; }
+  function injShort(k){ return injName(k).replace(/\s*&\s*Groin$/,'').replace(/ Fascia$/,''); }
+  function lvlNum(){ var m=/^L(\d)/.exec(cur.level||''); return m ? +m[1] : 1; }
+  function lane(k){ return LANES.filter(function(l){ return l.k===k; })[0]; }
+  function list(names, max){
+    max=max||4; var n=names.slice(0,max), more=names.length-n.length;
+    if(more>0) return n.join(', ')+' and '+more+' more';
+    return n.length>1 ? n.slice(0,-1).join(', ')+' and '+n[n.length-1] : (n[0]||'');
+  }
+  function nameIn(text, name){ name=String(name||'').trim(); return name ? text.split('[Name]').join(name) : text; }
+
+  // ---------- state (area 1 always follows the injury picked in the top bar)
+  function S(){
+    var st=window._pf;
+    if(!st || !st.areas || !st.areas.length) st=window._pf={areas:[{inj:cur.inj, lane:null}], sev:null, name:''};
+    if(st.areas[0].inj!==cur.inj){
+      st.areas[0]={inj:cur.inj, lane:null};
+      if(st.areas[1] && st.areas[1].inj===cur.inj) st.areas.splice(1,1);
+    }
+    return st;
+  }
+  function ready(st){ return st.areas.length && st.areas.every(function(a){ return !!a.lane; }); }
+
+  // ---------- the merged program
+  function build(st){
+    var sections=[], byKey={};
+    st.areas.forEach(function(a){
+      var T=window.TEMPLATE_ADJ && TEMPLATE_ADJ[a.inj]; if(!T || !a.lane) return;
+      T.sections.forEach(function(sec){
+        var title=String(sec.title).replace(/\s*[—–-]\s*What Changes\s*$/i,'');
+        var sid=title.toLowerCase(), S2=sections.filter(function(x){ return x.id===sid; })[0];
+        if(!S2){ S2={id:sid, title:title, rows:[]}; sections.push(S2); }
+        sec.exercises.forEach(function(e){
+          var g=e.lanes && e.lanes[a.lane]; if(!g) return;
+          var key=norm(e.name), row=byKey[key];
+          if(!row){ row={name:e.name, s:g.s, rules:[]}; byKey[key]=row; S2.rows.push(row); }
+          row.rules.push({inj:a.inj, lane:a.lane, s:g.s, cue:cleanCue(g.cue), why:g.why||'', sub:subOf(g.cue)});
+          if((RANK[g.s]||0)>(RANK[row.s]||0)) row.s=g.s;
+        });
+      });
+    });
+    sections=sections.filter(function(s){ return s.rows.length; });
+    var all=[]; sections.forEach(function(s){ all=all.concat(s.rows); });
+    var by=function(k){ return all.filter(function(r){ return r.s===k; }); };
+    return {sections:sections, swap:by('remove'), change:by('mod'), keep:by('keep')};
+  }
+  function snack(inj, ln){
+    var db=window.PRESCRIBER_DB && PRESCRIBER_DB[PR_INJ[inj]]; if(!db || !db[ln]) return null;
+    var n=Math.max(1, Math.min(3, lvlNum()-1)), key='L'+n, e=db[ln][key] || db[ln].L1;
+    return e ? {name:e.s, url:e.u, cue:e.c, q:e.q, key:key} : null;
+  }
+  function programs(inj){
+    var t=window.TEMPLATES && TEMPLATES[inj]; if(!t || !cur.level || cur.level==='ALL') return [];
+    return (t[cur.level]||[]).slice(0,4);
+  }
+  function verdict(st, R){
+    var nerve=st.areas.filter(function(a){ return a.lane==='Nerve'; }), joint=st.areas.some(function(a){ return a.lane==='Joint'; });
+    var V={};
+    if(nerve.length){
+      V.tone='stop'; V.badge='Stop & refer';
+      V.head='Stop anything that brings on the nerve symptoms, refer, and adjust the rest.';
+      V.recheck='Before the next session: confirm the physio referral is booked and that everything left in the program stays symptom-free.'; V.days=7;
+    } else if(st.sev==='high'){
+      V.tone='stop'; V.badge='Pain spike';
+      V.head='Pain spike: drop to the gentle version and halve the load this week, then make the changes below.';
+      V.recheck='Re-check in 2–3 days: pain back to 3/10 or less → rebuild one step at a time. Pain at rest or at night, or not settling within a week → refer.'; V.days=3;
+    } else if(R.swap.length){
+      V.tone='warn'; V.badge='Swap & change';
+      V.head='Swap out '+R.swap.length+' exercise'+(R.swap.length>1?'s':'')+(R.change.length?' and change '+R.change.length:'')+'. Everything else stays.';
+    } else if(R.change.length){
+      V.tone='warn'; V.badge='Change';
+      V.head='Change '+R.change.length+' exercise'+(R.change.length>1?'s':'')+'. Everything else stays.';
+    } else {
+      V.tone='go'; V.badge='Keep going';
+      V.head='Everything in the template can stay. Keep pain at 3/10 or less during and after.';
+    }
+    if(!V.recheck){
+      if(joint){ V.recheck='Re-check in 1–2 weeks: pinch-free in daily life and in the changed exercises → bring swapped exercises back at an easier step, in a short range.'; V.days=14; }
+      else { V.recheck='Re-check after 1–2 sessions: pain stays at 3/10 or less during and after → keep going and build back up. Worse the next day → reduce the dose.'; V.days=7; }
+    }
+    V.why=st.areas.map(function(a){ return (st.areas.length>1?'<b>'+esc(injShort(a.inj))+':</b> ':'')+esc(lane(a.lane).rule); }).join('<br>');
+    if(st.sev==='mid' && !nerve.length) V.note='Pain is above 3/10: make every change below now. MovesMethod rule: pain above 3/10 on any movement = regress immediately.';
+    else if(st.sev==='low' && !nerve.length) V.note='Pain is 3/10 or less: make the changes below and keep training, staying at 3/10 or less during and after.';
+    return V;
+  }
+  function areaLabel(st){ return st.areas.map(function(a){ return injName(a.inj)+' ('+(a.lane?a.lane.toLowerCase()+' lane':'?')+')'; }).join(' + '); }
+  function message(st, R, V){
+    var where=list(st.areas.map(function(a){ return injShort(a.inj).toLowerCase(); }));
+    var m='Hey [Name]! This week we’re adjusting your program around your '+where+'. ';
+    if(st.areas.some(function(a){ return a.lane==='Nerve'; })) m+='I’d like a physio to take a look, and in the meantime we’ll keep training everything that feels good. ';
+    else if(st.sev==='high') m+='We’re dialing it back to the gentler version for a few days so it can settle. Pain is information, not failure. ';
+    if(R.swap.length) m+='We’re swapping out '+list(R.swap.map(function(r){ return r.name; }))+' for now. ';
+    if(R.change.length) m+='We’re changing how you do '+list(R.change.map(function(r){ return r.name; }))+'. ';
+    m+='Everything else stays the same. ';
+    var sn=st.areas[0].lane ? snack(st.areas[0].inj, st.areas[0].lane) : null;
+    if(sn) m+='Your daily snack is now '+sn.name+'. ';
+    return m+'Tell me how it feels after your next session.';
+  }
+  function plainText(st, R, V){
+    var L=[];
+    L.push('MovesMethod program fix — '+areaLabel(st)+' · '+(cur.level||'')+(st.sev?' · pain '+SEV.filter(function(x){return x.k===st.sev;})[0].t+'/10':''));
+    L.push(V.badge.toUpperCase()+': '+V.head);
+    var two=st.areas.length>1;
+    function rows(title, arr){
+      if(!arr.length) return; L.push(''); L.push(title);
+      arr.forEach(function(r){
+        var cues=r.rules.filter(function(x){ return x.cue; }).map(function(x){ return x.cue+(two?' ('+injShort(x.inj)+')':''); });
+        L.push('- '+r.name+(cues.length?': '+cues.join(' / '):''));
+      });
+    }
+    rows('SWAP OUT', R.swap); rows('CHANGE', R.change); rows('KEEP', R.keep);
+    L.push('');
+    st.areas.forEach(function(a){ var sn=snack(a.inj, a.lane); if(sn) L.push('Daily snack'+(two?' ('+injShort(a.inj)+')':'')+': '+sn.name+' ('+a.lane+' lane, '+sn.key+') '+sn.url); });
+    L.push('Re-check: '+V.recheck);
+    return L.join('\n');
+  }
+  function claudeUrl(st, R, V){
+    var q=['You are a MovesMethod coaching assistant. Help me adjust a client’s whole program.','',
+      'MovesMethod rules:',
+      '- Pain rule: dull/achy (muscle lane) = continue carefully in the pain-free range; pinch/sharp (joint lane) = modify, remove the provocative position, use the regression; electric/burning/tingling (nerve lane) = stop that exercise and refer to a physio while they keep training safe work.',
+      '- Pain above 3/10 on any movement = regress immediately. Change one variable at a time; change the dose (range, reps, load) before the movement.',
+      '','Client: level '+(cur.level||'?')+', problem areas: '+areaLabel(st)+'.',
+      'The coach tool’s program fix:', plainText(st,R,V),'',
+      'Give me: 1) anything you would change or add to this plan and why, 2) how to coach the changed exercises, 3) a short message for the client, 4) what to check at the re-check.'].join('\n');
+    if(q.length>3800) q=q.slice(0,3800);
+    return 'https://claude.ai/new?q='+encodeURIComponent(q);
+  }
+
+  // ---------- render
+  function opt(label, on, onclick, extra){ return '<button type="button" class="adj-opt'+(on?' on':'')+(extra||'')+'" aria-pressed="'+(on?'true':'false')+'" onclick="'+onclick+'">'+label+'</button>'; }
+  window.renderProgFix=function(){
+    var d=document.getElementById('content'); if(!d) return;
+    var st=S(), ok=ready(st), R=ok?build(st):null, V=ok?verdict(st,R):null, two=st.areas.length>1;
+    var h='<div class="adj pf">';
+    h+='<div class="sec-title">🧩 Fix the whole program</div>';
+    h+='<div class="sec-sub">When pain affects the whole template, not one exercise. Pick what the pain feels like and every exercise in your <b>'+esc(injName(cur.inj))+'</b> client’s program is marked keep, change or swap out. <b>'+esc(cur.level==='ALL'?'Pick a level':cur.level)+'</b> sets the snack and the Everfit programs. One exercise too hard or too easy? Use <a href="#" onclick="goTab(\'adjust\');return false;">Too Hard / Too Easy</a>.</div>';
+    h+='<div class="adj-grid"><div class="adj-in">';
+    st.areas.forEach(function(a, i){
+      h+='<div class="adj-card adj-q pf-area"><div class="adj-qh"><span class="adj-n">'+(i+1)+'</span>'+(INJ[a.inj]&&INJ[a.inj].icon?INJ[a.inj].icon+' ':'')+esc(injName(a.inj))+': what does the pain feel like?'+
+         (i>0?'<button type="button" class="adj-link pf-drop" onclick="pfDropArea()" aria-label="Remove '+esc(injName(a.inj))+'">Remove</button>':'')+'</div><div class="adj-opts">';
+      LANES.forEach(function(l){ h+=opt(esc(l.t)+'<span class="hint">'+esc(l.h)+'</span>', a.lane===l.k, "pfLane("+i+",'"+l.k+"')", ' lane'); });
+      h+='</div>'+(i===0?'<p class="adj-note">Change the injury or level in the bar at the top.</p>':'')+'</div>';
+    });
+    if(!two){
+      h+='<div class="adj-card pf-add"><label class="adj-qh" for="pf-area2"><span class="adj-n">2</span>Second problem area? <span class="adj-opt-tag">optional</span></label>'+
+         '<select id="pf-area2" class="pf-select" onchange="pfArea2(this.value)"><option value="">No, just '+esc(injName(cur.inj))+'</option>'+
+         Object.keys(window.INJ||{}).filter(function(k){ return k!==cur.inj; }).map(function(k){ return '<option value="'+k+'">'+esc(injName(k))+'</option>'; }).join('')+
+         '</select><p class="adj-note">For a client with, say, wrist <i>and</i> hip issues: each exercise gets the safer of the two rules.</p></div>';
+    }
+    h+='<div class="adj-card adj-q"><div class="adj-qh"><span class="adj-n">3</span>How bad is it right now? <span class="adj-opt-tag">optional</span></div><div class="adj-opts three">';
+    SEV.forEach(function(s){ h+=opt(esc(s.t)+'<span class="hint">'+esc(s.h)+'</span>', st.sev===s.k, "pfSev('"+s.k+"')", ' sev sev-'+s.k); });
+    h+='</div></div>';
+    h+='</div><div class="adj-out" id="pf-out">';
+    if(!ok){
+      h+='<div class="adj-empty"><div class="adj-empty-ico" aria-hidden="true">🧩</div><b>The adjusted program shows up here.</b><br>'+
+         (st.areas[0].lane && two ? 'Now pick what the '+esc(injShort(st.areas[1].inj).toLowerCase())+' pain feels like.' : 'Pick what the pain feels like to start.')+'</div>';
+    } else {
+      h+='<section class="adj-result tone-'+V.tone+'" aria-live="polite">';
+      h+='<div class="adj-top"><span class="adj-badge">'+esc(V.badge)+'</span><h3 class="adj-head">'+esc(V.head)+'</h3><p class="adj-why">'+V.why+'</p>'+(V.note?'<p class="adj-hint">'+esc(V.note)+'</p>':'')+
+         '<div class="pf-count"><span class="pf-c s-remove">'+R.swap.length+' swap out</span><span class="pf-c s-mod">'+R.change.length+' change</span><span class="pf-c s-keep">'+R.keep.length+' keep</span><span class="pf-c lvl">'+esc(cur.level||'')+'</span></div></div>';
+      if(two) h+='<div class="adj-sec"><p class="adj-note">Showing the exercises from both templates. Skip any that aren’t in their program; where an exercise is in both, it gets the safer rule.</p></div>';
+      R.sections.forEach(function(sec){
+        h+='<div class="adj-sec"><span class="adj-eyebrow">'+esc(sec.title)+'</span><ul class="pf-list">';
+        sec.rows.forEach(function(r){
+          h+='<li class="pf-row s-'+r.s+'"><span class="pf-pill">'+PILL[r.s]+'</span><div class="pf-main"><b>'+esc(r.name)+'</b>';
+          r.rules.forEach(function(x){
+            if(!x.cue && !x.why) return;
+            h+='<div class="pf-rule">'+(two?'<span class="pf-tag">'+esc(injShort(x.inj))+'</span>':'')+(x.cue?'<span class="pf-cue">'+esc(x.cue)+'</span>':'')+(x.why?'<span class="pf-why">'+esc(x.why)+'</span>':'')+'</div>';
+          });
+          h+='</div></li>';
+        });
+        h+='</ul></div>';
+      });
+      if(!two){ var keep=(window.REFER && REFER[cur.inj] && REFER[cur.inj].keep)||[]; if(keep.length) h+='<div class="adj-sec"><span class="adj-eyebrow">Also keep at full effort</span><ul class="adj-list">'+keep.map(function(k){ return '<li>'+esc(k)+'</li>'; }).join('')+'</ul></div>'; }
+      var flags=[]; st.areas.forEach(function(a){ var r=window.REFER && REFER[a.inj]; if(r && r.red) r.red.forEach(function(x){ flags.push((two?injShort(a.inj)+': ':'')+x); }); });
+      if(flags.length) h+='<div class="adj-sec"><details class="adj-flags"'+(V.tone==='stop'?' open':'')+'><summary>🚩 Red flags: refer if any are true</summary><ul class="adj-list">'+flags.map(function(k){ return '<li>'+esc(k)+'</li>'; }).join('')+'</ul></details></div>';
+      st.areas.forEach(function(a){
+        var sn=snack(a.inj, a.lane); if(!sn) return;
+        h+='<div class="adj-sec"><span class="adj-eyebrow">Daily snack'+(two?' · '+esc(injShort(a.inj)):'')+' · '+esc(a.lane)+' lane · '+sn.key+'</span><div class="adj-snack"><div><b>'+esc(sn.name)+'</b><div class="adj-why2">'+esc(sn.cue)+'</div><div class="adj-why2">Check-in question: “'+esc(sn.q)+'”</div></div><a class="adj-btn" href="'+esc(sn.url)+'" target="_blank" rel="noopener">Open in Everfit ↗</a></div></div>';
+      });
+      var pr=programs(cur.inj);
+      if(pr.length) h+='<div class="adj-sec"><span class="adj-eyebrow">Their '+esc(cur.level)+' program in Everfit</span><div class="adj-progs">'+pr.map(function(t){ return '<a class="adj-prog" href="'+esc(t.link)+'" target="_blank" rel="noopener"><b>'+esc(t.name)+'</b><span>'+t.badge+'</span></a>'; }).join('')+'</div></div>';
+      var msg=message(st,R,V);
+      h+='<div class="adj-sec"><div class="adj-msg-top"><label class="adj-eyebrow" for="pf-name">Tell your client</label><input id="pf-name" class="adj-name" type="text" autocomplete="off" spellcheck="false" maxlength="40" placeholder="Client’s first name" value="'+esc(st.name||'')+'" oninput="pfName(this.value)"></div>'+
+         '<blockquote class="adj-msg" id="pf-msg" data-tpl="'+esc(msg)+'">'+esc(nameIn(msg, st.name))+'</blockquote><button type="button" class="adj-btn" onclick="pfCopyMsg(this)">Copy message</button></div>';
+      h+='<div class="adj-sec"><span class="adj-eyebrow">Re-check</span><p class="adj-p">'+esc(V.recheck)+'</p></div>';
+      h+='<div class="adj-actions"><button type="button" class="adj-btn primary" onclick="pfCopy(this)">Copy changes for Everfit notes</button>'+
+         (window.mmSaveToClient?'<button type="button" class="adj-btn" onclick="pfSave()">Save to a client</button>':'')+
+         '<a class="adj-btn" href="'+claudeUrl(st,R,V)+'" target="_blank" rel="noopener" title="Opens Claude with this client’s program fix and the MovesMethod rules filled in">Ask Claude about this client ↗</a>'+
+         '<button type="button" class="adj-btn ghost" onclick="pfReset()">Start over</button></div>';
+      h+='</section>';
+    }
+    h+='</div></div></div>';
+    d.innerHTML=h;
+    if(window.mmSyncUrl) mmSyncUrl();
+  };
+
+  // ---------- actions
+  function again(){ renderProgFix(); }
+  window.pfLane=function(i, k){ var st=S(); if(!st.areas[i]) return; st.areas[i].lane = st.areas[i].lane===k ? null : k; again(); };
+  window.pfArea2=function(inj){ var st=S(); if(!inj || inj===cur.inj) return; st.areas[1]={inj:inj, lane:null}; again(); };
+  window.pfDropArea=function(){ var st=S(); st.areas=st.areas.slice(0,1); again(); };
+  window.pfSev=function(k){ var st=S(); st.sev = st.sev===k ? null : k; again(); };
+  window.pfName=function(v){ var st=S(); st.name=v; var m=document.getElementById('pf-msg'); if(m) m.textContent=nameIn(m.getAttribute('data-tpl')||'', v); };
+  window.pfReset=function(){ window._pf=null; again(); window.scrollTo({top:0, behavior:'smooth'}); };
+  function current(){ var st=S(); if(!ready(st)) return null; var R=build(st), V=verdict(st,R); return {st:st, R:R, V:V}; }
+  window.pfCopy=function(btn){ var c=current(); if(!c) return; var t=plainText(c.st,c.R,c.V); if(M().copyText) M().copyText(t, btn); else if(window.mmCopy) mmCopy(t, btn); };
+  window.pfCopyMsg=function(btn){ var m=document.getElementById('pf-msg'); if(!m) return; if(M().copyText) M().copyText(m.textContent, btn); else if(window.mmCopy) mmCopy(m.textContent, btn); };
+  window.pfSave=function(){
+    var c=current(); if(!c || !window.mmSaveToClient) return;
+    mmSaveToClient({source:'progfix', name:c.st.name||'', inj:c.st.areas[0].inj, inj2:c.st.areas[1]?c.st.areas[1].inj:'', level:cur.level,
+      title:'Program fix: '+areaLabel(c.st)+' — '+c.V.badge, text:plainText(c.st,c.R,c.V), recheckDays:c.V.days||14});
+  };
+  // used by ready-made links and the client list
+  window.pfPreset=function(o){
+    o=o||{}; var st=S();
+    if(o.lane && lane(o.lane)) st.areas[0].lane=o.lane;
+    if(o.inj2 && o.inj2!==cur.inj && window.INJ && INJ[o.inj2]){ st.areas[1]={inj:o.inj2, lane:(o.lane2 && lane(o.lane2))?o.lane2:null}; }
+    if(o.sev && SEV.some(function(x){ return x.k===o.sev; })) st.sev=o.sev;
+  };
+  window.__pf={build:function(){ var st=S(); return ready(st)?build(st):null; }, verdict:function(){ var c=current(); return c?c.V:null; }, text:function(){ var c=current(); return c?plainText(c.st,c.R,c.V):''; }, message:function(){ var c=current(); return c?message(c.st,c.R,c.V):''; }};
+})();
+
+</script>
+<script>
+/* ===== My Clients =====
+   A small client list kept in this browser only (nothing is uploaded): injury, level,
+   every change saved from Too Hard / Too Easy or Whole-Program Fix, and the next
+   re-check date. Export / Import moves it to another device. */
+(function(){
+  var KEY='mm_clients_v1';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function iso(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function today(){ return iso(new Date()); }
+  function addDays(n){ var d=new Date(); d.setDate(d.getDate()+(+n||0)); return iso(d); }
+  function parseDay(s){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||''); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; }
+  function daysFromToday(s){ var d=parseDay(s); if(!d) return null; var t=parseDay(today()); return Math.round((d-t)/86400000); }
+  var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmt(s){ var d=parseDay(s); return d ? DAYS[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()] : ''; }
+  function fmtAt(isoTime){ var d=new Date(isoTime); return isNaN(d) ? '' : d.getDate()+' '+MON[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():''); }
+  function rel(s){
+    var n=daysFromToday(s); if(n==null) return '';
+    if(n===0) return 'today'; if(n===1) return 'tomorrow'; if(n===-1) return '1 day overdue';
+    return n>0 ? 'in '+n+' days' : (-n)+' days overdue';
+  }
+  function injName(k){ return (window.INJ && INJ[k] && INJ[k].name) || ''; }
+  function injChip(k){ if(!k || !window.INJ || !INJ[k]) return ''; return '<span class="cl-chip">'+(INJ[k].icon||'')+' '+esc(INJ[k].name)+'</span>'; }
+  function uid(){ return 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+
+  // ---------- storage
+  var mem=null;
+  function load(){
+    if(mem) return mem;
+    var data=null; try{ data=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){}
+    if(!data || !Array.isArray(data.clients)) data={v:1, clients:[]};
+    mem=data; return mem;
+  }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(mem)); }catch(e){ toast('Couldn’t save on this device (storage is full or blocked).'); } badge(); }
+  function all(){ return load().clients; }
+  function get(id){ return all().filter(function(c){ return c.id===id; })[0]||null; }
+  function touch(c){ c.updated=new Date().toISOString(); }
+
+  // ---------- due badge on the menu item
+  function dueCount(){ return all().filter(function(c){ var n=daysFromToday(c.recheck); return n!=null && n<=0; }).length; }
+  function badge(){
+    var b=document.getElementById('cl-badge'); if(!b) return;
+    var n=dueCount(); b.textContent=n; b.hidden=!n; b.title=n+' client'+(n===1?'':'s')+' due for a re-check';
+    // the group is often collapsed, so show it on the group header too
+    var tg=document.querySelector('.tab-group-section[data-group="client"] .tab-group-toggle');
+    if(tg){
+      var g=tg.querySelector('.grp-due');
+      if(!g){ g=document.createElement('span'); g.className='grp-due'; var lbl=tg.querySelector('.tab-group-lbl'); if(lbl && lbl.nextSibling) tg.insertBefore(g, lbl.nextSibling); else tg.appendChild(g); }
+      g.textContent=n+' due'; g.hidden=!n; g.title=b.title;
+    }
+  }
+
+  // ---------- toast
+  var tt=null;
+  function toast(html){
+    var t=document.getElementById('mm-toast');
+    if(!t){ t=document.createElement('div'); t.id='mm-toast'; t.className='mm-toast'; t.setAttribute('role','status'); document.body.appendChild(t); }
+    t.innerHTML=html; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){ t.classList.remove('show'); }, 5000);
+  }
+
+  // ---------- view state
+  var V={q:'', form:null, open:{}, confirmDel:null};
+  function levels(){ return ['L1A','L1B','L2A','L2B','L3A','L3B','L4A','L4B','L5A','L5B']; }
+  function injOpts(sel, none){
+    return (none?'<option value="">'+none+'</option>':'')+Object.keys(window.INJ||{}).map(function(k){ return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(injName(k))+'</option>'; }).join('');
+  }
+  function formHtml(c){
+    var isNew=!c; c=c||{name:'', inj:cur.inj, inj2:'', level:(cur.level&&cur.level!=='ALL')?cur.level:'L1A', recheck:addDays(14), notes:''};
+    var h='<form class="adj-card cl-form" onsubmit="clSubmit(event)" data-id="'+(isNew?'':esc(c.id))+'">';
+    h+='<div class="adj-qh">'+(isNew?'Add a client':'Edit '+esc(c.name))+'</div>';
+    h+='<div class="cl-fields">';
+    h+='<label>Name<input name="name" required maxlength="40" autocomplete="off" value="'+esc(c.name)+'" placeholder="First name or initials"></label>';
+    h+='<label>Injury<select name="inj">'+injOpts(c.inj)+'</select></label>';
+    h+='<label>Second area<select name="inj2">'+injOpts(c.inj2, 'None')+'</select></label>';
+    h+='<label>Level<select name="level">'+levels().map(function(l){ return '<option'+(l===c.level?' selected':'')+'>'+l+'</option>'; }).join('')+'</select></label>';
+    h+='<label>Re-check on<input type="date" name="recheck" value="'+esc(c.recheck||'')+'"></label>';
+    h+='<label class="wide">Notes <span class="adj-opt-tag">optional</span><textarea name="notes" rows="2" maxlength="600" placeholder="Anything to remember for next time">'+esc(c.notes||'')+'</textarea></label>';
+    h+='</div><div class="cl-actions"><button type="submit" class="adj-btn primary">'+(isNew?'Add client':'Save changes')+'</button><button type="button" class="adj-btn ghost" onclick="clCancel()">Cancel</button>';
+    if(!isNew) h+='<span class="cl-spacer"></span><button type="button" class="adj-btn danger" onclick="clDelete(\''+esc(c.id)+'\',this)">'+(V.confirmDel===c.id?'Tap again to delete':'Delete client')+'</button>';
+    h+='</div><p class="adj-note">Saved only in this browser on this device.</p></form>';
+    return h;
+  }
+  function cardHtml(c){
+    var n=daysFromToday(c.recheck), cls=n==null?'':n<=0?' due':n<=7?' soon':'';
+    var last=(c.log||[])[0];
+    var h='<article class="cl-card'+cls+'" data-id="'+esc(c.id)+'">';
+    h+='<div class="cl-head"><b class="cl-name">'+esc(c.name)+'</b>'+injChip(c.inj)+injChip(c.inj2)+'<span class="cl-chip lvl">'+esc(c.level||'')+'</span></div>';
+    h+='<div class="cl-when">'+(c.recheck?'Re-check <b>'+fmt(c.recheck)+'</b> · <span class="cl-rel">'+rel(c.recheck)+'</span>':'No re-check date')+'</div>';
+    if(last) h+='<div class="cl-last"><span>'+fmtAt(last.at)+'</span> '+esc(last.title)+'</div>';
+    if(c.notes) h+='<div class="cl-notes">'+esc(c.notes)+'</div>';
+    h+='<div class="cl-actions">';
+    h+='<button type="button" class="adj-btn" onclick="clOpen(\''+c.id+'\',\'adjust\')">Too hard / too easy</button>';
+    h+='<button type="button" class="adj-btn" onclick="clOpen(\''+c.id+'\',\'progfix\')">Program fix</button>';
+    h+='<button type="button" class="adj-btn" onclick="clChecked(\''+c.id+'\')">Re-checked ✓</button>';
+    h+='<button type="button" class="adj-btn ghost" onclick="clEdit(\''+c.id+'\')">Edit</button>';
+    if((c.log||[]).length) h+='<button type="button" class="adj-btn ghost" aria-expanded="'+(!!V.open[c.id])+'" onclick="clHistory(\''+c.id+'\')">History ('+c.log.length+')</button>';
+    h+='</div>';
+    if(V.open[c.id]){
+      h+='<ol class="cl-log">'+c.log.map(function(e,i){
+        return '<li><div class="cl-log-top"><span>'+fmtAt(e.at)+'</span><b>'+esc(e.title)+'</b></div>'+(e.text?'<details><summary>Details</summary><pre>'+esc(e.text)+'</pre><button type="button" class="adj-btn" onclick="clCopyLog(\''+c.id+'\','+i+',this)">Copy</button></details>':'')+'</li>';
+      }).join('')+'</ol>';
+    }
+    if(V.form===c.id) h+=formHtml(c);
+    return h+'</article>';
+  }
+  window.renderClients=function(){
+    var d=document.getElementById('content'); if(!d) return;
+    var list=all().slice(), q=V.q.trim().toLowerCase();
+    if(q) list=list.filter(function(c){ return (c.name+' '+injName(c.inj)+' '+injName(c.inj2)+' '+(c.level||'')+' '+(c.notes||'')).toLowerCase().indexOf(q)>=0; });
+    list.sort(function(a,b){ var x=a.recheck||'9999', y=b.recheck||'9999'; return x<y?-1:x>y?1:a.name.localeCompare(b.name); });
+    var groups=[['Due for a re-check',function(c){ var n=daysFromToday(c.recheck); return n!=null && n<=0; }],
+                ['This week',function(c){ var n=daysFromToday(c.recheck); return n!=null && n>0 && n<=7; }],
+                ['Later',function(c){ var n=daysFromToday(c.recheck); return n!=null && n>7; }],
+                ['No re-check date',function(c){ return daysFromToday(c.recheck)==null; }]];
+    var h='<div class="adj cl">';
+    h+='<div class="sec-title">📇 My clients</div>';
+    h+='<div class="sec-sub">Track who you’ve adjusted and when to check in again. Tap <b>Save to a client</b> after any change in Too Hard / Too Easy or Whole-Program Fix. Saved only in this browser on this device: use Export to move it to another one.</div>';
+    h+='<div class="cl-top"><button type="button" class="adj-btn primary" onclick="clAdd()">+ Add a client</button>';
+    if(all().length>4) h+='<input type="search" class="cl-search" placeholder="Search clients" value="'+esc(V.q)+'" oninput="clSearch(this.value)" aria-label="Search clients">';
+    h+='<span class="cl-spacer"></span>';
+    if(all().length) h+='<button type="button" class="adj-btn ghost" onclick="clExport()">Export backup</button>';
+    h+='<label class="adj-btn ghost cl-import">Import backup<input type="file" accept=".json,application/json" onchange="clImport(this)"></label></div>';
+    if(V.form==='new') h+=formHtml(null);
+    if(!all().length){
+      h+='<div class="adj-empty"><div class="adj-empty-ico" aria-hidden="true">📇</div><b>No clients yet.</b><br>Add one here, or tap <b>Save to a client</b> after making a change in Too Hard / Too Easy or Whole-Program Fix.</div>';
+    } else if(!list.length){
+      h+='<p class="adj-note">No clients match “'+esc(V.q)+'”.</p>';
+    } else {
+      groups.forEach(function(g){
+        var items=list.filter(g[1]); if(!items.length) return;
+        h+='<section class="cl-group"><span class="adj-eyebrow">'+g[0]+' · '+items.length+'</span>'+items.map(cardHtml).join('')+'</section>';
+      });
+    }
+    h+='</div>';
+    d.innerHTML=h;
+    badge();
+  };
+  function again(){ if(window.cur && cur.tab==='clients') renderClients(); badge(); }
+
+  // ---------- actions
+  window.clAdd=function(){ V.form='new'; V.confirmDel=null; again(); var f=document.querySelector('.cl-form input[name=name]'); if(f) f.focus(); };
+  window.clEdit=function(id){ V.form = V.form===id ? null : id; V.confirmDel=null; again(); var f=document.querySelector('.cl-form input[name=name]'); if(f) f.focus(); };
+  window.clCancel=function(){ V.form=null; V.confirmDel=null; again(); };
+  window.clSearch=function(q){ V.q=q; var pos=null, el=document.activeElement; if(el && el.selectionStart!=null) pos=el.selectionStart; renderClients(); var s=document.querySelector('.cl-search'); if(s){ s.focus(); try{ s.setSelectionRange(pos,pos); }catch(e){} } };
+  window.clHistory=function(id){ V.open[id]=!V.open[id]; again(); };
+  window.clSubmit=function(ev){
+    ev.preventDefault();
+    var f=ev.target, id=f.getAttribute('data-id'), g=function(n){ return (f.elements[n] && f.elements[n].value || '').trim(); };
+    var name=g('name'); if(!name){ f.elements.name.focus(); return; }
+    var c=id ? get(id) : null;
+    if(!c){ c={id:uid(), created:new Date().toISOString(), log:[]}; load().clients.push(c); }
+    c.name=name; c.inj=g('inj'); c.inj2=(g('inj2')===c.inj?'':g('inj2')); c.level=g('level'); c.recheck=g('recheck'); c.notes=g('notes');
+    touch(c); save(); V.form=null; again();
+    toast('Saved <b>'+esc(c.name)+'</b>'+(c.recheck?' · re-check '+fmt(c.recheck):''));
+  };
+  window.clDelete=function(id, btn){
+    if(V.confirmDel!==id){ V.confirmDel=id; if(btn) btn.textContent='Tap again to delete'; setTimeout(function(){ if(V.confirmDel===id){ V.confirmDel=null; if(btn && btn.isConnected) btn.textContent='Delete client'; } }, 4000); return; }
+    var c=get(id); load().clients=all().filter(function(x){ return x.id!==id; }); V.form=null; V.confirmDel=null; save(); again();
+    if(c) toast('Deleted <b>'+esc(c.name)+'</b>');
+  };
+  window.clChecked=function(id){
+    var c=get(id); if(!c) return;
+    c.log=c.log||[]; c.log.unshift({at:new Date().toISOString(), source:'recheck', title:'Re-checked', text:''});
+    c.recheck=addDays(14); touch(c); save(); again();
+    toast('Logged the re-check for <b>'+esc(c.name)+'</b>. Next one: '+fmt(c.recheck)+' (change it in Edit).');
+  };
+  window.clCopyLog=function(id, i, btn){ var c=get(id); if(!c || !c.log[i]) return; var t=c.log[i].text||''; if(window.MMA && MMA.copyText) MMA.copyText(t, btn); else if(window.mmCopy) mmCopy(t, btn); };
+  window.clOpen=function(id, tool){
+    var c=get(id); if(!c) return;
+    var b=document.querySelector('.inj-btn[data-inj="'+c.inj+'"]'); if(b && (!window.cur || cur.inj!==c.inj)) b.click();
+    var lb=document.querySelector('.level-btn[data-lvl="'+c.level+'"]'); if(lb && typeof selLevel==='function' && cur.level!==c.level) selLevel(c.level, lb);
+    if(tool==='progfix'){ window._pf={areas:[{inj:c.inj, lane:null}].concat(c.inj2?[{inj:c.inj2, lane:null}]:[]), sev:null, name:c.name}; }
+    else { window._adj=null; window._adjName=c.name; }
+    goTab(tool);
+    window.scrollTo(0,0);
+  };
+  window.clExport=function(){
+    var data={app:'MovesMethod Coach Tool', kind:'clients', v:1, exported:new Date().toISOString(), clients:all()};
+    var blob=new Blob([JSON.stringify(data, null, 1)], {type:'application/json'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='movesmethod-clients-'+today()+'.json';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    toast('Downloaded a backup of '+all().length+' client'+(all().length===1?'':'s')+'.');
+  };
+  window.clImport=function(input){
+    var f=input.files && input.files[0]; if(!f) return;
+    var r=new FileReader();
+    r.onload=function(){
+      var data=null; try{ data=JSON.parse(r.result); }catch(e){}
+      var list=data && (Array.isArray(data.clients) ? data.clients : Array.isArray(data) ? data : null);
+      if(!list){ toast('That file isn’t a client backup from this tool.'); input.value=''; return; }
+      var added=0, updated=0;
+      list.forEach(function(x){
+        if(!x || typeof x.name!=='string' || !x.name.trim()) return;
+        var c={id:String(x.id||uid()), name:String(x.name).slice(0,40), inj:(window.INJ&&INJ[x.inj])?x.inj:cur.inj, inj2:(window.INJ&&INJ[x.inj2])?x.inj2:'',
+               level:levels().indexOf(x.level)>=0?x.level:'L1A', recheck:/^\d{4}-\d{2}-\d{2}$/.test(x.recheck||'')?x.recheck:'', notes:String(x.notes||'').slice(0,600),
+               created:x.created||new Date().toISOString(), updated:x.updated||new Date().toISOString(),
+               log:(Array.isArray(x.log)?x.log:[]).filter(function(e){ return e && e.title; }).map(function(e){ return {at:e.at||new Date().toISOString(), source:String(e.source||'note'), title:String(e.title).slice(0,300), text:String(e.text||'').slice(0,6000)}; })};
+        var have=get(c.id);
+        if(!have){ load().clients.push(c); added++; }
+        else if((c.updated||'')>(have.updated||'')){ Object.keys(c).forEach(function(k){ have[k]=c[k]; }); updated++; }
+      });
+      save(); input.value=''; again();
+      toast('Imported '+added+' new client'+(added===1?'':'s')+(updated?' and updated '+updated:'')+'.');
+    };
+    r.readAsText(f);
+  };
+
+  // ---------- "Save to a client" from Too Hard / Too Easy and Whole-Program Fix
+  var pending=null, wrap=null;
+  function closeSave(){ if(wrap) wrap.hidden=true; pending=null; }
+  window.mmSaveToClient=function(p){
+    pending=p||{};
+    if(!wrap){
+      wrap=document.createElement('div'); wrap.className='install-wrap cl-save-wrap'; wrap.hidden=true;
+      document.body.appendChild(wrap);
+      wrap.addEventListener('click', function(e){ if(e.target===wrap || e.target.closest('[data-x]')) closeSave(); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape' && wrap && !wrap.hidden) closeSave(); });
+    }
+    var list=all().slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
+    var nm=String(pending.name||'').trim().toLowerCase(), match=list.filter(function(c){ return c.name.trim().toLowerCase()===nm && nm; })[0];
+    var h='<form class="install-card cl-save" role="dialog" aria-modal="true" aria-labelledby="cls-title" onsubmit="clSaveGo(event)">'+
+      '<button type="button" class="install-x" data-x aria-label="Close">✕</button>'+
+      '<h2 id="cls-title">Save to a client</h2><p class="install-sub">'+esc(pending.title||'')+'</p>'+
+      '<label class="cl-lbl" for="cls-pick">Client</label><select id="cls-pick" onchange="clSavePick(this.value)">'+
+      '<option value="__new"'+(match?'':' selected')+'>+ New client</option>'+
+      list.map(function(c){ return '<option value="'+esc(c.id)+'"'+(match&&match.id===c.id?' selected':'')+'>'+esc(c.name)+' · '+esc(injName(c.inj))+(c.level?' · '+esc(c.level):'')+'</option>'; }).join('')+'</select>'+
+      '<div id="cls-new"'+(match?' hidden':'')+'><label class="cl-lbl" for="cls-name">Name</label><input id="cls-name" maxlength="40" autocomplete="off" placeholder="First name or initials" value="'+esc(pending.name||'')+'"></div>'+
+      '<label class="cl-lbl" for="cls-date">Re-check on</label><input id="cls-date" type="date" value="'+addDays(pending.recheckDays||14)+'">'+
+      '<div class="cl-actions"><button type="submit" class="adj-btn primary">Save</button><button type="button" class="adj-btn ghost" data-x>Cancel</button></div>'+
+      '<p class="adj-note">Saved only in this browser on this device.</p></form>';
+    wrap.innerHTML=h; wrap.hidden=false;
+    var focus=match ? document.getElementById('cls-date') : document.getElementById('cls-name'); if(focus) focus.focus();
+  };
+  window.clSavePick=function(v){ var n=document.getElementById('cls-new'); if(n) n.hidden = v!=='__new'; if(v==='__new'){ var i=document.getElementById('cls-name'); if(i) i.focus(); } };
+  window.clSaveGo=function(ev){
+    if(ev) ev.preventDefault();
+    if(!pending) return;
+    var pick=document.getElementById('cls-pick').value, c;
+    if(pick==='__new'){
+      var name=(document.getElementById('cls-name').value||'').trim();
+      if(!name){ document.getElementById('cls-name').focus(); return; }
+      c={id:uid(), name:name, inj:pending.inj||cur.inj, inj2:pending.inj2||'', level:(pending.level&&pending.level!=='ALL')?pending.level:'L1A', notes:'', created:new Date().toISOString(), log:[]};
+      load().clients.push(c);
+    } else c=get(pick);
+    if(!c) return;
+    c.log=c.log||[]; c.log.unshift({at:new Date().toISOString(), source:pending.source||'note', title:String(pending.title||'Change').slice(0,300), text:String(pending.text||'').slice(0,6000)});
+    var dt=document.getElementById('cls-date').value; if(/^\d{4}-\d{2}-\d{2}$/.test(dt)) c.recheck=dt;
+    touch(c); save(); closeSave(); again();
+    toast('Saved to <b>'+esc(c.name)+'</b>'+(c.recheck?' · re-check '+fmt(c.recheck):'')+' · <button type="button" class="mm-toast-link" onclick="goTab(\'clients\')">Open My Clients</button>');
+  };
+
+  window.__clients={all:all, reset:function(){ mem=null; }, due:dueCount};
+  badge();
 })();
 
 </script>
@@ -5533,8 +6155,8 @@ function renderPrehab(){
      text:"Your plan appears here: exactly what to change, what to keep, the red flags to watch, and a message you can send the client. Copy it, or ask Claude to go deeper.",
      mtext:"Your plan appears here, below the questions: exactly what to change, what to keep, the red flags to watch, and a message you can send the client."},
     {title:'7. Every tool is in this menu', desk:'#main-tabbar', mob:'#nav-toggle',
-     text:"Every other tool lives in this menu, grouped by when you need it. Hover a tool and click the pin to keep your favorites at the top.",
-     mtext:"Tap Tools to open the menu with every other tool, grouped by when you need it. Pick one and the menu closes."},
+     text:"Every other tool lives in this menu, grouped by when you need it. Whole-Program Fix adjusts a client's entire template, and My Clients keeps track of who's due for a re-check.",
+     mtext:"Tap Tools to open every other tool. Whole-Program Fix adjusts a client's entire template, and My Clients keeps track of who's due for a re-check."},
     {title:'8. Quick scenarios', desk:'#ask-bar', mob:'#ask-bar', enter:function(){ goTool('templates'); },
      text:"In Template Adjustments, quick scenarios are the questions coaches ask most for this injury. Tap one…"},
     {title:'…and the answer opens right here', desk:'#pill-answer', mob:'#pill-answer',
@@ -5817,6 +6439,86 @@ function renderPrehab(){
 
   // first visit: open the welcome card (the voice starts when the coach presses Start)
   if(!lsGet('mm_tour_seen')){ setTimeout(function(){ if(!isOpen) openTour(true); }, 900); }
+})();
+
+</script>
+<script>
+/* ===== Ready-made links =====
+   ?inj=wrist&lvl=L2A&tool=progfix&lane=joint&inj2=hip opens the tool already set up.
+   The address bar follows what's on screen, so any view can be bookmarked or shared,
+   and "Copy link" in the page head copies it. */
+(function(){
+  var ALIAS={hip:'hip', groin:'hip', shoulder:'shoulder', knee:'knee', wrist:'wrist', plantar:'plantar', foot:'plantar', ankle:'plantar', heel:'plantar',
+             lower:'lower', lowerback:'lower', back:'lower', 'low-back':'lower', elbow:'elbow', neck:'neck'};
+  var LANE={muscle:'Muscle', joint:'Joint', nerve:'Nerve'};
+  function injOf(v){ v=String(v||'').toLowerCase().replace(/[\s_]+/g,''); var k=ALIAS[v]; return (k && window.INJ && INJ[k]) ? k : null; }
+  function tabBtn(id){ return [].slice.call(document.querySelectorAll('#main-tabbar .tab')).filter(function(t){ return (t.getAttribute('onclick')||'').indexOf("'"+id+"'")>=0; })[0]||null; }
+  var applying=true;   // nothing touches the address bar until the link has been applied
+
+  function stateQuery(){
+    if(!window.cur) return '';
+    var p=[['inj',cur.inj],['lvl',cur.level]];
+    if(cur.tab && cur.tab!=='adjust') p.push(['tool',cur.tab]);
+    if(cur.mode==='advanced') p.push(['mode','advanced']);
+    if(cur.tab==='progfix' && window._pf && _pf.areas){
+      var a=_pf.areas;
+      if(a[0] && a[0].lane) p.push(['lane',a[0].lane.toLowerCase()]);
+      if(a[1]){ p.push(['inj2',a[1].inj]); if(a[1].lane) p.push(['lane2',a[1].lane.toLowerCase()]); }
+      if(_pf.sev) p.push(['sev',_pf.sev]);
+    }
+    return '?'+p.map(function(x){ return x[0]+'='+encodeURIComponent(x[1]); }).join('&');
+  }
+  function linkUrl(){ return location.origin+location.pathname.replace(/index\.html$/,'')+stateQuery(); }
+  window.mmSyncUrl=function(){
+    if(applying || !window.history || !history.replaceState) return;
+    try{ var q=stateQuery(); if(q && q!==location.search) history.replaceState(history.state, '', location.pathname+q+location.hash); }catch(e){}
+  };
+  window.mmCopyLink=function(btn){
+    var url=linkUrl();
+    if(window.mmCopy) mmCopy(url, btn);
+    else if(navigator.clipboard) navigator.clipboard.writeText(url);
+  };
+
+  // keep the address bar in step with every change of tool / injury / level / mode
+  ['goTab','sel','selLevel','setMode'].forEach(function(fn){
+    var orig=window[fn]; if(typeof orig!=='function') return;
+    window[fn]=function(){
+      var r=orig.apply(this, arguments);
+      // opened from a link, a client card or another tool (not the menu): open the menu group it lives in
+      if(fn==='goTab' && !(arguments[1] && arguments[1].classList)){
+        try{
+          var on=document.querySelector('#main-tabbar .tab.on'), sec=on && on.closest('.tab-group-section');
+          if(sec) [].forEach.call(document.querySelectorAll('.tab-group-section'), function(s){ s.classList.toggle('open', s===sec); });
+          if(window.syncGroupUI) syncGroupUI();
+        }catch(e){}
+      }
+      setTimeout(window.mmSyncUrl, 0); return r;
+    };
+  });
+
+  function apply(){
+    var q; try{ q=new URLSearchParams(location.search); }catch(e){ return; }
+    if(location.search.length<2){ applying=false; window.mmSyncUrl(); return; }
+    applying=true;
+    try{
+      var inj=injOf(q.get('inj')||q.get('injury'));
+      if(inj && cur.inj!==inj){ var b=document.querySelector('.inj-btn[data-inj="'+inj+'"]'); if(b) b.click(); }
+      var lv=String(q.get('lvl')||q.get('level')||'').toUpperCase();
+      if(lv){ var lb=document.querySelector('.level-btn[data-lvl="'+(lv==='ALL'?'ALL':lv)+'"]'); if(lb && cur.level!==lb.getAttribute('data-lvl')) selLevel(lb.getAttribute('data-lvl'), lb); }
+      var mode=String(q.get('mode')||'').toLowerCase();
+      if((mode==='advanced'||mode==='beginner') && cur.mode!==mode){ var mb=document.querySelector('.coach-toggle button[data-mode="'+mode+'"]'); if(mb) mb.click(); }
+      var tool=String(q.get('tool')||'').toLowerCase();
+      if(tool==='progfix' && window.pfPreset){
+        window._pf=null;
+        pfPreset({lane:LANE[String(q.get('lane')||'').toLowerCase()], inj2:injOf(q.get('inj2')), lane2:LANE[String(q.get('lane2')||'').toLowerCase()], sev:String(q.get('sev')||'').toLowerCase()});
+      }
+      if(tool && tabBtn(tool) && cur.tab!==tool) goTab(tool);
+      else if(tool==='progfix' && cur.tab==='progfix' && window.renderProgFix) renderProgFix();
+    }catch(e){}
+    applying=false;
+    window.mmSyncUrl();
+  }
+  if(document.readyState==='complete') apply(); else window.addEventListener('load', function(){ setTimeout(apply, 0); });
 })();
 
 </script>
