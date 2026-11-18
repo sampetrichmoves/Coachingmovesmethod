@@ -608,6 +608,25 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 .grp-due[hidden]{display:none;}
 .grp-due:not([hidden]) + .tab-count{display:none;}
 @media (max-width:599px){ .ph-link{min-height:26px;padding:0 8px;} .ph-link .ph-link-txt{display:none;} .ph-link.copied .ph-link-txt{display:inline;} }
+/* coach insights */
+.ins-lbl{font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;}
+.ins-select{width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;}
+.ins-ctx{font-size:12.5px;color:var(--muted-fg);margin:0 0 8px;}
+.ins-ctx b{color:var(--fg-2);}
+.ins-note{font-size:12.5px;color:var(--muted-fg);margin:8px 0 0;line-height:1.5;}
+.ins-msg.bad{color:var(--danger)!important;}
+.ins-empty{font-size:13.5px;color:var(--muted-fg);font-style:italic;}
+.ins-item{background:var(--muted);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px;margin-bottom:8px;font-size:13.5px;line-height:1.5;}
+.ins-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px;}
+.ins-top b{color:var(--fg);}
+.ins-top>span{font-size:12px;color:var(--muted-fg);}
+.ins-top .ins-chip{font-size:11.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--border-strong);color:var(--fg-2);}
+.ins-top .ins-status{margin-left:auto;font-family:var(--font-mono);font-size:11px;font-weight:700;}
+.ins-top .ins-status.sent{color:var(--success);}
+.ins-top .ins-status.wait{color:var(--warn);}
+.ins-sit{color:var(--fg);}
+.ins-did{color:var(--fg-2);}
+.ins-out{font-size:12.5px;color:var(--muted-fg);}
 
 /* ===== Tool content (original components, recolored) ===== */
 .sec-title{font-size:18px;font-weight:700;margin-bottom:4px;}
@@ -1060,7 +1079,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 </div>
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;">
 <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;color:var(--success);margin-bottom:10px;">&#128203; Add a Coach Insight</div>
-<div style="margin-bottom:8px;"><div style="font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;">Your name</div><input id="pg-coach-name" type="text" placeholder="e.g. Vanja, Sam..." style="width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;outline:none;"></div>
+<div style="margin-bottom:8px;"><div style="font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;">Your name</div><input id="pg-coach-name" type="text" placeholder="Your first name" style="width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;outline:none;"></div>
 <div style="margin-bottom:8px;"><div style="font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;">Situation / Pattern</div><input id="pg-situation" type="text" placeholder="e.g. Hip pain + nerve + worse morning..." style="width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;outline:none;"></div>
 <div style="margin-bottom:8px;"><div style="font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;">Your decision / what you did</div><textarea id="pg-decision" rows="3" placeholder="What did you prescribe? What worked?" style="width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;outline:none;resize:vertical;"></textarea></div>
 <div style="margin-bottom:8px;"><div style="font-size:12.5px;color:var(--muted-fg);margin-bottom:4px;">Outcome</div><select id="pg-outcome" style="width:100%;background:var(--muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--fg);font-size:13.5px;outline:none;"><option>&#128994; Worked well</option><option>&#128993; Partial improvement</option><option>&#128308; Didn't work</option><option>&#128680; Red flag &#8212; referred out</option></select></div>
@@ -1069,7 +1088,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 </div>
 </div>
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;">
-<div style="font-size:14px;font-weight:700;margin-bottom:8px;">&#128218; Saved Coach Insights (this session)</div>
+<div style="font-size:14px;font-weight:700;margin-bottom:8px;">&#128218; Your saved insights</div>
 <div id="pg-insights-list"><div style="font-size:13.5px;color:var(--muted-fg);font-style:italic;">No insights saved yet. Add the first one above.</div></div>
 </div>
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;">
@@ -5836,6 +5855,97 @@ function renderPrehab(){
 
   window.__clients={all:all, reset:function(){ mem=null; }, due:dueCount};
   badge();
+})();
+
+</script>
+<script>
+/* ===== Coach Intelligence: insights go to the MovesMethod insight log =====
+   Each saved insight is sent to a Google Form owned by MovesMethod, which fills the
+   "Coach Insights - MovesMethod (Responses)" Google Sheet. A copy stays on the coach's
+   device; anything saved offline is sent the next time they're online. */
+(function(){
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLSfgoDCy83lyH6AUFuncyahPTnwVCLFmM5VrUvrYOeI8lIOg5w/formResponse';
+  var F={coach:'entry.1761223220', inj:'entry.1275229971', level:'entry.1880403136', lane:'entry.192826482', sit:'entry.1429831248', did:'entry.1401118657', out:'entry.1554766210'};
+  var KEY='mm_insights_v1', NAME='mm_coach_name';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function load(){ try{ var l=JSON.parse(lsGet(KEY)||'[]'); return Array.isArray(l)?l:[]; }catch(e){ return []; } }
+  function save(l){ lsSet(KEY, JSON.stringify(l.slice(0,200))); }
+  function injName(){ return (window.INJ && window.cur && INJ[cur.inj] && INJ[cur.inj].name) || ''; }
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function when(iso){ var d=new Date(iso); return isNaN(d)?'':d.getDate()+' '+MON[d.getMonth()]; }
+
+  function send(item){
+    var body=new URLSearchParams();
+    body.append(F.coach, item.coach||''); body.append(F.inj, item.inj||''); body.append(F.level, item.level||'');
+    body.append(F.lane, item.lane||''); body.append(F.sit, item.sit||''); body.append(F.did, item.did||''); body.append(F.out, item.out||'');
+    return fetch(FORM, {method:'POST', mode:'no-cors', body:body, keepalive:true});
+  }
+  var flushing=false;
+  function flush(){
+    if(flushing || (navigator.onLine===false)) return;
+    var list=load(), pending=list.filter(function(x){ return !x.sent; }); if(!pending.length) return;
+    flushing=true;
+    Promise.all(pending.map(function(x){ return send(x).then(function(){ x.sent=true; }, function(){}); })).then(function(){
+      var now=load(); pending.forEach(function(p){ if(p.sent) now.forEach(function(n){ if(n.id===p.id) n.sent=true; }); });
+      save(now); flushing=false; renderList();
+    });
+  }
+  window.addEventListener('online', flush);
+  window.addEventListener('load', function(){ setTimeout(flush, 1500); });
+
+  function renderList(){
+    var box=document.getElementById('pg-insights-list'); if(!box) return;
+    var list=load();
+    if(!list.length){ box.innerHTML='<div class="ins-empty">No insights saved on this device yet. Add the first one above.</div>'; return; }
+    box.innerHTML=list.slice(0,30).map(function(x){
+      return '<div class="ins-item"><div class="ins-top"><b>'+esc(x.coach||'Anonymous')+'</b><span>'+esc(when(x.at))+'</span>'+
+        [x.inj, x.level, x.lane].filter(Boolean).map(function(t){ return '<span class="ins-chip">'+esc(t)+'</span>'; }).join('')+
+        '<span class="ins-status '+(x.sent?'sent':'wait')+'">'+(x.sent?'✓ Sent':'Waiting to send')+'</span></div>'+
+        '<div class="ins-sit">'+esc(x.sit)+'</div><div class="ins-did">'+esc(x.did)+'</div><div class="ins-out">'+esc(x.out)+'</div></div>';
+    }).join('');
+  }
+  function enhance(){
+    var nm=document.getElementById('pg-coach-name'), sit=document.getElementById('pg-situation');
+    if(!nm || !sit || document.getElementById('pg-lane')) { renderList(); return; }
+    var saved=lsGet(NAME); if(saved) nm.value=saved;
+    var wrap=sit.parentNode;
+    var lane=document.createElement('div'); lane.style.marginBottom='8px';
+    lane.innerHTML='<div class="ins-lbl">Pain lane</div><select id="pg-lane" class="ins-select"><option value="">Not sure / not pain-related</option><option>Muscle (dull / achy)</option><option>Joint (pinch / sharp)</option><option>Nerve (electric / tingling)</option></select>';
+    wrap.parentNode.insertBefore(lane, wrap.nextSibling);
+    var ctx=document.createElement('div'); ctx.className='ins-ctx'; ctx.id='pg-ctx';
+    ctx.innerHTML='Sent with the injury and level from the top bar: <b>'+esc(injName())+' · '+esc((window.cur&&cur.level)||'')+'</b>';
+    wrap.parentNode.insertBefore(ctx, wrap);
+    var msg=document.getElementById('pg-saved-msg');
+    if(msg){
+      var note=document.createElement('p'); note.className='ins-note';
+      note.innerHTML='Saved insights go to the MovesMethod coach insight log so senior coaches can review them. Please don’t include client full names.';
+      msg.parentNode.insertBefore(note, msg.nextSibling);
+    }
+    renderList();
+  }
+  var orig=window.renderPlayground;
+  if(typeof orig==='function') window.renderPlayground=function(){ orig.apply(this, arguments); enhance(); };
+
+  window.pgSaveInsight=function(){
+    var g=function(id){ var e=document.getElementById(id); return e ? String(e.value||'').trim() : ''; };
+    var item={id:'i'+Date.now().toString(36), at:new Date().toISOString(), coach:g('pg-coach-name'), inj:injName(), level:(window.cur&&cur.level)||'',
+              lane:g('pg-lane'), sit:g('pg-situation'), did:g('pg-decision'), out:g('pg-outcome'), sent:false};
+    var msg=document.getElementById('pg-saved-msg');
+    function say(t, bad){ if(!msg) return; msg.textContent=t; msg.className=bad?'ins-msg bad':'ins-msg'; msg.style.display='block'; clearTimeout(msg._t); msg._t=setTimeout(function(){ msg.style.display='none'; }, 4000); }
+    if(!item.sit || !item.did){ say('Add the situation and what you did first.', true); var f=document.getElementById(item.sit?'pg-decision':'pg-situation'); if(f) f.focus(); return; }
+    if(item.coach) lsSet(NAME, item.coach);
+    var list=load(); list.unshift(item); save(list); renderList();
+    ['pg-situation','pg-decision'].forEach(function(id){ var e=document.getElementById(id); if(e) e.value=''; });
+    var ln=document.getElementById('pg-lane'); if(ln) ln.value='';
+    if(navigator.onLine===false){ say('✓ Saved on this device. It will send when you’re back online.'); return; }
+    send(item).then(function(){
+      var l=load(); l.forEach(function(x){ if(x.id===item.id) x.sent=true; }); save(l); renderList();
+      say('✓ Saved and sent to the insight log.');
+    }, function(){ say('✓ Saved on this device. It will send when you’re back online.'); });
+  };
+  window.__insights={load:load, flush:flush, FORM:FORM, F:F};
 })();
 
 </script>
