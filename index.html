@@ -512,7 +512,8 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 
 /* ===== Whole-Program Fix, My Clients, ready-made links ===== */
 /* page head: copy link */
-.ph-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ph-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;}
+.ph-top .crumb{min-width:0;}
 .ph-link{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--fg-2);font-size:12.5px;font-weight:600;cursor:pointer;}
 .ph-link:hover{border-color:var(--accent-line);color:var(--fg);}
 .ph-link.copied{border-color:var(--success);background:var(--success-soft);color:var(--fg);}
@@ -606,6 +607,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 .grp-due{margin-left:8px;font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold, var(--warn));color:var(--on-accent);white-space:nowrap;}
 .grp-due[hidden]{display:none;}
 .grp-due:not([hidden]) + .tab-count{display:none;}
+@media (max-width:599px){ .ph-link{min-height:26px;padding:0 8px;} .ph-link .ph-link-txt{display:none;} .ph-link.copied .ph-link-txt{display:inline;} }
 
 /* ===== Tool content (original components, recolored) ===== */
 .sec-title{font-size:18px;font-weight:700;margin-bottom:4px;}
@@ -969,7 +971,6 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <div class="tab-group-section" data-group="strategy">
 <button type="button" class="tab-group-toggle" onclick="toggleTabGroup(this)" aria-expanded="false"><span class="tab-group-icon" aria-hidden="true">⭐</span><span class="tab-group-lbl">Strategy</span><span class="tab-group-arrow" aria-hidden="true"></span></button>
 <div class="tab-group-tabs">
-<button type="button" class="tab" onclick="goTab('moat',this)"><span class="tab-ico" aria-hidden="true">🏖</span><span class="tab-lbl">Our Moat</span></button>
 <button type="button" class="tab" onclick="goTab('northstar',this)"><span class="tab-ico" aria-hidden="true">⭐</span><span class="tab-lbl">North Star</span></button>
 <button type="button" class="tab" onclick="goTab('playground',this)"><span class="tab-ico" aria-hidden="true">🧠</span><span class="tab-lbl">Coach Intelligence</span></button>
 <button type="button" class="tab" onclick="goTab('flywheel',this)"><span class="tab-ico" aria-hidden="true">🔄</span><span class="tab-lbl">Flywheel</span></button>
@@ -1001,7 +1002,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <div class="sb-backdrop" id="sb-backdrop"></div>
 <main class="main" id="main">
 <div class="page-head">
-<div class="ph-top"><nav class="crumb" aria-label="You are here"><span id="crumb-group">During Session</span><span class="crumb-sep" aria-hidden="true">/</span><span id="crumb-tool">Too Hard / Too Easy</span></nav><button type="button" class="ph-link" id="copy-link" onclick="mmCopyLink(this)" title="Copy a link that opens the tool set up exactly like this">&#128279; Copy link</button></div>
+<div class="ph-top"><nav class="crumb" aria-label="You are here"><span id="crumb-group">During Session</span><span class="crumb-sep" aria-hidden="true">/</span><span id="crumb-tool">Too Hard / Too Easy</span></nav><button type="button" class="ph-link" id="copy-link" onclick="mmCopyLink(this)" title="Copy a link that opens the tool set up exactly like this" aria-label="Copy link"><span aria-hidden="true">&#128279;</span><span class="ph-link-txt">Copy link</span></button></div>
 <div class="ph-ctx"><span class="tb-icon" id="tb-icon" aria-hidden="true">&#129461;</span><h1 class="tb-title" id="tb-title">Hip &amp; Groin</h1><span class="tb-badge" id="tb-level" title="Program level">L1A</span><span class="mode-chip" id="mode-badge">&#127793; Beginner Mode</span></div>
 <div class="tb-sub" id="tb-sub">Labrum Tear &middot; FAI &middot; Groin Strain &middot; Hip Flexor</div>
 </div>
@@ -1019,42 +1020,6 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 <div class="content" id="content" tabindex="-1"></div>
 </main>
 </div>
-<div id="sec-moat" style="display:none">
-<div class="sec-title">&#127958; Our Moat &#8212; What Can't Be Copied</div>
-<div class="sec-sub">If another mobility company saw this tomorrow and built the same thing &#8212; here's what would take them years to replicate.</div>
-<div class="info-box">This is a living document. As we build more &#8212; proprietary data, coach decisions, outcome tracking &#8212; the moat deepens. The tool is not the moat. The <strong>compound intelligence inside it</strong> is.</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-<div class="flag-box green">
-<div class="flag-title" style="color:var(--success);">&#128994; Hard to Replicate (2&#8211;5 years)</div>
-<div class="flag-item">&#129504; <span><strong>Proprietary Pain Lane Framework</strong> &#8212; Muscle/Joint/Nerve classification is unique to MovesMethod. No competitor has codified this decision tree for coaching.</span></div>
-<div class="flag-item">&#128218; <span><strong>Injury-Specific Protocol Library</strong> &#8212; 7 injury areas x 3 lanes x 5+ levels. Years of clinical and coaching experience compressed into prescriptions.</span></div>
-<div class="flag-item">&#127941; <span><strong>Coach Decision Data</strong> &#8212; Every tool use captures implicit decision-making. That corpus becomes an asset competitors cannot buy.</span></div>
-<div class="flag-item">&#128101; <span><strong>Elite Coach Collective</strong> &#8212; Vanja, Sam, Caliste, Manny, Kyle, Dagan. Their combined pattern recognition is the model. You cannot hire that fast.</span></div>
-</div>
-<div class="flag-box yellow">
-<div class="flag-title" style="color:var(--warn);">&#128993; Copyable But Expensive (6&#8211;18 months)</div>
-<div class="flag-item">&#128196; <span><strong>The Tool Itself</strong> &#8212; The interface and tabs can be rebuilt. Without the protocols, it is an empty shell.</span></div>
-<div class="flag-item">&#128293; <span><strong>Everfit Integration</strong> &#8212; Any competitor can link to a programming tool. The differentiator is what gets prescribed, not how.</span></div>
-<div class="flag-item">&#128200; <span><strong>Onboarding System</strong> &#8212; The 4-week coach ramp can eventually be documented by others. Our head start compounds while they're still hiring.</span></div>
-</div>
-</div>
-<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;">
-<div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;">&#128176; The Flywheel No One Can Step Into Mid-Spin</div>
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-<div style="background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;padding:8px 12px;font-size:13.5px;text-align:center;"><strong>Better Coaches</strong><br><span style="color:var(--muted-fg);font-size:12.5px;">use the tool</span></div>
-<div style="color:var(--accent);font-size:18px;">&#8594;</div>
-<div style="background:var(--success-soft);border:1px solid var(--success-line);border-radius:8px;padding:8px 12px;font-size:13.5px;text-align:center;"><strong>Better Outcomes</strong><br><span style="color:var(--muted-fg);font-size:12.5px;">for clients</span></div>
-<div style="color:var(--success);font-size:18px;">&#8594;</div>
-<div style="background:var(--warn-soft);border:1px solid var(--warn-line);border-radius:8px;padding:8px 12px;font-size:13.5px;text-align:center;"><strong>Higher Retention</strong><br><span style="color:var(--muted-fg);font-size:12.5px;">= more data</span></div>
-<div style="color:var(--warn);font-size:18px;">&#8594;</div>
-<div style="background:var(--muted);border:1px solid var(--accent-line);border-radius:8px;padding:8px 12px;font-size:13.5px;text-align:center;"><strong>Smarter Tool</strong><br><span style="color:var(--muted-fg);font-size:12.5px;">learns patterns</span></div>
-<div style="color:var(--accent);font-size:18px;">&#8594;</div>
-<div style="background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;padding:8px 12px;font-size:13.5px;text-align:center;"><strong>Better Coaches</strong><br><span style="color:var(--muted-fg);font-size:12.5px;">&#8635; repeat</span></div>
-</div>
-</div>
-<div class="tip-box"><strong>The honest answer to "what's the moat?"</strong> It's not the tool. It's the compounding intelligence of your best coaches, encoded into a system every new coach inherits from day one. A competitor could build this tool in 3 months. They cannot compress 10 years of Vanja's pattern recognition in 3 months.</div>
-</div>
-
 <div id="sec-northstar" style="display:none">
 <div class="sec-title">&#11088; North Star Metric &#8212; The One Number That Matters</div>
 <div class="sec-sub">The one number every coach is working to move: our clients&#8217; pain going down. Everything in this tool is built to help you move it.</div>
@@ -1974,7 +1939,7 @@ var PILL_ANSWERS={
 'Whiplash history, upper back and neck stiff':'<h3>Whiplash History - Stiffness</h3><p><strong>Whiplash creates protective stiffness.</strong> The nervous system learned to guard the neck after injury. Even years later, stiffness is often neural (protective) rather than structural (physical restriction).</p><p>Approach: Gradual, progressive loading in controlled ranges. No aggressive manipulation or rapid stretching.</p><p>Template priority: Thoracic mobility is the biggest lever - upper back stiffness forces the neck to compensate. Open the thoracic spine and the neck often frees up. ADD thoracic rotation exercises and extension over foam roller BEFORE any upper body work.</p><p>SNACKS - UPPER BODY SERIES: neck module + upper back work together. Noticeable range improvement at 4-6 weeks. Significant functional improvement at 8-12 weeks.</p>'
 };
 
-function renderMoat(){document.getElementById('content').innerHTML=document.getElementById('sec-moat').innerHTML;}
+
 function renderNorthStar(){document.getElementById('content').innerHTML=document.getElementById('sec-northstar').innerHTML;}
 function renderPlayground(){document.getElementById('content').innerHTML=document.getElementById('sec-playground').innerHTML;}
 function renderFlywheel(){document.getElementById('content').innerHTML=document.getElementById('sec-flywheel').innerHTML;}
@@ -2013,7 +1978,6 @@ function renderContent(tab){
     movlookup:renderMovLookup,
     sessionprep:renderSessionPrep,
     progressdash:renderProgressDash,
-moat:renderMoat,
 northstar:renderNorthStar,
 playground:renderPlayground,
 prehab:renderPrehab,
@@ -4159,6 +4123,7 @@ function fwLog(){
   // ---- PINS ----
   let pins=[];
   try{pins=JSON.parse(localStorage.getItem('mm_pins')||'[]');}catch(e){}
+  pins=pins.filter(function(p){ return p && document.querySelector('#main-tabbar .tab[onclick*="\'' + p.id + '\'"]'); });
   const pinBar=document.getElementById('pin-bar');
 
   function savePins(){localStorage.setItem('mm_pins',JSON.stringify(pins));}
