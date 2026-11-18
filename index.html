@@ -6,6 +6,14 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0E1614">
 <title>MovesMethod Coach Tool</title>
+<meta name="description" content="Adjust a client's program when it's too hard or too easy, plus every MovesMethod coaching tool.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Coach Tool">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -302,6 +310,21 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
   #back-top{right:14px;bottom:14px;}
   .kb-panel{display:none!important;}
 }
+.sb-install{border:1px solid var(--border-strong);background:var(--surface);color:var(--fg);border-radius:10px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;text-align:left;}
+.sb-install:hover{border-color:var(--accent);}
+.sb-install[hidden]{display:none;}
+.install-wrap{position:fixed;inset:0;z-index:200;background:rgba(4,8,7,.62);display:grid;place-items:center;padding:16px;}
+.install-wrap[hidden]{display:none;}
+.install-card{position:relative;width:min(440px,100%);background:var(--surface);border:1px solid var(--border-strong);border-radius:16px;padding:22px 22px 18px;box-shadow:var(--shadow-lg);}
+.install-card h2{font-family:var(--font-display);font-stretch:105%;font-size:22px;font-weight:800;margin:12px 0 4px;color:var(--fg);}
+.install-ico{display:block;border-radius:13px;}
+.install-sub{margin:0 0 12px;color:var(--fg-2);font-size:14px;line-height:1.5;}
+.install-steps{margin:0 0 12px;padding-left:20px;color:var(--fg);font-size:14.5px;line-height:1.55;}
+.install-steps li{margin:6px 0;}
+.install-link{margin:0;padding-top:10px;border-top:1px solid var(--border);color:var(--muted-fg);font-size:13px;word-break:break-all;}
+.install-link b{color:var(--fg-2);font-weight:600;}
+.install-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--fg-2);cursor:pointer;font-size:14px;}
+.install-x:hover{border-color:var(--accent);color:var(--fg);}
 
 /* ===== Guided tour ===== */
 #tour[hidden]{display:none;}
@@ -856,6 +879,7 @@ kbd{font-family:var(--font-mono);font-size:.85em;background:var(--muted);border:
 </nav>
 <div class="sb-bottom">
 <button type="button" class="sb-tour" onclick="startTour()">&#9654; Take the guided tour</button>
+<button type="button" class="sb-install" id="sb-install" onclick="mmInstall()" hidden>&#128242; Install the app</button>
 <section class="sb-ref-card" aria-label="Pain rule and quick reference">
 <div class="sb-eyebrow">Pain rule</div>
 <ul class="pain-rule">
@@ -5401,6 +5425,71 @@ function renderPrehab(){
   if(mq.addEventListener) mq.addEventListener('change', fitGrids);
   window.addEventListener('orientationchange', soon);
   fitGrids();
+})();
+
+/* ===== Install as an app + keep working offline ===== */
+(function(){
+  var ua=navigator.userAgent||'';
+  var isIOS=/iPhone|iPad|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  var isAndroid=/Android/.test(ua);
+  var isFirefox=/Firefox\//.test(ua) && !/Seamonkey/.test(ua);
+  var isEdge=/Edg\//.test(ua);
+  var isSafariMac=!isIOS && /Macintosh/.test(ua) && /Safari\//.test(ua) && !/Chrome|Chromium|Edg\//.test(ua);
+  function standalone(){ return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone===true; }
+  var inFrame=false; try{ inFrame = window.top!==window; }catch(e){ inFrame=true; }
+  var hosted=location.protocol==='https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+
+  // offline copy (only on the real site, not inside previews)
+  if('serviceWorker' in navigator && hosted && !inFrame){
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+
+  var btn=document.getElementById('sb-install'), deferred=null;
+  function show(){ if(btn) btn.hidden = standalone() || inFrame || !hosted; }
+  show();
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred=e; show(); });
+  window.addEventListener('appinstalled', function(){ deferred=null; if(btn) btn.hidden=true; closePanel(); });
+
+  var panel=null;
+  function steps(){
+    if(isIOS) return ['Tap the <b>Share</b> button (the square with an arrow pointing up).', 'Scroll down and tap <b>Add to Home Screen</b>, then <b>Add</b>.'];
+    if(isAndroid) return ['Tap the <b>&#8942;</b> menu at the top right of Chrome.', 'Tap <b>Install app</b> (or <b>Add to Home screen</b>).'];
+    if(isSafariMac) return ['In the Safari menu bar, choose <b>File &#8594; Add to Dock</b>.', 'The tool gets its own icon in your Dock.'];
+    if(isFirefox) return ['Firefox can&rsquo;t install sites as apps, so bookmark this page instead (<b>Ctrl+D</b>, or <b>&#8984;D</b> on a Mac).', 'Or open the link in Chrome or Edge and install it from there.'];
+    if(isEdge) return ['Click the <b>&#8943;</b> menu at the top right of Edge.', 'Choose <b>Apps &#8594; Install this site as an app</b>.'];
+    return ['Click the install icon at the right end of the address bar (a screen with a down arrow).', 'No icon? Open the <b>&#8942;</b> menu and choose <b>Cast, save, and share &#8594; Install page as app</b>.'];
+  }
+  function build(){
+    panel=document.createElement('div');
+    panel.className='install-wrap'; panel.hidden=true;
+    panel.innerHTML='<div class="install-card" role="dialog" aria-modal="true" aria-labelledby="install-title">'+
+      '<button type="button" class="install-x" aria-label="Close">&#10005;</button>'+
+      '<img class="install-ico" src="icon-192.png" alt="" width="56" height="56">'+
+      '<h2 id="install-title">Install the Coach Tool</h2>'+
+      '<p class="install-sub">It gets its own icon and opens like an app, even with no internet.</p>'+
+      '<ol class="install-steps"></ol>'+
+      '<p class="install-link">Or just bookmark: <b>'+location.host+location.pathname.replace(/index\.html$/,'')+'</b></p>'+
+      '</div>';
+    document.body.appendChild(panel);
+    panel.addEventListener('click', function(e){ if(e.target===panel || e.target.closest('.install-x')) closePanel(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePanel(); });
+  }
+  function openPanel(){
+    if(!panel) build();
+    panel.querySelector('.install-steps').innerHTML=steps().map(function(s){ return '<li>'+s+'</li>'; }).join('');
+    panel.hidden=false;
+    if(window.closeNav) window.closeNav();
+    var x=panel.querySelector('.install-x'); if(x) x.focus();
+  }
+  function closePanel(){ if(panel && !panel.hidden){ panel.hidden=true; if(btn) try{ btn.focus({preventScroll:true}); }catch(e){} } }
+  window.mmInstall=function(){
+    if(deferred){
+      var d=deferred; deferred=null;
+      try{ d.prompt(); (d.userChoice||Promise.resolve()).then(function(c){ if(c && c.outcome==='accepted' && btn) btn.hidden=true; }); }catch(e){ openPanel(); }
+      return;
+    }
+    openPanel();
+  };
 })();
 
 </script>
